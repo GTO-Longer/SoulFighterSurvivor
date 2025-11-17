@@ -1,0 +1,8 @@
+/Temp/*
+*.meta
+/Library/*
+/Logs/*
+/obj/*
+/.idea/*
+/.git/*
+/UserSettings/*

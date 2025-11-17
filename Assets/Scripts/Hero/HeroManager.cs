@@ -8,17 +8,18 @@ namespace Hero
 {
     public class HeroManager : MonoBehaviour
     {
-        public static Entity hero;
+        public static Classes.Hero hero;
         
-        void Start()
+        void Awake()
         {
             // 创建Hero实例
-            hero = GetComponent<EntityData>().entity;
+            hero = (Classes.Hero)GetComponent<EntityData>().entity;
         }
 
         void Update()
         {
             hero.Move();
+            hero.TargetCheck();
         }
     }
 }

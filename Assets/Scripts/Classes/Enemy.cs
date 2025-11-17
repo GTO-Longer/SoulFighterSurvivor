@@ -21,9 +21,10 @@ namespace Classes
             _gameObject = gameObject;
             
             //配置敌人初始属性（测试中）
-            _movementSpeed = 100;
-            _scale = 100;
-            _attackRange = 175;
+            movementSpeed.Value = 100;
+            scale.Value = 100;
+            attackRange.Value = 175;
+            attackDamage.Value = 999;
             
             // 配置敌人寻路组件
             _agent = _gameObject.GetComponent<NavMeshAgent>();

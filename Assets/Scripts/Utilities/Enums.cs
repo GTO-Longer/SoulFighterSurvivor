@@ -5,4 +5,12 @@ namespace Utilities
         Hero,
         Enemy
     }
+    
+    public enum UIType{
+        None = 0,
+        Text,
+        Button,
+        Image,
+        UINode
+    }
 }

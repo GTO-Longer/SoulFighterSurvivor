@@ -556,7 +556,7 @@ MonoBehaviour:
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 100, y: 50}
-  m_Spacing: {x: 10, y: 0}
+  m_Spacing: {x: 20, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!1 &331573090
@@ -1041,7 +1041,7 @@ GameObject:
   - component: {fileID: 762045774}
   - component: {fileID: 762045775}
   m_Layer: 5
-  m_Name: AbilityPower
+  m_Name: abilityPower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1544,7 +1544,7 @@ GameObject:
   - component: {fileID: 959082351}
   - component: {fileID: 959082352}
   m_Layer: 5
-  m_Name: AbilityDefense
+  m_Name: abilityDefense
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1608,7 +1608,7 @@ GameObject:
   - component: {fileID: 992689007}
   - component: {fileID: 992689008}
   m_Layer: 5
-  m_Name: AttackDamage
+  m_Name: attackDamage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1672,7 +1672,7 @@ GameObject:
   - component: {fileID: 1028429345}
   - component: {fileID: 1028429346}
   m_Layer: 5
-  m_Name: AttackSpeed
+  m_Name: attackSpeed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1736,7 +1736,7 @@ GameObject:
   - component: {fileID: 1041226171}
   - component: {fileID: 1041226172}
   m_Layer: 5
-  m_Name: AttackDefense
+  m_Name: attackDefense
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1875,7 +1875,7 @@ GameObject:
   - component: {fileID: 1162178819}
   - component: {fileID: 1162178820}
   m_Layer: 5
-  m_Name: AbilityHaste
+  m_Name: abilityHaste
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2169,7 +2169,7 @@ GameObject:
   - component: {fileID: 1342372895}
   - component: {fileID: 1342372896}
   m_Layer: 5
-  m_Name: AttackDamage (6)
+  m_Name: criticalRate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3353,7 +3353,7 @@ GameObject:
   - component: {fileID: 1842030809}
   - component: {fileID: 1842030808}
   m_Layer: 5
-  m_Name: BackGround
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3528,7 +3528,7 @@ GameObject:
   - component: {fileID: 1928610240}
   - component: {fileID: 1928610241}
   m_Layer: 5
-  m_Name: AttackDamage (7)
+  m_Name: movementSpeed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3591,8 +3591,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1933957916}
   - component: {fileID: 1933957918}
+  - component: {fileID: 1933957920}
   m_Layer: 5
-  m_Name: EnemyAttributsHUD
+  m_Name: TargetAttributesHUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3626,6 +3627,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1933957915}
   m_CullTransparentMesh: 1
+--- !u!114 &1933957920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1933957915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb4ddd5dc6b4cc342aa111a43f217bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2059858622
 GameObject:
   m_ObjectHideFlags: 0

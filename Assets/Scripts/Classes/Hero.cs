@@ -1,10 +1,12 @@
 using Classes;
 using System.Collections;
 using System.Collections.Generic;
+using MVVM.ViewModels;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using Utilities;
+using MVVM;
 
 namespace Classes
 {
@@ -14,6 +16,15 @@ namespace Classes
         private Transform _attackRangeIndicator;
         
         /// <summary>
+        /// 玩家锁定的实体
+        /// </summary>
+        public BindableProperty<Entity> target = new BindableProperty<Entity>();
+        /// <summary>
+        /// 是否启用自动攻击模式
+        /// </summary>
+        private bool _autoAttack = false;
+        
+        /// <summary>
         /// 创建游戏角色并初始化
         /// </summary>
         public Hero(GameObject gameObject)
@@ -21,10 +32,10 @@ namespace Classes
             _gameObject = gameObject;
             
             // 配置角色初始数值（测试中，后续通过配置表导入）
-            _level = 1;
-            _attackRange = 375;
-            _movementSpeed = 300;
-            _scale = 100;
+            level.Value = 1;
+            attackRange.Value = 375;
+            movementSpeed.Value = 300;
+            scale.Value = 100;
             
             // 配置角色寻路组件
             _agent = _gameObject.GetComponent<NavMeshAgent>();
@@ -40,15 +51,6 @@ namespace Classes
             _attackRangeIndicator.localScale = new Vector2(_actualAttackRange, _actualAttackRange);
             _attackRangeIndicator.GetComponent<SpriteRenderer>().enabled = false;
         }
-        
-        /// <summary>
-        /// 玩家锁定的实体
-        /// </summary>
-        private Entity _target = null;
-        /// <summary>
-        /// 是否启用自动攻击模式
-        /// </summary>
-        private bool _autoAttack = false;
 
         /// <summary>
         /// 英雄移动逻辑
@@ -64,7 +66,7 @@ namespace Classes
                 // 若提前点击A键，则开启自动攻击
                 if (_attackRangeIndicator.GetComponent<SpriteRenderer>().enabled && !Input.GetKey(KeyCode.C))
                 {
-                    _target = null;
+                    SetTarget(null);
                     _agent.SetDestination(_mousePosition);
                     _agent.stoppingDistance = 0;
                     _autoAttack = true;
@@ -78,29 +80,34 @@ namespace Classes
                 _agent.isStopped = false;
 
                 // 检测鼠标点击位置是否有物体
-                RaycastHit2D[] _hitBoxes = Physics2D.RaycastAll(_mousePosition, Vector2.zero);
-                
                 bool _findTarget = false;
-                RaycastHit2D _find = new RaycastHit2D();
+                RaycastHit2D[] _hitBoxes = Physics2D.RaycastAll(_mousePosition, Vector2.zero);
                 foreach (RaycastHit2D _hit in _hitBoxes)
                 {
                     if (!_hit.collider.IsUnityNull() && !_gameObject.CompareTag(_hit.collider.gameObject.tag))
                     {
+                        // 若有目标则设置为新的锁定的目标
+                        var newTarget = _hit.collider.gameObject.GetComponent<EntityData>().entity;
+                        
+                        // 防止反复锁定相同目标
+                        if (target.Value == null || !target.Value.Equals(newTarget))
+                        {
+                            SetTarget(newTarget);
+                        }
+                        _autoAttack = true;
                         _findTarget = true;
-                        _find = _hit;
                         break;
                     }
                 }
-                
-                if (_findTarget)
+
+                if (!_findTarget)
                 {
-                    // 若有目标则设置为锁定的目标
-                    _target = _find.collider.gameObject.GetComponent<EntityData>().entity;
+                    SetTarget(null);
                 }
-                else
+                
+                if (target.Value.IsUnityNull())
                 {
                     // 若没有物体则走到对应位置
-                    _target = null;
                     _agent.SetDestination(_mousePosition);
                     _agent.stoppingDistance = 0;
 
@@ -134,22 +141,26 @@ namespace Classes
                 _attackRangeIndicator.GetComponent<SpriteRenderer>().enabled = false;
             }
             
-            // 若处于走A逻辑下，持续检测是否有目标进入攻击范围内，有则自动索敌
             if (_autoAttack)
             {
-                // 获取攻击范围指示器的碰撞箱
-                CircleCollider2D collider = _gameObject.transform.Find("AttackRangeIndicator").GetComponent<CircleCollider2D>();
+                if (target.Value.IsUnityNull())
+                {
+                    // 若没锁定的目标则走到对应位置
+                    // 过程中持续索敌
+                    // 获取攻击范围指示器的碰撞箱
+                    CircleCollider2D collider = _gameObject.transform.Find("AttackRangeIndicator")
+                        .GetComponent<CircleCollider2D>();
 
-                // 将目标设定为最近的敌方目标（tag与自己不同的）
-                _target = IsOverlappingOtherTag(collider, _gameObject.tag)?.entity;
-            }
-            
-            // 若有锁定的目标则持续索敌
-            // 走到敌人进入攻击范围
-            if (_target != null)
-            {
-                _agent.SetDestination(_target.gameObject.transform.position);
-                _agent.stoppingDistance = _actualAttackRange / 2f + _target.actualScale / 2f;
+                    // 将目标设定为最近的敌方目标（tag与自己不同的）
+                    SetTarget(IsOverlappingOtherTag(collider, _gameObject.tag)?.entity);
+                }
+                else
+                {
+                    // 若有锁定的目标则持续索敌
+                    // 走到敌人进入攻击范围为止
+                    _agent.SetDestination(target.Value.gameObject.transform.position);
+                    _agent.stoppingDistance = _actualAttackRange / 2f + target.Value.actualScale / 2f;
+                }
             }
         }
 
@@ -181,10 +192,17 @@ namespace Classes
                 
                 if (_findTarget)
                 {
-                    // TODO:显示目标的属性
-                    _target = _find.collider.gameObject.GetComponent<EntityData>().entity;
+                    SetTarget(_find.collider.gameObject.GetComponent<EntityData>().entity);
                 }
             }
+        }
+
+        /// <summary>
+        /// 设定英雄目标
+        /// </summary>
+        private void SetTarget(Entity heroTarget)
+        {
+            target.Value = heroTarget;
         }
         
         // 静态缓存，避免 GC

@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MVVM;
 
 namespace Classes
 {
@@ -19,95 +21,99 @@ namespace Classes
         /// <summary>
         /// 人物等级
         /// </summary>
-        protected float _level;
+        public BindableProperty<float> level = new BindableProperty<float>();
         /// <summary>
         /// 经验值
         /// </summary>
-        protected float _experience;
+        public BindableProperty<float> experience = new BindableProperty<float>();
         /// <summary>
         /// 最大经验值
         /// </summary>
-        protected float _maxExperience;
+        public BindableProperty<float> maxExperience = new BindableProperty<float>();
         /// <summary>
         /// 当前生命值
         /// </summary>
-        protected float _healthPoint;
+        public BindableProperty<float> healthPoint = new BindableProperty<float>();
         /// <summary>
         /// 最大生命值
         /// </summary>
-        protected float _maxHealthPoint;
+        public BindableProperty<float> maxHealthPoint = new BindableProperty<float>();
         /// <summary>
         /// 当前法力值
         /// </summary>
-        protected float _magicPoint;
+        public BindableProperty<float> magicPoint = new BindableProperty<float>();
         /// <summary>
         /// 最大法力值
         /// </summary>
-        protected float _maxMagicPoint;
+        public BindableProperty<float> maxMagicPoint = new BindableProperty<float>();
         /// <summary>
         /// 攻击速度
         /// </summary>
-        protected float _attackSpeed;
+        public BindableProperty<float> attackSpeed = new BindableProperty<float>();
         /// <summary>
         /// 攻击力
         /// </summary>
-        protected float _attackDamage;
+        public BindableProperty<float> attackDamage = new BindableProperty<float>();
         /// <summary>
         /// 法术强度
         /// </summary>
-        protected float _abilityPower;
+        public BindableProperty<float> abilityPower = new BindableProperty<float>();
         /// <summary>
         /// 技能急速
         /// </summary>
-        protected float _abilityHaste;
+        public BindableProperty<float> abilityHaste = new BindableProperty<float>();
         /// <summary>
         /// 装备技能急速
         /// </summary>
-        protected float _equipmentAbilityHaste;
+        public BindableProperty<float> equipmentAbilityHaste = new BindableProperty<float>();
         /// <summary>
         /// 召唤师技能急速
         /// </summary>
-        protected float _summonerAbilityHaste;
+        public BindableProperty<float> summonerAbilityHaste = new BindableProperty<float>();
         /// <summary>
         /// 法术防御
         /// </summary>
-        protected float _abilityDefense;
+        public BindableProperty<float> abilityDefense = new BindableProperty<float>();
         /// <summary>
         /// 物理防御
         /// </summary>
-        protected float _attackDefense;
+        public BindableProperty<float> attackDefense = new BindableProperty<float>();
         /// <summary>
         /// 物理穿透
         /// </summary>
-        protected float _attackPenetration;
+        public BindableProperty<float> attackPenetration = new BindableProperty<float>();
         /// <summary>
         /// 法术穿透
         /// </summary>
-        protected float _abilityPenetration;
+        public BindableProperty<float> abilityPenetration = new BindableProperty<float>();
         /// <summary>
         /// 百分比物理穿透
         /// </summary>
-        protected float _percentageAttackPenetration;
+        public BindableProperty<float> percentageAttackPenetration = new BindableProperty<float>();
         /// <summary>
         /// 百分比法术穿透
         /// </summary>
-        protected float _percentageAbilityPenetration;
+        public BindableProperty<float> percentageAbilityPenetration = new BindableProperty<float>();
         /// <summary>
         /// 暴击率
         /// </summary>
-        protected float _criticalRate;
+        public BindableProperty<float> criticalRate = new BindableProperty<float>();
         /// <summary>
         /// 暴击伤害
         /// </summary>
-        protected float _criticalDamage;
+        public BindableProperty<float> criticalDamage = new BindableProperty<float>();
         /// <summary>
         /// 移动速度
         /// </summary>
-        protected float _movementSpeed;
+        public BindableProperty<float> movementSpeed = new BindableProperty<float>();
         /// <summary>
         /// 射程
         /// </summary>
-        protected float _attackRange;
+        public BindableProperty<float> attackRange = new BindableProperty<float>();
+        /// <summary>
+        /// 体型
+        /// </summary>
+        public BindableProperty<float> scale = new BindableProperty<float>();
         #endregion
         
         #region 实际属性
@@ -115,19 +121,19 @@ namespace Classes
         /// <summary>
         /// 实际移动速度
         /// </summary>
-        protected float _actualMovementSpeed => _movementSpeed / 100f;
+        protected float _actualMovementSpeed => movementSpeed.Value / 100f;
         /// <summary>
         /// 实际射程
         /// </summary>
-        protected float _actualAttackRange => _attackRange / 100f;
+        protected float _actualAttackRange => attackRange.Value / 100f;
         /// <summary>
         /// 实际体型
         /// </summary>
-        protected float _actualScale => _scale / 100f;
+        protected float _actualScale => scale.Value / 100f;
         /// <summary>
         /// 实际冷却缩减
         /// </summary>
-        protected float _actualAbilityCooldown => 100f / (_abilityHaste + 100f);
+        protected float _actualAbilityCooldown => 100f / (abilityHaste.Value + 100f);
         #endregion
         
         #region 计算属性
@@ -351,10 +357,6 @@ namespace Classes
         /// 百分比体型加成
         /// </summary>
         protected float _percentageScaleBonus;
-        /// <summary>
-        /// 体型
-        /// </summary>
-        protected float _scale;
         
         //转化率相关
         /// <summary>
@@ -369,90 +371,8 @@ namespace Classes
         /// 对应的游戏物体
         /// </summary>
         public GameObject gameObject => _gameObject;
-        /// <summary>
-        /// 人物等级
-        /// </summary>
-        public float level => _level;
-        /// <summary>
-        /// 经验值
-        /// </summary>
-        public float experience => _experience;
-        /// <summary>
-        /// 最大经验值
-        /// </summary>
-        public float maxExperience => _maxExperience;
-        /// <summary>
-        /// 当前生命值
-        /// </summary>
-        public float healthPoint => _healthPoint;
-        /// <summary>
-        /// 最大生命值
-        /// </summary>
-        public float maxHealthPoint => _maxHealthPoint;
-        /// <summary>
-        /// 当前法力值
-        /// </summary>
-        public float magicPoint => _magicPoint;
-        /// <summary>
-        /// 最大法力值
-        /// </summary>
-        public float maxMagicPoint => _maxMagicPoint;
-        /// <summary>
-        /// 攻击速度
-        /// </summary>
-        public float attackSpeed => _attackSpeed;
-        /// <summary>
-        /// 攻击力
-        /// </summary>
-        public float attackDamage => _attackDamage;
-        /// <summary>
-        /// 法术强度
-        /// </summary>
-        public float abilityPower => _abilityPower;
-        /// <summary>
-        /// 技能急速
-        /// </summary>
-        public float abilityHaste => _abilityHaste;
-        /// <summary>
-        /// 法术防御
-        /// </summary>
-        public float abilityDefense => _abilityDefense;
-        /// <summary>
-        /// 物理防御
-        /// </summary>
-        public float attackDefense => _attackDefense;
-        /// <summary>
-        /// 物理穿透
-        /// </summary>
-        public float attackPenetration => _attackPenetration;
-        /// <summary>
-        /// 法术穿透
-        /// </summary>
-        public float abilityPenetration => _abilityPenetration;
-        /// <summary>
-        /// 百分比物理穿透
-        /// </summary>
-        public float percentageAttackPenetration => _percentageAttackPenetration;
-        /// <summary>
-        /// 百分比法术穿透
-        /// </summary>
-        public float percentageAbilityPenetration => _percentageAbilityPenetration;
-        /// <summary>
-        /// 暴击率
-        /// </summary>
-        public float criticalRate => _criticalRate;
-        /// <summary>
-        /// 暴击伤害
-        /// </summary>
-        public float criticalDamage => _criticalDamage;
-        /// <summary>
-        /// 移动速度
-        /// </summary>
-        public float movementSpeed => _movementSpeed;
-        /// <summary>
-        /// 射程
-        /// </summary>
-        public float attackRange => _attackRange;
+        
+        //实际数据
         /// <summary>
         /// 实际移动速度
         /// </summary>
@@ -488,6 +408,24 @@ namespace Classes
         /// 攻击
         /// </summary>
         public virtual void Attack(){}
+        #endregion
+
+        #region 定义函数
+
+        public override bool Equals(object obj)
+        {
+            if (obj is not Entity other)
+            {
+                return false;
+            }
+            return gameObject == other.gameObject;
+        }
+        
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(gameObject);
+        }
+
         #endregion
     }
 }

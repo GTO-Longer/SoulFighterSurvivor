@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Classes;
+using DataManagement;
 
-namespace Hero
+namespace Entities.Hero
 {
     public class HeroManager : MonoBehaviour
     {

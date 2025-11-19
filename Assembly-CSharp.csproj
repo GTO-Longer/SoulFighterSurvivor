@@ -49,14 +49,14 @@
     <Compile Include="Assets\Scripts\MVVM\ViewModels\HeroAttributeViewModel.cs" />
     <Compile Include="Assets\Scripts\System\EventSystem.cs" />
     <Compile Include="Assets\Scripts\System\MousePointSystem.cs" />
-    <Compile Include="Assets\Scripts\Enemy\EnemyManager.cs" />
     <Compile Include="Assets\Scripts\Classes\Hero.cs" />
-    <Compile Include="Assets\Scripts\EntiyData.cs" />
     <Compile Include="Assets\Scripts\MVVM\ViewModels\TargetAttributeViewModel.cs" />
+    <Compile Include="Assets\Scripts\Entities\Hero\HeroManager.cs" />
     <Compile Include="Assets\Scripts\Classes\Entity.cs" />
     <Compile Include="Assets\Scripts\Classes\Enemy.cs" />
-    <Compile Include="Assets\Scripts\Hero\HeroManager.cs" />
     <Compile Include="Assets\Scripts\MVVM\BindableProperty.cs" />
+    <Compile Include="Assets\Scripts\Entities\Enemy\EnemyManager.cs" />
+    <Compile Include="Assets\Scripts\DataManagement\EntiyData.cs" />
     <Compile Include="Assets\Scripts\Utilities\Enums.cs" />
     <Compile Include="Assets\Scripts\MVVM\Binder.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

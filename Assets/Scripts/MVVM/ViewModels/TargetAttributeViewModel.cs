@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Hero;
+using Entities.Hero;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;

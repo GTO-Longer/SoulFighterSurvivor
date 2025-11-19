@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Classes;
-using Hero;
+using Entities.Hero;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;

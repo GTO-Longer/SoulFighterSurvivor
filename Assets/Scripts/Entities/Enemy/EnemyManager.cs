@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DataManagement;
 
-namespace Enemy
+namespace Entities.Enemy
 {
     public class EnemyManager : MonoBehaviour
     {

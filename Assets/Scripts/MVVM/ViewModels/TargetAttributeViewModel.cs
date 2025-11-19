@@ -10,30 +10,25 @@ namespace MVVM.ViewModels
 {
     public class TargetAttributeViewModel : MonoBehaviour
     {
-        private Transform _attributeList;
-        private event Action UnBindEvent; 
-        
-        void Start()
+        private event Action UnBindEvent;
+
+        private void Start()
         {
-            Dictionary<string, TMP_Text> textGroup = new Dictionary<string, TMP_Text>();
+            var textGroup = new Dictionary<string, TMP_Text>();
+            var attributeList = transform.GetComponentsInChildren<TMP_Text>();
             
-            _attributeList = transform.Find("Background/AttributeList");
-            for (int index = 0; index < _attributeList.childCount;index++)
+            foreach (var _attribute in attributeList)
             {
-                textGroup[_attributeList.GetChild(index).name] = _attributeList.GetChild(index).Find("Content").GetComponent<TextMeshProUGUI>();
+                textGroup[_attribute.gameObject.name] = _attribute;
+                Debug.Log(_attribute.gameObject.name);
             }
             
             UnBindEvent += Binder.BindActive(gameObject, HeroManager.hero.target);
             UnBindEvent += Binder.BindTextGroup(textGroup, HeroManager.hero.target);
         }
-
-        void Update()
-        {
-            
-        }
         
         // 物体销毁时触发注销对应事件
-        void OnDestroy()
+        private void OnDestroy()
         {
             UnBindEvent?.Invoke();
         }

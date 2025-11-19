@@ -1,12 +1,16 @@
 // BindableProperty.cs
 using System;
 using System.ComponentModel;
+using Classes;
+using UnityEngine;
 
 namespace MVVM
 {
     public class BindableProperty<T> : INotifyPropertyChanged
     {
         private T _value;
+
+        public Func<T> OnValueGet;
 
         public T Value
         {

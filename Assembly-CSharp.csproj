@@ -926,6 +926,10 @@
       <Project>{eb3168ab-71ab-fe69-a507-836e2f212a19}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
     </ProjectReference>
+    <ProjectReference Include="UniRx.csproj">
+      <Project>{a80eb995-9ea5-6b1a-09cf-4fab4a4992f0}</Project>
+      <Name>UniRx</Name>
+    </ProjectReference>
     <ProjectReference Include="Sirenix.OdinInspector.Modules.UnityMathematics.csproj">
       <Project>{d9662a90-345f-1581-35d1-e07252e391c7}</Project>
       <Name>Sirenix.OdinInspector.Modules.UnityMathematics</Name>

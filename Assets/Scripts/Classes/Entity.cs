@@ -13,8 +13,12 @@ namespace Classes
         /// 对应的游戏物体
         /// </summary>
         protected GameObject _gameObject;
+        /// <summary>
+        /// 最大生命值
+        /// </summary>
+        public BindableProperty<float> maxHealthPoint = new BindableProperty<float>();
         
-        #region 显示属性
+        #region 最终属性
         
         /// <summary>
         /// 人物等级
@@ -32,10 +36,6 @@ namespace Classes
         /// 当前生命值
         /// </summary>
         public BindableProperty<float> healthPoint = new BindableProperty<float>();
-        /// <summary>
-        /// 最大生命值
-        /// </summary>
-        public BindableProperty<float> maxHealthPoint = new BindableProperty<float>();
         /// <summary>
         /// 当前法力值
         /// </summary>
@@ -166,11 +166,11 @@ namespace Classes
         /// <summary>
         /// 法力值加成
         /// </summary>
-        protected float _magicPointBonus;
+        protected float _maxMagicPointBonus;
         /// <summary>
         /// 百分比法力值加成
         /// </summary>
-        protected float _percentageMagicPointBonus;
+        protected float _percentageMaxMagicPointBonus;
         
         // 攻速相关
         /// <summary>
@@ -240,10 +240,6 @@ namespace Classes
         /// </summary>
         protected float _equipmentAbilityHasteBonus;
         /// <summary>
-        /// 百分比装备技能急速加成
-        /// </summary>
-        protected float _percentageEquipmentAbilityHasteBonus;
-        /// <summary>
         /// 基础召唤师技能急速
         /// </summary>
         protected float _baseSummonerAbilityHaste;
@@ -251,10 +247,6 @@ namespace Classes
         /// 召唤师技能急速加成
         /// </summary>
         protected float _summonerAbilityHasteBonus;
-        /// <summary>
-        /// 百分比召唤师技能急速加成
-        /// </summary>
-        protected float _percentageSummonerAbilityHasteBonus;
         
         // 物抗相关
         /// <summary>
@@ -362,7 +354,7 @@ namespace Classes
         /// </summary>
         protected float _percentageAttackRangeBonus;
         
-        // 体型相关
+        // 体型加成
         /// <summary>
         /// 基础体型
         /// </summary>
@@ -372,13 +364,81 @@ namespace Classes
         /// </summary>
         protected float _percentageScaleBonus;
         
-        //TODO:添加适应之力、生命偷取和全能吸血
-        
-        //转化率相关
+        // 无加成的其他数据
         /// <summary>
-        /// 暴击率-攻击力转化率
+        /// 适应之力
         /// </summary>
-        protected float _criticalRateToAttackConversionEfficiency;
+        protected float _adaptiveForce;
+        /// <summary>
+        /// 生命偷取
+        /// </summary>
+        protected float _lifeSteel;
+        /// <summary>
+        /// 全能吸血
+        /// </summary>
+        protected float _omniVamp;
+        
+        // 转化率相关
+        /// <summary>
+        /// 溢出暴击率-攻击力加成 转化率
+        /// - <c>x</c>: 剩余的溢出暴击率要乘的系数  
+        /// - <c>y</c>: 增加的攻击力加成要乘的系数
+        /// </summary>
+        protected Vector2 _CRToAD_ConversionEfficiency;
+        /// <summary>
+        /// 攻击力加成-法强加成 转化率
+        /// - <c>x</c>: 剩余的攻击力加成要乘的系数  
+        /// - <c>y</c>: 增加的法强加成要乘的系数
+        /// </summary>
+        protected Vector2 _ADToAP_ConversionEfficiency;
+        /// <summary>
+        /// 法强加成-攻击力加成 转化率
+        /// - <c>x</c>: 剩余的法强加成要乘的系数  
+        /// - <c>y</c>: 增加的攻击力加成要乘的系数
+        /// </summary>
+        protected Vector2 _APToAD_ConversionEfficiency;
+        /// <summary>
+        /// 生命值加成-攻击力加成 转化率
+        /// - <c>x</c>: 剩余的生命值加成要乘的系数  
+        /// - <c>y</c>: 增加的攻击力加成要乘的系数
+        /// </summary>
+        protected Vector2 _HPToAD_ConversionEfficiency;
+        /// <summary>
+        /// 生命值加成-法强加成 转化率
+        /// - <c>x</c>: 剩余的生命值加成要乘的系数  
+        /// - <c>y</c>: 增加的法强加成要乘的系数
+        /// </summary>
+        protected Vector2 _HPToAP_ConversionEfficiency;
+        /// <summary>
+        /// 法力值加成-生命值加成 转化率
+        /// - <c>x</c>: 剩余的法力值加成要乘的系数  
+        /// - <c>y</c>: 增加的生命值加成要乘的系数
+        /// </summary>
+        protected Vector2 _MPToHP_ConversionEfficiency;
+        /// <summary>
+        /// 法力值加成-攻击力加成 转化率
+        /// - <c>x</c>: 剩余的法力值加成要乘的系数  
+        /// - <c>y</c>: 增加的攻击力加成要乘的系数
+        /// </summary>
+        protected Vector2 _MPToAD_ConversionEfficiency;
+        /// <summary>
+        /// 法力值加成-法强加成 转化率
+        /// - <c>x</c>: 剩余的法力值加成要乘的系数  
+        /// - <c>y</c>: 增加的法强加成要乘的系数
+        /// </summary>
+        protected Vector2 _MPToAP_ConversionEfficiency;
+        /// <summary>
+        /// 法强加成-法力值加成 转化率
+        /// - <c>x</c>: 剩余的法强加成要乘的系数  
+        /// - <c>y</c>: 增加的法力值加成要乘的系数
+        /// </summary>
+        protected Vector2 _APToMP_ConversionEfficiency;
+        /// <summary>
+        /// 双抗加成-攻击力加成 转化率
+        /// - <c>x</c>: 剩余的双抗加成要乘的系数  
+        /// - <c>y</c>: 增加的攻击力加成要乘的系数
+        /// </summary>
+        protected Vector2 _DEFToAD_ConversionEfficiency;
         #endregion
         
         #region 获取封装属性
@@ -443,5 +503,68 @@ namespace Classes
         }
 
         #endregion
+
+        protected Entity()
+        {
+            #region 无配置数据初始化
+            
+            _maxHealthPointBonus = 0;
+            _percentageMaxHealthPointBonus = 0;
+            _maxMagicPointBonus = 0;
+            _percentageMaxMagicPointBonus = 0;
+            _attackSpeedBonus = 0;
+            _percentageAttackSpeedBonus = 0;
+            _attackDamageBonus = 0;
+            _percentageAttackDamageBonus = 0;
+            _abilityPowerBonus = 0;
+            _percentageAbilityPowerBonus = 0;
+            _baseAbilityHaste = 0;
+            _abilityHasteBonus = 0;
+            _percentageAbilityHasteBonus = 0;
+            _baseEquipmentAbilityHaste = 0;
+            _equipmentAbilityHasteBonus = 0;
+            _baseSummonerAbilityHaste = 0;
+            _summonerAbilityHasteBonus = 0;
+            _attackDefenseBonus = 0;
+            _percentageAttackDefenseBonus = 0;
+            _abilityDefenseBonus = 0;
+            _percentageAbilityDefenseBonus = 0;
+            _baseAttackPenetration = 0;
+            _attackPenetrationBonus = 0;
+            _percentageAttackPenetrationBonus = 0;
+            _baseAbilityPenetration = 0;
+            _abilityPenetrationBonus = 0;
+            _percentageAbilityPenetrationBonus = 0;
+            _baseCriticalRate = 0;
+            _criticalRateBonus = 0;
+            _actualCriticalRate = 0;
+            _baseCriticalDamage = 0;
+            _criticalDamageBonus = 0;
+            _movementSpeedBonus = 0;
+            _percentageMovementSpeedBonus = 0;
+            _attackRangeBonus = 0;
+            _percentageAttackRangeBonus = 0;
+            _percentageScaleBonus = 0;
+            _adaptiveForce = 0;
+            _lifeSteel = 0;
+            _omniVamp = 0;
+            
+            #endregion
+
+            #region 转化率数据初始化
+            
+            _CRToAD_ConversionEfficiency = new Vector2(0f, 50f);
+            _ADToAP_ConversionEfficiency = new Vector2(1f, 0f);
+            _APToAD_ConversionEfficiency = new Vector2(1f, 0f);
+            _HPToAD_ConversionEfficiency = new Vector2(1f, 0f);
+            _HPToAP_ConversionEfficiency = new Vector2(1f, 0f);
+            _MPToHP_ConversionEfficiency = new Vector2(1f, 0f);
+            _MPToAD_ConversionEfficiency = new Vector2(1f, 0f);
+            _MPToAP_ConversionEfficiency = new Vector2(1f, 0f);
+            _APToMP_ConversionEfficiency = new Vector2(1f, 0f);
+            _DEFToAD_ConversionEfficiency = new Vector2(1f, 0f);
+            
+            #endregion 
+        }
     }
 }

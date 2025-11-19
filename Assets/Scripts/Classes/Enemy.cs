@@ -1,11 +1,6 @@
-using Classes;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+using Entities.Hero;
 using UnityEngine;
 using UnityEngine.AI;
-using Utilities;
-using Hero;
 
 namespace Classes
 {

@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Entities.Hero;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace MVVM.ViewModels

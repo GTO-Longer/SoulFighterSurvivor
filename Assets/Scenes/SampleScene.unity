@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 2864667}
   - component: {fileID: 2864666}
   m_Layer: 5
-  m_Name: Content
+  m_Name: abilityHaste
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -343,7 +343,7 @@ GameObject:
   - component: {fileID: 48273339}
   - component: {fileID: 48273338}
   m_Layer: 5
-  m_Name: Content
+  m_Name: attackSpeed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -916,7 +916,7 @@ GameObject:
   - component: {fileID: 204474934}
   - component: {fileID: 204474935}
   m_Layer: 5
-  m_Name: movementSpeed
+  m_Name: MovementSpeed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1410,7 +1410,7 @@ GameObject:
   - component: {fileID: 382358546}
   - component: {fileID: 382358547}
   m_Layer: 5
-  m_Name: attackPenetration
+  m_Name: AttackPenetration
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2657,7 +2657,7 @@ GameObject:
   - component: {fileID: 762045774}
   - component: {fileID: 762045775}
   m_Layer: 5
-  m_Name: abilityPower
+  m_Name: AbilityPower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2924,7 +2924,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 787844124}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6253be20164aade46bb30854f7ea971a, type: 3}
+  m_Script: {fileID: 11500000, guid: d72bcafbb9252814f99b83d4220a9fc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
@@ -2937,7 +2937,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 787844124}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd68bc52259cd0a45aefd993612958ee, type: 3}
+  m_Script: {fileID: 11500000, guid: f86e7417ef5d1ae4ca7f6dc01dfeb951, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &843616816
@@ -2952,7 +2952,7 @@ GameObject:
   - component: {fileID: 843616819}
   - component: {fileID: 843616818}
   m_Layer: 5
-  m_Name: Content
+  m_Name: healthRegeneration
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3086,7 +3086,7 @@ GameObject:
   - component: {fileID: 844855013}
   - component: {fileID: 844855012}
   m_Layer: 5
-  m_Name: Content
+  m_Name: movementSpeed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3220,7 +3220,7 @@ GameObject:
   - component: {fileID: 889038753}
   - component: {fileID: 889038752}
   m_Layer: 5
-  m_Name: Content
+  m_Name: attackDamage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3578,7 +3578,7 @@ GameObject:
   - component: {fileID: 959082351}
   - component: {fileID: 959082352}
   m_Layer: 5
-  m_Name: abilityDefense
+  m_Name: AbilityDefense
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3642,7 +3642,7 @@ GameObject:
   - component: {fileID: 992689007}
   - component: {fileID: 992689008}
   m_Layer: 5
-  m_Name: attackDamage
+  m_Name: AttackDamage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3707,7 +3707,7 @@ GameObject:
   - component: {fileID: 993065254}
   - component: {fileID: 993065253}
   m_Layer: 5
-  m_Name: Content
+  m_Name: attackRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3840,7 +3840,7 @@ GameObject:
   - component: {fileID: 1028429345}
   - component: {fileID: 1028429346}
   m_Layer: 5
-  m_Name: attackSpeed
+  m_Name: AttackSpeed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3904,7 +3904,7 @@ GameObject:
   - component: {fileID: 1041226171}
   - component: {fileID: 1041226172}
   m_Layer: 5
-  m_Name: attackDefense
+  m_Name: AttackDefense
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4242,7 +4242,7 @@ GameObject:
   - component: {fileID: 1129433388}
   - component: {fileID: 1129433389}
   m_Layer: 5
-  m_Name: healthRegeneration
+  m_Name: HealthRegeneration
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4445,7 +4445,7 @@ GameObject:
   - component: {fileID: 1162178819}
   - component: {fileID: 1162178820}
   m_Layer: 5
-  m_Name: abilityHaste
+  m_Name: AbilityHaste
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4510,7 +4510,7 @@ GameObject:
   - component: {fileID: 1166816861}
   - component: {fileID: 1166816860}
   m_Layer: 5
-  m_Name: Content
+  m_Name: lifeSteel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4644,7 +4644,7 @@ GameObject:
   - component: {fileID: 1177166088}
   - component: {fileID: 1177166087}
   m_Layer: 5
-  m_Name: Content
+  m_Name: abilityPenetration
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4853,7 +4853,7 @@ GameObject:
   - component: {fileID: 1204897022}
   - component: {fileID: 1204897021}
   m_Layer: 5
-  m_Name: Content
+  m_Name: omniVamp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4987,7 +4987,7 @@ GameObject:
   - component: {fileID: 1221712259}
   - component: {fileID: 1221712258}
   m_Layer: 5
-  m_Name: Content
+  m_Name: healAndShieldPower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5368,7 +5368,7 @@ GameObject:
   - component: {fileID: 1262259724}
   - component: {fileID: 1262259725}
   m_Layer: 5
-  m_Name: attackRange
+  m_Name: AttackRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5696,7 +5696,7 @@ GameObject:
   - component: {fileID: 1342372895}
   - component: {fileID: 1342372896}
   m_Layer: 5
-  m_Name: criticalRate
+  m_Name: CriticalRate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5835,7 +5835,7 @@ GameObject:
   - component: {fileID: 1351735939}
   - component: {fileID: 1351735940}
   m_Layer: 5
-  m_Name: abilityPenetration
+  m_Name: AbilityPenetration
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6000,7 +6000,7 @@ GameObject:
   - component: {fileID: 1365031702}
   - component: {fileID: 1365031703}
   m_Layer: 5
-  m_Name: lifeSteel
+  m_Name: LifeSteel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6260,7 +6260,7 @@ GameObject:
   - component: {fileID: 1408187885}
   - component: {fileID: 1408187884}
   m_Layer: 5
-  m_Name: Content
+  m_Name: abilityDefense
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6394,7 +6394,7 @@ GameObject:
   - component: {fileID: 1421119501}
   - component: {fileID: 1421119500}
   m_Layer: 5
-  m_Name: Content
+  m_Name: abilityPower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6714,7 +6714,7 @@ GameObject:
   - component: {fileID: 1474720616}
   - component: {fileID: 1474720615}
   m_Layer: 5
-  m_Name: Content
+  m_Name: movementSpeed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7937,7 +7937,7 @@ GameObject:
   - component: {fileID: 1619923968}
   - component: {fileID: 1619923967}
   m_Layer: 5
-  m_Name: Content
+  m_Name: attackDefense
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8371,7 +8371,7 @@ GameObject:
   - component: {fileID: 1688295321}
   - component: {fileID: 1688295320}
   m_Layer: 5
-  m_Name: Content
+  m_Name: attackPenetration
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8880,7 +8880,7 @@ GameObject:
   - component: {fileID: 1785700811}
   - component: {fileID: 1785700812}
   m_Layer: 5
-  m_Name: omniVamp
+  m_Name: OmniVamp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8944,9 +8944,9 @@ GameObject:
   - component: {fileID: 1802127406}
   - component: {fileID: 1802127407}
   - component: {fileID: 1802127409}
+  - component: {fileID: 1802127412}
   - component: {fileID: 1802127410}
   - component: {fileID: 1802127411}
-  - component: {fileID: 1802127412}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -9065,7 +9065,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1802127405}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6253be20164aade46bb30854f7ea971a, type: 3}
+  m_Script: {fileID: 11500000, guid: d72bcafbb9252814f99b83d4220a9fc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   type: 2
@@ -9100,7 +9100,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1802127405}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f69e740f6167867448b1eb34a0dddbcb, type: 3}
+  m_Script: {fileID: 11500000, guid: c13daad2d242c4644af15c5e782269ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1842030806
@@ -9591,7 +9591,7 @@ GameObject:
   - component: {fileID: 1928610240}
   - component: {fileID: 1928610241}
   m_Layer: 5
-  m_Name: movementSpeed
+  m_Name: MovementSpeed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10047,7 +10047,7 @@ GameObject:
   - component: {fileID: 1986411058}
   - component: {fileID: 1986411059}
   m_Layer: 5
-  m_Name: healAndShieldPower
+  m_Name: HealAndShieldPower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10321,7 +10321,7 @@ GameObject:
   - component: {fileID: 2059858625}
   - component: {fileID: 2059858624}
   m_Layer: 5
-  m_Name: Content
+  m_Name: criticalRate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

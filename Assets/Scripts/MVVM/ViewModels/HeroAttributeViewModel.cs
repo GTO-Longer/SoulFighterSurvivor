@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Entities.Hero;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace MVVM.ViewModels
 {
@@ -16,6 +17,10 @@ namespace MVVM.ViewModels
             var attributeList = transform.GetComponentsInChildren<TMP_Text>();
             var HPContent = transform.Find("MainStateBackground/HPBarBackground/HPContent").GetComponent<TMP_Text>();
             var MPContent = transform.Find("MainStateBackground/MPBarBackground/MPContent").GetComponent<TMP_Text>();
+            var HPBar = transform.Find("MainStateBackground/HPBarBackground/HPBar");
+            var MPBar = transform.Find("MainStateBackground/MPBarBackground/MPBar");
+            var otherAttributes = transform.Find("AttributesAndHexes/OtherAttributesBackground").gameObject;
+            var hexes = transform.Find("AttributesAndHexes/HexesBackground").gameObject;
             
             foreach (var _attribute in attributeList)
             {
@@ -23,9 +28,12 @@ namespace MVVM.ViewModels
             }
             
             UnBindEvent += Binder.BindTextGroup(textGroup, HeroManager.hero);
-            UnBindEvent += Binder.BindActive(transform.Find("AttributesAndHexes").gameObject, HeroManager.hero.showAttributes);
-            UnBindEvent += Binder.BindDoubleText(HPContent, HeroManager.hero.healthPoint, HeroManager.hero.maxHealthPoint);
-            UnBindEvent += Binder.BindDoubleText(MPContent, HeroManager.hero.magicPoint, HeroManager.hero.maxMagicPoint);
+            UnBindEvent += Binder.BindActive(otherAttributes, HeroManager.hero.showAttributes);
+            UnBindEvent += Binder.BindActive(hexes, HeroManager.hero.showAttributes);
+            UnBindEvent += Binder.BindText(HPContent, HeroManager.hero.healthPoint, HeroManager.hero.maxHealthPoint);
+            UnBindEvent += Binder.BindText(MPContent, HeroManager.hero.magicPoint, HeroManager.hero.maxMagicPoint);
+            UnBindEvent += Binder.BindLength(HPBar, HeroManager.hero.healthPoint, HeroManager.hero.maxHealthPoint);
+            UnBindEvent += Binder.BindLength(MPBar, HeroManager.hero.magicPoint, HeroManager.hero.maxMagicPoint);
         }
 
         // 物体销毁时触发注销对应事件

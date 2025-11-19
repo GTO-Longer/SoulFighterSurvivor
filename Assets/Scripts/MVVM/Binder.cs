@@ -69,9 +69,9 @@ namespace MVVM
         }
         
         // ===========================================
-        // 2. 双Text 绑定（动态 Entity 切换）
+        // 2. 双数据绑定（两个变量之间的关系，任何一变量变化都要引起UI变化）
         // ===========================================
-        public static Action BindDoubleText(TMP_Text text, BindableProperty<float> source1, BindableProperty<float> source2, string format = "{0} / {1}"){
+        public static Action BindText(TMP_Text text, BindableProperty<float> source1, BindableProperty<float> source2, string format = "{0} / {1}"){
             if (text == null || source1 == null || source2 == null)
                 return () => { };
 
@@ -82,6 +82,28 @@ namespace MVVM
             }
 
             text.text = string.Format(format, source1.Value, source2.Value);
+            source1.PropertyChanged += OnChanged;
+            source2.PropertyChanged += OnChanged;
+            return () =>
+            {
+                source1.PropertyChanged -= OnChanged;
+                source2.PropertyChanged -= OnChanged;
+            };
+        }
+        
+        public static Action BindLength(Transform image, BindableProperty<float> source1, BindableProperty<float> source2){
+            if (image == null || source1 == null || source2 == null)
+                return () => { };
+
+            void OnChanged(object sender, EventArgs e)
+            {
+                if (image == null) return;
+                var scale = image.localScale;
+                image.localScale = new(source2.Value == 0 ? 0 : (source1.Value / source2.Value), scale.y, scale.z);
+            }
+            
+            var scale = image.localScale;
+            image.localScale = new(source2.Value == 0 ? 0 : (source1.Value / source2.Value), scale.y, scale.z);
             source1.PropertyChanged += OnChanged;
             source2.PropertyChanged += OnChanged;
             return () =>

@@ -8747,7 +8747,7 @@ GameObject:
   - component: {fileID: 1782526438}
   - component: {fileID: 1782526437}
   m_Layer: 5
-  m_Name: HPContent
+  m_Name: MPContent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

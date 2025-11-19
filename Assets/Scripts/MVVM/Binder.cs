@@ -67,9 +67,32 @@ namespace MVVM
             source.PropertyChanged += OnChanged;
             return () => source.PropertyChanged -= OnChanged;
         }
+        
+        // ===========================================
+        // 2. 双Text 绑定（动态 Entity 切换）
+        // ===========================================
+        public static Action BindDoubleText(TMP_Text text, BindableProperty<float> source1, BindableProperty<float> source2, string format = "{0} / {1}"){
+            if (text == null || source1 == null || source2 == null)
+                return () => { };
+
+            void OnChanged(object sender, EventArgs e)
+            {
+                if (text == null) return;
+                text.text = string.Format(format, source1.Value, source2.Value);
+            }
+
+            text.text = string.Format(format, source1.Value, source2.Value);
+            source1.PropertyChanged += OnChanged;
+            source2.PropertyChanged += OnChanged;
+            return () =>
+            {
+                source1.PropertyChanged -= OnChanged;
+                source2.PropertyChanged -= OnChanged;
+            };
+        }
 
         // ===========================================
-        // 2. TextGroup 绑定（动态 Entity 切换）
+        // 3. TextGroup 绑定（支持float）
         // ===========================================
 
         public static Action BindTextGroup(Dictionary<string, TMP_Text> textGroup, BindableProperty<Entity> entitySource, string format = "{0}")
@@ -130,7 +153,7 @@ namespace MVVM
         }
 
         // ===========================================
-        // 3. TextGroup 绑定（固定 Entity）
+        // 4. TextGroup 绑定（固定 Entity）
         // ===========================================
 
         public static Action BindTextGroup(Dictionary<string, TMP_Text> textGroup, Entity entity, string format = "{0}")
@@ -169,7 +192,7 @@ namespace MVVM
         }
 
         // ===========================================
-        // 4. Boolean 绑定：控制 GameObject 显示/隐藏
+        // 5. Boolean 绑定：控制 GameObject 显示/隐藏
         // ===========================================
 
         public static Action BindActive(GameObject target, BindableProperty<bool> source)
@@ -213,7 +236,7 @@ namespace MVVM
         }
 
         // ===========================================
-        // 5. Button 绑定：点击 → Action
+        // 6. Button 绑定：点击 → Action
         // ===========================================
 
         public static Action BindButton(Button button, Action action)
@@ -225,19 +248,6 @@ namespace MVVM
 
             button.onClick.AddListener(OnClick);
             return () => button.onClick.RemoveListener(OnClick);
-        }
-
-        // ===========================================
-        // 6. 事件 → 事件绑定（保留原逻辑）
-        // ===========================================
-
-        public static Action BindEvent(Action sourcePublisher, Action targetSubscriber)
-        {
-            if (sourcePublisher == null || targetSubscriber == null)
-                return () => { };
-
-            sourcePublisher += targetSubscriber;
-            return () => sourcePublisher -= targetSubscriber;
         }
     }
 }

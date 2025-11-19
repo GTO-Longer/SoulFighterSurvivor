@@ -20,7 +20,6 @@ namespace MVVM.ViewModels
             foreach (var _attribute in attributeList)
             {
                 textGroup[_attribute.gameObject.name] = _attribute;
-                Debug.Log(_attribute.gameObject.name);
             }
             
             UnBindEvent += Binder.BindActive(gameObject, HeroManager.hero.target);

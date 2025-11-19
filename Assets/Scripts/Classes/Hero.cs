@@ -19,6 +19,9 @@ namespace Classes
         /// 玩家锁定的实体
         /// </summary>
         public BindableProperty<Entity> target = new BindableProperty<Entity>();
+        public BindableProperty<bool> isMoving = new BindableProperty<bool>();
+        public BindableProperty<bool> showAttributes = new BindableProperty<bool>();
+        
         /// <summary>
         /// 是否启用自动攻击模式
         /// </summary>
@@ -133,11 +136,18 @@ namespace Classes
             // 当玩家点击A键
             if (Input.GetKeyDown(KeyCode.A) || Input.GetKey(KeyCode.C))
             {
+                // 若按下C键则显示属性
+                if (Input.GetKey(KeyCode.C))
+                {
+                    showAttributes.Value = true;
+                }
+
                 // 显示攻击范围指示器
                 _attackRangeIndicator.GetComponent<SpriteRenderer>().enabled = true;
             }
             else if (Input.anyKeyDown || Input.GetKeyUp(KeyCode.C))
             {
+                showAttributes.Value = false;
                 _attackRangeIndicator.GetComponent<SpriteRenderer>().enabled = false;
             }
             

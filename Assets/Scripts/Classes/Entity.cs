@@ -114,6 +114,14 @@ namespace Classes
         /// 体型
         /// </summary>
         public BindableProperty<float> scale = new BindableProperty<float>();
+        /// <summary>
+        /// 生命偷取
+        /// </summary>
+        public BindableProperty<float> lifeSteel = new BindableProperty<float>();
+        /// <summary>
+        /// 全能吸血
+        /// </summary>
+        public BindableProperty<float> omniVamp = new BindableProperty<float>();
         #endregion
         
         #region 实际属性
@@ -138,7 +146,7 @@ namespace Classes
         
         #region 计算属性
         
-        //生命值相关
+        // 生命值相关
         /// <summary>
         /// 基础最大生命值
         /// </summary>
@@ -152,7 +160,7 @@ namespace Classes
         /// </summary>
         protected float _percentageMaxHealthPointBonus;
         
-        //法力值相关
+        // 法力值相关
         /// <summary>
         /// 基础法力值
         /// </summary>
@@ -166,7 +174,7 @@ namespace Classes
         /// </summary>
         protected float _percentageMagicPointBonus;
         
-        //攻速相关
+        // 攻速相关
         /// <summary>
         /// 基础攻击速度
         /// </summary>
@@ -184,7 +192,7 @@ namespace Classes
         /// </summary>
         protected float _attackSpeedYield;
         
-        //攻击力相关
+        // 攻击力相关
         /// <summary>
         /// 基础攻击力
         /// </summary>
@@ -198,7 +206,7 @@ namespace Classes
         /// </summary>
         protected float _percentageAttackDamageBonus;
         
-        //法强相关
+        // 法强相关
         /// <summary>
         /// 基础法术强度
         /// </summary>
@@ -212,7 +220,7 @@ namespace Classes
         /// </summary>
         protected float _percentageAbilityPowerBonus;
         
-        //技能急速相关
+        // 技能急速相关
         /// <summary>
         /// 基础技能急速
         /// </summary>
@@ -250,7 +258,7 @@ namespace Classes
         /// </summary>
         protected float _percentageSummonerAbilityHasteBonus;
         
-        //物抗相关
+        // 物抗相关
         /// <summary>
         /// 基础物理防御
         /// </summary>
@@ -264,7 +272,7 @@ namespace Classes
         /// </summary>
         protected float _percentageAttackDefenseBonus;
         
-        //法抗相关
+        // 法抗相关
         /// <summary>
         /// 基础法术防御
         /// </summary>
@@ -278,7 +286,7 @@ namespace Classes
         /// </summary>
         protected float _percentageAbilityDefenseBonus;
         
-        //物穿相关
+        // 物穿相关
         /// <summary>
         /// 基础物理穿透
         /// </summary>
@@ -292,7 +300,7 @@ namespace Classes
         /// </summary>
         protected float _percentageAttackPenetrationBonus;
         
-        //法穿相关
+        // 法穿相关
         /// <summary>
         /// 基础法术穿透
         /// </summary>
@@ -306,7 +314,7 @@ namespace Classes
         /// </summary>
         protected float _percentageAbilityPenetrationBonus;
         
-        //暴击相关
+        // 暴击相关
         /// <summary>
         /// 基础暴击率
         /// </summary>
@@ -319,8 +327,16 @@ namespace Classes
         /// 暴击率加成
         /// </summary>
         protected float _criticalRateBonus;
+        /// <summary>
+        /// 基础暴击伤害
+        /// </summary>
+        protected float _baseCriticalDamage;
+        /// <summary>
+        /// 暴击伤害加成
+        /// </summary>
+        protected float _criticalDamageBonus;
         
-        //移速相关
+        // 移速相关
         /// <summary>
         /// 基础移动速度
         /// </summary>
@@ -334,7 +350,7 @@ namespace Classes
         /// </summary>
         protected float _percentageMovementSpeedBonus;
         
-        //射程相关
+        // 射程相关
         /// <summary>
         /// 基础射程
         /// </summary>
@@ -348,7 +364,7 @@ namespace Classes
         /// </summary>
         protected float _percentageAttackRangeBonus;
         
-        //体型相关
+        // 体型相关
         /// <summary>
         /// 基础体型
         /// </summary>
@@ -357,6 +373,8 @@ namespace Classes
         /// 百分比体型加成
         /// </summary>
         protected float _percentageScaleBonus;
+        
+        //TODO:添加适应之力、生命偷取和全能吸血
         
         //转化率相关
         /// <summary>

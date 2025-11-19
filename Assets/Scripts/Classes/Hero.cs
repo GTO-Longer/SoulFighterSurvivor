@@ -65,7 +65,7 @@ namespace Classes
                 // 若提前点击A键，则开启自动攻击
                 if (_attackRangeIndicator.GetComponent<SpriteRenderer>().enabled && !Input.GetKey(KeyCode.C))
                 {
-                    SetTarget(null);
+                    target.Value = null;
                     _agent.SetDestination(_mousePosition);
                     _agent.stoppingDistance = 0;
                     _autoAttack = true;
@@ -91,7 +91,7 @@ namespace Classes
                         // 防止反复锁定相同目标
                         if (target.Value == null || !target.Value.Equals(newTarget))
                         {
-                            SetTarget(newTarget);
+                            target.Value = newTarget;
                         }
                         _autoAttack = true;
                         _findTarget = true;
@@ -101,7 +101,7 @@ namespace Classes
 
                 if (!_findTarget)
                 {
-                    SetTarget(null);
+                    target.Value = null;
                 }
                 
                 if (target.Value.IsUnityNull())
@@ -158,9 +158,10 @@ namespace Classes
                         .GetComponent<CircleCollider2D>();
 
                     // 将目标设定为最近的敌方目标（tag与自己不同的）
-                    SetTarget(IsOverlappingOtherTag(collider, _gameObject.tag)?.entity);
+                    target.Value = IsOverlappingOtherTag(collider, _gameObject.tag)?.entity;
                 }
-                else
+                
+                if (!target.Value.IsUnityNull())
                 {
                     // 若有锁定的目标则持续索敌
                     // 走到敌人进入攻击范围为止
@@ -198,17 +199,9 @@ namespace Classes
                 
                 if (_findTarget)
                 {
-                    SetTarget(_find.collider.gameObject.GetComponent<EntityData>().entity);
+                    target.Value = _find.collider.gameObject.GetComponent<EntityData>().entity;
                 }
             }
-        }
-
-        /// <summary>
-        /// 设定英雄目标
-        /// </summary>
-        private void SetTarget(Entity heroTarget)
-        {
-            target.Value = heroTarget;
         }
         
         // 静态缓存，避免 GC

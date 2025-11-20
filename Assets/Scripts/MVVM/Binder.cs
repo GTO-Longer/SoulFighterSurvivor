@@ -1,4 +1,3 @@
-// UguiBinder.cs
 using UnityEngine;
 using UnityEngine.UI;
 using System;
@@ -6,6 +5,7 @@ using System.Collections.Generic;
 using Classes;
 using TMPro;
 using System.Reflection;
+using DataManagement;
 using Unity.VisualScripting;
 
 namespace MVVM
@@ -20,7 +20,7 @@ namespace MVVM
         // 1. Text 绑定：支持 string / int / float
         // ===========================================
 
-        public static Action BindText(TMP_Text text, BindableProperty<string> source)
+        public static Action BindText(TMP_Text text, Property<string> source)
         {
             if (text == null || source == null)
                 return () => { };
@@ -36,7 +36,7 @@ namespace MVVM
             return () => source.PropertyChanged -= OnChanged;
         }
 
-        public static Action BindText(TMP_Text text, BindableProperty<int> source, string format = "{0}")
+        public static Action BindText(TMP_Text text, Property<int> source, string format = "{0}")
         {
             if (text == null || source == null)
                 return () => { };
@@ -52,7 +52,7 @@ namespace MVVM
             return () => source.PropertyChanged -= OnChanged;
         }
 
-        public static Action BindText(TMP_Text text, BindableProperty<float> source, string format = "{0}")
+        public static Action BindText(TMP_Text text, Property<float> source, string format = "{0}")
         {
             if (text == null || source == null)
                 return () => { };
@@ -71,7 +71,7 @@ namespace MVVM
         // ===========================================
         // 2. 双数据绑定（两个变量之间的关系，任何一变量变化都要引起UI变化）
         // ===========================================
-        public static Action BindText(TMP_Text text, BindableProperty<float> source1, BindableProperty<float> source2, string format = "{0} / {1}"){
+        public static Action BindText(TMP_Text text, Property<float> source1, Property<float> source2, string format = "{0} / {1}"){
             if (text == null || source1 == null || source2 == null)
                 return () => { };
 
@@ -91,7 +91,7 @@ namespace MVVM
             };
         }
         
-        public static Action BindLength(Transform image, BindableProperty<float> source1, BindableProperty<float> source2){
+        public static Action BindLength(Transform image, Property<float> source1, Property<float> source2){
             if (image == null || source1 == null || source2 == null)
                 return () => { };
 
@@ -117,7 +117,7 @@ namespace MVVM
         // 3. TextGroup 绑定（支持float）
         // ===========================================
 
-        public static Action BindTextGroup(Dictionary<string, TMP_Text> textGroup, BindableProperty<Entity> entitySource, string format = "{0}")
+        public static Action BindTextGroup(Dictionary<string, TMP_Text> textGroup, Property<Entity> entitySource, string format = "{0}")
         {
             if (textGroup == null || entitySource == null)
                 return () => { };
@@ -144,13 +144,13 @@ namespace MVVM
                 var fields = entity.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance);
                 foreach (var field in fields)
                 {
-                    if (field.FieldType != typeof(BindableProperty<float>)) continue;
+                    if (field.FieldType != typeof(Property<float>)) continue;
 
                     string fieldName = field.Name;
                     if (!textGroup.TryGetValue(fieldName, out TMP_Text targetText) || targetText == null)
                         continue;
 
-                    var bindable = (BindableProperty<float>)field.GetValue(entity);
+                    var bindable = (Property<float>)field.GetValue(entity);
                     if (bindable == null)
                     {
                         targetText.text = "0";
@@ -188,13 +188,13 @@ namespace MVVM
             var fields = entity.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance);
             foreach (var field in fields)
             {
-                if (field.FieldType != typeof(BindableProperty<float>)) continue;
+                if (field.FieldType != typeof(Property<float>)) continue;
 
                 string fieldName = field.Name;
                 if (!textGroup.TryGetValue(fieldName, out TMP_Text targetText) || targetText == null)
                     continue;
 
-                var bindable = (BindableProperty<float>)field.GetValue(entity);
+                var bindable = (Property<float>)field.GetValue(entity);
                 if (bindable == null)
                 {
                     targetText.text = "0";
@@ -217,7 +217,7 @@ namespace MVVM
         // 5. Boolean 绑定：控制 GameObject 显示/隐藏
         // ===========================================
 
-        public static Action BindActive(GameObject target, BindableProperty<bool> source)
+        public static Action BindActive(GameObject target, Property<bool> source)
         {
             if (target == null || source == null)
                 return () => { };
@@ -233,7 +233,7 @@ namespace MVVM
             return () => source.PropertyChanged -= OnChanged;
         }
 
-        public static Action BindActive(GameObject target, BindableProperty<Entity> source)
+        public static Action BindActive(GameObject target, Property<Entity> source)
         {
             if (target == null || source == null)
                 return () => { };
@@ -249,7 +249,7 @@ namespace MVVM
             return () => source.PropertyChanged -= OnChanged;
         }
 
-        public static Action BindActive(Component target, BindableProperty<bool> source)
+        public static Action BindActive(Component target, Property<bool> source)
         {
             if (target == null || source == null)
                 return () => { };

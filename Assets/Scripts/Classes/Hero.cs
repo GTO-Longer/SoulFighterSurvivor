@@ -14,9 +14,9 @@ namespace Classes
         /// <summary>
         /// 玩家锁定的实体
         /// </summary>
-        public BindableProperty<Entity> target = new BindableProperty<Entity>();
-        public BindableProperty<bool> isMoving = new BindableProperty<bool>();
-        public BindableProperty<bool> showAttributes = new BindableProperty<bool>();
+        public Property<Entity> target = new Property<Entity>();
+        public Property<bool> isMoving = new Property<bool>();
+        public Property<bool> showAttributes = new Property<bool>();
         
         /// <summary>
         /// 是否启用自动攻击模式

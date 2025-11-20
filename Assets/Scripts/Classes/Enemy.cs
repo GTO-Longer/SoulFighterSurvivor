@@ -15,27 +15,21 @@ namespace Classes
         {
             _gameObject = gameObject;
             
-            //配置敌人初始属性（测试中）
-            movementSpeed.Value = 100;
-            scale.Value = 100;
-            attackRange.Value = 175;
-            attackDamage.Value = 999;
-            
             // 配置敌人寻路组件
             _agent = _gameObject.GetComponent<NavMeshAgent>();
             _agent.updateUpAxis = false;
             _agent.updateRotation = false;
-            _agent.speed = _actualMovementSpeed;
+            _agent.speed = actualMovementSpeed;
             
             // 配置敌人体型
-            _gameObject.transform.localScale = new Vector2(_actualScale, _actualScale);
+            _gameObject.transform.localScale = new Vector2(actualScale * 2, actualScale * 2);
         }
         
         // 敌人进行移动
         public override void Move()
         {
             _agent.SetDestination(HeroManager.hero.gameObject.transform.position);
-            _agent.stoppingDistance = _actualAttackRange - _actualScale / 2f;
+            _agent.stoppingDistance = actualAttackRange + HeroManager.hero.actualScale;
         }
     }
 }

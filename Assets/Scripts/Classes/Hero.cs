@@ -2,7 +2,6 @@ using DataManagement;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
-using MVVM;
 
 namespace Classes
 {
@@ -21,7 +20,7 @@ namespace Classes
         /// <summary>
         /// 是否启用自动攻击模式
         /// </summary>
-        private bool _autoAttack = false;
+        private bool _autoAttack;
         
         /// <summary>
         /// 创建游戏角色并初始化
@@ -30,25 +29,22 @@ namespace Classes
         {
             _gameObject = gameObject;
             
-            // 配置角色初始数值（测试中，后续通过配置表导入）
-            level.Value = 1;
-            attackRange.Value = 375;
-            movementSpeed.Value = 300;
-            scale.Value = 100;
-            
             // 配置角色寻路组件
             _agent = _gameObject.GetComponent<NavMeshAgent>();
             _agent.updateUpAxis = false;
             _agent.updateRotation = false;
-            _agent.speed = _actualMovementSpeed;
+            _agent.speed = actualMovementSpeed;
             
             // 配置角色体型
-            _gameObject.transform.localScale = new Vector2(_actualScale, _actualScale);
+            _gameObject.transform.localScale = new Vector2(actualScale * 2, actualScale * 2);
             
             // 配置攻击距离指示器
             _attackRangeIndicator = _gameObject.transform.Find("AttackRangeIndicator");
-            _attackRangeIndicator.localScale = new Vector2(_actualAttackRange, _actualAttackRange);
+            _attackRangeIndicator.localScale = new Vector2(actualAttackRange / actualScale, actualAttackRange / actualScale);
             _attackRangeIndicator.GetComponent<SpriteRenderer>().enabled = false;
+            
+            // 其他变量初始化
+            _autoAttack = false;
         }
 
         /// <summary>
@@ -85,7 +81,7 @@ namespace Classes
                 {
                     if (!_hit.collider.IsUnityNull() && !_gameObject.CompareTag(_hit.collider.gameObject.tag))
                     {
-                        // 若有目标则设置为新的锁定的目标
+                        // 若有目标则设置为新的目标
                         var newTarget = _hit.collider.gameObject.GetComponent<EntityData>().entity;
                         
                         // 防止反复锁定相同目标
@@ -111,14 +107,7 @@ namespace Classes
                     _agent.stoppingDistance = 0;
 
                     // 若按了shift+右键则启动自动攻击模式（走A）
-                    if (Input.GetKey(KeyCode.LeftShift))
-                    {
-                        _autoAttack = true;
-                    }
-                    else
-                    {
-                        _autoAttack = false;
-                    }
+                    _autoAttack = Input.GetKey(KeyCode.LeftShift);
                 }
             }
             
@@ -161,12 +150,12 @@ namespace Classes
                     target.Value = IsOverlappingOtherTag(collider, _gameObject.tag)?.entity;
                 }
                 
-                if (!target.Value.IsUnityNull())
+                if (target.Value != null)
                 {
                     // 若有锁定的目标则持续索敌
                     // 走到敌人进入攻击范围为止
                     _agent.SetDestination(target.Value.gameObject.transform.position);
-                    _agent.stoppingDistance = _actualAttackRange / 2f + target.Value.actualScale / 2f;
+                    _agent.stoppingDistance = actualAttackRange + target.Value.actualScale;
                 }
             }
         }
@@ -239,7 +228,7 @@ namespace Classes
                 if (entity == null) continue; // 没有该组件则跳过
 
                 // 计算距离平方（避免开根号）
-                float distSqr = (otherGo.transform.position - (Vector3)center).sqrMagnitude;
+                var distSqr = (otherGo.transform.position - (Vector3)center).sqrMagnitude;
                 if (distSqr < nearestDistanceSqr)
                 {
                     nearestDistanceSqr = distSqr;

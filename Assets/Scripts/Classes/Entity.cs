@@ -71,7 +71,7 @@ namespace Classes
         /// <summary>
         /// 法术防御
         /// </summary>
-        public Property<float> abilityDefense;
+        public Property<float> magicDefense;
         /// <summary>
         /// 物理防御
         /// </summary>
@@ -83,7 +83,7 @@ namespace Classes
         /// <summary>
         /// 法术穿透
         /// </summary>
-        public Property<float> abilityPenetration;
+        public Property<float> magicPenetration;
         /// <summary>
         /// 百分比物理穿透
         /// </summary>
@@ -91,7 +91,7 @@ namespace Classes
         /// <summary>
         /// 百分比法术穿透
         /// </summary>
-        public Property<float> percentageAbilityPenetration;
+        public Property<float> percentageMagicPenetration;
         /// <summary>
         /// 暴击率
         /// </summary>
@@ -117,9 +117,25 @@ namespace Classes
         /// </summary>
         public Property<float> lifeSteel;
         /// <summary>
+        /// 适应之力
+        /// </summary>
+        protected Property<float> adaptiveForce;
+        /// <summary>
+        /// 生命回复
+        /// </summary>
+        public Property<float> healthRegeneration;
+        /// <summary>
+        /// 法力回复
+        /// </summary>
+        public Property<float> magicRegeneration;
+        /// <summary>
         /// 全能吸血
         /// </summary>
         public Property<float> omniVamp;
+        /// <summary>
+        /// 治疗和护盾强度
+        /// </summary>
+        protected Property<float> healAndShieldPower;
         
         #endregion
         
@@ -128,28 +144,29 @@ namespace Classes
         /// <summary>
         /// 实际移动速度
         /// </summary>
-        protected float _actualMovementSpeed => movementSpeed.Value / 100f;
+        protected float actualMovementSpeed => movementSpeed / 100f;
         /// <summary>
         /// 实际射程
         /// </summary>
-        protected float _actualAttackRange => attackRange.Value / 100f;
+        protected float actualAttackRange => attackRange / 100f;
         /// <summary>
-        /// 实际体型
+        /// 实际体型（半径）
         /// </summary>
-        protected float _actualScale => scale.Value / 100f;
+        public float actualScale => scale / 100f;
         /// <summary>
         /// 实际冷却缩减
         /// </summary>
-        protected float _actualAbilityCooldown => 100f / (abilityHaste.Value + 100f);
+        public float actualAbilityCooldown => 100f / (abilityHaste + 100f);
+        /// <summary>
+        /// 实际攻击间隔
+        /// </summary>
+        public float actualAttackSpeed => attackSpeed == 0 ? 999 : 1f / attackSpeed;
+        
         #endregion
         
         #region 计算属性
         
         // 生命值相关
-        /// <summary>
-        /// 基础最大生命值
-        /// </summary>
-        protected Property<float> _baseMaxHealthPoint;
         /// <summary>
         /// 最大生命值加成
         /// </summary>
@@ -161,10 +178,6 @@ namespace Classes
         
         // 法力值相关
         /// <summary>
-        /// 基础法力值
-        /// </summary>
-        protected Property<float> _baseMagicPoint;
-        /// <summary>
         /// 法力值加成
         /// </summary>
         protected Property<float> _maxMagicPointBonus;
@@ -174,10 +187,6 @@ namespace Classes
         protected Property<float> _percentageMaxMagicPointBonus;
         
         // 攻速相关
-        /// <summary>
-        /// 基础攻击速度
-        /// </summary>
-        protected Property<float> _baseAttackSpeed;
         /// <summary>
         /// 攻击速度加成
         /// </summary>
@@ -193,10 +202,6 @@ namespace Classes
         
         // 攻击力相关
         /// <summary>
-        /// 基础攻击力
-        /// </summary>
-        protected Property<float> _baseAttackDamage;
-        /// <summary>
         /// 攻击力加成
         /// </summary>
         protected Property<float> _attackDamageBonus;
@@ -206,10 +211,6 @@ namespace Classes
         protected Property<float> _percentageAttackDamageBonus;
         
         // 法强相关
-        /// <summary>
-        /// 基础法术强度
-        /// </summary>
-        protected Property<float> _baseAbilityPower;
         /// <summary>
         /// 法术强度加成
         /// </summary>
@@ -221,10 +222,6 @@ namespace Classes
         
         // 技能急速相关
         /// <summary>
-        /// 基础技能急速
-        /// </summary>
-        protected Property<float> _baseAbilityHaste;
-        /// <summary>
         /// 技能急速加成
         /// </summary>
         protected Property<float> _abilityHasteBonus;
@@ -233,27 +230,15 @@ namespace Classes
         /// </summary>
         protected Property<float> _percentageAbilityHasteBonus;
         /// <summary>
-        /// 基础装备技能急速
-        /// </summary>
-        protected Property<float> _baseEquipmentAbilityHaste;
-        /// <summary>
         /// 装备技能急速加成
         /// </summary>
         protected Property<float> _equipmentAbilityHasteBonus;
-        /// <summary>
-        /// 基础召唤师技能急速
-        /// </summary>
-        protected Property<float> _baseSummonerAbilityHaste;
         /// <summary>
         /// 召唤师技能急速加成
         /// </summary>
         protected Property<float> _summonerAbilityHasteBonus;
         
         // 物抗相关
-        /// <summary>
-        /// 基础物理防御
-        /// </summary>
-        protected Property<float> _baseAttackDefense;
         /// <summary>
         /// 物理防御加成
         /// </summary>
@@ -265,51 +250,35 @@ namespace Classes
         
         // 法抗相关
         /// <summary>
-        /// 基础法术防御
-        /// </summary>
-        protected Property<float> _baseAbilityDefense;
-        /// <summary>
         /// 法术防御加成
         /// </summary>
-        protected Property<float> _abilityDefenseBonus;
+        protected Property<float> _magicDefenseBonus;
         /// <summary>
         /// 百分比法术防御加成
         /// </summary>
-        protected Property<float> _percentageAbilityDefenseBonus;
+        protected Property<float> _percentageMagicDefenseBonus;
         
         // 物穿相关
-        /// <summary>
-        /// 基础物理穿透
-        /// </summary>
-        protected Property<float> _baseAttackPenetration;
         /// <summary>
         /// 物理穿透加成
         /// </summary>
         protected Property<float> _attackPenetrationBonus;
         /// <summary>
-        /// 百分比物理穿透
+        /// 百分比物理穿透加成
         /// </summary>
         protected Property<float> _percentageAttackPenetrationBonus;
         
         // 法穿相关
         /// <summary>
-        /// 基础法术穿透
-        /// </summary>
-        protected Property<float> _baseAbilityPenetration;
-        /// <summary>
         /// 法术穿透加成
         /// </summary>
-        protected Property<float> _abilityPenetrationBonus;
+        protected Property<float> _magicPenetrationBonus;
         /// <summary>
-        /// 百分比法术穿透
+        /// 百分比法术穿透加成
         /// </summary>
-        protected Property<float> _percentageAbilityPenetrationBonus;
+        protected Property<float> _percentageMagicPenetrationBonus;
         
         // 暴击相关
-        /// <summary>
-        /// 基础暴击率
-        /// </summary>
-        protected Property<float> _baseCriticalRate;
         /// <summary>
         /// 实际暴击率
         /// </summary>
@@ -318,6 +287,8 @@ namespace Classes
         /// 暴击率加成
         /// </summary>
         protected Property<float> _criticalRateBonus;
+
+        protected Property<float> _percentageCriticalRateBonus;
         /// <summary>
         /// 基础暴击伤害
         /// </summary>
@@ -329,10 +300,6 @@ namespace Classes
         
         // 移速相关
         /// <summary>
-        /// 基础移动速度
-        /// </summary>
-        protected Property<float> _baseMovementSpeed;
-        /// <summary>
         /// 移动速度加成
         /// </summary>
         protected Property<float> _movementSpeedBonus;
@@ -343,10 +310,6 @@ namespace Classes
         
         // 射程相关
         /// <summary>
-        /// 基础射程
-        /// </summary>
-        protected Property<float> _baseAttackRange;
-        /// <summary>
         /// 射程加成
         /// </summary>
         protected Property<float> _attackRangeBonus;
@@ -355,31 +318,26 @@ namespace Classes
         /// </summary>
         protected Property<float> _percentageAttackRangeBonus;
         
-        // 体型加成
-        /// <summary>
-        /// 基础体型
-        /// </summary>
-        protected Property<float> _baseScale;
+        // 体型相关
         /// <summary>
         /// 百分比体型加成
         /// </summary>
         protected Property<float> _percentageScaleBonus;
         
-        // 无加成的其他数据
+        // 自然回复相关
         /// <summary>
-        /// 适应之力
+        /// 百分比生命回复加成
         /// </summary>
-        protected Property<float> _adaptiveForce;
+        public Property<float> _percentageHealthRegenerationBonus;
         /// <summary>
-        /// 生命偷取
+        /// 百分比法力值回复加成
         /// </summary>
-        protected Property<float> _lifeSteel;
-        /// <summary>
-        /// 全能吸血
-        /// </summary>
-        protected Property<float> _omniVamp;
+        public Property<float> _percentageMagicRegenerationBonus;
         
-        // 转化率相关
+        #endregion
+
+        #region 转化率
+
         /// <summary>
         /// 溢出暴击率-攻击力加成 转化率
         /// - <c>Value.x</c>: 剩余的溢出暴击率要乘的系数  
@@ -440,6 +398,93 @@ namespace Classes
         /// - <c>Value.y</c>: 增加的攻击力加成要乘的系数
         /// </summary>
         protected Property<Vector2> _DEFToAD_ConversionEfficiency;
+
+        #endregion
+
+        #region 基础属性
+        
+        /// <summary>
+        /// 基础最大生命值
+        /// </summary>
+        protected float _baseMaxHealthPoint;
+        /// <summary>
+        /// 基础法力值
+        /// </summary>
+        protected float _baseMaxMagicPoint;
+        /// <summary>
+        /// 基础攻击速度
+        /// </summary>
+        protected float _baseAttackSpeed;
+        /// <summary>
+        /// 基础攻击力
+        /// </summary>
+        protected float _baseAttackDamage;
+        /// <summary>
+        /// 基础物理防御
+        /// </summary>
+        protected float _baseAttackDefense;
+        /// <summary>
+        /// 基础法术防御
+        /// </summary>
+        protected float _baseMagicDefense;
+        /// <summary>
+        /// 基础生命回复加成
+        /// </summary>
+        public float _baseHealthRegeneration;
+        /// <summary>
+        /// 基础法力值回复加成
+        /// </summary>
+        public float _baseMagicRegeneration;
+        /// <summary>
+        /// 基础射程
+        /// </summary>
+        protected float _baseAttackRange;
+        /// <summary>
+        /// 基础移动速度
+        /// </summary>
+        protected float _baseMovementSpeed;
+        /// <summary>
+        /// 基础体型
+        /// </summary>
+        protected float _baseScale;
+
+        #endregion
+        
+        #region 成长属性
+        
+        /// <summary>
+        /// 最大生命值成长值
+        /// </summary>
+        protected float _maxHealthPointGrowth;
+        /// <summary>
+        /// 生命回复成长值
+        /// </summary>
+        protected float _healthRegenerationGrowth;
+        /// <summary>
+        /// 攻击力成长值
+        /// </summary>
+        protected float _attackDamageGrowth;
+        /// <summary>
+        /// 攻击速度成长值
+        /// </summary>
+        protected float _attackSpeedGrowth;
+        /// <summary>
+        /// 最大法力值成长值
+        /// </summary>
+        protected float _maxMagicPointGrowth;
+        /// <summary>
+        /// 法力回复成长值
+        /// </summary>
+        protected float _magicRegenerationGrowth;
+        /// <summary>
+        /// 物理抗性成长值
+        /// </summary>
+        protected float _attackDefenseGrowth;
+        /// <summary>
+        /// 法术抗性成长值
+        /// </summary>
+        protected float _magicDefenseGrowth;
+        
         #endregion
         
         #region 获取封装属性
@@ -449,19 +494,6 @@ namespace Classes
         /// </summary>
         public GameObject gameObject => _gameObject;
         
-        //实际数据
-        /// <summary>
-        /// 实际移动速度
-        /// </summary>
-        public float actualMovementSpeed => _actualMovementSpeed;
-        /// <summary>
-        /// 实际射程
-        /// </summary>
-        public float actualAttackRange => _actualAttackRange;
-        /// <summary>
-        /// 实际体型
-        /// </summary>
-        public float actualScale => _actualScale;
         #endregion
         
         #region 行为函数
@@ -521,64 +553,62 @@ namespace Classes
             abilityHaste = new Property<float>();
             equipmentAbilityHaste = new Property<float>();
             summonerAbilityHaste = new Property<float>();
-            abilityDefense = new Property<float>();
+            magicDefense = new Property<float>();
             attackDefense = new Property<float>();
             attackPenetration = new Property<float>();
-            abilityPenetration = new Property<float>();
+            magicPenetration = new Property<float>();
             percentageAttackPenetration = new Property<float>();
-            percentageAbilityPenetration = new Property<float>();
+            percentageMagicPenetration = new Property<float>();
             criticalRate = new Property<float>();
             criticalDamage = new Property<float>();
             movementSpeed = new Property<float>();
             attackRange = new Property<float>();
             scale = new Property<float>();
+            healthRegeneration = new Property<float>();
+            magicRegeneration = new Property<float>();
+            adaptiveForce = new Property<float>();
             lifeSteel = new Property<float>();
             omniVamp = new Property<float>();
+            healAndShieldPower = new Property<float>();
 
             #endregion
             
             #region 无配置数据初始化
             
-            _maxHealthPointBonus = new Property<float>(0);
-            _percentageMaxHealthPointBonus = new Property<float>(0);
-            _maxMagicPointBonus = new Property<float>(0);
-            _percentageMaxMagicPointBonus = new Property<float>(0);
-            _attackSpeedBonus = new Property<float>(0);
-            _percentageAttackSpeedBonus = new Property<float>(0);
-            _attackDamageBonus = new Property<float>(0);
-            _percentageAttackDamageBonus = new Property<float>(0);
-            _abilityPowerBonus = new Property<float>(0);
-            _percentageAbilityPowerBonus = new Property<float>(0);
-            _baseAbilityHaste = new Property<float>(0);
-            _abilityHasteBonus = new Property<float>(0);
-            _percentageAbilityHasteBonus = new Property<float>(0);
-            _baseEquipmentAbilityHaste = new Property<float>(0);
-            _equipmentAbilityHasteBonus = new Property<float>(0);
-            _baseSummonerAbilityHaste = new Property<float>(0);
-            _summonerAbilityHasteBonus = new Property<float>(0);
-            _attackDefenseBonus = new Property<float>(0);
-            _percentageAttackDefenseBonus = new Property<float>(0);
-            _abilityDefenseBonus = new Property<float>(0);
-            _percentageAbilityDefenseBonus = new Property<float>(0);
-            _baseAttackPenetration = new Property<float>(0);
-            _attackPenetrationBonus = new Property<float>(0);
-            _percentageAttackPenetrationBonus = new Property<float>(0);
-            _baseAbilityPenetration = new Property<float>(0);
-            _abilityPenetrationBonus = new Property<float>(0);
-            _percentageAbilityPenetrationBonus = new Property<float>(0);
-            _baseCriticalRate = new Property<float>(0);
-            _criticalRateBonus = new Property<float>(0);
-            _actualCriticalRate = new Property<float>(0);
-            _baseCriticalDamage = new Property<float>(0);
-            _criticalDamageBonus = new Property<float>(0);
-            _movementSpeedBonus = new Property<float>(0);
-            _percentageMovementSpeedBonus = new Property<float>(0);
-            _attackRangeBonus = new Property<float>(0);
-            _percentageAttackRangeBonus = new Property<float>(0);
-            _percentageScaleBonus = new Property<float>(0);
-            _adaptiveForce = new Property<float>(0);
-            _lifeSteel = new Property<float>(0);
-            _omniVamp = new Property<float>(0);
+            _maxHealthPointBonus = new Property<float>();
+            _percentageMaxHealthPointBonus = new Property<float>();
+            _maxMagicPointBonus = new Property<float>();
+            _percentageMaxMagicPointBonus = new Property<float>();
+            _attackSpeedBonus = new Property<float>();
+            _percentageAttackSpeedBonus = new Property<float>();
+            _attackDamageBonus = new Property<float>();
+            _percentageAttackDamageBonus = new Property<float>();
+            _abilityPowerBonus = new Property<float>();
+            _percentageAbilityPowerBonus = new Property<float>();
+            _abilityHasteBonus = new Property<float>();
+            _percentageAbilityHasteBonus = new Property<float>();
+            _equipmentAbilityHasteBonus = new Property<float>();
+            _summonerAbilityHasteBonus = new Property<float>();
+            _attackDefenseBonus = new Property<float>();
+            _percentageAttackDefenseBonus = new Property<float>();
+            _magicDefenseBonus = new Property<float>();
+            _percentageMagicDefenseBonus = new Property<float>();
+            _attackPenetrationBonus = new Property<float>();
+            _percentageAttackPenetrationBonus = new Property<float>();
+            _magicPenetrationBonus = new Property<float>();
+            _percentageMagicPenetrationBonus = new Property<float>();
+            _criticalRateBonus = new Property<float>();
+            _percentageCriticalRateBonus = new Property<float>();
+            _actualCriticalRate = new Property<float>();
+            _baseCriticalDamage = new Property<float>(0.75f);
+            _criticalDamageBonus = new Property<float>();
+            _movementSpeedBonus = new Property<float>();
+            _percentageMovementSpeedBonus = new Property<float>();
+            _attackRangeBonus = new Property<float>();
+            _percentageAttackRangeBonus = new Property<float>();
+            _percentageScaleBonus = new Property<float>();
+            _percentageHealthRegenerationBonus = new Property<float>();
+            _percentageMagicRegenerationBonus = new Property<float>();
             
             #endregion
 
@@ -597,12 +627,71 @@ namespace Classes
             
             #endregion
 
+            #region 读取英雄数据配置初始化数据
+
+            // 目前以瑞兹数据作为测试
+            _baseMaxHealthPoint = 360f;
+            _baseMaxMagicPoint = 250f;
+            _baseAttackDamage = 52f;
+            _baseAttackSpeed = 0.625f;
+            _baseAttackDefense = 11f;
+            _baseMagicDefense = 30f;
+            _baseHealthRegeneration = 4.35f;
+            _baseMagicRegeneration = 7f;
+            _baseAttackRange = 550f;
+            _baseMovementSpeed = 335f;
+            _baseScale = 100;
+            
+            _maxHealthPointGrowth = 86f;
+            _maxMagicPointGrowth = 55f;
+            _attackDamageGrowth = 3f;
+            _attackSpeedGrowth = 0.0211f;
+            _attackDefenseGrowth = 3.9f;
+            _magicDefenseGrowth = 0f;
+            _healthRegenerationGrowth = 0.55f;
+            _magicRegenerationGrowth = 0.6f;
+            
+            #endregion
+            
             #region 配置计算属性依赖
             
             maxExperience = new Property<float>(() => 5f * level * level + 80f * level + 195,
                 level);
+            maxHealthPoint = new Property<float>(() => (_baseMaxHealthPoint + _maxHealthPointGrowth * level + _maxHealthPointBonus) * (1 + _percentageMaxHealthPointBonus),
+                level, _maxHealthPointBonus, _percentageMaxHealthPointBonus);
+            maxMagicPoint = new Property<float>(() => (_baseMaxMagicPoint + _maxMagicPointGrowth * level + _maxMagicPointBonus) * (1 + _percentageMaxMagicPointBonus),
+                level, _maxMagicPointBonus, _percentageMaxMagicPointBonus);
+            attackDamage = new Property<float>(() => (_baseAttackDamage + _attackDamageGrowth * level + _attackDamageBonus) * (1 + _percentageAttackDamageBonus),
+                level, _attackDamageBonus, _percentageAttackDamageBonus);;
+            abilityPower = new Property<float>(() => _abilityPowerBonus * (1 + _percentageAbilityPowerBonus),
+                _abilityPowerBonus, _percentageAbilityPowerBonus);
+            attackSpeed = new Property<float>(() => (_baseAttackSpeed + _attackSpeedGrowth * level + _attackSpeedBonus) * (1 + _percentageAttackSpeedBonus),
+                level, _attackSpeedBonus, _percentageAttackSpeedBonus);
+            abilityHaste = new Property<float>(() => _abilityHasteBonus * (1 + _percentageAbilityHasteBonus),
+                _abilityHasteBonus, _percentageAbilityHasteBonus);
+            magicDefense = new Property<float>(() => (_baseMagicDefense + _magicDefenseGrowth * level + _magicDefenseBonus) * (1 + _percentageMagicDefenseBonus),
+                level, _magicDefenseBonus, _percentageMagicDefenseBonus);
+            attackDefense = new Property<float>(() => (_baseAttackDefense + _attackDefenseGrowth * level + _attackDefenseBonus) * (1 + _percentageAttackDefenseBonus),
+                level, _attackDefenseBonus, _percentageAttackDefenseBonus);
+            attackPenetration = new Property<float>(() => _attackPenetrationBonus * (1 + _percentageAttackPenetrationBonus),
+                _attackPenetrationBonus, _percentageAttackPenetrationBonus);
+            magicPenetration = new Property<float>(() => _magicPenetrationBonus * (1 + _percentageMagicPenetrationBonus),
+                _magicPenetrationBonus, _percentageMagicPenetrationBonus);
+            criticalRate = new Property<float>(() => _criticalRateBonus * (1 + _percentageCriticalRateBonus),
+                _criticalRateBonus, _percentageCriticalRateBonus);
+            movementSpeed = new Property<float>(() => (_baseMovementSpeed + _movementSpeedBonus) * (1 + _percentageMovementSpeedBonus),
+                _movementSpeedBonus, _percentageMovementSpeedBonus);
+            attackRange = new Property<float>(() => (_baseAttackRange + _attackRangeBonus) * (1 + _percentageAttackRangeBonus),
+                _attackRangeBonus, _percentageAttackRangeBonus);
+            scale = new Property<float>(() => _baseScale * (1 + _percentageScaleBonus),
+                _percentageScaleBonus);
 
             #endregion
+
+            // 最终初始化
+            level.Value = 1;
+            magicPoint = maxMagicPoint;
+            healthPoint = maxHealthPoint;
         }
     }
 }

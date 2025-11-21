@@ -10,16 +10,10 @@ using Unity.VisualScripting;
 
 namespace MVVM
 {
-    /// <summary>
-    /// 轻量级 UGUI MVVM 绑定工具（纯静态，无 MonoBehaviour）
-    /// 所有绑定方法返回 Action 用于解绑，避免 MissingReferenceException 和内存泄漏。
-    /// </summary>
     public static class Binder
     {
-        // ===========================================
-        // 1. Text 绑定：支持 string / int / float
-        // ===========================================
-
+        #region 单数据-Text绑定
+        
         public static Action BindText(TMP_Text text, Property<string> source)
         {
             if (text == null || source == null)
@@ -68,9 +62,9 @@ namespace MVVM
             return () => source.PropertyChanged -= OnChanged;
         }
         
-        // ===========================================
-        // 2. 双数据绑定（两个变量之间的关系，任何一变量变化都要引起UI变化）
-        // ===========================================
+        #endregion
+        
+        # region 双数据-Text/图片绑定
         public static Action BindText(TMP_Text text, Property<float> source1, Property<float> source2, string format = "{0} / {1}"){
             if (text == null || source1 == null || source2 == null)
                 return () => { };
@@ -113,9 +107,9 @@ namespace MVVM
             };
         }
 
-        // ===========================================
-        // 3. TextGroup 绑定（支持float）
-        // ===========================================
+        #endregion
+
+        #region TextGroup绑定
 
         public static Action BindTextGroup(Dictionary<string, TMP_Text> textGroup, Property<Entity> entitySource, string format = "{0}")
         {
@@ -126,7 +120,7 @@ namespace MVVM
 
             void Rebind()
             {
-                // 清理解绑旧的
+                // 解绑旧的
                 foreach (var unbind in unbindCallbacks)
                     unbind();
                 unbindCallbacks.Clear();
@@ -174,10 +168,6 @@ namespace MVVM
             };
         }
 
-        // ===========================================
-        // 4. TextGroup 绑定（固定 Entity）
-        // ===========================================
-
         public static Action BindTextGroup(Dictionary<string, TMP_Text> textGroup, Entity entity, string format = "{0}")
         {
             if (textGroup == null || entity == null)
@@ -212,10 +202,10 @@ namespace MVVM
                 unbindCallbacks.Clear();
             };
         }
+        
+        #endregion
 
-        // ===========================================
-        // 5. Boolean 绑定：控制 GameObject 显示/隐藏
-        // ===========================================
+        #region Boolean-GameObject显隐绑定
 
         public static Action BindActive(GameObject target, Property<bool> source)
         {
@@ -257,9 +247,9 @@ namespace MVVM
             return BindActive(target.gameObject, source);
         }
 
-        // ===========================================
-        // 6. Button 绑定：点击 → Action
-        // ===========================================
+        #endregion
+
+        #region 事件-Button绑定
 
         public static Action BindButton(Button button, Action action)
         {
@@ -271,5 +261,7 @@ namespace MVVM
             button.onClick.AddListener(OnClick);
             return () => button.onClick.RemoveListener(OnClick);
         }
+        
+        #endregion
     }
 }

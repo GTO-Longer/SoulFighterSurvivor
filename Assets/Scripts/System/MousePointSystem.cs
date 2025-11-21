@@ -9,57 +9,49 @@ public class MousePointSystem : MonoBehaviour
     public float edgeBuffer = 50f;
 
     [Header("摄像机缩放设置")]
-    public float zoomSensitivity = 1f;        // 滚轮灵敏度
-    public float minOrthographicSize = 5f;    // 最小缩放（视野最大）
-    public float maxOrthographicSize = 10f;   // 最大缩放（视野最小）
+    private float zoomSensitivity = 1f;
+    private float minOrthographicSize = 5f;
+    private float maxOrthographicSize = 7.5f;
 
     private Camera _mainCamera;
+    private RectTransform _rectTransform;
+    private Canvas _canvas;
 
     void Start()
     {
         _mainCamera = Camera.main;
+        _rectTransform = GetComponent<RectTransform>();
+        _canvas = GetComponentInParent<Canvas>();
 
-        // 确保是正交相机
-        if (!_mainCamera.orthographic)
-        {
-            Debug.LogWarning("MousePointSystem 要求 Camera 为 Orthographic 模式！");
-        }
-
+        // 隐藏光标
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Confined;
     }
 
     void Update()
     {
-        FollowMouseWithinScreen();
+        FollowMouseOnScreen();
         PanCameraAtEdges();
         HandleInstantFocus();
-        HandleZoom(); // 新增：处理滚轮缩放
+        HandleZoom();
     }
-
-    void FollowMouseWithinScreen()
+    
+    void FollowMouseOnScreen()
     {
-        Vector3 mouseWorldPos = _mainCamera.ScreenToWorldPoint(
-            new Vector3(Input.mousePosition.x, Input.mousePosition.y, _mainCamera.nearClipPlane)
-        );
-        mouseWorldPos.z = transform.position.z;
+        if (_rectTransform == null || _canvas == null)
+            return;
 
-        // 计算当前屏幕边界（世界坐标）
-        float halfHeight = _mainCamera.orthographicSize;
-        float halfWidth = halfHeight * _mainCamera.aspect;
-        Vector3 camPos = _mainCamera.transform.position;
+        Vector2 mousePos = Input.mousePosition;
+        Vector2 localPoint;
 
-        float left = camPos.x - halfWidth;
-        float right = camPos.x + halfWidth;
-        float bottom = camPos.y - halfHeight;
-        float top = camPos.y + halfHeight;
-
-        // 限制自身在可视区域内
-        transform.position = new Vector3(
-            Mathf.Clamp(mouseWorldPos.x, left, right),
-            Mathf.Clamp(mouseWorldPos.y, bottom, top),
-            transform.position.z
-        );
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                _canvas.transform as RectTransform,
+                mousePos,
+                null, 
+                out localPoint))
+        {
+            _rectTransform.anchoredPosition = localPoint;
+        }
     }
 
     void PanCameraAtEdges()
@@ -91,7 +83,6 @@ public class MousePointSystem : MonoBehaviour
                 return;
             }
 
-            // 瞬间将摄像机移到 focusTarget 位置（保持原有 Z）
             Vector3 newCamPos = new Vector3(
                 focusTarget.position.x,
                 focusTarget.position.y,
@@ -101,19 +92,13 @@ public class MousePointSystem : MonoBehaviour
         }
     }
 
-    // 新增：处理鼠标滚轮缩放
     void HandleZoom()
     {
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         if (scroll != 0f)
         {
-            // 滚轮向上（scroll > 0）→ 缩小视野（减小 orthographicSize）
-            // 滚轮向下（scroll < 0）→ 放大视野（增大 orthographicSize）
             float newSize = _mainCamera.orthographicSize - scroll * zoomSensitivity;
-
-            // 限制在允许范围内
             newSize = Mathf.Clamp(newSize, minOrthographicSize, maxOrthographicSize);
-
             _mainCamera.orthographicSize = newSize;
         }
     }

@@ -3,18 +3,11 @@ import pandas as pd
 import json
 
 def convert_xlsx_to_json_in_current_dir():
-    """
-    将当前目录下所有 .xlsx 文件转换为同名 .json 文件。
-    - 读取第一个工作表。
-    - 第一列为属性名（如 'id'），必须包含一行名为 'hero_name' 的行用于获取英雄名。
-    - 后续每列为一个英雄的数据。
-    - 输出格式：{ "heroes": [ { "heroName": "...", ... }, ... ] }
-    """
     current_dir = os.path.dirname(os.path.abspath(__file__))
     xlsx_files = [f for f in os.listdir(current_dir) if f.lower().endswith('.xlsx')]
 
     if not xlsx_files:
-        print("⚠️ 当前目录下没有找到 .xlsx 文件。")
+        print("当前目录下没有找到 .xlsx 文件。")
         return
 
     for filename in xlsx_files:
@@ -29,7 +22,7 @@ def convert_xlsx_to_json_in_current_dir():
 
             columns = df.columns.tolist()
             if len(columns) < 2:
-                print(f"❌ 跳过 {filename}：至少需要两列（属性列 + 至少一个英雄列）")
+                print(f"跳过 {filename}：至少需要两列（属性列 + 至少一个英雄列）")
                 continue
 
             attr_col = columns[0]      # 第一列是属性标识，如 'id'
@@ -45,7 +38,7 @@ def convert_xlsx_to_json_in_current_dir():
 
             # 检查是否存在 hero_name 行
             if 'hero_name' not in attr_to_row:
-                print(f"❌ 跳过 {filename}：缺少 'hero_name' 行（用于提取英雄名称）")
+                print(f"跳过 {filename}：缺少 'hero_name' 行（用于提取英雄名称）")
                 continue
 
             hero_name_row = attr_to_row['hero_name']
@@ -93,12 +86,12 @@ def convert_xlsx_to_json_in_current_dir():
             with open(json_path, 'w', encoding='utf-8') as f:
                 json.dump(output_json, f, indent=4, ensure_ascii=False)
 
-            print(f"✅ 已转换: {filename} → {json_filename}")
+            print(f"已转换: {filename} → {json_filename}")
 
         except Exception as e:
-            print(f"❌ 转换失败: {filename} - 错误: {e}")
+            print(f"转换失败: {filename} - 错误: {e}")
 
-    print("🎉 所有 .xlsx 文件处理完成！")
+    print("所有 .xlsx 文件处理完成！")
 
 if __name__ == "__main__":
     convert_xlsx_to_json_in_current_dir()

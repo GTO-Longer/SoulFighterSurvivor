@@ -40,8 +40,33 @@ namespace DataManagement
         public HeroConfig[] heroes;
     }
 
+    [System.Serializable]
+    public class SkillConfig
+    {
+        public string id;
+        public string heroName;
+        public string skillName;
+        
+        public string _skillDescription;
+        public string _skillType;
+        public float[] _baseSkillCost;
+        public float[] _baseSkillCoolDown;
+        public float[][] _baseSkillValue;
+        public float _skillRange;
+        
+        public string[] _skillBulletType;
+        public string[] _skillUsageType;
+    }
+
+    [System.Serializable]
+    internal class SkillConfigCollection
+    {
+        public SkillConfig[] skills;
+    }
+
     public static class ConfigReader
     {
+        // === Hero Config ===
         private static Dictionary<string, HeroConfig> _heroConfigMap;
 
         private static void LoadAllHeroConfigs()
@@ -66,14 +91,13 @@ namespace DataManagement
                     return;
                 }
 
-                // 构建 heroName -> config 的字典，用于快速查找
                 _heroConfigMap = collection.heroes.ToDictionary(
                     h => h.heroName,
                     h => h,
                     StringComparer.OrdinalIgnoreCase
                 );
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 Debug.LogError($"Failed to parse HeroConfig.json: {ex}");
                 _heroConfigMap = new Dictionary<string, HeroConfig>();
@@ -99,6 +123,68 @@ namespace DataManagement
             }
 
             Debug.LogWarning($"Hero config not found: '{heroName}'. Available heroes: {string.Join(", ", _heroConfigMap.Keys)}");
+            return null;
+        }
+
+        // === Skill Config ===
+        private static Dictionary<string, SkillConfig> _skillConfigMap;
+
+        private static void LoadAllSkillConfigs()
+        {
+            if (_skillConfigMap != null) return;
+
+            var jsonFile = Resources.Load<TextAsset>("Configs/SkillConfig");
+            if (jsonFile == null)
+            {
+                Debug.LogError("SkillConfig.json not found in Resources/Configs/");
+                _skillConfigMap = new Dictionary<string, SkillConfig>();
+                return;
+            }
+
+            try
+            {
+                var collection = JsonUtility.FromJson<SkillConfigCollection>(jsonFile.text);
+                if (collection?.skills == null || collection.skills.Length == 0)
+                {
+                    Debug.LogError("SkillConfig.json is empty or missing 'skills' array.");
+                    _skillConfigMap = new Dictionary<string, SkillConfig>();
+                    return;
+                }
+
+                _skillConfigMap = collection.skills
+                    .Where(s => !string.IsNullOrEmpty(s.id))
+                    .ToDictionary(
+                        s => s.id,
+                        s => s,
+                        StringComparer.OrdinalIgnoreCase
+                    );
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Failed to parse SkillConfig.json: {ex}");
+                _skillConfigMap = new Dictionary<string, SkillConfig>();
+            }
+        }
+
+        /// <summary>
+        /// 从 Resources/Configs/SkillConfig.json 中读取指定技能ID的配置
+        /// </summary>
+        public static SkillConfig ReadSkillConfig(string skillId)
+        {
+            LoadAllSkillConfigs();
+
+            if (string.IsNullOrEmpty(skillId))
+            {
+                Debug.LogWarning("ReadSkillConfig called with null or empty skillId.");
+                return null;
+            }
+
+            if (_skillConfigMap.TryGetValue(skillId, out SkillConfig config))
+            {
+                return config;
+            }
+
+            Debug.LogWarning($"Skill config not found: '{skillId}'. Available skill IDs: {string.Join(", ", _skillConfigMap.Keys)}");
             return null;
         }
     }

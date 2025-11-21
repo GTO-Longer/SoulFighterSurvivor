@@ -629,28 +629,31 @@ namespace Classes
 
             #region 读取英雄数据配置初始化数据
 
-            // 目前以瑞兹数据作为测试
-            _baseMaxHealthPoint = 360f;
-            _baseMaxMagicPoint = 250f;
-            _baseAttackDamage = 52f;
-            _baseAttackSpeed = 0.625f;
-            _baseAttackDefense = 11f;
-            _baseMagicDefense = 30f;
-            _baseHealthRegeneration = 4.35f;
-            _baseMagicRegeneration = 7f;
-            _baseAttackRange = 550f;
-            _baseMovementSpeed = 335f;
-            _baseScale = 100;
-            
-            _maxHealthPointGrowth = 86f;
-            _maxMagicPointGrowth = 55f;
-            _attackDamageGrowth = 3f;
-            _attackSpeedGrowth = 0.0211f;
-            _attackDefenseGrowth = 3.9f;
-            _magicDefenseGrowth = 0f;
-            _healthRegenerationGrowth = 0.55f;
-            _magicRegenerationGrowth = 0.6f;
-            
+            var config = ConfigReader.ReadHeroConfig("Ryze");
+            if (config != null)
+            {
+                _baseMaxHealthPoint = config._baseMaxHealthPoint;
+                _baseMaxMagicPoint = config._baseMaxMagicPoint;
+                _baseAttackDamage = config._baseAttackDamage;
+                _baseAttackSpeed = config._baseAttackSpeed;
+                _baseAttackDefense = config._baseAttackDefense;
+                _baseMagicDefense = config._baseMagicDefense;
+                _baseHealthRegeneration = config._baseHealthRegeneration;
+                _baseMagicRegeneration = config._baseMagicRegeneration;
+                _baseAttackRange = config._baseAttackRange;
+                _baseMovementSpeed = config._baseMovementSpeed;
+                _baseScale = config._baseScale;
+
+                _maxHealthPointGrowth = config._maxHealthPointGrowth;
+                _maxMagicPointGrowth = config._maxMagicPointGrowth;
+                _attackDamageGrowth = config._attackDamageGrowth;
+                _attackSpeedGrowth = config._attackSpeedGrowth;
+                _attackDefenseGrowth = config._attackDefenseGrowth;
+                _magicDefenseGrowth = config._magicDefenseGrowth;
+                _healthRegenerationGrowth = config._healthRegenerationGrowth;
+                _magicRegenerationGrowth = config._magicRegenerationGrowth;
+            }
+
             #endregion
             
             #region 配置计算属性依赖

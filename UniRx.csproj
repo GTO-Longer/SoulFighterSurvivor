@@ -62,8 +62,8 @@
     <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\ObserveExtensions.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\Never.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\FromEvent.cs" />
-    <Compile Include="Assets\Plugins\UniRx\Scripts\Subjects\ConnectableObservable.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\Last.cs" />
+    <Compile Include="Assets\Plugins\UniRx\Scripts\Subjects\ConnectableObservable.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableInitializePotentialDragTrigger.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableCancelTrigger.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableDeselectTrigger.cs" />
@@ -75,8 +75,8 @@
     <Compile Include="Assets\Plugins\UniRx\Scripts\Tasks\TaskObservableExtensions.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\PairWise.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\Dematerialize.cs" />
-    <Compile Include="Assets\Plugins\UniRx\Scripts\Subjects\Subject.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Notification.cs" />
+    <Compile Include="Assets\Plugins\UniRx\Scripts\Subjects\Subject.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\TakeLast.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Observable.Binding.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableJointTrigger.cs" />

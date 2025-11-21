@@ -1,0 +1,48 @@
+{
+    "heroes": [
+        {
+            "heroName": "Ahri",
+            "_baseMaxHealthPoint": 380,
+            "_baseMaxMagicPoint": 230,
+            "_baseAttackDamage": 50,
+            "_baseAttackSpeed": 0.668,
+            "_baseAttackDefense": 11,
+            "_baseMagicDefense": 30,
+            "_baseHealthRegeneration": 5.5,
+            "_baseMagicRegeneration": 6.25,
+            "_baseAttackRange": 550,
+            "_baseMovementSpeed": 330,
+            "_baseScale": 100,
+            "_maxHealthPointGrowth": 80,
+            "_maxMagicPointGrowth": 50,
+            "_attackDamageGrowth": 3,
+            "_attackSpeedGrowth": 0.02,
+            "_attackDefenseGrowth": 3.5,
+            "_magicDefenseGrowth": 0,
+            "_healthRegenerationGrowth": 0.6,
+            "_magicRegenerationGrowth": 0.6
+        },
+        {
+            "heroName": "Ryze",
+            "_baseMaxHealthPoint": 360,
+            "_baseMaxMagicPoint": 250,
+            "_baseAttackDamage": 52,
+            "_baseAttackSpeed": 0.625,
+            "_baseAttackDefense": 11,
+            "_baseMagicDefense": 30,
+            "_baseHealthRegeneration": 4.35,
+            "_baseMagicRegeneration": 7,
+            "_baseAttackRange": 550,
+            "_baseMovementSpeed": 335,
+            "_baseScale": 100,
+            "_maxHealthPointGrowth": 86,
+            "_maxMagicPointGrowth": 55,
+            "_attackDamageGrowth": 3,
+            "_attackSpeedGrowth": 0.0211,
+            "_attackDefenseGrowth": 3.9,
+            "_magicDefenseGrowth": 0,
+            "_healthRegenerationGrowth": 0.55,
+            "_magicRegenerationGrowth": 0.6
+        }
+    ]
+}

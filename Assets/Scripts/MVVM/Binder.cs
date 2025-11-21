@@ -73,7 +73,6 @@ namespace MVVM
                 text.text = string.Format(format, source.Value);
             }
 
-            Debug.Log(string.Format(format, source.Value));
             text.text = string.Format(format, source.Value);
             source.PropertyChanged += OnChanged;
             return () => source.PropertyChanged -= OnChanged;

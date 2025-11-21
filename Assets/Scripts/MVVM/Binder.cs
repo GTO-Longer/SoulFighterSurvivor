@@ -7,6 +7,7 @@ using TMPro;
 using System.Reflection;
 using DataManagement;
 using Unity.VisualScripting;
+using Utilities;
 
 namespace MVVM
 {
@@ -30,10 +31,17 @@ namespace MVVM
             return () => source.PropertyChanged -= OnChanged;
         }
 
-        public static Action BindText(TMP_Text text, Property<int> source, string format = "{0}")
+        public static Action BindText(TMP_Text text, Property<int> source, string format = null)
         {
             if (text == null || source == null)
                 return () => { };
+
+            format ??= source.dataType switch
+            {
+                DataType.Int => "{0:D}",
+                DataType.Percentage => "{0:P}",
+                _ => "{0}"
+            };
 
             void OnChanged(object sender, EventArgs e)
             {
@@ -46,10 +54,18 @@ namespace MVVM
             return () => source.PropertyChanged -= OnChanged;
         }
 
-        public static Action BindText(TMP_Text text, Property<float> source, string format = "{0}")
+        public static Action BindText(TMP_Text text, Property<float> source, string format = null)
         {
             if (text == null || source == null)
                 return () => { };
+
+            format ??= source.dataType switch
+            {
+                DataType.Float => "{0:F2}",
+                DataType.Int => "{0:F0}",
+                DataType.Percentage => "{0:P0}",
+                _ => "{0}"
+            };
 
             void OnChanged(object sender, EventArgs e)
             {
@@ -57,6 +73,7 @@ namespace MVVM
                 text.text = string.Format(format, source.Value);
             }
 
+            Debug.Log(string.Format(format, source.Value));
             text.text = string.Format(format, source.Value);
             source.PropertyChanged += OnChanged;
             return () => source.PropertyChanged -= OnChanged;
@@ -111,7 +128,7 @@ namespace MVVM
 
         #region TextGroup绑定
 
-        public static Action BindTextGroup(Dictionary<string, TMP_Text> textGroup, Property<Entity> entitySource, string format = "{0}")
+        public static Action BindTextGroup(Dictionary<string, TMP_Text> textGroup, Property<Entity> entitySource)
         {
             if (textGroup == null || entitySource == null)
                 return () => { };
@@ -151,7 +168,7 @@ namespace MVVM
                         continue;
                     }
 
-                    var unbind = BindText(targetText, bindable, format);
+                    var unbind = BindText(targetText, bindable);
                     unbindCallbacks.Add(unbind);
                 }
             }
@@ -168,7 +185,7 @@ namespace MVVM
             };
         }
 
-        public static Action BindTextGroup(Dictionary<string, TMP_Text> textGroup, Entity entity, string format = "{0}")
+        public static Action BindTextGroup(Dictionary<string, TMP_Text> textGroup, Entity entity)
         {
             if (textGroup == null || entity == null)
                 return () => { };
@@ -191,7 +208,7 @@ namespace MVVM
                     continue;
                 }
 
-                var unbind = BindText(targetText, bindable, format);
+                var unbind = BindText(targetText, bindable);
                 unbindCallbacks.Add(unbind);
             }
 

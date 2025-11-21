@@ -5,4 +5,12 @@ namespace Utilities
         Hero,
         Enemy
     }
+
+    public enum DataType
+    {
+        None = 0,
+        Float,
+        Int,
+        Percentage
+    }
 }

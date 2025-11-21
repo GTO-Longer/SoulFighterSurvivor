@@ -1,6 +1,7 @@
 using System;
 using DataManagement;
 using UnityEngine;
+using Utilities;
 
 namespace Classes
 {
@@ -564,11 +565,11 @@ namespace Classes
             movementSpeed = new Property<float>();
             attackRange = new Property<float>();
             scale = new Property<float>();
-            healthRegeneration = new Property<float>();
-            magicRegeneration = new Property<float>();
+            healthRegeneration = new Property<float>(0, DataType.Percentage);
+            magicRegeneration = new Property<float>(0, DataType.Percentage);
             adaptiveForce = new Property<float>();
-            lifeSteel = new Property<float>();
-            omniVamp = new Property<float>();
+            lifeSteel = new Property<float>(0, DataType.Percentage);
+            omniVamp = new Property<float>(0, DataType.Percentage);
             healAndShieldPower = new Property<float>();
 
             #endregion
@@ -600,15 +601,13 @@ namespace Classes
             _criticalRateBonus = new Property<float>();
             _percentageCriticalRateBonus = new Property<float>();
             _actualCriticalRate = new Property<float>();
-            _baseCriticalDamage = new Property<float>(0.75f);
+            _baseCriticalDamage = new Property<float>();
             _criticalDamageBonus = new Property<float>();
             _movementSpeedBonus = new Property<float>();
             _percentageMovementSpeedBonus = new Property<float>();
             _attackRangeBonus = new Property<float>();
             _percentageAttackRangeBonus = new Property<float>();
             _percentageScaleBonus = new Property<float>();
-            _percentageHealthRegenerationBonus = new Property<float>();
-            _percentageMagicRegenerationBonus = new Property<float>();
             
             #endregion
 
@@ -659,34 +658,49 @@ namespace Classes
             #region 配置计算属性依赖
             
             maxExperience = new Property<float>(() => 5f * level * level + 80f * level + 195,
+                DataType.Int,
                 level);
             maxHealthPoint = new Property<float>(() => (_baseMaxHealthPoint + _maxHealthPointGrowth * level + _maxHealthPointBonus) * (1 + _percentageMaxHealthPointBonus),
+                DataType.Int,
                 level, _maxHealthPointBonus, _percentageMaxHealthPointBonus);
             maxMagicPoint = new Property<float>(() => (_baseMaxMagicPoint + _maxMagicPointGrowth * level + _maxMagicPointBonus) * (1 + _percentageMaxMagicPointBonus),
+                DataType.Int,
                 level, _maxMagicPointBonus, _percentageMaxMagicPointBonus);
             attackDamage = new Property<float>(() => (_baseAttackDamage + _attackDamageGrowth * level + _attackDamageBonus) * (1 + _percentageAttackDamageBonus),
+                DataType.Int,
                 level, _attackDamageBonus, _percentageAttackDamageBonus);;
             abilityPower = new Property<float>(() => _abilityPowerBonus * (1 + _percentageAbilityPowerBonus),
+                DataType.Int,
                 _abilityPowerBonus, _percentageAbilityPowerBonus);
             attackSpeed = new Property<float>(() => (_baseAttackSpeed + _attackSpeedGrowth * level + _attackSpeedBonus) * (1 + _percentageAttackSpeedBonus),
+                DataType.Float,
                 level, _attackSpeedBonus, _percentageAttackSpeedBonus);
             abilityHaste = new Property<float>(() => _abilityHasteBonus * (1 + _percentageAbilityHasteBonus),
+                DataType.Int,
                 _abilityHasteBonus, _percentageAbilityHasteBonus);
             magicDefense = new Property<float>(() => (_baseMagicDefense + _magicDefenseGrowth * level + _magicDefenseBonus) * (1 + _percentageMagicDefenseBonus),
+                DataType.Int,
                 level, _magicDefenseBonus, _percentageMagicDefenseBonus);
             attackDefense = new Property<float>(() => (_baseAttackDefense + _attackDefenseGrowth * level + _attackDefenseBonus) * (1 + _percentageAttackDefenseBonus),
+                DataType.Int,
                 level, _attackDefenseBonus, _percentageAttackDefenseBonus);
             attackPenetration = new Property<float>(() => _attackPenetrationBonus * (1 + _percentageAttackPenetrationBonus),
+                DataType.Int,
                 _attackPenetrationBonus, _percentageAttackPenetrationBonus);
             magicPenetration = new Property<float>(() => _magicPenetrationBonus * (1 + _percentageMagicPenetrationBonus),
+                DataType.Int,
                 _magicPenetrationBonus, _percentageMagicPenetrationBonus);
             criticalRate = new Property<float>(() => _criticalRateBonus * (1 + _percentageCriticalRateBonus),
+                DataType.Percentage,
                 _criticalRateBonus, _percentageCriticalRateBonus);
             movementSpeed = new Property<float>(() => (_baseMovementSpeed + _movementSpeedBonus) * (1 + _percentageMovementSpeedBonus),
+                DataType.Int,
                 _movementSpeedBonus, _percentageMovementSpeedBonus);
             attackRange = new Property<float>(() => (_baseAttackRange + _attackRangeBonus) * (1 + _percentageAttackRangeBonus),
+                DataType.Int,
                 _attackRangeBonus, _percentageAttackRangeBonus);
             scale = new Property<float>(() => _baseScale * (1 + _percentageScaleBonus),
+                DataType.Int,
                 _percentageScaleBonus);
 
             #endregion

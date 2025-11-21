@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using Utilities;
 
 namespace DataManagement
 {
@@ -12,20 +13,23 @@ namespace DataManagement
         private Func<T> _computeFunc;
         private readonly List<INotifyPropertyChanged> _dependencies = new();
         private readonly bool _isComputed;
+        public DataType dataType;
 
         // 普通属性
-        public Property(T initialValue = default)
+        public Property(T initialValue = default, DataType type = DataType.Float)
         {
             _value = initialValue;
             _isComputed = false;
+            dataType = type;
         }
 
         // 依赖属性
-        public Property(Func<T> computeFunc, params Property<float>[] dependencies)
+        public Property(Func<T> computeFunc,DataType type = DataType.Float,  params Property<float>[] dependencies)
         {
             _computeFunc = computeFunc;
             _isComputed = true;
             SetupDependencies(dependencies);
+            dataType = type;
         }
 
         private void SetupDependencies(Property<float>[] dependencies)
@@ -42,7 +46,6 @@ namespace DataManagement
 
         private void OnDependencyChanged(object sender, PropertyChangedEventArgs e)
         {
-            // 依赖变化 → 触发自身 PropertyChanged（值在 getter 中计算）
             OnPropertyChanged(nameof(Value));
         }
 

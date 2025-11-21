@@ -25,7 +25,7 @@ namespace Classes
         /// <summary>
         /// 创建游戏角色并初始化
         /// </summary>
-        public Hero(GameObject gameObject)
+        public Hero(GameObject gameObject) : base("Ryze")
         {
             _gameObject = gameObject;
             

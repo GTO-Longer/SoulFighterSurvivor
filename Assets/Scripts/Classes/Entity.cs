@@ -132,11 +132,11 @@ namespace Classes
         /// <summary>
         /// 全能吸血
         /// </summary>
-        public Property<float> omniVamp;
+        public Property<float> omnivamp;
         /// <summary>
         /// 治疗和护盾强度
         /// </summary>
-        protected Property<float> healAndShieldPower;
+        public Property<float> healAndShieldPower;
         
         #endregion
         
@@ -538,7 +538,7 @@ namespace Classes
 
         #endregion
 
-        protected Entity()
+        protected Entity(string name)
         {
             #region 最终数据初始化
             
@@ -565,12 +565,14 @@ namespace Classes
             movementSpeed = new Property<float>();
             attackRange = new Property<float>();
             scale = new Property<float>();
-            healthRegeneration = new Property<float>(0, DataType.Percentage);
-            magicRegeneration = new Property<float>(0, DataType.Percentage);
-            adaptiveForce = new Property<float>();
+            
+            // 无加成变量
+            healthRegeneration = new Property<float>(0, DataType.Int);
+            magicRegeneration = new Property<float>(0, DataType.Int);
+            adaptiveForce = new Property<float>(0, DataType.Int);
             lifeSteel = new Property<float>(0, DataType.Percentage);
-            omniVamp = new Property<float>(0, DataType.Percentage);
-            healAndShieldPower = new Property<float>();
+            omnivamp = new Property<float>(0, DataType.Percentage);
+            healAndShieldPower = new Property<float>(0, DataType.Percentage);
 
             #endregion
             
@@ -628,7 +630,7 @@ namespace Classes
 
             #region 读取英雄数据配置初始化数据
 
-            var config = ConfigReader.ReadHeroConfig("Ryze");
+            var config = ConfigReader.ReadHeroConfig(name);
             if (config != null)
             {
                 _baseMaxHealthPoint = config._baseMaxHealthPoint;

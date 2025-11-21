@@ -11,7 +11,7 @@ namespace Classes
         /// <summary>
         /// 创建敌人并初始化
         /// </summary>
-        public Enemy(GameObject gameObject)
+        public Enemy(GameObject gameObject) : base("Ahri")
         {
             _gameObject = gameObject;
             

@@ -333,35 +333,14 @@
     <Reference Include="UnityEditor.UnityConnectModule">
       <HintPath>D:\UnityHub3\2022.3.41f1c1\Editor\Data\Managed\UnityEngine\UnityEditor.UnityConnectModule.dll</HintPath>
     </Reference>
-    <Reference Include="Sirenix.Reflection.Editor">
-      <HintPath>D:\UnityProgram\SoulFighterSurvivor\Assets\Plugins\Sirenix\Assemblies\Sirenix.Reflection.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.Collections.LowLevel.ILSupport">
       <HintPath>D:\UnityProgram\SoulFighterSurvivor\Library\PackageCache\com.unity.collections@1.2.4\Unity.Collections.LowLevel.ILSupport\Unity.Collections.LowLevel.ILSupport.dll</HintPath>
-    </Reference>
-    <Reference Include="Sirenix.Serialization">
-      <HintPath>D:\UnityProgram\SoulFighterSurvivor\Assets\Plugins\Sirenix\Assemblies\Sirenix.Serialization.dll</HintPath>
-    </Reference>
-    <Reference Include="Sirenix.Serialization.Config">
-      <HintPath>D:\UnityProgram\SoulFighterSurvivor\Assets\Plugins\Sirenix\Assemblies\Sirenix.Serialization.Config.dll</HintPath>
-    </Reference>
-    <Reference Include="Sirenix.OdinInspector.Editor">
-      <HintPath>D:\UnityProgram\SoulFighterSurvivor\Assets\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Sirenix.OdinInspector.Attributes">
-      <HintPath>D:\UnityProgram\SoulFighterSurvivor\Assets\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Attributes.dll</HintPath>
-    </Reference>
-    <Reference Include="Sirenix.Utilities">
-      <HintPath>D:\UnityProgram\SoulFighterSurvivor\Assets\Plugins\Sirenix\Assemblies\Sirenix.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="DOTween">
       <HintPath>D:\UnityProgram\SoulFighterSurvivor\Assets\Plugins\Demigiant\DOTween\DOTween.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
       <HintPath>D:\UnityProgram\SoulFighterSurvivor\Library\PackageCache\com.unity.visualscripting@1.9.4\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Sirenix.Utilities.Editor">
-      <HintPath>D:\UnityProgram\SoulFighterSurvivor\Assets\Plugins\Sirenix\Assemblies\Sirenix.Utilities.Editor.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>D:\UnityHub3\2022.3.41f1c1\Editor\Data\NetStandard\ref\2.1.0\netstandard.dll</HintPath>
@@ -930,14 +909,6 @@
     <ProjectReference Include="UniRx.csproj">
       <Project>{a80eb995-9ea5-6b1a-09cf-4fab4a4992f0}</Project>
       <Name>UniRx</Name>
-    </ProjectReference>
-    <ProjectReference Include="Sirenix.OdinInspector.Modules.UnityMathematics.csproj">
-      <Project>{d9662a90-345f-1581-35d1-e07252e391c7}</Project>
-      <Name>Sirenix.OdinInspector.Modules.UnityMathematics</Name>
-    </ProjectReference>
-    <ProjectReference Include="Sirenix.OdinInspector.Modules.Unity.Addressables.csproj">
-      <Project>{8d31e001-573a-ebc2-38c8-3983936964c1}</Project>
-      <Name>Sirenix.OdinInspector.Modules.Unity.Addressables</Name>
     </ProjectReference>
     <ProjectReference Include="NavMeshPlus.csproj">
       <Project>{1fb3d848-9700-915b-6b4a-c9ce6a9fdfcf}</Project>

@@ -8,11 +8,22 @@ public class MousePointSystem : MonoBehaviour
     public float cameraMoveSpeed = 10f;
     public float edgeBuffer = 50f;
 
+    [Header("摄像机缩放设置")]
+    public float zoomSensitivity = 1f;        // 滚轮灵敏度
+    public float minOrthographicSize = 5f;    // 最小缩放（视野最大）
+    public float maxOrthographicSize = 10f;   // 最大缩放（视野最小）
+
     private Camera _mainCamera;
 
     void Start()
     {
         _mainCamera = Camera.main;
+
+        // 确保是正交相机
+        if (!_mainCamera.orthographic)
+        {
+            Debug.LogWarning("MousePointSystem 要求 Camera 为 Orthographic 模式！");
+        }
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Confined;
@@ -23,6 +34,7 @@ public class MousePointSystem : MonoBehaviour
         FollowMouseWithinScreen();
         PanCameraAtEdges();
         HandleInstantFocus();
+        HandleZoom(); // 新增：处理滚轮缩放
     }
 
     void FollowMouseWithinScreen()
@@ -30,7 +42,7 @@ public class MousePointSystem : MonoBehaviour
         Vector3 mouseWorldPos = _mainCamera.ScreenToWorldPoint(
             new Vector3(Input.mousePosition.x, Input.mousePosition.y, _mainCamera.nearClipPlane)
         );
-        mouseWorldPos.z = transform.position.z; // 保持原有 Z
+        mouseWorldPos.z = transform.position.z;
 
         // 计算当前屏幕边界（世界坐标）
         float halfHeight = _mainCamera.orthographicSize;
@@ -86,6 +98,23 @@ public class MousePointSystem : MonoBehaviour
                 _mainCamera.transform.position.z
             );
             _mainCamera.transform.position = newCamPos;
+        }
+    }
+
+    // 新增：处理鼠标滚轮缩放
+    void HandleZoom()
+    {
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        if (scroll != 0f)
+        {
+            // 滚轮向上（scroll > 0）→ 缩小视野（减小 orthographicSize）
+            // 滚轮向下（scroll < 0）→ 放大视野（增大 orthographicSize）
+            float newSize = _mainCamera.orthographicSize - scroll * zoomSensitivity;
+
+            // 限制在允许范围内
+            newSize = Mathf.Clamp(newSize, minOrthographicSize, maxOrthographicSize);
+
+            _mainCamera.orthographicSize = newSize;
         }
     }
 }

@@ -872,10 +872,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="UniRx.csproj">
-      <Project>{a80eb995-9ea5-6b1a-09cf-4fab4a4992f0}</Project>
-      <Name>UniRx</Name>
-    </ProjectReference>
     <ProjectReference Include="NavMeshPlus.csproj">
       <Project>{1fb3d848-9700-915b-6b4a-c9ce6a9fdfcf}</Project>
       <Name>NavMeshPlus</Name>

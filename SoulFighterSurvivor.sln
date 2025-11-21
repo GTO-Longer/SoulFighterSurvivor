@@ -1,15 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniRx", "UniRx.csproj", "{a80eb995-9ea5-6b1a-09cf-4fab4a4992f0}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NavMeshPlus", "NavMeshPlus.csproj", "{1fb3d848-9700-915b-6b4a-c9ce6a9fdfcf}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NavMeshPlusEditor", "NavMeshPlusEditor.csproj", "{95a76bf5-c60c-63fe-5ca6-78f1beda2353}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{cc8eb546-0130-7c5e-b825-1620bb763714}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniRx.Examples", "UniRx.Examples.csproj", "{c55442f9-a196-f607-096d-aeb5b55b03ba}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-firstpass", "Assembly-CSharp-firstpass.csproj", "{eb3168ab-71ab-fe69-a507-836e2f212a19}"
 EndProject
@@ -18,16 +14,12 @@ Global
 		Debug|Any CPU = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{a80eb995-9ea5-6b1a-09cf-4fab4a4992f0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{a80eb995-9ea5-6b1a-09cf-4fab4a4992f0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1fb3d848-9700-915b-6b4a-c9ce6a9fdfcf}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1fb3d848-9700-915b-6b4a-c9ce6a9fdfcf}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95a76bf5-c60c-63fe-5ca6-78f1beda2353}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{95a76bf5-c60c-63fe-5ca6-78f1beda2353}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{cc8eb546-0130-7c5e-b825-1620bb763714}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{cc8eb546-0130-7c5e-b825-1620bb763714}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{c55442f9-a196-f607-096d-aeb5b55b03ba}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{c55442f9-a196-f607-096d-aeb5b55b03ba}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{eb3168ab-71ab-fe69-a507-836e2f212a19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{eb3168ab-71ab-fe69-a507-836e2f212a19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection

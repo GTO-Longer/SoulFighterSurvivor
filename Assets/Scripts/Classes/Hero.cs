@@ -27,6 +27,11 @@ namespace Classes
         /// </summary>
         private bool _autoAttack;
 
+        /// <summary>
+        /// 攻击计时器
+        /// </summary>
+        private float _attackTimer;
+
         public List<Skill> skillList = new List<Skill>();
         
         /// <summary>
@@ -133,6 +138,7 @@ namespace Classes
             
             // 其他变量初始化
             _autoAttack = false;
+            _attackTimer = 0;
             level.Value = 1;
             magicPoint = maxMagicPoint;
             healthPoint = maxHealthPoint;
@@ -235,9 +241,9 @@ namespace Classes
                 {
                     // 若没锁定的目标则走到对应位置
                     // 过程中持续索敌
+                    
                     // 获取攻击范围指示器的碰撞箱
-                    CircleCollider2D collider = _gameObject.transform.Find("AttackRangeIndicator")
-                        .GetComponent<CircleCollider2D>();
+                    var collider = _gameObject.transform.Find("AttackRangeIndicator").GetComponent<CircleCollider2D>();
 
                     // 将目标设定为最近的敌方目标（tag与自己不同的）
                     target.Value = IsOverlappingOtherTag(collider, _gameObject.tag)?.entity;
@@ -248,14 +254,68 @@ namespace Classes
                     // 若有锁定的目标则持续索敌
                     // 走到敌人进入攻击范围为止
                     _agent.SetDestination(target.Value.gameObject.transform.position);
-                    _agent.stoppingDistance = actualAttackRange + target.Value.actualScale;
+                    
+                    // 获取攻击范围指示器的碰撞箱，判断是否可以攻击到敌人
+                    var collider = _gameObject.transform.Find("AttackRangeIndicator").GetComponent<CircleCollider2D>();
+                    if (IsOverlappingOtherTag(collider, _gameObject.tag)?.entity.gameObject == target.Value.gameObject)
+                    {
+                        _agent.isStopped = true;
+                    }
+                    else
+                    {
+                        _agent.isStopped = false;
+                    }
                 }
             }
+        }
+
+        /// <summary>
+        /// 英雄攻击逻辑
+        /// </summary>
+        public override void Attack()
+        {
+            if (_attackTimer < 100)
+            {
+                _attackTimer += Time.deltaTime;
+            }
+
+            if (target.Value == null)
+                return;
+            
+            if (!_agent.isStopped)
+                return;
+
+            // 英雄转向目标
+            
+            // 计算 XY 平面方向
+            var direction = new Vector2(
+                target.Value.gameObject.transform.position.x - _gameObject.transform.position.x,
+                target.Value.gameObject.transform.position.y - _gameObject.transform.position.y
+            );
+
+            if (direction.sqrMagnitude > 0.01f)
+            {
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                Quaternion targetRot = Quaternion.Euler(0, 0, angle);
+
+                _gameObject.transform.rotation = Quaternion.Slerp(
+                    _gameObject.transform.rotation,
+                    targetRot,
+                    rotationSpeed * Time.deltaTime
+                );
+            }
+
+            if (_attackTimer < actualAttackInterval)
+                return;
+
+            // 发动攻击
+            _attackTimer = 0;
+            Debug.Log("attack");
         }
         
         public void SetRotate()
         {
-            if (!_agent.hasPath || _agent.path.corners.Length == 0)
+            if (!_agent.hasPath || _agent.path.corners.Length == 0 || _agent.isStopped)
                 return;
 
             Vector3 targetPosition;

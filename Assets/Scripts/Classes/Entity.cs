@@ -162,7 +162,7 @@ namespace Classes
         /// <summary>
         /// 实际攻击间隔
         /// </summary>
-        public float actualAttackSpeed => attackSpeed == 0 ? 999 : 1f / attackSpeed;
+        public float actualAttackInterval => attackSpeed == 0 ? 999 : 1f / attackSpeed;
         
         #endregion
         

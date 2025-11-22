@@ -55,6 +55,7 @@
     <Compile Include="Assets\Scripts\Entities\Hero\HeroManager.cs" />
     <Compile Include="Assets\Scripts\Classes\Entity.cs" />
     <Compile Include="Assets\Scripts\Classes\Enemy.cs" />
+    <Compile Include="Assets\Scripts\Classes\Bullet.cs" />
     <Compile Include="Assets\Scripts\Systems\CameraSystem.cs" />
     <Compile Include="Assets\Scripts\Systems\EventSystem.cs" />
     <Compile Include="Assets\Scripts\Entities\Enemy\EnemyManager.cs" />

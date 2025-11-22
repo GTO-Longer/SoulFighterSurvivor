@@ -1,5 +1,6 @@
 using System;
 using DataManagement;
+using Systems;
 using UnityEngine;
 using Utilities;
 
@@ -8,7 +9,7 @@ namespace Classes
     /// <summary>
     /// 实体类
     /// </summary>
-    public class Entity
+    public class Entity : EventSystem
     {
         /// <summary>
         /// 对应的游戏物体
@@ -502,12 +503,22 @@ namespace Classes
         /// <summary>
         /// 受到伤害
         /// </summary>
-        public virtual void TakeDamage(){}
-        
+        public void TakeDamage(float damageCount)
+        {
+            
+        }
+
         /// <summary>
-        /// 造成伤害
+        /// 受到治疗
         /// </summary>
-        public virtual void DealDamage(){}
+        public void TakeHeal(float healCount)
+        {
+            healthPoint.Value += healCount;
+            if (healthPoint.Value > maxHealthPoint.Value)
+            {
+                healthPoint.Value = maxHealthPoint.Value;
+            }
+        }
         
         /// <summary>
         /// 移动
@@ -518,6 +529,7 @@ namespace Classes
         /// 攻击
         /// </summary>
         public virtual void Attack(){}
+        
         #endregion
 
         #region 定义函数
@@ -538,7 +550,7 @@ namespace Classes
 
         #endregion
 
-        protected Entity(string name)
+        protected Entity()
         {
             #region 最终数据初始化
             
@@ -627,35 +639,6 @@ namespace Classes
             _DEFToAD_ConversionEfficiency = new Property<Vector2>(new Vector2(1f, 0f));
             
             #endregion
-
-            #region 读取英雄数据配置初始化数据
-
-            var config = ConfigReader.ReadHeroConfig(name);
-            if (config != null)
-            {
-                _baseMaxHealthPoint = config._baseMaxHealthPoint;
-                _baseMaxMagicPoint = config._baseMaxMagicPoint;
-                _baseAttackDamage = config._baseAttackDamage;
-                _baseAttackSpeed = config._baseAttackSpeed;
-                _baseAttackDefense = config._baseAttackDefense;
-                _baseMagicDefense = config._baseMagicDefense;
-                _baseHealthRegeneration = config._baseHealthRegeneration;
-                _baseMagicRegeneration = config._baseMagicRegeneration;
-                _baseAttackRange = config._baseAttackRange;
-                _baseMovementSpeed = config._baseMovementSpeed;
-                _baseScale = config._baseScale;
-
-                _maxHealthPointGrowth = config._maxHealthPointGrowth;
-                _maxMagicPointGrowth = config._maxMagicPointGrowth;
-                _attackDamageGrowth = config._attackDamageGrowth;
-                _attackSpeedGrowth = config._attackSpeedGrowth;
-                _attackDefenseGrowth = config._attackDefenseGrowth;
-                _magicDefenseGrowth = config._magicDefenseGrowth;
-                _healthRegenerationGrowth = config._healthRegenerationGrowth;
-                _magicRegenerationGrowth = config._magicRegenerationGrowth;
-            }
-
-            #endregion
             
             #region 配置计算属性依赖
             
@@ -706,11 +689,6 @@ namespace Classes
                 _percentageScaleBonus);
 
             #endregion
-
-            // 最终初始化
-            level.Value = 1;
-            magicPoint = maxMagicPoint;
-            healthPoint = maxHealthPoint;
         }
     }
 }

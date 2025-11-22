@@ -7,10 +7,10 @@ namespace Classes{
     {
         public string skillName;
         public string heroName;
+        public Entity owner;
         public int skillLevel => _skillLevel;
         public float skillCost => _baseSkillCost[skillLevel - 1];
         
-        protected Entity _entity;
         protected int _skillLevel = 0;
         protected int _maxSkillLevel = 0;
         
@@ -47,5 +47,12 @@ namespace Classes{
 
             return false;
         }
+
+        public virtual string GetDescription()
+        {
+            return "";
+        }
+
+        public virtual void SkillEffect() { }
     }
 }

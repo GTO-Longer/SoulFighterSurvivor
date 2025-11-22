@@ -20,7 +20,12 @@
             "_attackDefenseGrowth": 3.5,
             "_magicDefenseGrowth": 0,
             "_healthRegenerationGrowth": 0.6,
-            "_magicRegenerationGrowth": 0.6
+            "_magicRegenerationGrowth": 0.6,
+            "_passiveSkill": "EssenceTheft",
+            "_QSkill": "OrbOfDeception",
+            "_WSkill": "FoxFire",
+            "_ESkill": "Charm",
+            "_RSkill": "SpiritRush"
         },
         {
             "heroName": "Ryze",
@@ -42,7 +47,12 @@
             "_attackDefenseGrowth": 3.9,
             "_magicDefenseGrowth": 0,
             "_healthRegenerationGrowth": 0.55,
-            "_magicRegenerationGrowth": 0.6
+            "_magicRegenerationGrowth": 0.6,
+            "_passiveSkill": "ArcaneMastery",
+            "_QSkill": "Overload",
+            "_WSkill": "RunePrison",
+            "_ESkill": "SpellFlux",
+            "_RSkill": "RealmWarp"
         }
     ]
 }

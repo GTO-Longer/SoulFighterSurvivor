@@ -32,6 +32,13 @@ namespace DataManagement
         public float _magicDefenseGrowth;
         public float _healthRegenerationGrowth;
         public float _magicRegenerationGrowth;
+        
+        // 技能名
+        public string _passiveSkill;
+        public string _QSkill;
+        public string _WSkill;
+        public string _ESkill;
+        public string _RSkill;
     }
 
     [System.Serializable]

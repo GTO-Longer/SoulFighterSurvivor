@@ -8,6 +8,7 @@ namespace DataManagement
     {
         public EntityType type;
         public Entity entity;
+        public string heroName;
 
         private void Awake()
         {
@@ -17,7 +18,7 @@ namespace DataManagement
             }
             else
             {
-                entity = new Hero(this.gameObject);
+                entity = new Hero(this.gameObject, heroName);
             }
         }
     }

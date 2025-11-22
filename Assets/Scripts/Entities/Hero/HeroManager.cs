@@ -17,6 +17,12 @@ namespace Entities.Hero
         {
             hero.Move();
             hero.TargetCheck();
+            hero.SetRotate();
+
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                hero.QSkillRelease(hero, null);
+            }
         }
     }
 }

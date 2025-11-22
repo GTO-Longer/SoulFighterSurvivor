@@ -1,7 +1,11 @@
+using System;
+using System.Collections.Generic;
+using System.Reflection;
 using DataManagement;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using Utilities;
 
 namespace Classes
 {
@@ -14,6 +18,7 @@ namespace Classes
         /// 玩家锁定的实体
         /// </summary>
         public Property<Entity> target = new Property<Entity>();
+        
         public Property<bool> isMoving = new Property<bool>();
         public Property<bool> showAttributes = new Property<bool>();
         
@@ -21,12 +26,95 @@ namespace Classes
         /// 是否启用自动攻击模式
         /// </summary>
         private bool _autoAttack;
+
+        public List<Skill> skillList = new List<Skill>();
         
         /// <summary>
         /// 创建游戏角色并初始化
         /// </summary>
-        public Hero(GameObject gameObject) : base("Ryze")
+        public Hero(GameObject gameObject, string name)
         {
+
+            #region 读取英雄数据配置初始化数据
+
+            var config = ConfigReader.ReadHeroConfig(name);
+            if (config != null)
+            {
+                _baseMaxHealthPoint = config._baseMaxHealthPoint;
+                _baseMaxMagicPoint = config._baseMaxMagicPoint;
+                _baseAttackDamage = config._baseAttackDamage;
+                _baseAttackSpeed = config._baseAttackSpeed;
+                _baseAttackDefense = config._baseAttackDefense;
+                _baseMagicDefense = config._baseMagicDefense;
+                _baseHealthRegeneration = config._baseHealthRegeneration;
+                _baseMagicRegeneration = config._baseMagicRegeneration;
+                _baseAttackRange = config._baseAttackRange;
+                _baseMovementSpeed = config._baseMovementSpeed;
+                _baseScale = config._baseScale;
+
+                _maxHealthPointGrowth = config._maxHealthPointGrowth;
+                _maxMagicPointGrowth = config._maxMagicPointGrowth;
+                _attackDamageGrowth = config._attackDamageGrowth;
+                _attackSpeedGrowth = config._attackSpeedGrowth;
+                _attackDefenseGrowth = config._attackDefenseGrowth;
+                _magicDefenseGrowth = config._magicDefenseGrowth;
+                _healthRegenerationGrowth = config._healthRegenerationGrowth;
+                _magicRegenerationGrowth = config._magicRegenerationGrowth;
+            
+                #region 配置英雄技能
+                
+                var assembly = Assembly.GetExecutingAssembly();
+                var passiveSkillType = assembly.GetType("Classes.Skills" + config._passiveSkill);
+                var QSkillType = assembly.GetType("Classes.Skills" + config._QSkill);
+                var WSkillType = assembly.GetType("Classes.Skills" + config._WSkill);
+                var ESkillType = assembly.GetType("Classes.Skills" + config._ESkill);
+                var RSkillType = assembly.GetType("Classes.Skills" + config._RSkill);
+
+                if (passiveSkillType != null)
+                {
+                    var skill = (Skill)Activator.CreateInstance(passiveSkillType);
+                    skill.owner = this;
+                    skill.SkillEffect();
+                    skillList[(int)SkillType.PassiveSkill] = skill;
+                }
+
+                if (QSkillType != null)
+                {
+                    var skill = (Skill)Activator.CreateInstance(QSkillType);
+                    skill.owner = this;
+                    skill.SkillEffect();
+                    skillList[(int)SkillType.QSkill] = skill;
+                }
+
+                if (WSkillType != null)
+                {
+                    var skill = (Skill)Activator.CreateInstance(WSkillType);
+                    skill.owner = this;
+                    skill.SkillEffect();
+                    skillList[(int)SkillType.WSkill] = skill;
+                }
+
+                if (ESkillType != null)
+                {
+                    var skill = (Skill)Activator.CreateInstance(ESkillType);
+                    skill.owner = this;
+                    skill.SkillEffect();
+                    skillList[(int)SkillType.ESkill] = skill;
+                }
+
+                if (RSkillType != null)
+                {
+                    var skill = (Skill)Activator.CreateInstance(RSkillType);
+                    skill.owner = this;
+                    skill.SkillEffect();
+                    skillList[(int)SkillType.RSkill] = skill;
+                }
+                
+                #endregion
+            }
+
+            #endregion
+            
             _gameObject = gameObject;
             
             // 配置角色寻路组件
@@ -45,7 +133,12 @@ namespace Classes
             
             // 其他变量初始化
             _autoAttack = false;
+            level.Value = 1;
+            magicPoint = maxMagicPoint;
+            healthPoint = maxHealthPoint;
         }
+
+        private const float rotationSpeed = 10;
 
         /// <summary>
         /// 英雄移动逻辑
@@ -157,6 +250,41 @@ namespace Classes
                     _agent.SetDestination(target.Value.gameObject.transform.position);
                     _agent.stoppingDistance = actualAttackRange + target.Value.actualScale;
                 }
+            }
+        }
+        
+        public void SetRotate()
+        {
+            if (!_agent.hasPath || _agent.path.corners.Length == 0)
+                return;
+
+            Vector3 targetPosition;
+    
+            if (_agent.path.corners.Length > 1)
+            {
+                targetPosition = _agent.path.corners[1];
+            }
+            else
+            {
+                targetPosition = _agent.destination;
+            }
+
+            // 计算 XY 平面方向
+            var direction = new Vector2(
+                targetPosition.x - _gameObject.transform.position.x,
+                targetPosition.y - _gameObject.transform.position.y
+            );
+
+            if (direction.sqrMagnitude > 0.01f)
+            {
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                Quaternion targetRot = Quaternion.Euler(0, 0, angle);
+
+                _gameObject.transform.rotation = Quaternion.Slerp(
+                    _gameObject.transform.rotation,
+                    targetRot,
+                    rotationSpeed * Time.deltaTime
+                );
             }
         }
 

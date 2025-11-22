@@ -8,29 +8,46 @@ namespace Systems
     {
         public Transform focusTarget;
 
-        [Header("摄像机边缘拖动设置")] public float cameraMoveSpeed = 10f;
+        [Header("摄像机边缘拖动设置")]
+        public float cameraMoveSpeed = 10f;
         public float edgeBuffer = 50f;
 
-        [Header("摄像机缩放设置")] private const float zoomSensitivity = 1f;
+        [Header("摄像机缩放设置")]
+        private const float zoomSensitivity = 1f;
         private const float minOrthographicSize = 5f;
         private const float maxOrthographicSize = 7.5f;
 
+        [Header("跟随设置")]
+        public bool isFollowing = false;
+        public float followSpeed = 5f;
+
         private Camera _mainCamera;
 
-        void Start()
+        private void Start()
         {
             _mainCamera = Camera.main;
         }
 
-        void Update()
+        private void Update()
         {
+            HandleFollowToggle();
             PanCameraAtEdges();
             HandleInstantFocus();
             HandleZoom();
         }
 
-        void PanCameraAtEdges()
+        private void HandleFollowToggle()
         {
+            if (Input.GetKeyDown(KeyCode.Y))
+            {
+                isFollowing = !isFollowing;
+            }
+        }
+
+        private void PanCameraAtEdges()
+        {
+            if (isFollowing) return;
+
             Vector2 mousePos = Input.mousePosition;
             Vector2 screenSize = new Vector2(Screen.width, Screen.height);
 
@@ -48,9 +65,9 @@ namespace Systems
             }
         }
 
-        void HandleInstantFocus()
+        private void HandleInstantFocus()
         {
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKey(KeyCode.Space) || isFollowing)
             {
                 if (focusTarget == null)
                 {
@@ -67,7 +84,7 @@ namespace Systems
             }
         }
 
-        void HandleZoom()
+        private void HandleZoom()
         {
             float scroll = Input.GetAxis("Mouse ScrollWheel");
             if (scroll != 0f)

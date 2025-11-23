@@ -80,7 +80,8 @@ namespace Classes
                     skill.owner = this;
                     skill.SkillEffect();
                     skillList.Add(skill);
-                    Debug.Log("Read skill:" + skillList[(int)SkillType.PassiveSkill].skillName + "\n" + skillList[(int)SkillType.PassiveSkill].GetDescription());
+                    Debug.Log("Read skill:" + skillList[(int)SkillType.PassiveSkill].skillName +
+                              "\nSkillDescription:" + skillList[(int)SkillType.PassiveSkill].GetDescription());
                 }
 
                 if (QSkillType != null)
@@ -88,8 +89,9 @@ namespace Classes
                     var skill = (Skill)Activator.CreateInstance(QSkillType);
                     skill.owner = this;
                     skill.SkillEffect();
-                    skillList[(int)SkillType.QSkill] = skill;
-                    Debug.Log("Read skill:" + skill.skillName + "\n" + skill.GetDescription());
+                    skillList.Add(skill);
+                    Debug.Log("Read skill:" + skillList[(int)SkillType.QSkill].skillName +
+                              "\nSkillDescription:" + skillList[(int)SkillType.QSkill].GetDescription());
                 }
 
                 if (WSkillType != null)
@@ -97,8 +99,9 @@ namespace Classes
                     var skill = (Skill)Activator.CreateInstance(WSkillType);
                     skill.owner = this;
                     skill.SkillEffect();
-                    skillList[(int)SkillType.WSkill] = skill;
-                    Debug.Log("Read skill:" + skill.skillName + "\n" + skill.GetDescription());
+                    skillList.Add(skill);
+                    Debug.Log("Read skill:" + skillList[(int)SkillType.WSkill].skillName +
+                              "\nSkillDescription:" + skillList[(int)SkillType.WSkill].GetDescription());
                 }
 
                 if (ESkillType != null)
@@ -106,8 +109,9 @@ namespace Classes
                     var skill = (Skill)Activator.CreateInstance(ESkillType);
                     skill.owner = this;
                     skill.SkillEffect();
-                    skillList[(int)SkillType.ESkill] = skill;
-                    Debug.Log("Read skill:" + skill.skillName + "\n" + skill.GetDescription());
+                    skillList.Add(skill);
+                    Debug.Log("Read skill:" + skillList[(int)SkillType.ESkill].skillName +
+                              "\nSkillDescription:" + skillList[(int)SkillType.ESkill].GetDescription());
                 }
 
                 if (RSkillType != null)
@@ -115,8 +119,9 @@ namespace Classes
                     var skill = (Skill)Activator.CreateInstance(RSkillType);
                     skill.owner = this;
                     skill.SkillEffect();
-                    skillList[(int)SkillType.RSkill] = skill;
-                    Debug.Log("Read skill:" + skill.skillName + "\n" + skill.GetDescription());
+                    skillList.Add(skill);
+                    Debug.Log("Read skill:" + skillList[(int)SkillType.RSkill].skillName +
+                              "\nSkillDescription:" + skillList[(int)SkillType.RSkill].GetDescription());
                 }
                 
                 #endregion

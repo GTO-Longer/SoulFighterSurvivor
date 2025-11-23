@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\DataManagement\ConfigReader.cs" />
     <Compile Include="Assets\Scripts\MVVM\ViewModels\HeroAttributeViewModel.cs" />
+    <Compile Include="Assets\Scripts\Utilities\Async.cs" />
     <Compile Include="Assets\Scripts\Classes\Hero.cs" />
     <Compile Include="Assets\Scripts\Systems\MousePointSystem.cs" />
     <Compile Include="Assets\Scripts\Classes\Skills\EssenceTheft.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Assets\Scripts\DataManagement\EntiyData.cs" />
     <Compile Include="Assets\Scripts\Classes\Skill.cs" />
     <Compile Include="Assets\Scripts\Utilities\Enums.cs" />
+    <Compile Include="Assets\Scripts\Factories\BulletFactory.cs" />
     <Compile Include="Assets\Scripts\MVVM\Binder.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />

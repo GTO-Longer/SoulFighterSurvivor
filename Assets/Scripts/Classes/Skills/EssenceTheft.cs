@@ -12,7 +12,7 @@ namespace Classes.Skills
             ReadSkillConfig("EssenceTheft");
             
             _skillLevel = 0;
-            _maxSkillLevel = 5;
+            _maxSkillLevel = 0;
         }
 
         public override string GetDescription()
@@ -23,7 +23,7 @@ namespace Classes.Skills
 
         public override void SkillEffect()
         {
-            Debug.Log("skill effective");
+            Debug.Log(skillName + ":Skill effective");
             owner.OnKillEntity += (_, _) => soulPieces++;
             owner.EntityUpdateEvent += (_, _) =>
             {

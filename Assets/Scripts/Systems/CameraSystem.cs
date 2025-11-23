@@ -15,7 +15,7 @@ namespace Systems
         [Header("摄像机缩放设置")]
         private const float zoomSensitivity = 1f;
         private const float minOrthographicSize = 5f;
-        private const float maxOrthographicSize = 7.5f;
+        private const float maxOrthographicSize = 10f;
 
         [Header("跟随设置")]
         public bool isFollowing = false;

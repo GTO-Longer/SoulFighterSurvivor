@@ -8,6 +8,8 @@ namespace Classes
     {
         public GameObject gameObject;
         public Entity owner;
+        public Entity target;
+        
         private Team _team;
         private float _bulletContinuousTime;
         private float _bulletContinuousTimer;
@@ -43,6 +45,33 @@ namespace Classes
             OnBulletDestroy = null;
             
             GameObject.Destroy(gameObject);
+        }
+        
+        public void TracePosision(Vector2 posision, float duration)
+        {
+            
+        }
+
+        public void TraceTarget(Vector2 startPosition, Entity target, float duration, Action OnTarceEnd)
+        {
+            var traceTimer = 0f;
+            traceTimer += Time.deltaTime;
+            var t = Mathf.Clamp01(traceTimer / duration);
+            t = t * t;
+
+            if (owner?.gameObject != null)
+            {
+                gameObject.transform.position = Vector3.Lerp(
+                    startPosition,
+                    target.gameObject.transform.position,
+                    t
+                );
+            }
+
+            if (traceTimer >= duration)
+            {
+                OnTarceEnd.Invoke();
+            }
         }
     }
 }

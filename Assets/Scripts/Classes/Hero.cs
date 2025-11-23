@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using DataManagement;
 using DG.Tweening;
+using Factories;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -16,6 +17,7 @@ namespace Classes
         private Transform _attackRangeIndicator;
         private bool _asyncRotating => DOTween.IsTweening(_gameObject.transform);
         private const float rotateTime = 0.3f;
+        private const float attackBulletSpeed = 15f;
         
         /// <summary>
         /// 玩家锁定的实体
@@ -296,15 +298,14 @@ namespace Classes
                 return;
             
             // 英雄转向目标
-            // 计算 XY 平面方向
-            var direction = new Vector2(
+            var rotateDirection = new Vector2(
                 target.Value.gameObject.transform.position.x - _gameObject.transform.position.x,
                 target.Value.gameObject.transform.position.y - _gameObject.transform.position.y
             );
 
             if (!_asyncRotating)
             {
-                Async.SetAsync(_gameObject.transform, () => RotateTo(direction), rotateTime);
+                Async.SetAsync(_gameObject.transform, () => RotateTo(rotateDirection), rotateTime);
             }
 
             if(_attackTimer < actualAttackInterval)
@@ -312,7 +313,38 @@ namespace Classes
 
             // 发动攻击
             _attackTimer = 0;
-            Debug.Log("attack");
+
+            var bullet = BulletFactory.Instance.CreateBullet(this);
+            bullet.OnBulletAwake += (self) =>
+            {
+                self.gameObject.transform.position = _gameObject.transform.position;
+                self.gameObject.SetActive(true);
+    
+                // 设置目标
+                self.target = target.Value;
+
+                // 每帧追踪目标
+                self.OnBulletUpdate += (_) =>
+                {
+                    var currentPosition = self.gameObject.transform.position;
+                    var targetPosition = self.target.gameObject.transform.position;
+        
+                    var direction = (targetPosition - currentPosition).normalized;
+                    var nextPosition = currentPosition + direction * (attackBulletSpeed * Time.deltaTime);
+        
+                    self.gameObject.transform.position = nextPosition;
+                    self.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
+
+                    // 子弹的销毁逻辑
+                    const float destroyDistance = 0.3f;
+                    if (Vector3.Distance(self.gameObject.transform.position, self.target.gameObject.transform.position) <= destroyDistance)
+                    {
+                        self.Destroy();
+                    }
+                };
+            };
+            
+            bullet.Awake();
         }
         
         public void SetRotate()

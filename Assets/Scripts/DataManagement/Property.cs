@@ -13,14 +13,15 @@ namespace DataManagement
         private Func<T> _computeFunc;
         private readonly List<INotifyPropertyChanged> _dependencies = new();
         private readonly bool _isComputed;
-        public DataType dataType;
+        private DataType _dataType;
+        public DataType dataType => _dataType;
 
         // 普通属性
         public Property(T initialValue = default, DataType type = DataType.Float)
         {
             _value = initialValue;
             _isComputed = false;
-            dataType = type;
+            _dataType = type;
         }
 
         // 依赖属性
@@ -29,7 +30,7 @@ namespace DataManagement
             _computeFunc = computeFunc;
             _isComputed = true;
             SetupDependencies(dependencies);
-            dataType = type;
+            _dataType = type;
         }
 
         private void SetupDependencies(Property<float>[] dependencies)

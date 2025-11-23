@@ -10,7 +10,7 @@ namespace Systems
     {
         // 持续更新事件
         public event Action<Entity, Entity> EntityUpdateEvent;
-        public void UpdateEvent(Entity owner)
+        public void EntityUpdate(Entity owner)
         {
             EntityUpdateEvent?.Invoke(owner, null);
         }

@@ -52,8 +52,8 @@ namespace Classes
             
             // 其他变量初始化
             level.Value = 1;
-            magicPoint = maxMagicPoint;
-            healthPoint = maxHealthPoint;
+            magicPoint.Value = maxMagicPoint.Value;
+            healthPoint.Value = maxHealthPoint.Value;
         }
         
         // 敌人进行移动

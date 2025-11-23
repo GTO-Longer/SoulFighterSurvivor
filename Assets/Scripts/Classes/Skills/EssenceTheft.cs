@@ -23,6 +23,7 @@ namespace Classes.Skills
 
         public override void SkillEffect()
         {
+            Debug.Log("skill effective");
             owner.OnKillEntity += (_, _) => soulPieces++;
             owner.EntityUpdateEvent += (_, _) =>
             {

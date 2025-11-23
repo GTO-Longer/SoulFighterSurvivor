@@ -32,14 +32,13 @@ namespace Classes
         /// </summary>
         private float _attackTimer;
 
-        public List<Skill> skillList = new List<Skill>();
+        public List<Skill> skillList = new();
         
         /// <summary>
         /// 创建游戏角色并初始化
         /// </summary>
         public Hero(GameObject gameObject, string name)
         {
-
             #region 读取英雄数据配置初始化数据
 
             var config = ConfigReader.ReadHeroConfig(name);
@@ -69,18 +68,19 @@ namespace Classes
                 #region 配置英雄技能
                 
                 var assembly = Assembly.GetExecutingAssembly();
-                var passiveSkillType = assembly.GetType("Classes.Skills" + config._passiveSkill);
-                var QSkillType = assembly.GetType("Classes.Skills" + config._QSkill);
-                var WSkillType = assembly.GetType("Classes.Skills" + config._WSkill);
-                var ESkillType = assembly.GetType("Classes.Skills" + config._ESkill);
-                var RSkillType = assembly.GetType("Classes.Skills" + config._RSkill);
+                var passiveSkillType = assembly.GetType("Classes.Skills." + config._passiveSkill);
+                var QSkillType = assembly.GetType("Classes.Skills." + config._QSkill);
+                var WSkillType = assembly.GetType("Classes.Skills." + config._WSkill);
+                var ESkillType = assembly.GetType("Classes.Skills." + config._ESkill);
+                var RSkillType = assembly.GetType("Classes.Skills." + config._RSkill);
 
                 if (passiveSkillType != null)
                 {
                     var skill = (Skill)Activator.CreateInstance(passiveSkillType);
                     skill.owner = this;
                     skill.SkillEffect();
-                    skillList[(int)SkillType.PassiveSkill] = skill;
+                    skillList.Add(skill);
+                    Debug.Log("Read skill:" + skillList[(int)SkillType.PassiveSkill].skillName + "\n" + skillList[(int)SkillType.PassiveSkill].GetDescription());
                 }
 
                 if (QSkillType != null)
@@ -89,6 +89,7 @@ namespace Classes
                     skill.owner = this;
                     skill.SkillEffect();
                     skillList[(int)SkillType.QSkill] = skill;
+                    Debug.Log("Read skill:" + skill.skillName + "\n" + skill.GetDescription());
                 }
 
                 if (WSkillType != null)
@@ -97,6 +98,7 @@ namespace Classes
                     skill.owner = this;
                     skill.SkillEffect();
                     skillList[(int)SkillType.WSkill] = skill;
+                    Debug.Log("Read skill:" + skill.skillName + "\n" + skill.GetDescription());
                 }
 
                 if (ESkillType != null)
@@ -105,6 +107,7 @@ namespace Classes
                     skill.owner = this;
                     skill.SkillEffect();
                     skillList[(int)SkillType.ESkill] = skill;
+                    Debug.Log("Read skill:" + skill.skillName + "\n" + skill.GetDescription());
                 }
 
                 if (RSkillType != null)
@@ -113,6 +116,7 @@ namespace Classes
                     skill.owner = this;
                     skill.SkillEffect();
                     skillList[(int)SkillType.RSkill] = skill;
+                    Debug.Log("Read skill:" + skill.skillName + "\n" + skill.GetDescription());
                 }
                 
                 #endregion
@@ -140,8 +144,8 @@ namespace Classes
             _autoAttack = false;
             _attackTimer = 0;
             level.Value = 1;
-            magicPoint = maxMagicPoint;
-            healthPoint = maxHealthPoint;
+            magicPoint.Value = maxMagicPoint.Value;
+            healthPoint.Value = maxHealthPoint.Value;
         }
 
         private const float rotationSpeed = 10;

@@ -19,6 +19,7 @@ namespace Entities.Hero
             hero.TargetCheck();
             hero.SetRotate();
             hero.Attack();
+            hero.EntityUpdate(hero);
 
             if (Input.GetKeyDown(KeyCode.Q))
             {

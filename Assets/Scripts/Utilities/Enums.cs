@@ -16,8 +16,8 @@ namespace Utilities
 
     public enum SkillType
     {
-        None = 0,
-        PassiveSkill,
+        None = -1,
+        PassiveSkill = 0,
         QSkill,
         WSkill,
         ESkill,
@@ -72,5 +72,12 @@ namespace Utilities
         /// 数值提升
         /// </summary>
         Stat
+    }
+
+    public enum Team
+    {
+        None = 0,
+        Hero,
+        Enemy
     }
 }

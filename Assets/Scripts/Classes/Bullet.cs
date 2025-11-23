@@ -7,39 +7,40 @@ namespace Classes
     public class Bullet
     {
         public GameObject gameObject;
-        private Entity _owner;
+        public Entity owner;
         private Team _team;
         private float _bulletContinuousTime;
         private float _bulletContinuousTimer;
         
-        public event Action<Bullet> BulletAwake;
-        public event Action<Bullet> BulletUpdate;
-        public event Action<Bullet> BulletDestroy;
+        public event Action<Bullet> OnBulletAwake;
+        public event Action<Bullet> OnBulletUpdate;
+        public event Action<Bullet> OnBulletDestroy;
+        // public event Action<Bullet> OnBulletHit;
 
         internal Bullet(Entity owner, GameObject bulletPrefab)
         {
-            _owner = owner;
+            this.owner = owner;
             gameObject = GameObject.Instantiate(bulletPrefab, bulletPrefab.transform.parent);
             _team = owner.team;
         }
 
         public void Awake()
         {
-            BulletAwake?.Invoke(this);
+            OnBulletAwake?.Invoke(this);
         }
 
         public void Update()
         {
-            BulletUpdate?.Invoke(this);
+            OnBulletUpdate?.Invoke(this);
         }
 
         public void Destroy()
         {
-            BulletDestroy?.Invoke(this);
+            OnBulletDestroy?.Invoke(this);
             
-            BulletAwake = null;
-            BulletUpdate = null;
-            BulletDestroy = null;
+            OnBulletAwake = null;
+            OnBulletUpdate = null;
+            OnBulletDestroy = null;
             
             GameObject.Destroy(gameObject);
         }

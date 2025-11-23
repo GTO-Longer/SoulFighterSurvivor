@@ -11,6 +11,7 @@ namespace Classes{
         public Entity owner;
         public int skillLevel => _skillLevel;
         public float skillCost => _baseSkillCost[skillLevel - 1];
+        public float actualSkillRange => _skillRange / 100f;
         
         protected int _skillLevel = 0;
         protected int _maxSkillLevel = 0;

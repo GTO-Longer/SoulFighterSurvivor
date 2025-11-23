@@ -40,7 +40,6 @@ namespace Classes.Skills
 
                 // 状态变量（由闭包捕获）
                 var hasReachedTarget = false;
-                var targetPosition = Vector3.zero;
                 const float flyDuration = 0.8f;
                 const float returnDuration = 0.8f;
                 var flyTimer = 0f;
@@ -54,44 +53,55 @@ namespace Classes.Skills
                     // 计算飞出目标点
                     var mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     var direction = ((Vector2)mouseWorld - (Vector2)self.gameObject.transform.position).normalized;
-                    targetPosition = (Vector2)self.gameObject.transform.position + direction * actualSkillRange;
+                    var targetPosition = (Vector2)self.gameObject.transform.position + direction * actualSkillRange;
 
                     // 自定义每帧更新逻辑
                     self.OnBulletUpdate += (bullet) =>
                     {
                         if (hasReachedTarget)
                         {
-                            // 返回阶段：实时追踪 owner 当前位置
                             returnTimer += Time.deltaTime;
                             var t = Mathf.Clamp01(returnTimer / returnDuration);
-                            t = t * t; // Ease.InQuad
+                            t = t * t;
 
-                            if (owner?.gameObject != null)
+                            bullet.gameObject.transform.position = Vector3.Lerp(
+                                targetPosition,
+                                owner.gameObject.transform.position,
+                                t
+                            );
+
+                            // 旋转子弹使其朝向运动方向（返回时）
+                            if (returnTimer < returnDuration && (Vector2)owner.gameObject.transform.position != targetPosition)
                             {
-                                bullet.gameObject.transform.position = Vector3.Lerp(
-                                    targetPosition,
-                                    owner.gameObject.transform.position,
-                                    t
-                                );
+                                var directionToOwner = ((Vector2)owner.gameObject.transform.position - (Vector2)bullet.gameObject.transform.position).normalized;
+                                var angle = Vector2.SignedAngle(Vector2.up, directionToOwner);
+                                bullet.gameObject.transform.rotation = Quaternion.Euler(0, 0, angle);
                             }
 
-                            if (returnTimer >= returnDuration || owner?.gameObject == null)
+                            if (returnTimer >= returnDuration)
                             {
                                 bullet.Destroy();
                             }
                         }
                         else
                         {
-                            // 飞出阶段
                             flyTimer += Time.deltaTime;
                             var t = Mathf.Clamp01(flyTimer / flyDuration);
-                            t = t * (2f - t); // Ease.OutQuad
+                            t = t * (2f - t);
 
                             bullet.gameObject.transform.position = Vector3.Lerp(
                                 owner.gameObject.transform.position,
                                 targetPosition,
                                 t
                             );
+
+                            // 旋转子弹使其朝向运动方向（飞出时）
+                            if (flyTimer < flyDuration && (Vector2)owner.gameObject.transform.position != targetPosition)
+                            {
+                                var currentDirection = ((Vector2)targetPosition - (Vector2)bullet.gameObject.transform.position).normalized;
+                                var angle = Vector2.SignedAngle(Vector2.up, currentDirection);
+                                bullet.gameObject.transform.rotation = Quaternion.Euler(0, 0, angle);
+                            }
 
                             if (flyTimer >= flyDuration)
                             {

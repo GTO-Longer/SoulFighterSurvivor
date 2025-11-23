@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace DataManagement
 {
@@ -58,9 +59,8 @@ namespace DataManagement
         public string _skillType;
         public float[] _baseSkillCost;
         public float[] _baseSkillCoolDown;
-        public float[][] _baseSkillValue;
+        public List<List<float>> _baseSkillValue; // ✅ 支持嵌套列表！
         public float _skillRange;
-        
         public string[] _skillBulletType;
         public string[] _skillUsageType;
     }
@@ -73,14 +73,14 @@ namespace DataManagement
 
     public static class ConfigReader
     {
-        // === Hero Config ===
         private static Dictionary<string, HeroConfig> _heroConfigMap;
+        private static Dictionary<string, SkillConfig> _skillConfigMap;
 
         private static void LoadAllHeroConfigs()
         {
             if (_heroConfigMap != null) return;
 
-            var jsonFile = Resources.Load<TextAsset>("Configs/HeroConfig");
+            var jsonFile = Resources.Load< TextAsset >("Configs/HeroConfig");
             if (jsonFile == null)
             {
                 Debug.LogError("HeroConfig.json not found in Resources/Configs/");
@@ -90,7 +90,7 @@ namespace DataManagement
 
             try
             {
-                var collection = JsonUtility.FromJson<HeroConfigCollection>(jsonFile.text);
+                var collection = JsonConvert.DeserializeObject<HeroConfigCollection>(jsonFile.text);
                 if (collection?.heroes == null || collection.heroes.Length == 0)
                 {
                     Debug.LogError("HeroConfig.json is empty or missing 'heroes' array.");
@@ -111,12 +111,12 @@ namespace DataManagement
             }
         }
 
-        /// <summary>
-        /// 从 Resources/Configs/HeroConfig.json 中读取指定英雄的配置
-        /// </summary>
         public static HeroConfig ReadHeroConfig(string heroName)
         {
-            LoadAllHeroConfigs();
+            if (_heroConfigMap == null)
+            {
+                LoadAllHeroConfigs();
+            }
 
             if (string.IsNullOrEmpty(heroName))
             {
@@ -133,14 +133,11 @@ namespace DataManagement
             return null;
         }
 
-        // === Skill Config ===
-        private static Dictionary<string, SkillConfig> _skillConfigMap;
-
         private static void LoadAllSkillConfigs()
         {
             if (_skillConfigMap != null) return;
 
-            var jsonFile = Resources.Load<TextAsset>("Configs/SkillConfig");
+            var jsonFile = Resources.Load< TextAsset >("Configs/SkillConfig");
             if (jsonFile == null)
             {
                 Debug.LogError("SkillConfig.json not found in Resources/Configs/");
@@ -150,7 +147,7 @@ namespace DataManagement
 
             try
             {
-                var collection = JsonUtility.FromJson<SkillConfigCollection>(jsonFile.text);
+                var collection = JsonConvert.DeserializeObject<SkillConfigCollection>(jsonFile.text);
                 if (collection?.skills == null || collection.skills.Length == 0)
                 {
                     Debug.LogError("SkillConfig.json is empty or missing 'skills' array.");
@@ -173,12 +170,12 @@ namespace DataManagement
             }
         }
 
-        /// <summary>
-        /// 从 Resources/Configs/SkillConfig.json 中读取指定技能ID的配置
-        /// </summary>
         public static SkillConfig ReadSkillConfig(string skillId)
         {
-            LoadAllSkillConfigs();
+            if (_skillConfigMap == null)
+            {
+                LoadAllSkillConfigs();
+            }
 
             if (string.IsNullOrEmpty(skillId))
             {

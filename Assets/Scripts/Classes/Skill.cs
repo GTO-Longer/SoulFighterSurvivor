@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using DataManagement;
 using Utilities;
 
@@ -18,7 +19,7 @@ namespace Classes{
         protected SkillType _skillType;
         protected float[] _baseSkillCost;
         protected float[] _baseSkillCoolDown;
-        protected float[][] _baseSkillValue;
+        protected List<List<float>> _baseSkillValue;
         protected float _skillRange;
         protected BulletType[] _skillBulletType;
         protected SkillUsageType[] _skillUsageType;

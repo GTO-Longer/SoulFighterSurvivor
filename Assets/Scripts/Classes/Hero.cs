@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using DataManagement;
+using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -13,6 +14,8 @@ namespace Classes
     {
         private readonly NavMeshAgent _agent;
         private Transform _attackRangeIndicator;
+        private bool _asyncRotating => DOTween.IsTweening(_gameObject.transform);
+        private const float rotateTime = 0.3f;
         
         /// <summary>
         /// 玩家锁定的实体
@@ -130,6 +133,7 @@ namespace Classes
             #endregion
             
             _gameObject = gameObject;
+            _team = Team.Hero;
             
             // 配置角色寻路组件
             _agent = _gameObject.GetComponent<NavMeshAgent>();
@@ -161,7 +165,7 @@ namespace Classes
         public override void Move()
         {
             // 获取鼠标位置
-            Vector3 _mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            var _mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             
             // 当玩家点击左键
             if (Input.GetMouseButtonDown(0))
@@ -287,34 +291,23 @@ namespace Classes
             {
                 _attackTimer += Time.deltaTime;
             }
-
-            if (target.Value == null)
+            
+            if (target.Value == null || !_agent.isStopped) 
                 return;
             
-            if (!_agent.isStopped)
-                return;
-
             // 英雄转向目标
-            
             // 计算 XY 平面方向
             var direction = new Vector2(
                 target.Value.gameObject.transform.position.x - _gameObject.transform.position.x,
                 target.Value.gameObject.transform.position.y - _gameObject.transform.position.y
             );
 
-            if (direction.sqrMagnitude > 0.01f)
+            if (!_asyncRotating)
             {
-                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                Quaternion targetRot = Quaternion.Euler(0, 0, angle);
-
-                _gameObject.transform.rotation = Quaternion.Slerp(
-                    _gameObject.transform.rotation,
-                    targetRot,
-                    rotationSpeed * Time.deltaTime
-                );
+                Async.SetAsync(_gameObject.transform, () => RotateTo(direction), rotateTime);
             }
 
-            if (_attackTimer < actualAttackInterval)
+            if(_attackTimer < actualAttackInterval)
                 return;
 
             // 发动攻击
@@ -324,7 +317,7 @@ namespace Classes
         
         public void SetRotate()
         {
-            if (!_agent.hasPath || _agent.path.corners.Length == 0 || _agent.isStopped)
+            if (!_agent.hasPath || _agent.path.corners.Length == 0 || _agent.isStopped || _asyncRotating)
                 return;
 
             Vector3 targetPosition;
@@ -344,17 +337,7 @@ namespace Classes
                 targetPosition.y - _gameObject.transform.position.y
             );
 
-            if (direction.sqrMagnitude > 0.01f)
-            {
-                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                Quaternion targetRot = Quaternion.Euler(0, 0, angle);
-
-                _gameObject.transform.rotation = Quaternion.Slerp(
-                    _gameObject.transform.rotation,
-                    targetRot,
-                    rotationSpeed * Time.deltaTime
-                );
-            }
+            RotateTo(direction);
         }
 
         /// <summary>
@@ -363,17 +346,17 @@ namespace Classes
         public void TargetCheck()
         {
             // 获取鼠标位置
-            Vector3 _mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            var _mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             
             // 当玩家点击左键
             if (Input.GetMouseButton(0))
             {
                 // 检测鼠标点击位置是否有物体
-                RaycastHit2D[] _hitBoxes = Physics2D.RaycastAll(_mousePosition, Vector2.zero);
+                var _hitBoxes = Physics2D.RaycastAll(_mousePosition, Vector2.zero);
                 
-                bool _findTarget = false;
-                RaycastHit2D _find = new RaycastHit2D();
-                foreach (RaycastHit2D _hit in _hitBoxes)
+                var _findTarget = false;
+                var _find = new RaycastHit2D();
+                foreach (var _hit in _hitBoxes)
                 {
                     if (!_hit.collider.IsUnityNull() && !_gameObject.CompareTag(_hit.collider.gameObject.tag))
                     {
@@ -389,39 +372,58 @@ namespace Classes
                 }
             }
         }
+
+        /// <summary>
+        /// 转向鼠标指针
+        /// </summary>
+        public override void RotateToMousePoint()
+        {
+            // 获取鼠标位置
+            var _mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            
+            // 计算 XY 平面方向
+            var direction = new Vector2(
+                _mousePosition.x - _gameObject.transform.position.x,
+                _mousePosition.y - _gameObject.transform.position.y
+            );
+            
+            Async.SetAsync(_gameObject.transform, () => RotateTo(direction), rotateTime); 
+        }
+        
+        #region 私有工具函数
         
         // 静态缓存，避免 GC
         private static readonly Collider2D[] _overlapBuffer = new Collider2D[20];
 
         /// <summary>
-        /// 检测圆形范围内是否有与指定 tag 不同的其他碰撞体，并返回最近的一个 EntityData
+        /// 检测圆形范围内是否有与指定tag不同的其他碰撞体，并返回最近的一个EntityData
         /// </summary>
         private EntityData IsOverlappingOtherTag(CircleCollider2D collider, string excludeTag)
         {
             if (collider == null) return null;
 
             Vector2 center = collider.bounds.center;
-            float radius = collider.radius * collider.transform.lossyScale.x;
+            var radius = collider.radius * collider.transform.lossyScale.x;
 
             // 使用 NonAlloc 版本避免内存分配
-            int count = Physics2D.OverlapCircleNonAlloc(center, radius, _overlapBuffer);
+            var count = Physics2D.OverlapCircleNonAlloc(center, radius, _overlapBuffer);
 
             EntityData nearestEntity = null;
-            float nearestDistanceSqr = float.MaxValue;
+            var nearestDistanceSqr = float.MaxValue;
 
-            for (int i = 0; i < count; i++)
+            for (var i = 0; i < count; i++)
             {
-                Collider2D col = _overlapBuffer[i];
+                var col = _overlapBuffer[i];
                 if (col == null) continue;
 
-                GameObject otherGo = col.gameObject;
+                var otherGo = col.gameObject;
                 if (otherGo == null || otherGo == gameObject) continue; // 排除自身和空对象
 
                 // 跳过相同 Tag 的对象
                 if (otherGo.CompareTag(excludeTag)) continue;
 
                 // 获取 EntityData 组件
-                EntityData entity = otherGo.GetComponent<EntityData>();
+                var entity = otherGo.GetComponent<EntityData>();
                 if (entity == null) continue; // 没有该组件则跳过
 
                 // 计算距离平方（避免开根号）
@@ -435,5 +437,26 @@ namespace Classes
 
             return nearestEntity; // 可能为 null
         }
+
+        /// <summary>
+        /// 平滑转向指定方向
+        /// </summary>
+        /// <param name="direction">方向</param>
+        private void RotateTo(Vector2 direction)
+        {
+            if (direction.sqrMagnitude > 0.01f)
+            {
+                var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                var targetRot = Quaternion.Euler(0, 0, angle);
+
+                _gameObject.transform.rotation = Quaternion.Slerp(
+                    _gameObject.transform.rotation,
+                    targetRot,
+                    rotationSpeed * Time.deltaTime
+                );
+            }
+        }
+        
+        #endregion
     }
 }

@@ -15,6 +15,10 @@ namespace Classes
         /// 对应的游戏物体
         /// </summary>
         protected GameObject _gameObject;
+        /// <summary>
+        /// 实体所属队伍
+        /// </summary>
+        protected Team _team;
         
         #region 最终属性
 
@@ -495,6 +499,10 @@ namespace Classes
         /// 对应的游戏物体
         /// </summary>
         public GameObject gameObject => _gameObject;
+        /// <summary>
+        /// 实体所属队伍
+        /// </summary>
+        public Team team => _team;
         
         #endregion
         
@@ -529,6 +537,11 @@ namespace Classes
         /// 攻击
         /// </summary>
         public virtual void Attack(){}
+        
+        /// <summary>
+        /// 转向鼠标指针
+        /// </summary>
+        public virtual void RotateToMousePoint(){}
         
         #endregion
 

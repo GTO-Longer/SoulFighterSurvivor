@@ -1,6 +1,7 @@
 using Entities.Hero;
 using UnityEngine;
 using UnityEngine.AI;
+using Utilities;
 
 namespace Classes
 {
@@ -40,6 +41,7 @@ namespace Classes
             #endregion
 
             _gameObject = gameObject;
+            _team = Team.Enemy;
             
             // 配置敌人寻路组件
             _agent = _gameObject.GetComponent<NavMeshAgent>();

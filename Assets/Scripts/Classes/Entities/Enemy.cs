@@ -1,10 +1,10 @@
-using Entities.Hero;
+using EntityManagers;
 using Factories;
 using UnityEngine;
 using UnityEngine.AI;
 using Utilities;
 
-namespace Classes
+namespace Classes.Entities
 {
     public class Enemy : Entity
     {
@@ -33,7 +33,7 @@ namespace Classes
 
             #region 读取敌人数据配置初始化数据（目前测试采用固定数据）
             
-            _baseMaxHealthPoint = 100;
+            _baseMaxHealthPoint = 600;
             _baseMaxMagicPoint = 100;
             _baseAttackDamage = 50;
             _baseAttackSpeed = 0.5f;

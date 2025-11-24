@@ -8,7 +8,7 @@ namespace Classes.Skills
     public class OrbOfDeception : Skill
     {
         private float _APDamage => _baseSkillValue[0][Math.Max(0, _skillLevel - 1)] + 0.5f * owner.abilityPower;
-        private float _RealDamage => _baseSkillValue[1][Math.Max(0, _skillLevel - 1)] + 0.5f * owner.abilityPower;
+        private float _realDamage => _baseSkillValue[1][Math.Max(0, _skillLevel - 1)] + 0.5f * owner.abilityPower;
         
         public OrbOfDeception()
         {
@@ -21,7 +21,7 @@ namespace Classes.Skills
         public override string GetDescription()
         {
             return string.Format(_skillDescription,
-                _APDamage, _RealDamage);
+                _APDamage, _realDamage);
         }
 
         public override void SkillEffect()
@@ -31,7 +31,7 @@ namespace Classes.Skills
             {
                 owner.RotateToMousePoint();
                 
-                if (_skillLevel < 0)
+                if (_skillLevel <= 0)
                 {
                     Debug.Log("Skill level too low to use.");
                     return;
@@ -148,7 +148,7 @@ namespace Classes.Skills
                     else if (self.bulletStateID == 2)
                     {
                         // 第二段造成真实伤害
-                        self.target.TakeDamage(_RealDamage);
+                        self.target.TakeDamage(_realDamage);
                     }
                     
                     // 造成技能特效

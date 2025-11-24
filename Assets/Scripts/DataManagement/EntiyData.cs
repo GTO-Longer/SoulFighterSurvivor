@@ -1,3 +1,4 @@
+using Classes.Entities;
 using Classes;
 using UnityEngine;
 using Utilities;

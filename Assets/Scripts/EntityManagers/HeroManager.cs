@@ -1,16 +1,17 @@
 using UnityEngine;
 using DataManagement;
+using Classes.Entities;
 
-namespace Entities.Hero
+namespace EntityManagers
 {
     public class HeroManager : MonoBehaviour
     {
-        public static Classes.Hero hero;
+        public static Hero hero;
 
         private void Awake()
         {
             // 创建Hero实例
-            hero = (Classes.Hero)GetComponent<EntityData>().entity;
+            hero = (Hero)GetComponent<EntityData>().entity;
         }
 
         private void Update()

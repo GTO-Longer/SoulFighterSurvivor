@@ -2,7 +2,7 @@ using DataManagement;
 using UnityEngine;
 
 
-namespace Entities.Enemy
+namespace EntityManagers
 {
     public class EnemyManager : MonoBehaviour
     {

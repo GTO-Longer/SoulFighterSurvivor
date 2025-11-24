@@ -9,7 +9,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Utilities;
 
-namespace Classes
+namespace Classes.Entities
 {
     public class Hero : Entity
     {

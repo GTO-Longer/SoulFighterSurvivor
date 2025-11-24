@@ -167,6 +167,10 @@ namespace Classes
         /// 实际攻击间隔
         /// </summary>
         public float actualAttackInterval => attackSpeed == 0 ? 999 : 1f / attackSpeed;
+        /// <summary>
+        /// 当前生命值百分比
+        /// </summary>
+        public float actualHealthProportion => maxHealthPoint == 0 ? 0 : healthPoint / maxHealthPoint;
         
         #endregion
         

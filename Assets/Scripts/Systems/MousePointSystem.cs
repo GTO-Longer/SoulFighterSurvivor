@@ -6,6 +6,7 @@ namespace Systems
     {
         private RectTransform _rectTransform;
         private Canvas _canvas;
+        public GameObject mousePointIndicator;
 
         private void Start()
         {
@@ -20,9 +21,11 @@ namespace Systems
         private void Update()
         {
             FollowMouseOnScreen();
+            MousePointIndicatorControl();
         }
-    
-        void FollowMouseOnScreen()
+
+        // 跟随鼠标指针
+        private void FollowMouseOnScreen()
         {
             if (_rectTransform == null || _canvas == null)
                 return;
@@ -37,6 +40,27 @@ namespace Systems
                     out localPoint))
             {
                 _rectTransform.anchoredPosition = localPoint;
+            }
+        }
+
+        private void MousePointIndicatorControl()
+        {
+            // 获取鼠标位置
+            var mouseWorld = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePointIndicator.transform.position = mouseWorld;
+
+            if (Input.GetMouseButtonDown(1))
+            {
+                var obj = Instantiate(mousePointIndicator, mousePointIndicator.transform.parent).GetComponent<ParticleSystem>();
+                obj.Play();
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    obj.startColor = Color.red;
+                }
+                else
+                {
+                    obj.startColor = Color.green;
+                }
             }
         }
     }

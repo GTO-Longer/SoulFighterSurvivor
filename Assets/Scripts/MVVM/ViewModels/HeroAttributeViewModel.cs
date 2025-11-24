@@ -30,8 +30,8 @@ namespace MVVM.ViewModels
             UnBindEvent += Binder.BindTextGroup(textGroup, HeroManager.hero);
             UnBindEvent += Binder.BindActive(otherAttributes, HeroManager.hero.showAttributes);
             UnBindEvent += Binder.BindActive(hexes, HeroManager.hero.showAttributes);
-            UnBindEvent += Binder.BindText(HPContent, HeroManager.hero.healthPoint, HeroManager.hero.maxHealthPoint);
-            UnBindEvent += Binder.BindText(MPContent, HeroManager.hero.magicPoint, HeroManager.hero.maxMagicPoint);
+            UnBindEvent += Binder.BindText(HPContent, HeroManager.hero.healthPoint, HeroManager.hero.maxHealthPoint, "{0:F0} / {1:F0}");
+            UnBindEvent += Binder.BindText(MPContent, HeroManager.hero.magicPoint, HeroManager.hero.maxMagicPoint, "{0:F0} / {1:F0}");
             UnBindEvent += Binder.BindLength(HPBar, HeroManager.hero.healthPoint, HeroManager.hero.maxHealthPoint);
             UnBindEvent += Binder.BindLength(MPBar, HeroManager.hero.magicPoint, HeroManager.hero.maxMagicPoint);
         }

@@ -30,12 +30,20 @@ namespace Classes.Skills
             owner.OnQSkillRelease += (_, _) =>
             {
                 owner.RotateToMousePoint();
+                
                 if (_skillLevel < 0)
                 {
                     Debug.Log("Skill level too low to use.");
                     return;
                 }
+                
+                if (_baseSkillCost[_skillLevel] > owner.magicPoint)
+                {
+                    Debug.Log("Magic point too low to use.");
+                    return;
+                }
 
+                owner.magicPoint.Value -= _baseSkillCost[_skillLevel];
                 var deceptionOrb = BulletFactory.Instance.CreateBullet(owner);
 
                 // 状态变量（由闭包捕获）

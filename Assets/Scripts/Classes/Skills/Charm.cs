@@ -14,7 +14,7 @@ namespace Classes.Skills
         {
             ReadSkillConfig("Charm");
             
-            _skillLevel = 0;
+            _skillLevel = 1;
             _maxSkillLevel = 5;
         }
 
@@ -29,7 +29,7 @@ namespace Classes.Skills
             Debug.Log(skillName + ": Skill effective");
             owner.OnESkillRelease += (_, _) =>
             {
-                if (_skillLevel < 0)
+                if (_skillLevel <= 0)
                 {
                     Debug.Log("Skill level too low to use.");
                     return;
@@ -38,6 +38,12 @@ namespace Classes.Skills
                 if (_baseSkillCost[_skillLevel] > owner.magicPoint)
                 {
                     Debug.Log("Magic point too low to use.");
+                    return;
+                }
+                
+                if (actualSkillCoolDown > coolDownTimer)
+                {
+                    Debug.Log("Skill is in cooldown.");
                     return;
                 }
                 

@@ -22,6 +22,7 @@ namespace EntityManagers
             hero.Attack();
             hero.EntityUpdate(hero);
             hero.Regenerate();
+            hero.SkillCoolDown();
 
             if (Input.GetKeyDown(KeyCode.Q))
             {

@@ -13,9 +13,11 @@ namespace Classes{
         public int skillLevel => _skillLevel;
         public float skillCost => _baseSkillCost[skillLevel - 1];
         public float actualSkillRange => _skillRange / 100f;
+        public float actualSkillCoolDown => _baseSkillCoolDown[_skillLevel] * owner.actualAbilityCooldown;
         public float bulletWidth => _bulletWidth / 100f;
         public float bulletSpeed => _bulletSpeed / 100f;
-        public float destinationDistance;
+        public float destinationDistance => _destinationDistance / 100f;
+        public float coolDownTimer;
         
         protected int _skillLevel = 0;
         protected int _maxSkillLevel = 0;
@@ -38,6 +40,8 @@ namespace Classes{
             var config = ConfigReader.ReadSkillConfig(name);
             heroName = config.heroName;
             skillName = config.skillName;
+
+            coolDownTimer = 0;
             
             _skillDescription = config._skillDescription;
             _skillType = (SkillType)Enum.Parse(typeof(SkillType), config._skillType);

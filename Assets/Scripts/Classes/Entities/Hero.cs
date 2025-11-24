@@ -13,7 +13,12 @@ namespace Classes.Entities
 {
     public class Hero : Entity
     {
+        /// <summary>
+        /// 寻路组件
+        /// </summary>
         private readonly NavMeshAgent _agent;
+        public NavMeshAgent agent => _agent;
+        
         private Transform _attackRangeIndicator;
         private bool _asyncRotating => DOTween.IsTweening(_gameObject.transform);
         private const float rotateTime = 0.5f;
@@ -396,6 +401,17 @@ namespace Classes.Entities
                 _regenerateTimer = 0;
             }
         }
+
+        /// <summary>
+        /// 技能冷却回转
+        /// </summary>
+        public void SkillCoolDown()
+        {
+            foreach (var skill in skillList)
+            {
+                skill.coolDownTimer += Time.deltaTime;
+            }
+        }
         
         public void SetRotate()
         {
@@ -413,7 +429,7 @@ namespace Classes.Entities
                 targetPosition = _agent.destination;
             }
 
-            // 计算 XY 平面方向
+            // 计算2d方向
             var direction = new Vector2(
                 targetPosition.x - _gameObject.transform.position.x,
                 targetPosition.y - _gameObject.transform.position.y

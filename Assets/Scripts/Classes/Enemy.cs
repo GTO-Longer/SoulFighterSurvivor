@@ -140,7 +140,10 @@ namespace Classes
                     };
                 };
 
-                bullet.OnBulletHit += (self) => { self.target.TakeDamage(self.target.CalculateADDamage(self.owner, 1)); };
+                bullet.OnBulletHit += (self) =>
+                {
+                    self.target.TakeDamage(self.target.CalculateADDamage(self.owner, self.owner.attackDamage));
+                };
 
                 bullet.Awake();
             }

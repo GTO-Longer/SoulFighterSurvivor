@@ -1,5 +1,4 @@
 using System;
-using DG.Tweening;
 using Factories;
 using UnityEngine;
 using Utilities;
@@ -10,7 +9,6 @@ namespace Classes.Skills
     {
         private float _APDamage => _baseSkillValue[0][Math.Max(0, _skillLevel - 1)] + 0.5f * owner.abilityPower;
         private float _RealDamage => _baseSkillValue[1][Math.Max(0, _skillLevel - 1)] + 0.5f * owner.abilityPower;
-        private bool hasReachedTarget = false;
         
         public OrbOfDeception()
         {
@@ -55,8 +53,10 @@ namespace Classes.Skills
 
                 deceptionOrb.OnBulletAwake += (self) =>
                 {
+                    self.target = null;
                     self.gameObject.transform.position = owner.gameObject.transform.position;
                     self.gameObject.SetActive(true);
+                    var hasReachedTarget = false;
 
                     // 计算飞出目标点
                     var mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -67,33 +67,10 @@ namespace Classes.Skills
                     self.OnBulletUpdate += (bullet) =>
                     {
                         // 技能运动轨迹
-                        if (hasReachedTarget)
+                        if (!hasReachedTarget)
                         {
-                            returnTimer += Time.deltaTime;
-                            var t = Mathf.Clamp01(returnTimer / returnDuration);
-                            t = t * t;
+                            self.bulletStateID = 1;
 
-                            bullet.gameObject.transform.position = Vector3.Lerp(
-                                targetPosition,
-                                owner.gameObject.transform.position,
-                                t
-                            );
-
-                            // 旋转子弹使其朝向运动方向（返回时）
-                            if (returnTimer < returnDuration && (Vector2)owner.gameObject.transform.position != targetPosition)
-                            {
-                                var directionToOwner = ((Vector2)owner.gameObject.transform.position - (Vector2)bullet.gameObject.transform.position).normalized;
-                                var angle = Vector2.SignedAngle(Vector2.up, directionToOwner);
-                                bullet.gameObject.transform.rotation = Quaternion.Euler(0, 0, angle);
-                            }
-
-                            if (returnTimer >= returnDuration)
-                            {
-                                bullet.Destroy();
-                            }
-                        }
-                        else
-                        {
                             flyTimer += Time.deltaTime;
                             var t = Mathf.Clamp01(flyTimer / flyDuration);
                             t = t * (2f - t);
@@ -118,27 +95,60 @@ namespace Classes.Skills
                                 returnTimer = 0f;
                             }
                         }
+                        else
+                        {
+                            if (self.bulletStateID == 1)
+                            {
+                                self.target = null;
+                                self.bulletStateID = 2;
+                            }
+                            returnTimer += Time.deltaTime;
+                            var t = Mathf.Clamp01(returnTimer / returnDuration);
+                            t = t * t;
+
+                            bullet.gameObject.transform.position = Vector3.Lerp(
+                                targetPosition,
+                                owner.gameObject.transform.position,
+                                t
+                            );
+
+                            // 旋转子弹使其朝向运动方向
+                            if (returnTimer < returnDuration && (Vector2)owner.gameObject.transform.position != targetPosition)
+                            {
+                                var directionToOwner = ((Vector2)owner.gameObject.transform.position - (Vector2)bullet.gameObject.transform.position).normalized;
+                                var angle = Vector2.SignedAngle(Vector2.up, directionToOwner);
+                                bullet.gameObject.transform.rotation = Quaternion.Euler(0, 0, angle);
+                            }
+
+                            if (returnTimer >= returnDuration)
+                            {
+                                bullet.Destroy();
+                            }
+                        }
                         
                         // 技能命中判定
                         var target = ToolFunctions.IsOverlappingOtherTag(self.gameObject);
                         if (target != null)
                         {
-                            self.BulletHit(target);
+                            if (self.target == null || !target.Equals(self.target))
+                            {
+                                self.BulletHit(target);
+                            }
                         }
                     };
                 };
 
                 deceptionOrb.OnBulletHit += (self) =>
                 {
-                    if (!hasReachedTarget)
+                    if (self.bulletStateID == 1)
                     {
                         // 第一段造成魔法伤害
-                        self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, 0.5f));
+                        self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, _APDamage));
                     }
-                    else
+                    else if (self.bulletStateID == 2)
                     {
                         // 第二段造成真实伤害
-                        self.target.TakeDamage(self.target.abilityPower * 0.5f);
+                        self.target.TakeDamage(_RealDamage);
                     }
                     
                     // 造成技能特效

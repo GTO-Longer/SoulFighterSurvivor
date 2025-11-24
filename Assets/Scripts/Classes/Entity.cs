@@ -536,20 +536,20 @@ namespace Classes
             }
         }
 
-        public float CalculateADDamage(Entity damageSource, float attackMultiplier)
+        public float CalculateADDamage(Entity damageSource, float damageCount)
         {
             var actualAttackDefense = (attackDefense - damageSource.attackPenetration)
                                       * (1 - damageSource.percentageAttackPenetration);
-            return  damageSource.attackDamage * attackMultiplier * 
-                (1 - (actualAttackDefense / (actualAttackDefense + 100)));
+            return  damageCount * 
+                    (1 - (actualAttackDefense / (actualAttackDefense + 100)));
         }
 
-        public float CalculateAPDamage(Entity damageSource, float magicMultiplier)
+        public float CalculateAPDamage(Entity damageSource, float damageCount)
         {
             var actualMagicDefense = (magicDefense - damageSource.magicPenetration)
                                      * (1 - damageSource.percentageMagicPenetration);
-            return  damageSource.abilityPower * magicMultiplier * 
-                (1 - (actualMagicDefense / (actualMagicDefense + 100)));
+            return  damageCount * 
+                    (1 - (actualMagicDefense / (actualMagicDefense + 100)));
         }
         
         /// <summary>

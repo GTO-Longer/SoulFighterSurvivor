@@ -265,7 +265,7 @@ namespace Classes
                 {
                     // 若没锁定的目标则走到对应位置
                     // 过程中持续索敌
-                    target.Value = ToolFunctions.IsOverlappingOtherTag(gameObject);
+                    target.Value = ToolFunctions.IsOverlappingOtherTag(_attackRangeIndicator.gameObject);
                 }
                 
                 if (target.Value != null)
@@ -273,7 +273,8 @@ namespace Classes
                     // 若有锁定的目标则持续索敌
                     // 走到敌人进入攻击范围为止
                     _agent.SetDestination(target.Value.gameObject.transform.position);
-                    _agent.isStopped = ToolFunctions.IsOverlappingOtherTag(gameObject)?.gameObject == target.Value.gameObject;
+                    _agent.isStopped = Vector2.Distance(gameObject.transform.position, target.Value.gameObject.transform.position)
+                                       <= actualScale + actualAttackRange + 0.1f;
                 }
             }
         }
@@ -353,7 +354,7 @@ namespace Classes
                 bullet.OnBulletHit += (self) =>
                 {
                     // 计算平A伤害
-                    self.target.TakeDamage(self.target.CalculateADDamage(self.owner, 1));
+                    self.target.TakeDamage(self.target.CalculateADDamage(self.owner, self.owner.attackDamage));
                     
                     // 造成攻击特效
                     self.AttackEffectActivate();

@@ -9,6 +9,7 @@ namespace Classes
         public GameObject gameObject;
         public Entity owner;
         public Entity target;
+        public int bulletStateID;
         
         private Team _team;
         private float _bulletContinuousTime;
@@ -31,6 +32,7 @@ namespace Classes
         {
             this.owner = owner;
             gameObject = GameObject.Instantiate(bulletPrefab, bulletPrefab.transform.parent);
+            gameObject.tag = owner.gameObject.tag;
             _team = owner.team;
         }
 

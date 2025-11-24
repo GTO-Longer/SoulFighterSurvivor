@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Systems
 {
+    [Obsolete("Obsolete")]
     public class MousePointSystem : MonoBehaviour
     {
         private RectTransform _rectTransform;
@@ -43,8 +44,8 @@ namespace Systems
                 _rectTransform.anchoredPosition = localPoint;
             }
         }
-
-        [Obsolete("Obsolete")]
+        
+        // 鼠标指示器控制
         private void MousePointIndicatorControl()
         {
             // 获取鼠标位置

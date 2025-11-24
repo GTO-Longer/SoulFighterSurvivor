@@ -198,9 +198,9 @@ namespace Classes
                 _agent.isStopped = false;
 
                 // 检测鼠标点击位置是否有物体
-                bool _findTarget = false;
-                RaycastHit2D[] _hitBoxes = Physics2D.RaycastAll(_mousePosition, Vector2.zero);
-                foreach (RaycastHit2D _hit in _hitBoxes)
+                var _findTarget = false;
+                var _hitBoxes = Physics2D.RaycastAll(_mousePosition, Vector2.zero);
+                foreach (var _hit in _hitBoxes)
                 {
                     if (!_hit.collider.IsUnityNull() && !_gameObject.CompareTag(_hit.collider.gameObject.tag))
                     {
@@ -265,12 +265,7 @@ namespace Classes
                 {
                     // 若没锁定的目标则走到对应位置
                     // 过程中持续索敌
-                    
-                    // 获取攻击范围指示器的碰撞箱
-                    var collider = _gameObject.transform.Find("AttackRangeIndicator").GetComponent<CircleCollider2D>();
-
-                    // 将目标设定为最近的敌方目标（tag与自己不同的）
-                    target.Value = IsOverlappingOtherTag(collider, _gameObject.tag)?.entity;
+                    target.Value = ToolFunctions.IsOverlappingOtherTag(gameObject);
                 }
                 
                 if (target.Value != null)
@@ -278,17 +273,7 @@ namespace Classes
                     // 若有锁定的目标则持续索敌
                     // 走到敌人进入攻击范围为止
                     _agent.SetDestination(target.Value.gameObject.transform.position);
-                    
-                    // 获取攻击范围指示器的碰撞箱，判断是否可以攻击到敌人
-                    var collider = _gameObject.transform.Find("AttackRangeIndicator").GetComponent<CircleCollider2D>();
-                    if (IsOverlappingOtherTag(collider, _gameObject.tag)?.entity.gameObject == target.Value.gameObject)
-                    {
-                        _agent.isStopped = true;
-                    }
-                    else
-                    {
-                        _agent.isStopped = false;
-                    }
+                    _agent.isStopped = ToolFunctions.IsOverlappingOtherTag(gameObject)?.gameObject == target.Value.gameObject;
                 }
             }
         }
@@ -367,7 +352,10 @@ namespace Classes
 
                 bullet.OnBulletHit += (self) =>
                 {
-                    self.target.TakeDamage(self.target.CalculateADDamage(self.owner));
+                    // 计算平A伤害
+                    self.target.TakeDamage(self.target.CalculateADDamage(self.owner, 1));
+                    
+                    // 造成攻击特效
                     self.AttackEffectActivate();
                 };
                 
@@ -451,53 +439,6 @@ namespace Classes
         }
         
         #region 私有工具函数
-        
-        // 静态缓存，避免 GC
-        private static readonly Collider2D[] _overlapBuffer = new Collider2D[20];
-
-        /// <summary>
-        /// 检测圆形范围内是否有与指定tag不同的其他碰撞体，并返回最近的一个EntityData
-        /// </summary>
-        private EntityData IsOverlappingOtherTag(CircleCollider2D collider, string excludeTag)
-        {
-            if (collider == null) return null;
-
-            Vector2 center = collider.bounds.center;
-            var radius = collider.radius * collider.transform.lossyScale.x;
-
-            // 使用 NonAlloc 版本避免内存分配
-            var count = Physics2D.OverlapCircleNonAlloc(center, radius, _overlapBuffer);
-
-            EntityData nearestEntity = null;
-            var nearestDistanceSqr = float.MaxValue;
-
-            for (var i = 0; i < count; i++)
-            {
-                var col = _overlapBuffer[i];
-                if (col == null) continue;
-
-                var otherGo = col.gameObject;
-                if (otherGo == null || otherGo == gameObject) continue; // 排除自身和空对象
-
-                // 跳过相同 Tag 的对象
-                if (otherGo.CompareTag(excludeTag)) continue;
-
-                // 获取 EntityData 组件
-                var entity = otherGo.GetComponent<EntityData>();
-                if (entity == null) continue; // 没有该组件则跳过
-
-                // 计算距离平方（避免开根号）
-                var distSqr = (otherGo.transform.position - (Vector3)center).sqrMagnitude;
-                if (distSqr < nearestDistanceSqr)
-                {
-                    nearestDistanceSqr = distSqr;
-                    nearestEntity = entity;
-                }
-            }
-
-            return nearestEntity; // 可能为 null
-        }
-
         /// <summary>
         /// 平滑转向指定方向
         /// </summary>

@@ -60,10 +60,12 @@ namespace DataManagement
         public string _skillType;
         public float[] _baseSkillCost;
         public float[] _baseSkillCoolDown;
-        public List<List<float>> _baseSkillValue; // ✅ 支持嵌套列表！
+        public List<List<float>> _baseSkillValue;
         public float _skillRange;
-        public string[] _skillBulletType;
-        public string[] _skillUsageType;
+        public float _castTime;
+        public float _bulletWidth;
+        public float _bulletSpeed;
+        public float _destinationDistance;
     }
 
     [System.Serializable]

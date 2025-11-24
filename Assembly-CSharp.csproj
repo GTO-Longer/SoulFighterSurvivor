@@ -49,6 +49,7 @@
     <Compile Include="Assets\Scripts\MVVM\ViewModels\HeroAttributeViewModel.cs" />
     <Compile Include="Assets\Scripts\EntityManagers\HeroManager.cs" />
     <Compile Include="Assets\Scripts\Utilities\Async.cs" />
+    <Compile Include="Assets\Scripts\Classes\Skills\SpiritRush.cs" />
     <Compile Include="Assets\Scripts\Utilities\ToolFunctions.cs" />
     <Compile Include="Assets\Scripts\Systems\MousePointSystem.cs" />
     <Compile Include="Assets\Scripts\Classes\Skills\EssenceTheft.cs" />

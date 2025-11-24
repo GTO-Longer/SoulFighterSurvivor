@@ -18,10 +18,10 @@
                 ]
             ],
             "_skillRange": 0,
-            "_skillBulletType": [],
-            "_skillUsageType": [
-                "Buff"
-            ]
+            "_castTime": 0,
+            "_bulletWidth": 0,
+            "_bulletSpeed": 0,
+            "_destinationDistance": 0
         },
         {
             "id": "OrbOfDeception",
@@ -59,14 +59,11 @@
                     140
                 ]
             ],
-            "_skillRange": 970,
-            "_skillBulletType": [
-                "Straight",
-                "Projectile"
-            ],
-            "_skillUsageType": [
-                "Damage"
-            ]
+            "_skillRange": 900,
+            "_castTime": 0.25,
+            "_bulletWidth": 200,
+            "_bulletSpeed": 2600,
+            "_destinationDistance": 0
         },
         {
             "id": "FoxFire",
@@ -104,15 +101,11 @@
                     48
                 ]
             ],
-            "_skillRange": 700,
-            "_skillBulletType": [
-                "Aimed",
-                "Projectile"
-            ],
-            "_skillUsageType": [
-                "Buff",
-                "Damage"
-            ]
+            "_skillRange": 550,
+            "_castTime": 0,
+            "_bulletWidth": 0,
+            "_bulletSpeed": 1400,
+            "_destinationDistance": 0
         },
         {
             "id": "Charm",
@@ -150,20 +143,17 @@
                     240
                 ]
             ],
-            "_skillRange": 975,
-            "_skillBulletType": [
-                "Straight",
-                "Projectile"
-            ],
-            "_skillUsageType": [
-                "Control"
-            ]
+            "_skillRange": 1000,
+            "_castTime": 0.25,
+            "_bulletWidth": 120,
+            "_bulletSpeed": 1500,
+            "_destinationDistance": 0
         },
         {
             "id": "SpiritRush",
             "heroName": "Ahri",
             "skillName": "灵魄突袭",
-            "_skillDescription": "阿狸灵活地突进，并对附近的敌人们发射3颗灵魄弹，优先选择英雄。这些灵魄弹每颗造成{0}魔法伤害。\n灵魄突袭可以在15秒内再次施放至多2次。 在此期间，用摄魂夺魄吞噬魂魄碎片时，会使再次施放的窗口期至多延长至10秒并为灵魄突袭提供一次额外的再次施放(至多可储存至3次)。",
+            "_skillDescription": "阿狸灵活地突进，并对最近的敌人们发射3颗灵魄弹。这些灵魄弹每颗造成{0}魔法伤害。\n灵魄突袭可以在15秒内再次施放至多2次。 在此期间，用摄魂夺魄吞噬魂魄碎片时，会使再次施放的窗口期至多延长至10秒并为灵魄突袭提供一次额外的再次施放(至多可储存至3次)。",
             "_skillType": "RSkill",
             "_baseSkillCost": [
                 100,
@@ -183,20 +173,16 @@
                 ]
             ],
             "_skillRange": 450,
-            "_skillBulletType": [
-                "Aimed",
-                "Projectile"
-            ],
-            "_skillUsageType": [
-                "Displacement",
-                "Damage"
-            ]
+            "_castTime": 0,
+            "_bulletWidth": 0,
+            "_bulletSpeed": 1200,
+            "_destinationDistance": 500
         },
         {
             "id": "ArcaneMastery",
             "heroName": "Ryze",
             "skillName": "奥术专精",
-            "_skillDescription": "瑞兹获得{0}最大法力值。他的技能会基于他的额外法力值造成额外伤害",
+            "_skillDescription": "瑞兹每拥有100法强获得10%最大法力值。",
             "_skillType": "PassiveSkill",
             "_baseSkillCost": [
                 0
@@ -210,10 +196,10 @@
                 ]
             ],
             "_skillRange": 0,
-            "_skillBulletType": [],
-            "_skillUsageType": [
-                "Buff"
-            ]
+            "_castTime": 0,
+            "_bulletWidth": 0,
+            "_bulletSpeed": 0,
+            "_destinationDistance": 0
         },
         {
             "id": "Overload",
@@ -252,13 +238,10 @@
                 ]
             ],
             "_skillRange": 1000,
-            "_skillBulletType": [
-                "Straight",
-                "Projectile"
-            ],
-            "_skillUsageType": [
-                "Damage"
-            ]
+            "_castTime": null,
+            "_bulletWidth": null,
+            "_bulletSpeed": null,
+            "_destinationDistance": null
         },
         {
             "id": "RunePrison",
@@ -290,13 +273,10 @@
                 ]
             ],
             "_skillRange": 615,
-            "_skillBulletType": [
-                "Aimed",
-                "Immediate"
-            ],
-            "_skillUsageType": [
-                "Control"
-            ]
+            "_castTime": null,
+            "_bulletWidth": null,
+            "_bulletSpeed": null,
+            "_destinationDistance": null
         },
         {
             "id": "SpellFlux",
@@ -328,13 +308,10 @@
                 ]
             ],
             "_skillRange": 615,
-            "_skillBulletType": [
-                "Aimed",
-                "Immediate"
-            ],
-            "_skillUsageType": [
-                "Damage"
-            ]
+            "_castTime": null,
+            "_bulletWidth": null,
+            "_bulletSpeed": null,
+            "_destinationDistance": null
         },
         {
             "id": "RealmWarp",
@@ -360,11 +337,10 @@
                 ]
             ],
             "_skillRange": 3000,
-            "_skillBulletType": [],
-            "_skillUsageType": [
-                "Buff",
-                "Displacement"
-            ]
+            "_castTime": null,
+            "_bulletWidth": null,
+            "_bulletSpeed": null,
+            "_destinationDistance": null
         }
     ]
 }

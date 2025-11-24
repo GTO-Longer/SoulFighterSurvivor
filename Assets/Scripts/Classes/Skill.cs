@@ -24,6 +24,10 @@ namespace Classes{
         protected float _skillRange;
         protected BulletType[] _skillBulletType;
         protected SkillUsageType[] _skillUsageType;
+        protected float _castTime;
+        protected float _bulletWidth;
+        protected float _bulletSpeed;
+        protected float _destinationDistance;
 
         protected void ReadSkillConfig(string name)
         {
@@ -37,6 +41,11 @@ namespace Classes{
             _baseSkillCoolDown = config._baseSkillCoolDown;
             _baseSkillValue = config._baseSkillValue;
             _skillRange = config._skillRange;
+
+            _castTime = config._castTime;
+            _bulletWidth = config._bulletWidth;
+            _bulletSpeed = config._bulletSpeed;
+            _destinationDistance = config._destinationDistance;
         }
 
         public bool SkillUpdate()

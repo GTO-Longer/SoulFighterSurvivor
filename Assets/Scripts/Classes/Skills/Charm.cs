@@ -40,77 +40,85 @@ namespace Classes.Skills
                     Debug.Log("Magic point too low to use.");
                     return;
                 }
-
+                
                 owner.RotateToMousePoint();
                 owner.magicPoint.Value -= _baseSkillCost[_skillLevel];
-                var deceptionOrb = BulletFactory.Instance.CreateBullet(owner);
                 
-                const float flyDuration = 1f;
-                var flyTimer = 0f;
-
-                deceptionOrb.OnBulletAwake += (self) =>
+                // 吟唱时间
+                Async.SetAsync(_castTime, null, null, () =>
                 {
-                    self.target = null;
-                    self.gameObject.transform.position = owner.gameObject.transform.position;
-                    self.gameObject.SetActive(true);
-                    
-                    // TODO:完成Buff系统设计，通过赋予“魅惑”debuff的方式控制敌人
+                    var charm = BulletFactory.Instance.CreateBullet(owner);
 
-                    // 计算飞出目标点
-                    var mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                    var direction = ((Vector2)mouseWorld - (Vector2)self.gameObject.transform.position).normalized;
-                    var targetPosition = (Vector2)self.gameObject.transform.position + direction * actualSkillRange;
+                    const float flyDuration = 1f;
+                    var flyTimer = 0f;
 
-                    // 自定义每帧更新逻辑
-                    self.OnBulletUpdate += (bullet) =>
+                    charm.OnBulletAwake += (self) =>
                     {
-                        // 技能运动轨迹
-                        self.bulletStateID = 1;
+                        self.target = null;
+                        self.gameObject.transform.position = owner.gameObject.transform.position;
+                        self.gameObject.SetActive(true);
 
-                        flyTimer += Time.deltaTime;
-                        var t = Mathf.Clamp01(flyTimer / flyDuration);
+                        // TODO:完成Buff系统设计，通过赋予“魅惑”debuff的方式控制敌人
 
-                        bullet.gameObject.transform.position = Vector3.Lerp(
-                            owner.gameObject.transform.position,
-                            targetPosition,
-                            t
-                        );
+                        // 计算飞出目标点
+                        var mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                        var direction = ((Vector2)mouseWorld - (Vector2)self.gameObject.transform.position).normalized;
+                        var targetPosition = (Vector2)self.gameObject.transform.position + direction * actualSkillRange;
 
-                        // 旋转子弹使其朝向运动方向（飞出时）
-                        if (flyTimer < flyDuration && (Vector2)owner.gameObject.transform.position != targetPosition)
+                        // 自定义每帧更新逻辑
+                        self.OnBulletUpdate += (bullet) =>
                         {
-                            var currentDirection = ((Vector2)targetPosition - (Vector2)bullet.gameObject.transform.position).normalized;
-                            var angle = Vector2.SignedAngle(Vector2.up, currentDirection);
-                            bullet.gameObject.transform.rotation = Quaternion.Euler(0, 0, angle);
-                        }
+                            // 技能运动轨迹
+                            self.bulletStateID = 1;
 
-                        if (flyTimer >= flyDuration)
-                        {
-                            self.Destroy();
-                        }
-                        
-                        // 技能命中判定
-                        var target = ToolFunctions.IsOverlappingOtherTag(self.gameObject);
-                        if (target != null)
-                        {
-                            if (self.target == null || !target.Equals(self.target))
+                            flyTimer += Time.deltaTime;
+                            var t = Mathf.Clamp01(flyTimer / flyDuration);
+
+                            bullet.gameObject.transform.position = Vector3.Lerp(
+                                owner.gameObject.transform.position,
+                                targetPosition,
+                                t
+                            );
+
+                            // 旋转子弹使其朝向运动方向（飞出时）
+                            if (flyTimer < flyDuration &&
+                                (Vector2)owner.gameObject.transform.position != targetPosition)
                             {
-                                self.BulletHit(target);
+                                var currentDirection =
+                                    ((Vector2)targetPosition - (Vector2)bullet.gameObject.transform.position)
+                                    .normalized;
+                                var angle = Vector2.SignedAngle(Vector2.up, currentDirection);
+                                bullet.gameObject.transform.rotation = Quaternion.Euler(0, 0, angle);
+                            }
+
+                            if (flyTimer >= flyDuration)
+                            {
                                 self.Destroy();
                             }
-                        }
+
+                            // 技能命中判定
+                            var target = ToolFunctions.IsOverlappingOtherTag(self.gameObject);
+                            if (target != null)
+                            {
+                                if (self.target == null || !target.Equals(self.target))
+                                {
+                                    self.BulletHit(target);
+                                    self.Destroy();
+                                }
+                            }
+                        };
                     };
-                };
 
-                deceptionOrb.OnBulletHit += (self) =>
-                {
-                    self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, _damage));
-                    
-                    // 造成技能特效
-                    self.AbilityEffectActivate();
-                };
+                    charm.OnBulletHit += (self) =>
+                    {
+                        self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, _damage));
 
-                deceptionOrb.Awake();
+                        // 造成技能特效
+                        self.AbilityEffectActivate();
+                    };
+
+                    charm.Awake();
+                });
             };
         }
     }

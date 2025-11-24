@@ -2,6 +2,7 @@ using System;
 using DG.Tweening;
 using Factories;
 using UnityEngine;
+using Utilities;
 
 namespace Classes.Skills
 {
@@ -9,6 +10,7 @@ namespace Classes.Skills
     {
         private float _APDamage => _baseSkillValue[0][Math.Max(0, _skillLevel - 1)] + 0.5f * owner.abilityPower;
         private float _RealDamage => _baseSkillValue[1][Math.Max(0, _skillLevel - 1)] + 0.5f * owner.abilityPower;
+        private bool hasReachedTarget = false;
         
         public OrbOfDeception()
         {
@@ -45,9 +47,7 @@ namespace Classes.Skills
 
                 owner.magicPoint.Value -= _baseSkillCost[_skillLevel];
                 var deceptionOrb = BulletFactory.Instance.CreateBullet(owner);
-
-                // 状态变量（由闭包捕获）
-                var hasReachedTarget = false;
+                
                 const float flyDuration = 0.8f;
                 const float returnDuration = 0.8f;
                 var flyTimer = 0f;
@@ -66,6 +66,7 @@ namespace Classes.Skills
                     // 自定义每帧更新逻辑
                     self.OnBulletUpdate += (bullet) =>
                     {
+                        // 技能运动轨迹
                         if (hasReachedTarget)
                         {
                             returnTimer += Time.deltaTime;
@@ -117,7 +118,31 @@ namespace Classes.Skills
                                 returnTimer = 0f;
                             }
                         }
+                        
+                        // 技能命中判定
+                        var target = ToolFunctions.IsOverlappingOtherTag(self.gameObject);
+                        if (target != null)
+                        {
+                            self.BulletHit(target);
+                        }
                     };
+                };
+
+                deceptionOrb.OnBulletHit += (self) =>
+                {
+                    if (!hasReachedTarget)
+                    {
+                        // 第一段造成魔法伤害
+                        self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, 0.5f));
+                    }
+                    else
+                    {
+                        // 第二段造成真实伤害
+                        self.target.TakeDamage(self.target.abilityPower * 0.5f);
+                    }
+                    
+                    // 造成技能特效
+                    self.AbilityEffectActivate();
                 };
 
                 deceptionOrb.Awake();

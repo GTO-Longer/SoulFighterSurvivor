@@ -44,8 +44,13 @@ namespace Classes
             OnBulletUpdate?.Invoke(this);
         }
 
-        public void BulletHit()
+        public void BulletHit(Entity entity = null)
         {
+            if (entity != null)
+            {
+                target = entity;
+            }
+
             OnBulletHit?.Invoke(this);
         }
 

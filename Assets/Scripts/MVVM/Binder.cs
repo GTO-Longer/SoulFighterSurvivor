@@ -221,19 +221,17 @@ namespace MVVM
             if (text == null || image == null)
                 return () => { };
 
-            Action UnBindEvent = null;
             void OnChanged(object sender, EventArgs e)
             {
                 if (text == null || image == null || source?.Value == null) return;
-                UnBindEvent += BindText(text, source.Value.healthPoint, source.Value.maxHealthPoint, "{0:F0} / {1:F0}");
-                UnBindEvent += BindLength(image, source.Value.healthPoint, source.Value.maxHealthPoint);
+                BindText(text, source.Value.healthPoint, source.Value.maxHealthPoint, "{0:F0} / {1:F0}");
+                BindLength(image, source.Value.healthPoint, source.Value.maxHealthPoint);
             }
 
             source.PropertyChanged += OnChanged;
             source.PropertyChanged += OnChanged;
             return () =>
             {
-                UnBindEvent.Invoke();
                 source.PropertyChanged -= OnChanged;
                 source.PropertyChanged -= OnChanged;
             };

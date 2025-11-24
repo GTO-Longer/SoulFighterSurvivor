@@ -1,4 +1,3 @@
-using EntityManagers;
 using Factories;
 using UnityEngine;
 using UnityEngine.AI;
@@ -23,7 +22,7 @@ namespace Classes.Entities
         /// </summary>
         private const float attackBulletSpeed = 15f;
 
-        private Entity target = HeroManager.hero;
+        public Entity target;
         
         /// <summary>
         /// 创建敌人并初始化

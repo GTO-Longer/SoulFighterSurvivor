@@ -17,7 +17,15 @@ namespace Classes
         public event Action<Bullet> OnBulletAwake;
         public event Action<Bullet> OnBulletUpdate;
         public event Action<Bullet> OnBulletDestroy;
-        // public event Action<Bullet> OnBulletHit;
+        public event Action<Bullet> OnBulletHit;
+        /// <summary>
+        /// 攻击特效
+        /// </summary>
+        public event Action<Bullet> AttackEffect;
+        /// <summary>
+        /// 技能特效
+        /// </summary>
+        public event Action<Bullet> AbilityEffect;
 
         internal Bullet(Entity owner, GameObject bulletPrefab)
         {
@@ -36,6 +44,21 @@ namespace Classes
             OnBulletUpdate?.Invoke(this);
         }
 
+        public void BulletHit()
+        {
+            OnBulletHit?.Invoke(this);
+        }
+
+        public void AttackEffectActivate()
+        {
+            AttackEffect?.Invoke(this);
+        }
+
+        public void AbilityEffectActivate()
+        {
+            AbilityEffect?.Invoke(this);
+        }
+
         public void Destroy()
         {
             OnBulletDestroy?.Invoke(this);
@@ -45,33 +68,6 @@ namespace Classes
             OnBulletDestroy = null;
             
             GameObject.Destroy(gameObject);
-        }
-        
-        public void TracePosision(Vector2 posision, float duration)
-        {
-            
-        }
-
-        public void TraceTarget(Vector2 startPosition, Entity target, float duration, Action OnTarceEnd)
-        {
-            var traceTimer = 0f;
-            traceTimer += Time.deltaTime;
-            var t = Mathf.Clamp01(traceTimer / duration);
-            t = t * t;
-
-            if (owner?.gameObject != null)
-            {
-                gameObject.transform.position = Vector3.Lerp(
-                    startPosition,
-                    target.gameObject.transform.position,
-                    t
-                );
-            }
-
-            if (traceTimer >= duration)
-            {
-                OnTarceEnd.Invoke();
-            }
         }
     }
 }

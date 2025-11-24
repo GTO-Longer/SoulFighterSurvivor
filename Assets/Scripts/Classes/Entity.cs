@@ -513,7 +513,11 @@ namespace Classes
         /// </summary>
         public void TakeDamage(float damageCount)
         {
-            
+            healthPoint.Value -= damageCount;
+            if (healthPoint.Value < 0)
+            {
+                healthPoint.Value = 0;
+            }
         }
 
         /// <summary>
@@ -526,6 +530,22 @@ namespace Classes
             {
                 healthPoint.Value = maxHealthPoint.Value;
             }
+        }
+
+        public float CalculateADDamage(Entity damageSource)
+        {
+            var actualAttackDefense = (attackDefense - damageSource.attackPenetration)
+                                      * (1 - damageSource.percentageAttackPenetration);
+            return  damageSource.attackDamage * 
+                (1 - (actualAttackDefense / (actualAttackDefense + 100)));
+        }
+
+        public float CalculateAPDamage(Entity damageSource)
+        {
+            var actualMagicDefense = (magicDefense - damageSource.magicPenetration)
+                                     * (1 - damageSource.percentageMagicPenetration);
+            return  damageSource.abilityPower * 
+                (1 - (actualMagicDefense / (actualMagicDefense + 100)));
         }
         
         /// <summary>

@@ -339,9 +339,16 @@ namespace Classes
                     const float destroyDistance = 0.3f;
                     if (Vector3.Distance(self.gameObject.transform.position, self.target.gameObject.transform.position) <= destroyDistance)
                     {
+                        self.BulletHit();
                         self.Destroy();
                     }
                 };
+            };
+
+            bullet.OnBulletHit += (self) =>
+            {
+                self.target.TakeDamage(self.target.CalculateADDamage(self.owner));
+                self.AttackEffectActivate();
             };
             
             bullet.Awake();

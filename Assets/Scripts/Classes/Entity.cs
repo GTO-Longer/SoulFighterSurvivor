@@ -180,159 +180,161 @@ namespace Classes
         /// <summary>
         /// 最大生命值加成
         /// </summary>
-        protected Property<float> _maxHealthPointBonus;
+        public Property<float> _maxHealthPointBonus;
         /// <summary>
         /// 百分比最大生命值加成
         /// </summary>
-        protected Property<float> _percentageMaxHealthPointBonus;
+        public Property<float> _percentageMaxHealthPointBonus;
         
         // 法力值相关
         /// <summary>
         /// 法力值加成
         /// </summary>
-        protected Property<float> _maxMagicPointBonus;
+        public Property<float> _maxMagicPointBonus;
         /// <summary>
         /// 百分比法力值加成
         /// </summary>
-        protected Property<float> _percentageMaxMagicPointBonus;
+        public Property<float> _percentageMaxMagicPointBonus;
         
         // 攻速相关
         /// <summary>
         /// 攻击速度加成
         /// </summary>
-        protected Property<float> _attackSpeedBonus;
+        public Property<float> _attackSpeedBonus;
         /// <summary>
         /// 百分比攻击速度加成
         /// </summary>
-        protected Property<float> _percentageAttackSpeedBonus;
+        public Property<float> _percentageAttackSpeedBonus;
         /// <summary>
         /// 攻速收益率
         /// </summary>
-        protected Property<float> _attackSpeedYield;
+        public Property<float> _attackSpeedYield;
         
         // 攻击力相关
         /// <summary>
         /// 攻击力加成
         /// </summary>
-        protected Property<float> _attackDamageBonus;
+        public Property<float> _attackDamageBonus;
         /// <summary>
         /// 百分比攻击力加成
         /// </summary>
-        protected Property<float> _percentageAttackDamageBonus;
+        public Property<float> _percentageAttackDamageBonus;
         
         // 法强相关
         /// <summary>
         /// 法术强度加成
         /// </summary>
-        protected Property<float> _abilityPowerBonus;
+        public Property<float> _abilityPowerBonus;
         /// <summary>
         /// 百分比法术强度加成
         /// </summary>
-        protected Property<float> _percentageAbilityPowerBonus;
+        public Property<float> _percentageAbilityPowerBonus;
         
         // 技能急速相关
         /// <summary>
         /// 技能急速加成
         /// </summary>
-        protected Property<float> _abilityHasteBonus;
+        public Property<float> _abilityHasteBonus;
         /// <summary>
         /// 百分比技能急速加成
         /// </summary>
-        protected Property<float> _percentageAbilityHasteBonus;
+        public Property<float> _percentageAbilityHasteBonus;
         /// <summary>
         /// 装备技能急速加成
         /// </summary>
-        protected Property<float> _equipmentAbilityHasteBonus;
+        public Property<float> _equipmentAbilityHasteBonus;
         /// <summary>
         /// 召唤师技能急速加成
         /// </summary>
-        protected Property<float> _summonerAbilityHasteBonus;
+        public Property<float> _summonerAbilityHasteBonus;
         
         // 物抗相关
         /// <summary>
         /// 物理防御加成
         /// </summary>
-        protected Property<float> _attackDefenseBonus;
+        public Property<float> _attackDefenseBonus;
         /// <summary>
         /// 百分比物理防御加成
         /// </summary>
-        protected Property<float> _percentageAttackDefenseBonus;
+        public Property<float> _percentageAttackDefenseBonus;
         
         // 法抗相关
         /// <summary>
         /// 法术防御加成
         /// </summary>
-        protected Property<float> _magicDefenseBonus;
+        public Property<float> _magicDefenseBonus;
         /// <summary>
         /// 百分比法术防御加成
         /// </summary>
-        protected Property<float> _percentageMagicDefenseBonus;
+        public Property<float> _percentageMagicDefenseBonus;
         
         // 物穿相关
         /// <summary>
         /// 物理穿透加成
         /// </summary>
-        protected Property<float> _attackPenetrationBonus;
+        public Property<float> _attackPenetrationBonus;
         /// <summary>
         /// 百分比物理穿透加成
         /// </summary>
-        protected Property<float> _percentageAttackPenetrationBonus;
+        public Property<float> _percentageAttackPenetrationBonus;
         
         // 法穿相关
         /// <summary>
         /// 法术穿透加成
         /// </summary>
-        protected Property<float> _magicPenetrationBonus;
+        public Property<float> _magicPenetrationBonus;
         /// <summary>
         /// 百分比法术穿透加成
         /// </summary>
-        protected Property<float> _percentageMagicPenetrationBonus;
+        public Property<float> _percentageMagicPenetrationBonus;
         
         // 暴击相关
         /// <summary>
         /// 实际暴击率
         /// </summary>
-        protected Property<float> _actualCriticalRate;
+        public Property<float> _actualCriticalRate;
         /// <summary>
         /// 暴击率加成
         /// </summary>
-        protected Property<float> _criticalRateBonus;
-
-        protected Property<float> _percentageCriticalRateBonus;
+        public Property<float> _criticalRateBonus;
+        /// <summary>
+        /// 百分比暴击率加成
+        /// </summary>
+        public Property<float> _percentageCriticalRateBonus;
         /// <summary>
         /// 基础暴击伤害
         /// </summary>
-        protected Property<float> _baseCriticalDamage;
+        public Property<float> _baseCriticalDamage;
         /// <summary>
         /// 暴击伤害加成
         /// </summary>
-        protected Property<float> _criticalDamageBonus;
+        public Property<float> _criticalDamageBonus;
         
         // 移速相关
         /// <summary>
         /// 移动速度加成
         /// </summary>
-        protected Property<float> _movementSpeedBonus;
+        public Property<float> _movementSpeedBonus;
         /// <summary>
         /// 百分比移动速度加成
         /// </summary>
-        protected Property<float> _percentageMovementSpeedBonus;
+        public Property<float> _percentageMovementSpeedBonus;
         
         // 射程相关
         /// <summary>
         /// 射程加成
         /// </summary>
-        protected Property<float> _attackRangeBonus;
+        public Property<float> _attackRangeBonus;
         /// <summary>
         /// 百分比射程加成
         /// </summary>
-        protected Property<float> _percentageAttackRangeBonus;
+        public Property<float> _percentageAttackRangeBonus;
         
         // 体型相关
         /// <summary>
         /// 百分比体型加成
         /// </summary>
-        protected Property<float> _percentageScaleBonus;
+        public Property<float> _percentageScaleBonus;
         
         // 自然回复相关
         /// <summary>
@@ -540,6 +542,18 @@ namespace Classes
             }
         }
 
+        /// <summary>
+        /// 受到法力值回复
+        /// </summary>
+        public void TakeMagicRecover(float recoverCount)
+        {
+            magicPoint.Value += recoverCount;
+            if (magicPoint.Value > maxMagicPoint.Value)
+            {
+                magicPoint.Value = maxMagicPoint.Value;
+            }
+        }
+
         public float CalculateADDamage(Entity damageSource, float damageCount)
         {
             var actualAttackDefense = (attackDefense - damageSource.attackPenetration)
@@ -663,6 +677,8 @@ namespace Classes
             _attackRangeBonus = new Property<float>();
             _percentageAttackRangeBonus = new Property<float>();
             _percentageScaleBonus = new Property<float>();
+            _percentageHealthRegenerationBonus = new Property<float>();
+            _percentageMagicRegenerationBonus = new Property<float>();
             
             #endregion
 
@@ -728,6 +744,12 @@ namespace Classes
             scale = new Property<float>(() => _baseScale * (1 + _percentageScaleBonus),
                 DataType.Int,
                 _percentageScaleBonus);
+            healthRegeneration = new Property<float>(() => (_baseHealthRegeneration + _healthRegenerationGrowth * level ) * (1 + _percentageHealthRegenerationBonus),
+                DataType.Float,
+                level, _percentageHealthRegenerationBonus);
+            magicRegeneration = new Property<float>(() => (_baseMagicRegeneration + _magicRegenerationGrowth * level ) * (1 + _percentageMagicRegenerationBonus),
+                DataType.Float,
+                level, _percentageMagicRegenerationBonus);
 
             #endregion
         }

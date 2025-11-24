@@ -1,15 +1,18 @@
 using System;
 using System.Collections.Generic;
+using DataManagement;
 using EntityManagers;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+using Utilities;
 
 namespace MVVM.ViewModels
 {
     public class HeroAttributeViewModel : MonoBehaviour
     {
         private event Action UnBindEvent;
+        private Property<bool> notFullHealth;
+        private Property<bool> notFullMagic;
 
         private void Start()
         {
@@ -17,10 +20,19 @@ namespace MVVM.ViewModels
             var attributeList = transform.GetComponentsInChildren<TMP_Text>();
             var HPContent = transform.Find("MainStateBackground/HPBarBackground/HPContent").GetComponent<TMP_Text>();
             var MPContent = transform.Find("MainStateBackground/MPBarBackground/MPContent").GetComponent<TMP_Text>();
+            var HPRegenerateContent = transform.Find("MainStateBackground/HPBarBackground/HPRegenerateContent").GetComponent<TMP_Text>();
+            var MPRegenerateContent = transform.Find("MainStateBackground/MPBarBackground/MPRegenerateContent").GetComponent<TMP_Text>();
             var HPBar = transform.Find("MainStateBackground/HPBarBackground/HPBar");
             var MPBar = transform.Find("MainStateBackground/MPBarBackground/MPBar");
             var otherAttributes = transform.Find("AttributesAndHexes/OtherAttributesBackground").gameObject;
             var hexes = transform.Find("AttributesAndHexes/HexesBackground").gameObject;
+
+            notFullHealth = new Property<bool>(
+                () => Mathf.Abs(HeroManager.hero.healthPoint.Value - HeroManager.hero.maxHealthPoint.Value) > 0.1f, DataType.None,
+                HeroManager.hero.healthPoint, HeroManager.hero.maxHealthPoint);
+            notFullMagic = new Property<bool>(
+                () => Mathf.Abs(HeroManager.hero.magicPoint.Value - HeroManager.hero.maxMagicPoint.Value) > 0.1f, DataType.None,
+                HeroManager.hero.magicPoint, HeroManager.hero.maxMagicPoint);
             
             foreach (var _attribute in attributeList)
             {
@@ -32,6 +44,10 @@ namespace MVVM.ViewModels
             UnBindEvent += Binder.BindActive(hexes, HeroManager.hero.showAttributes);
             UnBindEvent += Binder.BindText(HPContent, HeroManager.hero.healthPoint, HeroManager.hero.maxHealthPoint, "{0:F0} / {1:F0}");
             UnBindEvent += Binder.BindText(MPContent, HeroManager.hero.magicPoint, HeroManager.hero.maxMagicPoint, "{0:F0} / {1:F0}");
+            UnBindEvent += Binder.BindText(HPRegenerateContent, HeroManager.hero.healthRegeneration, "+{0:F1}");
+            UnBindEvent += Binder.BindText(MPRegenerateContent, HeroManager.hero.magicRegeneration, "+{0:F1}");
+            UnBindEvent += Binder.BindActive(HPRegenerateContent, notFullHealth);
+            UnBindEvent += Binder.BindActive(MPRegenerateContent, notFullMagic);
             UnBindEvent += Binder.BindLength(HPBar, HeroManager.hero.healthPoint, HeroManager.hero.maxHealthPoint);
             UnBindEvent += Binder.BindLength(MPBar, HeroManager.hero.magicPoint, HeroManager.hero.maxMagicPoint);
         }

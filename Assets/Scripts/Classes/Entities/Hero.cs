@@ -16,7 +16,7 @@ namespace Classes.Entities
         private readonly NavMeshAgent _agent;
         private Transform _attackRangeIndicator;
         private bool _asyncRotating => DOTween.IsTweening(_gameObject.transform);
-        private const float rotateTime = 0.3f;
+        private const float rotateTime = 0.5f;
         
         /// <summary>
         /// 玩家锁定的实体
@@ -39,6 +39,10 @@ namespace Classes.Entities
         /// 攻击前摇计时器
         /// </summary>
         private float _attackWindUpTimer;
+        /// <summary>
+        /// 生命和法力回复计时器
+        /// </summary>
+        private float _regenerateTimer;
         /// <summary>
         /// 普攻弹道速度
         /// </summary>
@@ -149,7 +153,6 @@ namespace Classes.Entities
             _agent = _gameObject.GetComponent<NavMeshAgent>();
             _agent.updateUpAxis = false;
             _agent.updateRotation = false;
-            _agent.speed = actualMovementSpeed;
             
             // 配置角色体型
             _gameObject.transform.localScale = new Vector2(actualScale * 2, actualScale * 2);
@@ -162,6 +165,7 @@ namespace Classes.Entities
             // 其他变量初始化
             _autoAttack = false;
             _attackTimer = 0;
+            _regenerateTimer = 0;
             _attackWindUpTimer = 0;
             level.Value = 1;
             magicPoint.Value = maxMagicPoint.Value;
@@ -175,6 +179,9 @@ namespace Classes.Entities
         /// </summary>
         public override void Move()
         {
+            // 设置速度
+            _agent.speed = actualMovementSpeed;
+            
             // 获取鼠标位置
             var _mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             
@@ -228,6 +235,7 @@ namespace Classes.Entities
                     // 若没有物体则走到对应位置
                     _agent.SetDestination(_mousePosition);
                     _agent.stoppingDistance = 0;
+                    DOTween.Kill(gameObject.transform);
 
                     // 若按了shift+右键则启动自动攻击模式（走A）
                     _autoAttack = Input.GetKey(KeyCode.LeftShift);
@@ -303,7 +311,7 @@ namespace Classes.Entities
 
             if (!_asyncRotating)
             {
-                Async.SetAsync(_gameObject.transform, () => RotateTo(rotateDirection), rotateTime);
+                Async.SetAsync(rotateTime, gameObject.transform, () => RotateTo(rotateDirection));
             }
 
             if (_attackTimer < actualAttackInterval)
@@ -361,6 +369,21 @@ namespace Classes.Entities
                 };
                 
                 bullet.Awake();
+            }
+        }
+
+        /// <summary>
+        /// 生命和法力值回复
+        /// </summary>
+        public void Regenerate()
+        {
+            _regenerateTimer += Time.deltaTime;
+
+            if (_regenerateTimer >= 5)
+            {
+                TakeHeal(healthRegeneration);
+                TakeMagicRecover(magicRegeneration);
+                _regenerateTimer = 0;
             }
         }
         
@@ -436,7 +459,7 @@ namespace Classes.Entities
                 _mousePosition.y - _gameObject.transform.position.y
             );
             
-            Async.SetAsync(_gameObject.transform, () => RotateTo(direction), rotateTime); 
+            Async.SetAsync(rotateTime,gameObject.transform, () => RotateTo(direction)); 
         }
         
         #region 私有工具函数

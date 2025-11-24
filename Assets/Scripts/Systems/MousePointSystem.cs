@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Systems
@@ -43,6 +44,7 @@ namespace Systems
             }
         }
 
+        [Obsolete("Obsolete")]
         private void MousePointIndicatorControl()
         {
             // 获取鼠标位置

@@ -44,7 +44,7 @@ namespace Classes
             _baseAttackRange = 175;
             _baseMovementSpeed = 200;
             _baseScale = 100;
-            _attackWindUp = 0.2f;
+            _attackWindUp = 0.1f;
 
             _maxHealthPointGrowth = 0;
             _maxMagicPointGrowth = 0;
@@ -80,6 +80,9 @@ namespace Classes
         {
             _agent.SetDestination(target.gameObject.transform.position);
             _agent.stoppingDistance = actualAttackRange + target.actualScale;
+            
+            var distance = Vector3.Distance(target.gameObject.transform.position, gameObject.transform.position);
+            _agent.isStopped = distance <= _agent.stoppingDistance + 0.1f;
         }
 
         public override void Attack()
@@ -89,9 +92,8 @@ namespace Classes
                 _attackTimer += Time.deltaTime;
             }
             
-            var distance = Vector3.Distance(target.gameObject.transform.position, gameObject.transform.position);
 
-            if (_attackTimer < actualAttackInterval || distance > _agent.stoppingDistance + 0.1f)
+            if (_attackTimer < actualAttackInterval || !_agent.isStopped)
             {
                 _attackWindUpTimer = 0;
                 return;

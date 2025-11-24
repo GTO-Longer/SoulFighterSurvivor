@@ -1,4 +1,5 @@
 using System;
+using Classes.Entities;
 using Factories;
 using UnityEngine;
 using Utilities;
@@ -44,15 +45,16 @@ namespace Classes.Skills
                 owner.RotateToMousePoint();
                 owner.magicPoint.Value -= _baseSkillCost[_skillLevel];
                 
+                // 计算飞出目标点
+                var mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                var direction = ((Vector2)mouseWorld - (Vector2)owner.gameObject.transform.position).normalized;
+                var targetPosition = (Vector2)owner.gameObject.transform.position + direction * actualSkillRange;
+                
                 // 吟唱时间
-                Async.SetAsync(_castTime, null, null, () =>
+                Async.SetAsync(_castTime, null, () => owner.canCancelTurn = false, () =>
                 {
+                    owner.canCancelTurn = true;
                     var deceptionOrb = BulletFactory.Instance.CreateBullet(owner);
-
-                    const float flyDuration = 0.8f;
-                    const float returnDuration = 0.8f;
-                    var flyTimer = 0f;
-                    var returnTimer = 0f;
 
                     deceptionOrb.OnBulletAwake += (self) =>
                     {
@@ -60,83 +62,78 @@ namespace Classes.Skills
                         self.gameObject.transform.position = owner.gameObject.transform.position;
                         self.gameObject.SetActive(true);
                         var hasReachedTarget = false;
+                        var hasInitialized = false;
 
-                        // 计算飞出目标点
-                        var mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                        var direction = ((Vector2)mouseWorld - (Vector2)self.gameObject.transform.position).normalized;
-                        var targetPosition = (Vector2)self.gameObject.transform.position + direction * actualSkillRange;
+                        var speed = Vector2.zero;
+                        var returnSpeed = 0f;
+                        float acceleration = 0;
 
-                        // 自定义每帧更新逻辑
-                        self.OnBulletUpdate += (bullet) =>
+                        self.OnBulletUpdate += (_) =>
                         {
-                            // 技能运动轨迹
+                            // 初始化
+                            if (!hasInitialized)
+                            {
+                                // 计算加速度
+                                acceleration = (bulletSpeed * bulletSpeed) / (2f * actualSkillRange);
+                                
+                                // 初速度
+                                speed = direction * bulletSpeed;
+                                hasInitialized = true;
+                                self.bulletStateID = 1;
+                            }
+
+                            // 技能子弹飞出
                             if (!hasReachedTarget)
                             {
-                                self.bulletStateID = 1;
+                                speed -= direction * (acceleration * Time.deltaTime);
 
-                                flyTimer += Time.deltaTime;
-                                var t = Mathf.Clamp01(flyTimer / flyDuration);
-                                t = t * (2f - t);
-
-                                bullet.gameObject.transform.position = Vector3.Lerp(
-                                    owner.gameObject.transform.position,
-                                    targetPosition,
-                                    t
-                                );
-
-                                // 旋转子弹使其朝向运动方向（飞出时）
-                                if (flyTimer < flyDuration &&
-                                    (Vector2)owner.gameObject.transform.position != targetPosition)
+                                // 到达目标位置
+                                if ((speed / direction).x < 0.01f)
                                 {
-                                    var currentDirection =
-                                        ((Vector2)targetPosition - (Vector2)bullet.gameObject.transform.position)
-                                        .normalized;
-                                    var angle = Vector2.SignedAngle(Vector2.up, currentDirection);
-                                    bullet.gameObject.transform.rotation = Quaternion.Euler(0, 0, angle);
-                                }
-
-                                if (flyTimer >= flyDuration)
-                                {
+                                    speed = Vector2.zero;
+                                    self.gameObject.transform.position = targetPosition;
                                     hasReachedTarget = true;
-                                    returnTimer = 0f;
+                                    self.bulletStateID = 2;
+                                    self.target = null;
+                                }
+                                else
+                                {
+                                    // 控制子弹位置和面向
+                                    self.gameObject.transform.position += (Vector3)(speed * Time.deltaTime);
+                                    var angle = Vector2.SignedAngle(Vector2.up, speed.normalized);
+                                    self.gameObject.transform.rotation = Quaternion.Euler(0, 0, angle);
                                 }
                             }
+                            // 技能子弹返回
                             else
                             {
-                                if (self.bulletStateID == 1)
+                                // 持续锁定英雄位置
+                                var currentPosition = (Vector2)self.gameObject.transform.position;
+                                var ownerPos = (Vector2)owner.gameObject.transform.position;
+                                var returnDirection = (ownerPos - currentPosition).normalized;
+                                returnSpeed += acceleration * Time.deltaTime;
+
+                                speed = returnDirection * returnSpeed;
+
+                                // 更新位置
+                                self.gameObject.transform.position += (Vector3)(speed * Time.deltaTime);
+
+                                // 旋转
+                                if (speed != Vector2.zero)
                                 {
-                                    self.target = null;
-                                    self.bulletStateID = 2;
+                                    var angle = Vector2.SignedAngle(Vector2.up, speed.normalized);
+                                    self.gameObject.transform.rotation = Quaternion.Euler(0, 0, angle);
                                 }
 
-                                returnTimer += Time.deltaTime;
-                                var t = Mathf.Clamp01(returnTimer / returnDuration);
-                                t = t * t;
-
-                                bullet.gameObject.transform.position = Vector3.Lerp(
-                                    targetPosition,
-                                    owner.gameObject.transform.position,
-                                    t
-                                );
-
-                                // 旋转子弹使其朝向运动方向
-                                if (returnTimer < returnDuration &&
-                                    (Vector2)owner.gameObject.transform.position != targetPosition)
+                                // 到达英雄位置
+                                if (Vector2.Distance(currentPosition, ownerPos) < 1f)
                                 {
-                                    var directionToOwner =
-                                        ((Vector2)owner.gameObject.transform.position -
-                                         (Vector2)bullet.gameObject.transform.position).normalized;
-                                    var angle = Vector2.SignedAngle(Vector2.up, directionToOwner);
-                                    bullet.gameObject.transform.rotation = Quaternion.Euler(0, 0, angle);
-                                }
-
-                                if (returnTimer >= returnDuration)
-                                {
-                                    bullet.Destroy();
+                                    self.Destroy();
+                                    return;
                                 }
                             }
 
-                            // 技能命中判定
+                            // 命中检测
                             var target = ToolFunctions.IsOverlappingOtherTag(self.gameObject);
                             if (target != null)
                             {

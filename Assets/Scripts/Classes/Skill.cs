@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Classes.Entities;
 using DataManagement;
 using Utilities;
 
@@ -8,10 +9,13 @@ namespace Classes{
     {
         public string skillName;
         public string heroName;
-        public Entity owner;
+        public Hero owner;
         public int skillLevel => _skillLevel;
         public float skillCost => _baseSkillCost[skillLevel - 1];
         public float actualSkillRange => _skillRange / 100f;
+        public float bulletWidth => _bulletWidth / 100f;
+        public float bulletSpeed => _bulletSpeed / 100f;
+        public float destinationDistance;
         
         protected int _skillLevel = 0;
         protected int _maxSkillLevel = 0;

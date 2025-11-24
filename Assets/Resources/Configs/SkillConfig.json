@@ -238,10 +238,10 @@
                 ]
             ],
             "_skillRange": 1000,
-            "_castTime": null,
-            "_bulletWidth": null,
-            "_bulletSpeed": null,
-            "_destinationDistance": null
+            "_castTime": 0.25,
+            "_bulletWidth": 110,
+            "_bulletSpeed": 1700,
+            "_destinationDistance": 0
         },
         {
             "id": "RunePrison",
@@ -272,11 +272,11 @@
                     180
                 ]
             ],
-            "_skillRange": 615,
-            "_castTime": null,
-            "_bulletWidth": null,
-            "_bulletSpeed": null,
-            "_destinationDistance": null
+            "_skillRange": 550,
+            "_castTime": 0.25,
+            "_bulletWidth": 0,
+            "_bulletSpeed": 0,
+            "_destinationDistance": 0
         },
         {
             "id": "SpellFlux",
@@ -307,11 +307,11 @@
                     180
                 ]
             ],
-            "_skillRange": 615,
-            "_castTime": null,
-            "_bulletWidth": null,
-            "_bulletSpeed": null,
-            "_destinationDistance": null
+            "_skillRange": 550,
+            "_castTime": 0.25,
+            "_bulletWidth": 0,
+            "_bulletSpeed": 0,
+            "_destinationDistance": 0
         },
         {
             "id": "RealmWarp",
@@ -337,10 +337,10 @@
                 ]
             ],
             "_skillRange": 3000,
-            "_castTime": null,
-            "_bulletWidth": null,
-            "_bulletSpeed": null,
-            "_destinationDistance": null
+            "_castTime": 0,
+            "_bulletWidth": 0,
+            "_bulletSpeed": 0,
+            "_destinationDistance": 0
         }
     ]
 }

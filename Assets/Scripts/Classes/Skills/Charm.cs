@@ -44,56 +44,49 @@ namespace Classes.Skills
                 owner.RotateToMousePoint();
                 owner.magicPoint.Value -= _baseSkillCost[_skillLevel];
                 
+                // 计算飞出目标点
+                var mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                var direction = ((Vector2)mouseWorld - (Vector2)owner.gameObject.transform.position).normalized;
+                
                 // 吟唱时间
-                Async.SetAsync(_castTime, null, null, () =>
+                Async.SetAsync(_castTime, null, () => owner.canCancelTurn = false, () =>
                 {
+                    owner.canCancelTurn = true;
                     var charm = BulletFactory.Instance.CreateBullet(owner);
-
-                    const float flyDuration = 1f;
-                    var flyTimer = 0f;
 
                     charm.OnBulletAwake += (self) =>
                     {
                         self.target = null;
                         self.gameObject.transform.position = owner.gameObject.transform.position;
                         self.gameObject.SetActive(true);
+                        var hasInitialized = false;
+                        var speed = Vector2.zero;
 
                         // TODO:完成Buff系统设计，通过赋予“魅惑”debuff的方式控制敌人
 
-                        // 计算飞出目标点
-                        var mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                        var direction = ((Vector2)mouseWorld - (Vector2)self.gameObject.transform.position).normalized;
-                        var targetPosition = (Vector2)self.gameObject.transform.position + direction * actualSkillRange;
-
                         // 自定义每帧更新逻辑
-                        self.OnBulletUpdate += (bullet) =>
+                        self.OnBulletUpdate += (_) =>
                         {
-                            // 技能运动轨迹
-                            self.bulletStateID = 1;
-
-                            flyTimer += Time.deltaTime;
-                            var t = Mathf.Clamp01(flyTimer / flyDuration);
-
-                            bullet.gameObject.transform.position = Vector3.Lerp(
-                                owner.gameObject.transform.position,
-                                targetPosition,
-                                t
-                            );
-
-                            // 旋转子弹使其朝向运动方向（飞出时）
-                            if (flyTimer < flyDuration &&
-                                (Vector2)owner.gameObject.transform.position != targetPosition)
+                            // 初始化
+                            if (!hasInitialized)
                             {
-                                var currentDirection =
-                                    ((Vector2)targetPosition - (Vector2)bullet.gameObject.transform.position)
-                                    .normalized;
-                                var angle = Vector2.SignedAngle(Vector2.up, currentDirection);
-                                bullet.gameObject.transform.rotation = Quaternion.Euler(0, 0, angle);
+                                // 初速度
+                                speed = direction * bulletSpeed;
+                                hasInitialized = true;
+                                self.bulletStateID = 1;
                             }
 
-                            if (flyTimer >= flyDuration)
+                            // 到达目标位置
+                            if (Vector2.Distance(self.gameObject.transform.position, owner.gameObject.transform.position) > actualSkillRange)
                             {
                                 self.Destroy();
+                            }
+                            else
+                            {
+                                // 控制子弹位置和面向
+                                self.gameObject.transform.position += (Vector3)(speed * Time.deltaTime);
+                                var angle = Vector2.SignedAngle(Vector2.up, speed.normalized);
+                                self.gameObject.transform.rotation = Quaternion.Euler(0, 0, angle);
                             }
 
                             // 技能命中判定

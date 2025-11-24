@@ -49,6 +49,10 @@ namespace Classes.Entities
         private const float attackBulletSpeed = 15f;
 
         public List<Skill> skillList = new();
+        /// <summary>
+        /// 是否可以打断转身
+        /// </summary>
+        public bool canCancelTurn;
         
         /// <summary>
         /// 创建游戏角色并初始化
@@ -148,6 +152,7 @@ namespace Classes.Entities
             
             _gameObject = gameObject;
             _team = Team.Hero;
+            canCancelTurn = true;
             
             // 配置角色寻路组件
             _agent = _gameObject.GetComponent<NavMeshAgent>();
@@ -235,7 +240,12 @@ namespace Classes.Entities
                     // 若没有物体则走到对应位置
                     _agent.SetDestination(_mousePosition);
                     _agent.stoppingDistance = 0;
-                    DOTween.Kill(gameObject.transform);
+                    
+                    // 打断当前的转身动作
+                    if (canCancelTurn)
+                    {
+                        DOTween.Kill(gameObject.transform);
+                    }
 
                     // 若按了shift+右键则启动自动攻击模式（走A）
                     _autoAttack = Input.GetKey(KeyCode.LeftShift);

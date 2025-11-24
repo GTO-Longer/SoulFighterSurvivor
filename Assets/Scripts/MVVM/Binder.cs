@@ -108,12 +108,10 @@ namespace MVVM
             void OnChanged(object sender, EventArgs e)
             {
                 if (image == null) return;
-                var scale = image.localScale;
-                image.localScale = new(source2.Value == 0 ? 0 : (source1.Value / source2.Value), scale.y, scale.z);
+                image.localScale = new(source2.Value == 0 ? 0 : (source1.Value / source2.Value), 1, 1);
             }
             
-            var scale = image.localScale;
-            image.localScale = new(source2.Value == 0 ? 0 : (source1.Value / source2.Value), scale.y, scale.z);
+            image.localScale = new(source2.Value == 0 ? 0 : (source1.Value / source2.Value), 1, 1);
             source1.PropertyChanged += OnChanged;
             source2.PropertyChanged += OnChanged;
             return () =>
@@ -125,7 +123,7 @@ namespace MVVM
 
         #endregion
 
-        #region TextGroup绑定
+        #region Group绑定
 
         public static Action BindTextGroup(Dictionary<string, TMP_Text> textGroup, Property<Entity> entitySource)
         {
@@ -216,6 +214,28 @@ namespace MVVM
                 foreach (var unbind in unbindCallbacks)
                     unbind();
                 unbindCallbacks.Clear();
+            };
+        }
+        
+        public static Action BindHPGroup(TMP_Text text,Transform image, Property<Entity> source, string format = "{0} / {1}"){
+            if (text == null || image == null)
+                return () => { };
+
+            Action UnBindEvent = null;
+            void OnChanged(object sender, EventArgs e)
+            {
+                if (text == null || image == null || source?.Value == null) return;
+                UnBindEvent += BindText(text, source.Value.healthPoint, source.Value.maxHealthPoint, "{0:F0} / {1:F0}");
+                UnBindEvent += BindLength(image, source.Value.healthPoint, source.Value.maxHealthPoint);
+            }
+
+            source.PropertyChanged += OnChanged;
+            source.PropertyChanged += OnChanged;
+            return () =>
+            {
+                UnBindEvent.Invoke();
+                source.PropertyChanged -= OnChanged;
+                source.PropertyChanged -= OnChanged;
             };
         }
         

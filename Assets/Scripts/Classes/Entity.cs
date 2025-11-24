@@ -453,6 +453,10 @@ namespace Classes
         /// 基础体型
         /// </summary>
         protected float _baseScale;
+        /// <summary>
+        /// 攻击蓄力占比
+        /// </summary>
+        protected float _attackWindUp;
 
         #endregion
         

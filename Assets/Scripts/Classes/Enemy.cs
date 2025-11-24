@@ -9,10 +9,18 @@ namespace Classes
     public class Enemy : Entity
     {
         private readonly NavMeshAgent _agent;
+        
         /// <summary>
         /// 攻击计时器
         /// </summary>
         private float _attackTimer;
+        /// <summary>
+        /// 攻击前摇计时器
+        /// </summary>
+        private float _attackWindUpTimer;
+        /// <summary>
+        /// 普攻弹道速度
+        /// </summary>
         private const float attackBulletSpeed = 15f;
 
         private Entity target = HeroManager.hero;
@@ -36,6 +44,7 @@ namespace Classes
             _baseAttackRange = 175;
             _baseMovementSpeed = 200;
             _baseScale = 100;
+            _attackWindUp = 0.2f;
 
             _maxHealthPointGrowth = 0;
             _maxMagicPointGrowth = 0;
@@ -81,51 +90,58 @@ namespace Classes
             }
             
             var distance = Vector3.Distance(target.gameObject.transform.position, gameObject.transform.position);
-            
-            if(_attackTimer < actualAttackInterval || distance > _agent.stoppingDistance + 0.1f)
+
+            if (_attackTimer < actualAttackInterval || distance > _agent.stoppingDistance + 0.1f)
+            {
+                _attackWindUpTimer = 0;
                 return;
-            
-            // 发动攻击
-            _attackTimer = 0;
+            }
 
-            var bullet = BulletFactory.Instance.CreateBullet(this);
-            bullet.OnBulletAwake += (self) =>
+            // 计算攻击前摇
+            _attackWindUpTimer += Time.deltaTime;
+            if (_attackWindUpTimer >= actualAttackInterval * _attackWindUp)
             {
-                self.gameObject.transform.position = _gameObject.transform.position;
-                self.gameObject.SetActive(true);
-    
-                // 设置目标
-                self.target = target;
+                // 发动攻击
+                _attackTimer = 0;
+                _attackWindUpTimer = 0;
 
-                // 每帧追踪目标
-                self.OnBulletUpdate += (_) =>
+                var bullet = BulletFactory.Instance.CreateBullet(this);
+                bullet.OnBulletAwake += (self) =>
                 {
-                    var currentPosition = self.gameObject.transform.position;
-                    var targetPosition = self.target.gameObject.transform.position;
-        
-                    var direction = (targetPosition - currentPosition).normalized;
-                    var nextPosition = currentPosition + direction * (attackBulletSpeed * Time.deltaTime);
-        
-                    self.gameObject.transform.position = nextPosition;
-                    self.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
+                    self.gameObject.transform.position = _gameObject.transform.position;
+                    self.gameObject.SetActive(true);
 
-                    // 子弹的销毁逻辑
-                    const float destroyDistance = 0.3f;
-                    if (Vector3.Distance(self.gameObject.transform.position, self.target.gameObject.transform.position) <= destroyDistance)
+                    // 设置目标
+                    self.target = target;
+
+                    // 每帧追踪目标
+                    self.OnBulletUpdate += (_) =>
                     {
-                        self.BulletHit();
-                        self.AttackEffectActivate();
-                        self.Destroy();
-                    }
+                        var currentPosition = self.gameObject.transform.position;
+                        var targetPosition = self.target.gameObject.transform.position;
+
+                        var direction = (targetPosition - currentPosition).normalized;
+                        var nextPosition = currentPosition + direction * (attackBulletSpeed * Time.deltaTime);
+
+                        self.gameObject.transform.position = nextPosition;
+                        self.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
+
+                        // 子弹的销毁逻辑
+                        const float destroyDistance = 0.3f;
+                        if (Vector3.Distance(self.gameObject.transform.position,
+                                self.target.gameObject.transform.position) <= destroyDistance)
+                        {
+                            self.BulletHit();
+                            self.AttackEffectActivate();
+                            self.Destroy();
+                        }
+                    };
                 };
-            };
-            
-            bullet.OnBulletHit += (self) =>
-            {
-                self.target.TakeDamage(self.target.CalculateADDamage(self.owner));
-            };
-            
-            bullet.Awake();
+
+                bullet.OnBulletHit += (self) => { self.target.TakeDamage(self.target.CalculateADDamage(self.owner)); };
+
+                bullet.Awake();
+            }
         }
     }
 }

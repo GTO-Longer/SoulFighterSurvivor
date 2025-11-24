@@ -17,7 +17,6 @@ namespace Classes
         private Transform _attackRangeIndicator;
         private bool _asyncRotating => DOTween.IsTweening(_gameObject.transform);
         private const float rotateTime = 0.3f;
-        private const float attackBulletSpeed = 15f;
         
         /// <summary>
         /// 玩家锁定的实体
@@ -36,6 +35,14 @@ namespace Classes
         /// 攻击计时器
         /// </summary>
         private float _attackTimer;
+        /// <summary>
+        /// 攻击前摇计时器
+        /// </summary>
+        private float _attackWindUpTimer;
+        /// <summary>
+        /// 普攻弹道速度
+        /// </summary>
+        private const float attackBulletSpeed = 15f;
 
         public List<Skill> skillList = new();
         
@@ -60,6 +67,7 @@ namespace Classes
                 _baseAttackRange = config._baseAttackRange;
                 _baseMovementSpeed = config._baseMovementSpeed;
                 _baseScale = config._baseScale;
+                _attackWindUp = config._attackWindUp;
 
                 _maxHealthPointGrowth = config._maxHealthPointGrowth;
                 _maxMagicPointGrowth = config._maxMagicPointGrowth;
@@ -154,6 +162,7 @@ namespace Classes
             // 其他变量初始化
             _autoAttack = false;
             _attackTimer = 0;
+            _attackWindUpTimer = 0;
             level.Value = 1;
             magicPoint.Value = maxMagicPoint.Value;
             healthPoint.Value = maxHealthPoint.Value;
@@ -293,10 +302,13 @@ namespace Classes
             {
                 _attackTimer += Time.deltaTime;
             }
-            
-            if (target.Value == null || !_agent.isStopped) 
+
+            if (target.Value == null || !_agent.isStopped)
+            {
+                _attackWindUpTimer = 0;
                 return;
-            
+            }
+
             // 英雄转向目标
             var rotateDirection = new Vector2(
                 target.Value.gameObject.transform.position.x - _gameObject.transform.position.x,
@@ -308,50 +320,59 @@ namespace Classes
                 Async.SetAsync(_gameObject.transform, () => RotateTo(rotateDirection), rotateTime);
             }
 
-            if(_attackTimer < actualAttackInterval)
+            if (_attackTimer < actualAttackInterval)
+            {
+                _attackWindUpTimer = 0;
                 return;
+            }
 
-            // 发动攻击
-            _attackTimer = 0;
-
-            var bullet = BulletFactory.Instance.CreateBullet(this);
-            bullet.OnBulletAwake += (self) =>
+            // 计算攻击前摇
+            _attackWindUpTimer += Time.deltaTime;
+            if (_attackWindUpTimer >= actualAttackInterval * _attackWindUp)
             {
-                self.gameObject.transform.position = _gameObject.transform.position;
-                self.gameObject.SetActive(true);
-    
-                // 设置目标
-                self.target = target.Value;
+                // 发动攻击
+                _attackTimer = 0;
+                _attackWindUpTimer = 0;
 
-                // 每帧追踪目标
-                self.OnBulletUpdate += (_) =>
+                var bullet = BulletFactory.Instance.CreateBullet(this);
+                bullet.OnBulletAwake += (self) =>
                 {
-                    var currentPosition = self.gameObject.transform.position;
-                    var targetPosition = self.target.gameObject.transform.position;
+                    self.gameObject.transform.position = _gameObject.transform.position;
+                    self.gameObject.SetActive(true);
         
-                    var direction = (targetPosition - currentPosition).normalized;
-                    var nextPosition = currentPosition + direction * (attackBulletSpeed * Time.deltaTime);
-        
-                    self.gameObject.transform.position = nextPosition;
-                    self.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
+                    // 设置目标
+                    self.target = target.Value;
 
-                    // 子弹的销毁逻辑
-                    const float destroyDistance = 0.3f;
-                    if (Vector3.Distance(self.gameObject.transform.position, self.target.gameObject.transform.position) <= destroyDistance)
+                    // 每帧追踪目标
+                    self.OnBulletUpdate += (_) =>
                     {
-                        self.BulletHit();
-                        self.Destroy();
-                    }
-                };
-            };
-
-            bullet.OnBulletHit += (self) =>
-            {
-                self.target.TakeDamage(self.target.CalculateADDamage(self.owner));
-                self.AttackEffectActivate();
-            };
+                        var currentPosition = self.gameObject.transform.position;
+                        var targetPosition = self.target.gameObject.transform.position;
             
-            bullet.Awake();
+                        var direction = (targetPosition - currentPosition).normalized;
+                        var nextPosition = currentPosition + direction * (attackBulletSpeed * Time.deltaTime);
+            
+                        self.gameObject.transform.position = nextPosition;
+                        self.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
+
+                        // 子弹的销毁逻辑
+                        const float destroyDistance = 0.3f;
+                        if (Vector3.Distance(self.gameObject.transform.position, self.target.gameObject.transform.position) <= destroyDistance)
+                        {
+                            self.BulletHit();
+                            self.Destroy();
+                        }
+                    };
+                };
+
+                bullet.OnBulletHit += (self) =>
+                {
+                    self.target.TakeDamage(self.target.CalculateADDamage(self.owner));
+                    self.AttackEffectActivate();
+                };
+                
+                bullet.Awake();
+            }
         }
         
         public void SetRotate()

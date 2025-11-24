@@ -23,6 +23,7 @@ namespace DataManagement
         public float _baseAttackRange;
         public float _baseMovementSpeed;
         public float _baseScale;
+        public float _attackWindUp;
 
         // 成长属性
         public float _maxHealthPointGrowth;

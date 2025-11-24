@@ -3,11 +3,20 @@ using UnityEngine;
 
 namespace Utilities
 {
-    public static class Async
+    public class Async : MonoBehaviour
     {
-        public static void SetAsync(Transform transform, TweenCallback update, float duration)
+        public static Async Instance;
+
+        private void Awake()
         {
-            transform.DOMoveX(transform.position.x, duration).OnUpdate(update);
+            Instance = this;
+            DontDestroyOnLoad(this);
+        }
+
+        public static void SetAsync(float duration, Transform target = null, TweenCallback update = null, TweenCallback complete = null)
+        {
+            var transform = target == null ? Instance.transform : target;
+            transform.DOMoveX(transform.position.x, duration).OnUpdate(update).OnComplete(complete).SetUpdate(UpdateType.Fixed);
         }
     }
 }

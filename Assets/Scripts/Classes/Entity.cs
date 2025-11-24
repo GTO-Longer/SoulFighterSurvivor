@@ -523,6 +523,7 @@ namespace Classes
         /// </summary>
         public void TakeDamage(float damageCount)
         {
+            Debug.Log(gameObject.name + "受到" + damageCount + "点伤害");
             healthPoint.Value -= damageCount;
             if (healthPoint.Value < 0)
             {

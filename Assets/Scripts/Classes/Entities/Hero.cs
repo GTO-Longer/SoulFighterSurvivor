@@ -513,19 +513,19 @@ namespace Classes.Entities
             {
                 for (var i = 1; i <= maxSteps; i++)
                 {
-                    // 正向探测
-                    var probeForward = originPoint + direction * (step * i);
-                    if (_agent.CalculatePath(probeForward, path) && path.status == NavMeshPathStatus.PathComplete)
+                    // 正向搜索
+                    var forward = originPoint + direction * (step * i);
+                    if (_agent.CalculatePath(forward, path) && path.status == NavMeshPathStatus.PathComplete)
                     {
-                        targetPosition = probeForward;
+                        targetPosition = forward;
                         break;
                     }
 
-                    // 反向探测
-                    var probeBackward = originPoint - direction * (step * i);
-                    if (_agent.CalculatePath(probeBackward, path) && path.status == NavMeshPathStatus.PathComplete)
+                    // 反向搜索
+                    var backward = originPoint - direction * (step * i);
+                    if (_agent.CalculatePath(backward, path) && path.status == NavMeshPathStatus.PathComplete)
                     {
-                        targetPosition = probeBackward;
+                        targetPosition = backward;
                         break;
                     }
                 }
@@ -540,17 +540,6 @@ namespace Classes.Entities
             
             _agent.nextPosition = gameObject.transform.position;
 
-            // 设置位移完成后的回调
-            TweenCallback complete = null;
-            complete += () =>
-            {
-                // 恢复agent
-                _agent.isStopped = false;
-                _agent.updatePosition = true;
-            };
-
-            complete += onComplete;
-
             // 使用DOTween平滑位移
             gameObject.transform.DOMove(targetPosition, dashDuration)
             .OnUpdate(() =>
@@ -559,9 +548,14 @@ namespace Classes.Entities
             })
             .OnComplete(() =>
             {
+                // 恢复agent
                 _agent.Warp(targetPosition);
                 _agent.nextPosition = targetPosition;
-                complete?.Invoke();
+                
+                _agent.isStopped = false;
+                _agent.updatePosition = true;
+                
+                onComplete?.Invoke();
             });
         }
 

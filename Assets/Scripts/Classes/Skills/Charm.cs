@@ -16,6 +16,8 @@ namespace Classes.Skills
             
             _skillLevel = 1;
             _maxSkillLevel = 5;
+            
+            coolDownTimer = 999;
         }
 
         public override string GetDescription()
@@ -49,6 +51,7 @@ namespace Classes.Skills
                 
                 owner.RotateToMousePoint();
                 owner.magicPoint.Value -= _baseSkillCost[_skillLevel];
+                coolDownTimer = 0;
                 
                 // 计算飞出目标点
                 var mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);

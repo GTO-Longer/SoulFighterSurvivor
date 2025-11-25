@@ -410,6 +410,15 @@ namespace Classes.Entities
             foreach (var skill in skillList)
             {
                 skill.coolDownTimer += Time.deltaTime;
+                if (skill.specialTimer < 0)
+                {
+                    skill.SpecialTimeOut();
+                    skill.specialTimer = 0;
+                }
+                else if (skill.specialTimer > 0)
+                {
+                    skill.specialTimer -= Time.deltaTime;
+                }
             }
         }
         

@@ -17,6 +17,8 @@ namespace Classes.Skills
             
             _skillLevel = 1;
             _maxSkillLevel = 5;
+            
+            coolDownTimer = 999;
         }
 
         public override string GetDescription()
@@ -49,6 +51,7 @@ namespace Classes.Skills
                 }
 
                 owner.magicPoint.Value -= _baseSkillCost[_skillLevel];
+                coolDownTimer = 0;
 
                 // 获得2s内40%递减的加速
                 owner._percentageMovementSpeedBonus.Value += 0.4f;
@@ -143,8 +146,7 @@ namespace Classes.Skills
                                 self.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
 
                                 // 子弹的销毁逻辑
-                                const float destroyDistance = 0.3f;
-                                if (Vector3.Distance(self.gameObject.transform.position, self.target.gameObject.transform.position) <= destroyDistance)
+                                if (Vector3.Distance(self.gameObject.transform.position, self.target.gameObject.transform.position) <= self.target.actualScale)
                                 {
                                     self.BulletHit();
                                     self.Destroy();

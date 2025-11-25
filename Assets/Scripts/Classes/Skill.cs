@@ -25,7 +25,7 @@ namespace Classes{
         protected int _maxSkillLevel = 0;
 
         public int skillChargeCount = 0;
-        protected int maxSkillChargeCount = 0;
+        public int maxSkillChargeCount = 0;
         
         protected string _skillDescription;
         protected SkillType _skillType;

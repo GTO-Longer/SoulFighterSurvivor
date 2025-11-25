@@ -32,7 +32,8 @@ namespace Classes.Skills
                 {
                     soulPieces = 0;
                     owner.TakeHeal(healCount);
-                    if (owner.skillList[(int)SkillType.RSkill].specialTimer > 0)
+                    if (owner.skillList[(int)SkillType.RSkill].specialTimer > 0 && 
+                        owner.skillList[(int)SkillType.RSkill].skillChargeCount < owner.skillList[(int)SkillType.RSkill].maxSkillChargeCount)
                     {
                         owner.skillList[(int)SkillType.RSkill].skillChargeCount += 1;
                     }

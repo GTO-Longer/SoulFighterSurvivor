@@ -1,8 +1,8 @@
 using System;
-using DG.Tweening;
+using System.Collections.Generic;
 using Factories;
 using UnityEngine;
-using UnityEngine.AI;
+using Utilities;
 
 namespace Classes.Skills
 {
@@ -18,6 +18,11 @@ namespace Classes.Skills
             
             _skillLevel = 1;
             _maxSkillLevel = 3;
+            maxSkillChargeCount = 3;
+            
+            coolDownTimer = 999;
+
+            OnSpecialTimeOut += () => coolDownTimer = 0;
         }
 
         public override string GetDescription()
@@ -48,72 +53,104 @@ namespace Classes.Skills
                     Debug.Log("Skill is in cooldown.");
                     return;
                 }
-
-                var mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                mouseWorldPos.z = owner.gameObject.transform.position.z;
-
-                var direction = (mouseWorldPos - owner.gameObject.transform.position).normalized;
-                var targetPosition = owner.gameObject.transform.position + direction * destinationDistance;
-
-                // 使用NavMesh确保目标点有效
-                if (NavMesh.SamplePosition(targetPosition, out var hit, 2.0f, NavMesh.AllAreas))
+                
+                // 设置充能
+                if (skillChargeCount == 0 && specialTimer == 0)
                 {
-                    targetPosition = hit.position;
+                    // 消耗魔法值
+                    owner.magicPoint.Value -= _baseSkillCost[_skillLevel];
+                    skillChargeCount = maxSkillChargeCount;
+                    specialTimer = 10;
+                }
+                
+                if (skillChargeCount > 0)
+                {
+                    skillChargeCount -= 1;
+                    coolDownTimer = actualSkillCoolDown - 0.5f;
                 }
                 else
                 {
-                    for (var d = destinationDistance * 0.9f; d > 0.5f; d -= 0.5f)
-                    {
-                        var fallbackPos = owner.gameObject.transform.position + direction * d;
-                        if (NavMesh.SamplePosition(fallbackPos, out hit, 1.0f, NavMesh.AllAreas))
-                        {
-                            targetPosition = hit.position;
-                            break;
-                        }
-                    }
+                    Debug.Log("Charge time no enough.");
+                    return;
                 }
 
-                // 消耗魔法值
-                owner.magicPoint.Value -= _baseSkillCost[_skillLevel];
+                var mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                mouseWorldPos.z = owner.gameObject.transform.position.z;
+                var direction = (mouseWorldPos - owner.gameObject.transform.position).normalized;
+                const float r = 1.5f;
 
-                // 设置面向
-                owner.gameObject.transform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
-                
-                // 使用 DOTween 平滑位移
-                owner.gameObject.transform.DOMove(targetPosition, DashDuration)
-                    .OnUpdate(() =>
+                owner.Dash(destinationDistance, DashDuration, direction, () =>
+                {
+                    // 到目的地检测是否有敌人
+                    var targets = ToolFunctions.IsOverlappingOtherTagAll(owner.gameObject, actualSkillRange);
+                    Debug.Log(targets);
+                    if (targets != null)
                     {
-                        // 关闭agent
-                        owner.agent.isStopped = true;
-                    })
-                    .OnComplete(() =>
-                    {
-                        // 恢复agent
-                        owner.agent.isStopped = false;
-                        owner.agent.velocity = Vector3.zero;
-
-                        var spiritOrb = BulletFactory.Instance.CreateBullet(owner);
-
-                        spiritOrb.OnBulletAwake += (self) =>
+                        var spiritOrbList = new List<Bullet>
                         {
-                            self.target = null;
-                            self.gameObject.transform.position = owner.gameObject.transform.position;
-                            self.gameObject.SetActive(true);
+                            BulletFactory.Instance.CreateBullet(owner),
+                            BulletFactory.Instance.CreateBullet(owner),
+                            BulletFactory.Instance.CreateBullet(owner)
+                        };
 
-                            self.OnBulletUpdate += (bullet) =>
+                        for (var index = 0; index < spiritOrbList.Count; index++)
+                        {
+                            var spiritOrb = spiritOrbList[index];
+                            var bulletIndex = index;
+                            
+                            spiritOrb.OnBulletAwake += (self) =>
                             {
-                                
+                                self.target = targets[bulletIndex % targets.Length];
+                                self.gameObject.SetActive(true);
+
+                                var angleOffset = bulletIndex * (2f * Mathf.PI / 3f);
+
+                                var offset = new Vector3(
+                                    Mathf.Cos(angleOffset) * r,
+                                    Mathf.Sin(angleOffset) * r,
+                                    0f
+                                );
+
+                                var ownerPos = owner.gameObject.transform.position;
+                                self.gameObject.transform.position = new Vector3(
+                                    ownerPos.x + offset.x,
+                                    ownerPos.y + offset.y,
+                                    ownerPos.z
+                                );
+
+                                self.OnBulletUpdate += (_) =>
+                                {
+                                    var bulletCurrentPosition = self.gameObject.transform.position;
+                                    var bulletTargetPosition = self.target.gameObject.transform.position;
+
+                                    var bulletDirection = (bulletTargetPosition - bulletCurrentPosition).normalized;
+                                    var nextPosition = bulletCurrentPosition +
+                                                       bulletDirection * (bulletSpeed * Time.deltaTime);
+
+                                    self.gameObject.transform.position = nextPosition;
+                                    self.gameObject.transform.rotation =
+                                        Quaternion.LookRotation(Vector3.forward, bulletDirection);
+
+                                    // 子弹的销毁逻辑
+                                    if (Vector3.Distance(self.gameObject.transform.position,
+                                            self.target.gameObject.transform.position) <= self.target.actualScale)
+                                    {
+                                        self.BulletHit();
+                                        self.Destroy();
+                                    }
+                                };
                             };
-                        };
 
-                        spiritOrb.OnBulletHit += (self) =>
-                        {
-                            self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, _damage));
-                            self.AbilityEffectActivate();
-                        };
+                            spiritOrb.OnBulletHit += (self) =>
+                            {
+                                self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, _damage));
+                                self.AbilityEffectActivate();
+                            };
 
-                        spiritOrb.Awake();
-                    });
+                            spiritOrb.Awake();
+                        }
+                    }
+                });
             };
         }
     }

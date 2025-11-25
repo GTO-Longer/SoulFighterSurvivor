@@ -18,9 +18,14 @@ namespace Classes{
         public float bulletSpeed => _bulletSpeed / 100f;
         public float destinationDistance => _destinationDistance / 100f;
         public float coolDownTimer;
+        public float specialTimer;
+        public event Action OnSpecialTimeOut; 
         
         protected int _skillLevel = 0;
         protected int _maxSkillLevel = 0;
+
+        public int skillChargeCount = 0;
+        protected int maxSkillChargeCount = 0;
         
         protected string _skillDescription;
         protected SkillType _skillType;
@@ -73,5 +78,10 @@ namespace Classes{
         }
 
         public virtual void SkillEffect() { }
+
+        public void SpecialTimeOut()
+        {
+            OnSpecialTimeOut?.Invoke();
+        }
     }
 }

@@ -103,7 +103,7 @@ namespace Classes.Entities
                 if (passiveSkillType != null)
                 {
                     var skill = (Skill)Activator.CreateInstance(passiveSkillType);
-                    skill.owner = this;
+                    skill.owner= this;
                     skill.SkillEffect();
                     skillList.Add(skill);
                     Debug.Log("Read skill:" + skillList[(int)SkillType.PassiveSkill].skillName +
@@ -113,7 +113,7 @@ namespace Classes.Entities
                 if (QSkillType != null)
                 {
                     var skill = (Skill)Activator.CreateInstance(QSkillType);
-                    skill.owner = this;
+                    skill.owner= this;
                     skill.SkillEffect();
                     skillList.Add(skill);
                     Debug.Log("Read skill:" + skillList[(int)SkillType.QSkill].skillName +
@@ -189,6 +189,8 @@ namespace Classes.Entities
         /// </summary>
         public override void Move()
         {
+            if (!_agent.enabled)return;
+
             // 设置速度
             _agent.speed = actualMovementSpeed;
             
@@ -478,6 +480,61 @@ namespace Classes.Entities
                     target.Value = _find.collider.gameObject.GetComponent<EntityData>().entity;
                 }
             }
+        }
+        
+        /// <summary>
+        /// 冲刺
+        /// </summary>
+        /// <param name="destinationDistance">位移距离</param>
+        /// <param name="dashDuration">位移时长</param>
+        /// <param name="direction">位移方向</param>
+        /// <param name="onComplete">位移完成回调</param>
+        public void Dash(float destinationDistance, float dashDuration, Vector2 direction, TweenCallback onComplete = null)
+        {
+            // 标准化方向
+            direction = direction.normalized;
+
+            // 计算按照方向的技能目标点
+            var pointPosition = (Vector2)gameObject.transform.position + direction * destinationDistance;
+
+            // 计算实际落点
+            Vector3 targetPosition;
+            if (NavMesh.Raycast(gameObject.transform.position, pointPosition, out var raycastHit, NavMesh.AllAreas))
+            {
+                // 路径被阻挡，落在阻挡点处
+                targetPosition = raycastHit.position;
+            }
+            else
+            {
+                // 路径畅通，目标点合法
+                targetPosition = pointPosition;
+            }
+
+            // 设置面向
+            gameObject.transform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
+
+            // 关闭agent
+            agent.isStopped = true;
+            agent.updatePosition = false;
+            agent.enabled = false;
+
+            TweenCallback complete = null;
+            complete += () =>
+            {
+                // 恢复agent
+                agent.enabled = true;
+                agent.isStopped = false;
+                agent.updatePosition = true;
+            };
+
+            complete += onComplete;
+
+            // 使用DOTween平滑位移
+            gameObject.transform.DOMove(targetPosition, dashDuration)
+                .OnComplete(() =>
+                {
+                    complete?.Invoke();
+                });
         }
 
         /// <summary>

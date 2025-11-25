@@ -17,7 +17,6 @@ namespace Classes.Entities
         /// 寻路组件
         /// </summary>
         private readonly NavMeshAgent _agent;
-        public NavMeshAgent agent => _agent;
         
         private Transform _attackRangeIndicator;
         private bool _asyncRotating => DOTween.IsTweening(_gameObject.transform);
@@ -189,13 +188,14 @@ namespace Classes.Entities
         /// </summary>
         public override void Move()
         {
-            if (!_agent.enabled)return;
+            if (!_agent.updatePosition) return;
 
             // 设置速度
             _agent.speed = actualMovementSpeed;
             
             // 获取鼠标位置
             var _mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            _mousePosition.z = 0;
             
             // 当玩家点击左键
             if (Input.GetMouseButtonDown(0))
@@ -302,6 +302,8 @@ namespace Classes.Entities
                                        <= actualScale + actualAttackRange + 0.1f;
                 }
             }
+
+            gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, 0);
         }
 
         /// <summary>
@@ -494,47 +496,73 @@ namespace Classes.Entities
             // 标准化方向
             direction = direction.normalized;
 
-            // 计算按照方向的技能目标点
-            var pointPosition = (Vector2)gameObject.transform.position + direction * destinationDistance;
+            // 计算按照方向的原目标点
+            var originPoint = (Vector2)gameObject.transform.position + direction * destinationDistance;
 
             // 计算实际落点
-            Vector3 targetPosition;
-            if (NavMesh.Raycast(gameObject.transform.position, pointPosition, out var raycastHit, NavMesh.AllAreas))
-            {
-                // 路径被阻挡，落在阻挡点处
-                targetPosition = raycastHit.position;
-            }
-            else
-            {
-                // 路径畅通，目标点合法
-                targetPosition = pointPosition;
-            }
+            var targetPosition = originPoint;
 
+            // 定义搜索步长
+            const float step = 0.1f;
+            var maxSteps = (int)(destinationDistance / step);
+            
+            // 判断原目标点是否合法
+            // 不合法则开始逐步搜索合法点
+            var path = new NavMeshPath();
+            if (!(_agent.CalculatePath(originPoint, path) && path.status == NavMeshPathStatus.PathComplete))
+            {
+                for (var i = 1; i <= maxSteps; i++)
+                {
+                    // 正向探测
+                    var probeForward = originPoint + direction * (step * i);
+                    if (_agent.CalculatePath(probeForward, path) && path.status == NavMeshPathStatus.PathComplete)
+                    {
+                        targetPosition = probeForward;
+                        break;
+                    }
+
+                    // 反向探测
+                    var probeBackward = originPoint - direction * (step * i);
+                    if (_agent.CalculatePath(probeBackward, path) && path.status == NavMeshPathStatus.PathComplete)
+                    {
+                        targetPosition = probeBackward;
+                        break;
+                    }
+                }
+            }
+            
             // 设置面向
             gameObject.transform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
 
             // 关闭agent
-            agent.isStopped = true;
-            agent.updatePosition = false;
-            agent.enabled = false;
+            _agent.isStopped = true;
+            _agent.updatePosition = false;
+            
+            _agent.nextPosition = gameObject.transform.position;
 
+            // 设置位移完成后的回调
             TweenCallback complete = null;
             complete += () =>
             {
                 // 恢复agent
-                agent.enabled = true;
-                agent.isStopped = false;
-                agent.updatePosition = true;
+                _agent.isStopped = false;
+                _agent.updatePosition = true;
             };
 
             complete += onComplete;
 
             // 使用DOTween平滑位移
             gameObject.transform.DOMove(targetPosition, dashDuration)
-                .OnComplete(() =>
-                {
-                    complete?.Invoke();
-                });
+            .OnUpdate(() =>
+            {
+                _agent.nextPosition = gameObject.transform.position;
+            })
+            .OnComplete(() =>
+            {
+                _agent.Warp(targetPosition);
+                _agent.nextPosition = targetPosition;
+                complete?.Invoke();
+            });
         }
 
         /// <summary>
@@ -545,7 +573,7 @@ namespace Classes.Entities
             // 获取鼠标位置
             var _mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             
-            // 计算 XY 平面方向
+            // 计算方向
             var direction = new Vector2(
                 _mousePosition.x - _gameObject.transform.position.x,
                 _mousePosition.y - _gameObject.transform.position.y

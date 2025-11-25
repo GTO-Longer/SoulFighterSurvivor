@@ -8,7 +8,7 @@ namespace Classes.Skills
 {
     public class SpiritRush : Skill
     {
-        private const float DashDuration = 0.5f;
+        private const float dashDuration = 0.5f;
 
         private float _damage => _baseSkillValue[0][Math.Max(0, _skillLevel - 1)] + 0.35f * owner.abilityPower;
         
@@ -79,11 +79,10 @@ namespace Classes.Skills
                 var direction = (mouseWorldPos - owner.gameObject.transform.position).normalized;
                 const float r = 1.5f;
 
-                owner.Dash(destinationDistance, DashDuration, direction, () =>
+                owner.Dash(destinationDistance, dashDuration, direction, () =>
                 {
                     // 到目的地检测是否有敌人
                     var targets = ToolFunctions.IsOverlappingOtherTagAll(owner.gameObject, actualSkillRange);
-                    Debug.Log(targets);
                     if (targets != null)
                     {
                         var spiritOrbList = new List<Bullet>

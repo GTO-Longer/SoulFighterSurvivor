@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Classes;
 using DataManagement;
 using UnityEngine;
@@ -57,6 +59,58 @@ namespace Utilities
             }
 
             return targetEntity;
+        }
+
+        public static Entity[] IsOverlappingOtherTagAll(GameObject obj, float radius = 0)
+        {
+            var overlappingEntities = new List<(Entity entity, float distanceSqr)>();
+            var excludeTag = obj.tag;
+            var collider = obj.GetComponent<CircleCollider2D>();
+            if (collider == null) return null;
+
+            var _overlapColloders = new Collider2D[20];
+
+            Vector2 center = collider.bounds.center;
+
+            if (radius == 0)
+            {
+                radius = collider.radius * collider.transform.lossyScale.x;
+            }
+
+            // 获取所有重叠的碰撞箱
+            var count = Physics2D.OverlapCircleNonAlloc(center, radius, _overlapColloders);
+
+            for (var i = 0; i < count; i++)
+            {
+                var col = _overlapColloders[i];
+                if (col == null) continue;
+
+                var otherGo = col.gameObject;
+
+                // 跳过没有Tag的对象
+                if (otherGo.CompareTag("Untagged")) continue;
+
+                // 跳过相同Tag的对象
+                if (otherGo.CompareTag(excludeTag)) continue;
+
+                // 获取EntityData，没有则跳过
+                var entityData = otherGo.GetComponent<EntityData>();
+                if (entityData == null) continue;
+                
+                var distSqr = (otherGo.transform.position - (Vector3)center).sqrMagnitude;
+                overlappingEntities.Add((entityData.entity, distSqr));
+            }
+
+            if (overlappingEntities.Count == 0)
+            {
+                return null;
+            }
+            
+            // 按距离平方升序排序
+            overlappingEntities.Sort((a, b) => a.distanceSqr.CompareTo(b.distanceSqr));
+
+            // 提取 Entity 数组并返回
+            return overlappingEntities.Select(item => item.entity).ToArray();
         }
     }
 }

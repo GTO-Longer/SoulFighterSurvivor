@@ -18,12 +18,12 @@ namespace Systems
         {
             if (InfinityMagicPoint)
             {
-                HeroManager.hero.magicPoint = HeroManager.hero.maxMagicPoint;
+                HeroManager.hero.TakeMagicRecover(999);
             }
             
             if (InfinityHealthPoint)
             {
-                HeroManager.hero.healthPoint = HeroManager.hero.maxHealthPoint;
+                HeroManager.hero.TakeHeal(999);
             }
             
             if (SkillNoCoolDown)

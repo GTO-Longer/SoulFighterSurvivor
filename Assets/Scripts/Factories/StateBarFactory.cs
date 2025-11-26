@@ -18,17 +18,13 @@ namespace Factories
         private ObjectPool<RectTransform> _stateBarPool;
         private Dictionary<Entity, RectTransform> _activeBars = new ();
         private Dictionary<Entity, Action> _unbindEvent = new ();
-        private Camera _uiCamera;
 
         private void Awake()
         {
             if (Instance == null)
             {
                 Instance = this;
-                DontDestroyOnLoad(this);
                 stateBarPrefab.SetActive(false);
-
-                _uiCamera = Camera.main;
 
                 _stateBarPool = new ObjectPool<RectTransform>(
                     createFunc: () =>
@@ -69,11 +65,6 @@ namespace Factories
             _activeBars[entity] = bar;
         }
 
-        public void StateBarInitialize(Entity entity, RectTransform bar)
-        {
-            
-        }
-
         /// <summary>
         /// 隐藏并回收指定Entity的StateBar
         /// </summary>
@@ -105,6 +96,9 @@ namespace Factories
             _activeBars.Clear();
         }
 
+        /// <summary>
+        /// 更新所有StateBar
+        /// </summary>
         private void LateUpdate()
         {
             if (_activeBars.Count == 0) return;

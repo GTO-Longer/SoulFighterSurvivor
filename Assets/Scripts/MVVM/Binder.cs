@@ -23,10 +23,10 @@ namespace MVVM
             void OnChanged(object sender, EventArgs e)
             {
                 if (text == null) return;
-                text.text = source.Value;
+                text.SetText(source.Value);
             }
 
-            text.text = source.Value;
+            text.SetText(source.Value);
             source.PropertyChanged += OnChanged;
             return () => source.PropertyChanged -= OnChanged;
         }
@@ -46,10 +46,10 @@ namespace MVVM
             void OnChanged(object sender, EventArgs e)
             {
                 if (text == null) return;
-                text.text = string.Format(format, source.Value);
+                text.SetText(string.Format(format, source.Value));
             }
 
-            text.text = string.Format(format, source.Value);
+            text.SetText(string.Format(format, source.Value));
             source.PropertyChanged += OnChanged;
             return () => source.PropertyChanged -= OnChanged;
         }
@@ -70,10 +70,10 @@ namespace MVVM
             void OnChanged(object sender, EventArgs e)
             {
                 if (text == null) return;
-                text.text = string.Format(format, source.Value);
+                text.SetText(string.Format(format, source.Value));
             }
 
-            text.text = string.Format(format, source.Value);
+            text.SetText(string.Format(format, source.Value));
             source.PropertyChanged += OnChanged;
             return () => source.PropertyChanged -= OnChanged;
         }
@@ -88,10 +88,10 @@ namespace MVVM
             void OnChanged(object sender, EventArgs e)
             {
                 if (text == null) return;
-                text.text = string.Format(format, source1.Value, source2.Value);
+                text.SetText(string.Format(format, source1.Value, source2.Value));
             }
 
-            text.text = string.Format(format, source1.Value, source2.Value);
+            text.SetText(string.Format(format, source1.Value, source2.Value));
             source1.PropertyChanged += OnChanged;
             source2.PropertyChanged += OnChanged;
             return () =>
@@ -125,6 +125,9 @@ namespace MVVM
 
         #region Group绑定
 
+        /// <summary>
+        /// 绑定文字组合（实体属性）
+        /// </summary>
         public static Action BindTextGroup(Dictionary<string, TMP_Text> textGroup, Property<Entity> entitySource)
         {
             if (textGroup == null || entitySource == null)
@@ -144,7 +147,7 @@ namespace MVVM
                 {
                     foreach (var (_, text) in textGroup)
                     {
-                        if (text != null) text.text = "0";
+                        if (text != null) text.SetText("0");
                     }
                     return;
                 }
@@ -161,7 +164,7 @@ namespace MVVM
                     var bindable = (Property<float>)field.GetValue(entity);
                     if (bindable == null)
                     {
-                        targetText.text = "0";
+                        targetText.SetText("0");
                         continue;
                     }
 
@@ -201,7 +204,7 @@ namespace MVVM
                 var bindable = (Property<float>)field.GetValue(entity);
                 if (bindable == null)
                 {
-                    targetText.text = "0";
+                    targetText.SetText("0");
                     continue;
                 }
 
@@ -217,6 +220,9 @@ namespace MVVM
             };
         }
         
+        /// <summary>
+        /// 绑定血条
+        /// </summary>
         public static Action BindHPGroup(TMP_Text text,Transform image, Property<Entity> source, string format = "{0} / {1}"){
             if (text == null || image == null)
                 return () => { };
@@ -234,6 +240,30 @@ namespace MVVM
             {
                 source.PropertyChanged -= OnChanged;
                 source.PropertyChanged -= OnChanged;
+            };
+        }
+        
+        /// <summary>
+        /// 绑定技能
+        /// </summary>
+        public static Action BindSkill(TMP_Text skillName, TMP_Text skillCoolDown, TMP_Text skillCost, TMP_Text skillDescription, Property<Skill> skillSource)
+        {
+            if (skillSource?.Value == null)
+                return () => { };
+
+            void OnChanged(object sender, EventArgs e)
+            {
+                if (skillSource?.Value == null) return;
+                skillName.SetText(skillSource.Value.skillName);
+                skillCoolDown.SetText($"{skillSource.Value.actualSkillCoolDown:F2}秒");
+                skillCost.SetText($"{skillSource.Value.actualSkillCost:F0}法力值");
+                skillDescription.SetText(skillSource.Value.GetDescription());
+            }
+
+            skillSource.PropertyChanged += OnChanged;
+            return () =>
+            {
+                skillSource.PropertyChanged -= OnChanged;
             };
         }
         
@@ -257,7 +287,7 @@ namespace MVVM
             return () => source.PropertyChanged -= OnChanged;
         }
 
-        public static Action BindActive(GameObject target, Property<Entity> source)
+        public static Action BindActive<T>(GameObject target, Property<T> source)
         {
             if (target == null || source == null)
                 return () => { };

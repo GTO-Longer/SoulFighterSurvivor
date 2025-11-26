@@ -144,7 +144,7 @@ namespace Utilities
                     }
                 }
             }
-            return true;
+            return objects.Count > 0;
         }
     }
 }

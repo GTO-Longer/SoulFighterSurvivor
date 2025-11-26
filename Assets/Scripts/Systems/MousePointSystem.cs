@@ -56,14 +56,7 @@ namespace Systems
             {
                 var obj = Instantiate(mousePointIndicator, mousePointIndicator.transform.parent).GetComponent<ParticleSystem>();
                 obj.Play();
-                if (Input.GetKey(KeyCode.LeftShift))
-                {
-                    obj.startColor = Color.red;
-                }
-                else
-                {
-                    obj.startColor = Color.green;
-                }
+                obj.startColor = Input.GetKey(KeyCode.LeftShift) ? Color.red : Color.green;
             }
         }
     }

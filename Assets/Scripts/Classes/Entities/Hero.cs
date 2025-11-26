@@ -228,9 +228,15 @@ namespace Classes.Entities
                 //开始移动
                 _agent.isStopped = false;
 
-                if (!ToolFunctions.IsObjectAtMousePoint(out _))
+                if (!ToolFunctions.IsObjectAtMousePoint(out var obj, gameObject.tag))
                 {
                     target.Value = null;
+                    _autoAttack = false;
+                }
+                else
+                {
+                    _autoAttack = true;
+                    target.Value = obj[0].GetComponent<EntityData>().entity;
                 }
                 
                 if (target.Value.IsUnityNull())
@@ -443,7 +449,7 @@ namespace Classes.Entities
             // 当玩家点击左键
             if (Input.GetMouseButton(0))
             {
-                if (ToolFunctions.IsObjectAtMousePoint(out var results))
+                if (ToolFunctions.IsObjectAtMousePoint(out var results, gameObject.tag))
                 {
                     target.Value = results[0].GetComponent<EntityData>().entity;
                 }
@@ -518,6 +524,7 @@ namespace Classes.Entities
             {
                 canUseSkill = true;
                 canCancelTurn = true;
+                
                 // 恢复agent
                 _agent.Warp(targetPosition);
                 _agent.nextPosition = targetPosition;

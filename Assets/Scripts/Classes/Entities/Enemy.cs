@@ -81,7 +81,7 @@ namespace Classes.Entities
             _agent.stoppingDistance = actualAttackRange + target.actualScale;
             
             var distance = Vector3.Distance(target.gameObject.transform.position, gameObject.transform.position);
-            _agent.isStopped = distance <= _agent.stoppingDistance + 0.1f;
+            _agent.isStopped = distance <= _agent.stoppingDistance + 0.5f;
         }
 
         public override void Attack()

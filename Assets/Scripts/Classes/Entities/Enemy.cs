@@ -68,6 +68,9 @@ namespace Classes.Entities
             // 配置敌人体型
             _gameObject.transform.localScale = new Vector2(actualScale * 2, actualScale * 2);
             
+            // 创建状态条
+            StateBarFactory.Instance.Spawn(this);
+            
             // 其他变量初始化
             level.Value = 1;
             magicPoint.Value = maxMagicPoint.Value;

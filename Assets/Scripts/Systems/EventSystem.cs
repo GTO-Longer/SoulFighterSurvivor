@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Classes;
+using EntityManagers;
 using UnityEngine;
 
 namespace Systems
@@ -10,36 +11,41 @@ namespace Systems
     {
         // 持续更新事件
         public event Action<Entity, Entity> EntityUpdateEvent;
-        public void EntityUpdate(Entity owner)
+        public void EntityUpdate(Entity owner = null)
         {
+            owner ??= HeroManager.hero;
             EntityUpdateEvent?.Invoke(owner, null);
         }
         
         // Q技能释放事件
         public event Action<Entity, Entity> OnQSkillRelease;
-        public void QSkillRelease(Entity owner, Entity target)
+        public void QSkillRelease(Entity owner = null, Entity target = null)
         {
+            owner ??= HeroManager.hero;
             OnQSkillRelease?.Invoke(owner, target);
         }
         
         // W技能释放事件
         public event Action<Entity, Entity> OnWSkillRelease;
-        public void WSkillRelease(Entity owner, Entity target)
+        public void WSkillRelease(Entity owner = null, Entity target = null)
         {
+            owner ??= HeroManager.hero;
             OnWSkillRelease?.Invoke(owner, target);
         }
         
         // E技能释放事件
         public event Action<Entity, Entity> OnESkillRelease;
-        public void ESkillRelease(Entity owner, Entity target)
+        public void ESkillRelease(Entity owner = null, Entity target = null)
         {
+            owner ??= HeroManager.hero;
             OnESkillRelease?.Invoke(owner, target);
         }
         
         // R技能释放事件
         public event Action<Entity, Entity> OnRSkillRelease;
-        public void RSkillRelease(Entity owner, Entity target)
+        public void RSkillRelease(Entity owner = null, Entity target = null)
         {
+            owner ??= HeroManager.hero;
             OnRSkillRelease?.Invoke(owner, target);
         }
         

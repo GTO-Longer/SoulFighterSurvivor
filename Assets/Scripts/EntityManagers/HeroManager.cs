@@ -20,28 +20,28 @@ namespace EntityManagers
             hero.TargetCheck();
             hero.SetRotate();
             hero.Attack();
-            hero.EntityUpdate(hero);
+            hero.EntityUpdate();
             hero.Regenerate();
             hero.SkillCoolDown();
 
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                hero.QSkillRelease(hero, null);
+                hero.QSkillRelease();
             }
 
             if (Input.GetKeyDown(KeyCode.W))
             {
-                hero.WSkillRelease(hero, null);
+                hero.WSkillRelease();
             }
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                hero.ESkillRelease(hero, null);
+                hero.ESkillRelease();
             }
 
             if (Input.GetKeyDown(KeyCode.R))
             {
-                hero.RSkillRelease(hero, null);
+                hero.RSkillRelease();
             }
         }
     }

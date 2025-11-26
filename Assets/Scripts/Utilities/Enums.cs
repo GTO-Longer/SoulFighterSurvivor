@@ -1,3 +1,5 @@
+using System;
+
 namespace Utilities
 {
     public enum EntityType{
@@ -14,6 +16,7 @@ namespace Utilities
         Percentage
     }
 
+    [Serializable]
     public enum SkillType
     {
         None = -1,

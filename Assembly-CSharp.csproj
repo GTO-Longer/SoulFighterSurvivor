@@ -55,6 +55,7 @@
     <Compile Include="Assets\Scripts\DataManagement\Property.cs" />
     <Compile Include="Assets\Scripts\MVVM\ViewModels\TargetAttributeViewModel.cs" />
     <Compile Include="Assets\Scripts\Classes\Entity.cs" />
+    <Compile Include="Assets\Scripts\Systems\TestSystem.cs" />
     <Compile Include="Assets\Scripts\Classes\Bullet.cs" />
     <Compile Include="Assets\Scripts\Classes\Skills\OrbOfDeception.cs" />
     <Compile Include="Assets\Scripts\Systems\CameraSystem.cs" />

@@ -17,7 +17,7 @@ namespace Utilities
             var collider = obj.GetComponent<CircleCollider2D>();
             if (collider == null) return null;
             
-            var _overlapColloders = new Collider2D[20];
+            var _overlapColliders = new Collider2D[20];
 
             Vector2 center = collider.bounds.center;
             
@@ -27,14 +27,14 @@ namespace Utilities
             }
 
             // 获取所有重叠的碰撞箱
-            var count = Physics2D.OverlapCircleNonAlloc(center, radius, _overlapColloders);
+            var count = Physics2D.OverlapCircleNonAlloc(center, radius, _overlapColliders);
 
             Entity targetEntity = null;
             var nearestDistanceSqr = float.MaxValue;
 
             for (var i = 0; i < count; i++)
             {
-                var col = _overlapColloders[i];
+                var col = _overlapColliders[i];
                 if (col == null) continue;
 
                 var otherGo = col.gameObject;
@@ -68,7 +68,7 @@ namespace Utilities
             var collider = obj.GetComponent<CircleCollider2D>();
             if (collider == null) return null;
 
-            var _overlapColloders = new Collider2D[20];
+            var _overlapColliders = new Collider2D[20];
 
             Vector2 center = collider.bounds.center;
 
@@ -78,11 +78,11 @@ namespace Utilities
             }
 
             // 获取所有重叠的碰撞箱
-            var count = Physics2D.OverlapCircleNonAlloc(center, radius, _overlapColloders);
+            var count = Physics2D.OverlapCircleNonAlloc(center, radius, _overlapColliders);
 
             for (var i = 0; i < count; i++)
             {
-                var col = _overlapColloders[i];
+                var col = _overlapColliders[i];
                 if (col == null) continue;
 
                 var otherGo = col.gameObject;

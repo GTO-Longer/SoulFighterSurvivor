@@ -4,7 +4,7 @@
             "id": "EssenceTheft",
             "heroName": "Ahri",
             "skillName": "摄魂夺魄",
-            "_skillDescription": "击杀敌人会为阿狸提供一层【魂魄碎片】。在拥有9个碎片后，阿狸会吞噬掉它们来回复{0}生命值。",
+            "_skillDescription": "击杀敌人会为阿狸提供一层【魂魄碎片】。在拥有9个碎片后，阿狸会吞噬掉它们来回复<color=#33FF33>{0}生命值</color>。",
             "_skillType": "PassiveSkill",
             "_baseSkillCost": [
                 0
@@ -27,7 +27,7 @@
             "id": "OrbOfDeception",
             "heroName": "Ahri",
             "skillName": "欺诈宝珠",
-            "_skillDescription": "阿狸投出然后收回她的宝珠，在放出时会沿途对敌人造成{0}魔法伤害，在收回时则会沿途对敌人造成{1}真实伤害。",
+            "_skillDescription": "阿狸投出然后收回她的宝珠，在放出时会沿途对敌人造成<color=#7700BB>{0}魔法伤害</color>，在收回时则会沿途对敌人造成<color=#FFFFFF>{1}真实伤害</color>。",
             "_skillType": "QSkill",
             "_baseSkillCost": [
                 65,
@@ -69,7 +69,7 @@
             "id": "FoxFire",
             "heroName": "Ahri",
             "skillName": "妖异狐火",
-            "_skillDescription": "阿狸释放出3团狐火来追踪附近的敌人们并造成{0}魔法伤害，第一团之后的狐火降低至{1}伤害。她还会获得在2秒里持续衰减的40%移动速度。 \n狐火会优先攻击最近的敌人。20%生命值以下的敌人会受到200%伤害。",
+            "_skillDescription": "阿狸释放出3团狐火来追踪附近的敌人们并造成<color=#7700BB>{0}魔法伤害</color>，第一团之后的狐火降低至<color=#7700BB>{1}伤害</color>（40%）。她还会获得在2秒里持续衰减的40%<color=#FDF9C8>移动速度</color>。 \n\n狐火会优先攻击最近的敌人。20%生命值以下的敌人会受到200%伤害。",
             "_skillType": "WSkill",
             "_baseSkillCost": [
                 40,
@@ -111,7 +111,7 @@
             "id": "Charm",
             "heroName": "Ahri",
             "skillName": "魅惑妖术",
-            "_skillDescription": "阿狸献出红唇热吻，魅惑命中的首个敌人{0}秒并造成{1}魔法伤害。",
+            "_skillDescription": "阿狸献出红唇热吻，魅惑命中的首个敌人{0}秒并造成<color=#7700BB>{1}魔法伤害</color>。",
             "_skillType": "ESkill",
             "_baseSkillCost": [
                 70,
@@ -153,7 +153,7 @@
             "id": "SpiritRush",
             "heroName": "Ahri",
             "skillName": "灵魄突袭",
-            "_skillDescription": "阿狸灵活地突进，并对最近的敌人们发射3颗灵魄弹。这些灵魄弹每颗造成{0}魔法伤害。\n灵魄突袭可以在15秒内再次施放至多2次。 在此期间，用摄魂夺魄吞噬魂魄碎片时，会使再次施放的窗口期至多延长至10秒并为灵魄突袭提供一次额外的再次施放(至多可储存至3次)。",
+            "_skillDescription": "阿狸灵活地突进，并对最近的敌人们发射3颗灵魄弹。这些灵魄弹每颗造成<color=#7700BB>{0}魔法伤害</color>。\n\n灵魄突袭可以在15秒内再次施放至多2次。 在此期间，用摄魂夺魄吞噬魂魄碎片时，会使再次施放的窗口期至多延长至10秒并为灵魄突袭提供一次额外的再次施放(至多可储存至3次)。",
             "_skillType": "RSkill",
             "_baseSkillCost": [
                 100,
@@ -182,7 +182,7 @@
             "id": "ArcaneMastery",
             "heroName": "Ryze",
             "skillName": "奥术专精",
-            "_skillDescription": "瑞兹每拥有100法强获得10%最大法力值。",
+            "_skillDescription": "瑞兹每拥有<color=#7700BB>100法术强度</color>获得<color=#33FFFF>10%最大法力值</color>。",
             "_skillType": "PassiveSkill",
             "_baseSkillCost": [
                 0

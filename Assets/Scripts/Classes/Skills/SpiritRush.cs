@@ -20,7 +20,11 @@ namespace Classes.Skills
             
             coolDownTimer = 999;
 
-            OnSpecialTimeOut += () => coolDownTimer = 0;
+            OnSpecialTimeOut += () =>
+            {
+                coolDownTimer = 0;
+                specialCoolDown = 0;
+            };
         }
 
         public override string GetDescription()
@@ -59,12 +63,13 @@ namespace Classes.Skills
                     owner.magicPoint.Value -= _baseSkillCost[_skillLevel];
                     skillChargeCount = maxSkillChargeCount;
                     specialTimer = 10;
+                    specialCoolDown = 1f;
                 }
                 
                 if (skillChargeCount > 0)
                 {
                     skillChargeCount -= 1;
-                    coolDownTimer = actualSkillCoolDown - 1f;
+                    coolDownTimer = 0;
                 }
                 else
                 {

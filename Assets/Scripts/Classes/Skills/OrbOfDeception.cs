@@ -117,8 +117,8 @@ namespace Classes.Skills
                                 var currentPosition = (Vector2)self.gameObject.transform.position;
                                 var ownerPos = (Vector2)owner.gameObject.transform.position;
                                 var returnDirection = (ownerPos - currentPosition).normalized;
+                                
                                 returnSpeed += acceleration * Time.deltaTime;
-
                                 speed = returnDirection * returnSpeed;
 
                                 // 更新位置

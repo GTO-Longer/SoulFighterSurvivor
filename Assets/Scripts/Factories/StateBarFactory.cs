@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.Pool;
 using MVVM;
 using Classes;
+using UnityEngine.UI;
+using Utilities;
 
 namespace Factories
 {
@@ -67,6 +69,11 @@ namespace Factories
             _activeBars[entity] = bar;
         }
 
+        public void StateBarInitialize(Entity entity, RectTransform bar)
+        {
+            
+        }
+
         /// <summary>
         /// 隐藏并回收指定Entity的StateBar
         /// </summary>
@@ -105,6 +112,7 @@ namespace Factories
             {
                 if (entity?.gameObject == null || bar == null) continue;
                 bar.anchoredPosition = new Vector2(entity.gameObject.transform.position.x - 1, entity.gameObject.transform.position.y + 2);
+                bar.Find("HPBarBackground/HPBar").GetComponent<Image>().color = entity.team == Team.Hero ? Color.green : Color.red;
             }
         }
 

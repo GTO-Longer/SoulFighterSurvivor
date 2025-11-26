@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\DataManagement\ConfigReader.cs" />
     <Compile Include="Assets\Scripts\MVVM\ViewModels\HeroAttributeViewModel.cs" />
+    <Compile Include="Assets\Scripts\MVVM\ViewModels\SkillDescriptionViewModel.cs" />
     <Compile Include="Assets\Scripts\EntityManagers\HeroManager.cs" />
     <Compile Include="Assets\Scripts\Utilities\Async.cs" />
     <Compile Include="Assets\Scripts\Classes\Skills\SpiritRush.cs" />

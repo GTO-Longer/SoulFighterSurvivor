@@ -44,7 +44,7 @@ namespace Classes.Skills
                     return;
                 }
                 
-                if (_baseSkillCost[_skillLevel] > owner.magicPoint)
+                if (_baseSkillCost[_skillLevel] > owner.magicPoint && specialTimer <= 0)
                 {
                     Debug.Log("Magic point too low to use.");
                     return;

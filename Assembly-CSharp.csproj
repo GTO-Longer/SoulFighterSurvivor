@@ -352,6 +352,9 @@
     <Reference Include="Unity.Collections.LowLevel.ILSupport">
       <HintPath>D:\UnityProgram\SoulFighterSurvivor\Library\PackageCache\com.unity.collections@1.2.4\Unity.Collections.LowLevel.ILSupport\Unity.Collections.LowLevel.ILSupport.dll</HintPath>
     </Reference>
+    <Reference Include="Coffee.SoftMaskForUGUI.R">
+      <HintPath>D:\UnityProgram\SoulFighterSurvivor\Library\PackageCache\com.coffee.softmask-for-ugui@9a7535a3fa\Runtime\Coffee.SoftMaskForUGUI.R.dll</HintPath>
+    </Reference>
     <Reference Include="DOTween">
       <HintPath>D:\UnityProgram\SoulFighterSurvivor\Assets\Plugins\Demigiant\DOTween\DOTween.dll</HintPath>
     </Reference>
@@ -360,9 +363,6 @@
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>D:\UnityProgram\SoulFighterSurvivor\Library\PackageCache\com.unity.nuget.newtonsoft-json@3.2.2\Runtime\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Coffee.SoftMaskForUGUI.R">
-      <HintPath>D:\UnityProgram\SoulFighterSurvivor\Library\PackageCache\com.coffee.softmask-for-ugui@9a7535a3fa\Runtime\Coffee.SoftMaskForUGUI.R.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>D:\UnityHub3\2022.3.41f1c1\Editor\Data\NetStandard\ref\2.1.0\netstandard.dll</HintPath>

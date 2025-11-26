@@ -246,18 +246,22 @@ namespace MVVM
         /// <summary>
         /// 绑定技能
         /// </summary>
-        public static Action BindSkill(TMP_Text skillName, TMP_Text skillCoolDown, TMP_Text skillCost, TMP_Text skillDescription, Property<Skill> skillSource)
+        public static Action BindSkill(GameObject background, TMP_Text skillName, TMP_Text skillCoolDown, TMP_Text skillCost, TMP_Text skillDescription, Property<Skill> skillSource)
         {
-            if (skillSource?.Value == null)
-                return () => { };
-
             void OnChanged(object sender, EventArgs e)
             {
-                if (skillSource?.Value == null) return;
-                skillName.SetText(skillSource.Value.skillName);
-                skillCoolDown.SetText($"{skillSource.Value.actualSkillCoolDown:F2}秒");
-                skillCost.SetText($"{skillSource.Value.actualSkillCost:F0}法力值");
-                skillDescription.SetText(skillSource.Value.GetDescription());
+                if (skillSource.Value == null)
+                {
+                    background.SetActive(false);
+                    return;
+                }
+
+                background.SetActive(true);
+                skillName.text = (skillSource.Value.skillName);
+                skillCoolDown.text = ($"{skillSource.Value.actualSkillCoolDown:F2}秒");
+                skillCost.text = ($"{skillSource.Value.actualSkillCost:F0}法力值");
+                skillDescription.text = (skillSource.Value.GetDescription());
+                LayoutRebuilder.ForceRebuildLayoutImmediate(background.GetComponent<RectTransform>());
             }
 
             skillSource.PropertyChanged += OnChanged;

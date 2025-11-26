@@ -11,9 +11,10 @@ namespace Classes{
         public string heroName;
         public Hero owner;
         public int skillLevel => _skillLevel;
-        public float skillCost => _baseSkillCost[skillLevel - 1];
+        public float skillCost => _baseSkillCost[Math.Max(0, _skillLevel - 1)];
         public float actualSkillRange => _skillRange / 100f;
-        public float actualSkillCoolDown => _baseSkillCoolDown[_skillLevel] * owner.actualAbilityCooldown;
+        public float actualSkillCoolDown => _baseSkillCoolDown[Math.Max(0, _skillLevel - 1)] * owner.actualAbilityCooldown;
+        public float actualSkillCost => _baseSkillCost[Math.Max(0, _skillLevel - 1)];
         public float bulletWidth => _bulletWidth / 100f;
         public float bulletSpeed => _bulletSpeed / 100f;
         public float destinationDistance => _destinationDistance / 100f;

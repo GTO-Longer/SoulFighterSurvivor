@@ -47,7 +47,6 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\DataManagement\ConfigReader.cs" />
     <Compile Include="Assets\Scripts\MVVM\ViewModels\HeroAttributeViewModel.cs" />
-    <Compile Include="Assets\Scripts\MVVM\ViewModels\SkillDescriptionViewModel.cs" />
     <Compile Include="Assets\Scripts\EntityManagers\HeroManager.cs" />
     <Compile Include="Assets\Scripts\Utilities\Async.cs" />
     <Compile Include="Assets\Scripts\Classes\Skills\SpiritRush.cs" />
@@ -65,10 +64,12 @@
     <Compile Include="Assets\Scripts\DataManagement\EntiyData.cs" />
     <Compile Include="Assets\Scripts\Classes\Entities\Hero.cs" />
     <Compile Include="Assets\Scripts\Classes\Skills\Charm.cs" />
+    <Compile Include="Assets\Scripts\MVVM\ViewModels\SkillViewModel.cs" />
     <Compile Include="Assets\Scripts\Classes\Skill.cs" />
     <Compile Include="Assets\Scripts\Utilities\Enums.cs" />
     <Compile Include="Assets\Scripts\Factories\BulletFactory.cs" />
     <Compile Include="Assets\Scripts\MVVM\Binder.cs" />
+    <Compile Include="Assets\Scripts\Components\UI\SkillButton.cs" />
     <Compile Include="Assets\Scripts\Classes\Skills\FoxFire.cs" />
     <Compile Include="Assets\Scripts\EntityManagers\EnemyManager.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

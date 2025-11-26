@@ -195,7 +195,7 @@ namespace MVVM
             {
                 if (field.FieldType != typeof(Property<float>)) continue;
 
-                string fieldName = field.Name;
+                var fieldName = field.Name;
                 if (!textGroup.TryGetValue(fieldName, out TMP_Text targetText) || targetText == null)
                     continue;
 
@@ -216,6 +216,26 @@ namespace MVVM
                     unbind();
                 unbindCallbacks.Clear();
             };
+        }
+        
+        /// <summary>
+        /// 绑定实体与StateBar
+        /// </summary>
+        /// <param name="stateBar"></param>
+        /// <param name="entity"></param>
+        public static Action BindStateBar(RectTransform stateBar, Entity entity)
+        {
+            if (stateBar == null || entity == null)
+                return () => { };
+
+            Action UnBind = () => {};
+            stateBar.gameObject.SetActive(true);
+            
+            UnBind += BindFillAmount(stateBar.Find("HPBarBackground/HPBar").GetComponent<Image>(), entity.healthPointProportion);
+            UnBind += BindFillAmount(stateBar.Find("MPBarBackground/MPBar").GetComponent<Image>(), entity.magicPointProportion);
+            UnBind += BindText(stateBar.Find("LevelBackground/Level").GetComponent<TMP_Text>(), entity.level, "{0:F0}");
+            
+            return UnBind;
         }
         
         /// <summary>

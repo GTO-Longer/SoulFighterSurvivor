@@ -171,6 +171,9 @@ namespace Classes.Entities
             _attackRangeIndicator.localScale = new Vector2(actualAttackRange / actualScale, actualAttackRange / actualScale);
             _attackRangeIndicator.GetComponent<SpriteRenderer>().enabled = false;
             
+            // 创建状态条
+            StateBarFactory.Instance.Spawn(this);
+            
             // 其他变量初始化
             _autoAttack = false;
             _attackTimer = 0;

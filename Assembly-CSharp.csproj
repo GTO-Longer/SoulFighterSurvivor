@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\DataManagement\EntiyData.cs" />
     <Compile Include="Assets\Scripts\Classes\Entities\Hero.cs" />
     <Compile Include="Assets\Scripts\Classes\Skills\Charm.cs" />
+    <Compile Include="Assets\Scripts\Factories\StateBarFactory.cs" />
     <Compile Include="Assets\Scripts\MVVM\ViewModels\SkillViewModel.cs" />
     <Compile Include="Assets\Scripts\Classes\Skill.cs" />
     <Compile Include="Assets\Scripts\Utilities\Enums.cs" />

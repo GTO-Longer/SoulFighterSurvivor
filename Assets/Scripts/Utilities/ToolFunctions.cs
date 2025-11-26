@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Classes;
 using DataManagement;
+using Systems;
 using UnityEngine;
 
 namespace Utilities
@@ -119,7 +120,7 @@ namespace Utilities
         public static bool IsObjectAtMousePoint(out List<GameObject> objects, string tag = null, bool sameTag = false)
         {
             objects = new List<GameObject>();  
-            Vector2 _mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 _mousePosition = CameraSystem._mainCamera.ScreenToWorldPoint(Input.mousePosition);
             var results = new RaycastHit2D[10];
             var size = Physics2D.RaycastNonAlloc(_mousePosition, Vector2.zero, results);
             if (size <= 0)

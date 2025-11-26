@@ -19,7 +19,7 @@ namespace Systems
         public bool isFollowing = false;
         public float followSpeed = 5f;
 
-        private Camera _mainCamera;
+        public static Camera _mainCamera;
 
         private void Start()
         {

@@ -49,7 +49,7 @@ namespace Systems
         private void MousePointIndicatorControl()
         {
             // 获取鼠标位置
-            var mouseWorld = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            var mouseWorld = (Vector2)CameraSystem._mainCamera.ScreenToWorldPoint(Input.mousePosition);
             mousePointIndicator.transform.position = mouseWorld;
 
             if (Input.GetMouseButtonDown(1))

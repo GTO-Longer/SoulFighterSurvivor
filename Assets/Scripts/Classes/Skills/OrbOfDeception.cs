@@ -1,5 +1,6 @@
 using System;
 using Factories;
+using Systems;
 using UnityEngine;
 using Utilities;
 
@@ -52,7 +53,7 @@ namespace Classes.Skills
                 coolDownTimer = 0;
                 
                 // 计算飞出目标点
-                var mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                var mouseWorld = CameraSystem._mainCamera.ScreenToWorldPoint(Input.mousePosition);
                 var direction = ((Vector2)mouseWorld - (Vector2)owner.gameObject.transform.position).normalized;
                 var targetPosition = (Vector2)owner.gameObject.transform.position + direction * actualSkillRange;
                 

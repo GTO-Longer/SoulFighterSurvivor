@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Factories;
+using Systems;
 using UnityEngine;
 using Utilities;
 
@@ -77,7 +78,7 @@ namespace Classes.Skills
                     return;
                 }
 
-                var mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                var mouseWorldPos = CameraSystem._mainCamera.ScreenToWorldPoint(Input.mousePosition);
                 mouseWorldPos.z = owner.gameObject.transform.position.z;
                 var direction = (mouseWorldPos - owner.gameObject.transform.position).normalized;
                 const float r = 1.5f;

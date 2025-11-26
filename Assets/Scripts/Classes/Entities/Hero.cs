@@ -4,6 +4,7 @@ using System.Reflection;
 using DataManagement;
 using DG.Tweening;
 using Factories;
+using Systems;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -206,7 +207,7 @@ namespace Classes.Entities
             _agent.speed = actualMovementSpeed;
             
             // 获取鼠标位置
-            _mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            _mousePosition = CameraSystem._mainCamera.ScreenToWorldPoint(Input.mousePosition);
             
             // 当玩家点击左键
             if (Input.GetMouseButtonDown(0))

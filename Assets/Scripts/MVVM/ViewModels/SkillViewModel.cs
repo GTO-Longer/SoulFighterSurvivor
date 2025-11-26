@@ -21,7 +21,6 @@ namespace MVVM.ViewModels
             var background = transform.Find("Background").gameObject;
             
             UnBindEvent += Binder.BindSkill(background, skillName, skillCoolDown, skillCost, skillDescription, chosenSkill);
-            chosenSkill.Value = null;
         }
 
         // 物体销毁时触发注销对应事件

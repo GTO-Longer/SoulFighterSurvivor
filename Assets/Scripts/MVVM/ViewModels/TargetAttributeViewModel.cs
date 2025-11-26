@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using EntityManagers;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace MVVM.ViewModels
 {
@@ -15,7 +16,7 @@ namespace MVVM.ViewModels
             var textGroup = new Dictionary<string, TMP_Text>();
             var attributeList = transform.GetComponentsInChildren<TMP_Text>();
             var HPContent = transform.Find("Background/HPBarBackground/HPContent").GetComponent<TMP_Text>();
-            var HPBar = transform.Find("Background/HPBarBackground/HPBar");
+            var HPBar = transform.Find("Background/HPBarBackground/HPBar").GetComponent<Image>();
             
             foreach (var _attribute in attributeList)
             {

@@ -359,6 +359,9 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>D:\UnityProgram\SoulFighterSurvivor\Library\PackageCache\com.unity.nuget.newtonsoft-json@3.2.2\Runtime\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Coffee.SoftMaskForUGUI.R">
+      <HintPath>D:\UnityProgram\SoulFighterSurvivor\Library\PackageCache\com.coffee.softmask-for-ugui@9a7535a3fa\Runtime\Coffee.SoftMaskForUGUI.R.dll</HintPath>
+    </Reference>
     <Reference Include="netstandard">
       <HintPath>D:\UnityHub3\2022.3.41f1c1\Editor\Data\NetStandard\ref\2.1.0\netstandard.dll</HintPath>
     </Reference>
@@ -779,6 +782,9 @@
     <Reference Include="Unity.Collections">
       <HintPath>D:\UnityProgram\SoulFighterSurvivor\Library\ScriptAssemblies\Unity.Collections.dll</HintPath>
     </Reference>
+    <Reference Include="Coffee.SoftMaskForUGUI">
+      <HintPath>D:\UnityProgram\SoulFighterSurvivor\Library\ScriptAssemblies\Coffee.SoftMaskForUGUI.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.2D.SpriteShape.Runtime">
       <HintPath>D:\UnityProgram\SoulFighterSurvivor\Library\ScriptAssemblies\Unity.2D.SpriteShape.Runtime.dll</HintPath>
     </Reference>
@@ -859,6 +865,9 @@
     </Reference>
     <Reference Include="Unity.Timeline">
       <HintPath>D:\UnityProgram\SoulFighterSurvivor\Library\ScriptAssemblies\Unity.Timeline.dll</HintPath>
+    </Reference>
+    <Reference Include="Coffee.SoftMaskForUGUI.Editor">
+      <HintPath>D:\UnityProgram\SoulFighterSurvivor\Library\ScriptAssemblies\Coffee.SoftMaskForUGUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.SettingsProvider.Editor">
       <HintPath>D:\UnityProgram\SoulFighterSurvivor\Library\ScriptAssemblies\Unity.VisualScripting.SettingsProvider.Editor.dll</HintPath>

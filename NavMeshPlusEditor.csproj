@@ -353,6 +353,9 @@
     <Reference Include="Unity.VisualScripting.TextureAssets">
       <HintPath>D:\UnityProgram\SoulFighterSurvivor\Library\PackageCache\com.unity.visualscripting@1.9.4\Editor\VisualScripting.Core\EditorAssetResources\Unity.VisualScripting.TextureAssets.dll</HintPath>
     </Reference>
+    <Reference Include="Coffee.SoftMaskForUGUI.R">
+      <HintPath>D:\UnityProgram\SoulFighterSurvivor\Library\PackageCache\com.coffee.softmask-for-ugui@9a7535a3fa\Runtime\Coffee.SoftMaskForUGUI.R.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>D:\UnityProgram\SoulFighterSurvivor\Library\PackageCache\com.unity.ext.nunit@1.0.6\net35\unity-custom\nunit.framework.dll</HintPath>
     </Reference>

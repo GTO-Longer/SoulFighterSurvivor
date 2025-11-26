@@ -162,7 +162,7 @@ namespace Classes.Skills
                             if (index == 0)
                             {
                                 // 对20%生命值以下的敌人造成200%伤害
-                                if (self.target.actualHealthProportion <= 0.2f)
+                                if (self.target.healthPointProportion.Value <= 0.2f)
                                 {
                                     self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, _firstDamage * 2));
                                 }
@@ -173,7 +173,7 @@ namespace Classes.Skills
                             }
                             else
                             {
-                                if (self.target.actualHealthProportion <= 0.2f)
+                                if (self.target.healthPointProportion.Value <= 0.2f)
                                 {
                                     self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, _secondDamage * 2));
                                 }

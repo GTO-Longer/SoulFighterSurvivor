@@ -170,7 +170,11 @@ namespace Classes
         /// <summary>
         /// 当前生命值百分比
         /// </summary>
-        public float actualHealthProportion => maxHealthPoint == 0 ? 0 : healthPoint / maxHealthPoint;
+        public Property<float> healthPointProportion;
+        /// <summary>
+        /// 当前法力值百分比
+        /// </summary>
+        public Property<float> magicPointProportion;
         
         #endregion
         
@@ -635,6 +639,8 @@ namespace Classes
             scale = new Property<float>();
             
             // 无加成变量
+            healthPointProportion = new Property<float>();
+            magicPointProportion = new Property<float>();
             healthRegeneration = new Property<float>(0, DataType.Int);
             magicRegeneration = new Property<float>(0, DataType.Int);
             adaptiveForce = new Property<float>(0, DataType.Int);
@@ -751,6 +757,12 @@ namespace Classes
             magicRegeneration = new Property<float>(() => (_baseMagicRegeneration + _magicRegenerationGrowth * level ) * (1 + _percentageMagicRegenerationBonus),
                 DataType.Float,
                 level, _percentageMagicRegenerationBonus);
+            healthPointProportion = new Property<float>(() => maxHealthPoint == 0 ? 0 : healthPoint / maxHealthPoint,
+                 DataType.Percentage,
+                 maxHealthPoint, healthPoint);
+            magicPointProportion = new Property<float>(() => maxMagicPoint == 0 ? 0 : magicPoint / maxMagicPoint,
+                DataType.Percentage,
+                maxMagicPoint, magicPoint);
 
             #endregion
         }

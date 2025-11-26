@@ -4,6 +4,7 @@ using DataManagement;
 using EntityManagers;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Utilities;
 
 namespace MVVM.ViewModels
@@ -22,8 +23,8 @@ namespace MVVM.ViewModels
             var MPContent = transform.Find("MainStateBackground/MPBarBackground/MPContent").GetComponent<TMP_Text>();
             var HPRegenerateContent = transform.Find("MainStateBackground/HPBarBackground/HPRegenerateContent").GetComponent<TMP_Text>();
             var MPRegenerateContent = transform.Find("MainStateBackground/MPBarBackground/MPRegenerateContent").GetComponent<TMP_Text>();
-            var HPBar = transform.Find("MainStateBackground/HPBarBackground/HPBar");
-            var MPBar = transform.Find("MainStateBackground/MPBarBackground/MPBar");
+            var HPBar = transform.Find("MainStateBackground/HPBarBackground/HPBar").GetComponent<Image>();
+            var MPBar = transform.Find("MainStateBackground/MPBarBackground/MPBar").GetComponent<Image>();;
             var otherAttributes = transform.Find("AttributesAndHexes/OtherAttributesBackground").gameObject;
             var hexes = transform.Find("AttributesAndHexes/HexesBackground").gameObject;
 
@@ -48,8 +49,8 @@ namespace MVVM.ViewModels
             UnBindEvent += Binder.BindText(MPRegenerateContent, HeroManager.hero.magicRegeneration, "+{0:F1}");
             UnBindEvent += Binder.BindActive(HPRegenerateContent, notFullHealth);
             UnBindEvent += Binder.BindActive(MPRegenerateContent, notFullMagic);
-            UnBindEvent += Binder.BindLength(HPBar, HeroManager.hero.healthPoint, HeroManager.hero.maxHealthPoint);
-            UnBindEvent += Binder.BindLength(MPBar, HeroManager.hero.magicPoint, HeroManager.hero.maxMagicPoint);
+            UnBindEvent += Binder.BindFillAmount(HPBar, HeroManager.hero.healthPointProportion);
+            UnBindEvent += Binder.BindFillAmount(MPBar, HeroManager.hero.magicPointProportion);
         }
 
         // 物体销毁时触发注销对应事件

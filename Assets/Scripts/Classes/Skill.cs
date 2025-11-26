@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using Classes.Entities;
 using DataManagement;
+using UnityEngine;
+using UnityEngine.UI;
 using Utilities;
 
 namespace Classes{
@@ -28,6 +30,14 @@ namespace Classes{
         public int skillChargeCount = 0;
         public int maxSkillChargeCount = 0;
         
+        public Image skillCoolDownMask;
+        public Image skillIcon;
+
+        /// <summary>
+        /// 技能冷却完成百分比
+        /// </summary>
+        public float skillCoolDownProportion => 1 - Mathf.Min(coolDownTimer / actualSkillCoolDown, 1);
+        
         protected string _skillDescription;
         protected SkillType _skillType;
         protected float[] _baseSkillCost;
@@ -40,7 +50,6 @@ namespace Classes{
         protected float _bulletWidth;
         protected float _bulletSpeed;
         protected float _destinationDistance;
-
         protected void ReadSkillConfig(string name)
         {
             var config = ConfigReader.ReadSkillConfig(name);

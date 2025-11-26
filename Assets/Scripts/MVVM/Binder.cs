@@ -101,23 +101,21 @@ namespace MVVM
             };
         }
         
-        public static Action BindLength(Transform image, Property<float> source1, Property<float> source2){
-            if (image == null || source1 == null || source2 == null)
+        public static Action BindFillAmount(Image image, Property<float> source){
+            if (image == null || source == null)
                 return () => { };
 
             void OnChanged(object sender, EventArgs e)
             {
                 if (image == null) return;
-                image.localScale = new(source2.Value == 0 ? 0 : (source1.Value / source2.Value), 1, 1);
+                image.fillAmount = source.Value;
             }
             
-            image.localScale = new(source2.Value == 0 ? 0 : (source1.Value / source2.Value), 1, 1);
-            source1.PropertyChanged += OnChanged;
-            source2.PropertyChanged += OnChanged;
+            image.fillAmount = source.Value;
+            source.PropertyChanged += OnChanged;
             return () =>
             {
-                source1.PropertyChanged -= OnChanged;
-                source2.PropertyChanged -= OnChanged;
+                source.PropertyChanged -= OnChanged;
             };
         }
 
@@ -221,9 +219,9 @@ namespace MVVM
         }
         
         /// <summary>
-        /// 绑定血条
+        /// 绑定敌人血条相关UI
         /// </summary>
-        public static Action BindHPGroup(TMP_Text text,Transform image, Property<Entity> source, string format = "{0} / {1}"){
+        public static Action BindHPGroup(TMP_Text text,Image image, Property<Entity> source, string format = "{0} / {1}"){
             if (text == null || image == null)
                 return () => { };
 
@@ -231,7 +229,7 @@ namespace MVVM
             {
                 if (text == null || image == null || source?.Value == null) return;
                 BindText(text, source.Value.healthPoint, source.Value.maxHealthPoint, "{0:F0} / {1:F0}");
-                BindLength(image, source.Value.healthPoint, source.Value.maxHealthPoint);
+                BindFillAmount(image, source.Value.healthPointProportion);
             }
 
             source.PropertyChanged += OnChanged;
@@ -264,6 +262,7 @@ namespace MVVM
                 LayoutRebuilder.ForceRebuildLayoutImmediate(background.GetComponent<RectTransform>());
             }
 
+            OnChanged(null, null);
             skillSource.PropertyChanged += OnChanged;
             return () =>
             {

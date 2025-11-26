@@ -97,8 +97,11 @@ namespace Factories
         {
             foreach (var bar in _activeBars.Select(kvp => kvp.Value))
             {
-                bar.gameObject.SetActive(false);
-                _stateBarPool.Release(bar);
+                if (bar?.gameObject != null)
+                {
+                    bar.gameObject.SetActive(false);
+                    _stateBarPool.Release(bar);
+                }
             }
 
             _activeBars.Clear();

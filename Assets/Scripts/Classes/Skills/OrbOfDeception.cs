@@ -57,8 +57,13 @@ namespace Classes.Skills
                 var targetPosition = (Vector2)owner.gameObject.transform.position + direction * actualSkillRange;
                 
                 // 吟唱时间
-                Async.SetAsync(_castTime, null, () => owner.canCancelTurn = false, () =>
+                Async.SetAsync(_castTime, null, () =>
                 {
+                    owner.canUseSkill = false;
+                    owner.canCancelTurn = false;
+                }, () =>
+                {
+                    owner.canUseSkill = true;
                     owner.canCancelTurn = true;
                     var deceptionOrb = BulletFactory.Instance.CreateBullet(owner);
 

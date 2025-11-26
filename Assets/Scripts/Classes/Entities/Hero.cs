@@ -61,6 +61,10 @@ namespace Classes.Entities
         /// 是否可以打断转身
         /// </summary>
         public bool canCancelTurn;
+        /// <summary>
+        /// 是否可以打断转身
+        /// </summary>
+        public bool canUseSkill;
         
         /// <summary>
         /// 创建游戏角色并初始化
@@ -161,6 +165,7 @@ namespace Classes.Entities
             _gameObject = gameObject;
             _team = Team.Hero;
             canCancelTurn = true;
+            canUseSkill = true;
             
             // 配置角色寻路组件
             _agent = _gameObject.GetComponent<NavMeshAgent>();
@@ -504,10 +509,14 @@ namespace Classes.Entities
             gameObject.transform.DOMove(targetPosition, dashDuration)
             .OnUpdate(() =>
             {
+                canUseSkill = false;
+                canCancelTurn = false;
                 _agent.nextPosition = gameObject.transform.position;
             })
             .OnComplete(() =>
             {
+                canUseSkill = true;
+                canCancelTurn = true;
                 // 恢复agent
                 _agent.Warp(targetPosition);
                 _agent.nextPosition = targetPosition;

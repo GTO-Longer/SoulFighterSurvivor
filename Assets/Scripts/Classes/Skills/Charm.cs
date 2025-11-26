@@ -56,8 +56,13 @@ namespace Classes.Skills
                 var direction = ((Vector2)mouseWorld - (Vector2)owner.gameObject.transform.position).normalized;
                 
                 // 吟唱时间
-                Async.SetAsync(_castTime, null, () => owner.canCancelTurn = false, () =>
+                Async.SetAsync(_castTime, null, () =>
                 {
+                    owner.canUseSkill = false;
+                    owner.canCancelTurn = false;
+                }, () =>
+                {
+                    owner.canUseSkill = true;
                     owner.canCancelTurn = true;
                     var charm = BulletFactory.Instance.CreateBullet(owner);
 

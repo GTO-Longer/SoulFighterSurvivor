@@ -24,22 +24,22 @@ namespace EntityManagers
             hero.Regenerate();
             hero.SkillCoolDown();
 
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKeyDown(KeyCode.Q) && hero.canUseSkill)
             {
                 hero.QSkillRelease();
             }
 
-            if (Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKeyDown(KeyCode.W) && hero.canUseSkill)
             {
                 hero.WSkillRelease();
             }
 
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E) && hero.canUseSkill)
             {
                 hero.ESkillRelease();
             }
 
-            if (Input.GetKeyDown(KeyCode.R))
+            if (Input.GetKeyDown(KeyCode.R) && hero.canUseSkill)
             {
                 hero.RSkillRelease();
             }

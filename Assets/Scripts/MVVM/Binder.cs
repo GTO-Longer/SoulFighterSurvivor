@@ -244,7 +244,7 @@ namespace MVVM
         /// <summary>
         /// 绑定技能
         /// </summary>
-        public static Action BindSkill(GameObject background, TMP_Text skillName, TMP_Text skillCoolDown, TMP_Text skillCost, TMP_Text skillDescription, Property<Skill> skillSource)
+        public static Action BindSkill(Image skillIcon, GameObject background, TMP_Text skillName, TMP_Text skillCoolDown, TMP_Text skillCost, TMP_Text skillDescription, Property<Skill> skillSource)
         {
             void OnChanged(object sender, EventArgs e)
             {
@@ -255,6 +255,7 @@ namespace MVVM
                 }
 
                 background.SetActive(true);
+                skillIcon.sprite = skillSource.Value.skillIcon.sprite;
                 skillName.text = (skillSource.Value.skillName);
                 skillCoolDown.text = ($"{skillSource.Value.actualSkillCoolDown:F2}秒");
                 skillCost.text = ($"{skillSource.Value.actualSkillCost:F0}法力值");

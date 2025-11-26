@@ -50,9 +50,19 @@ namespace Classes{
         protected float _bulletWidth;
         protected float _bulletSpeed;
         protected float _destinationDistance;
+
+        protected Skill(string name)
+        {
+            ReadSkillConfig(name);
+            
+            skillIcon = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{_skillType.ToString()}/SkillIcon").GetComponent<Image>();
+            skillCoolDownMask = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{_skillType.ToString()}/CDMask").GetComponent<Image>();
+            skillIcon.sprite = ResourceReader.ReadIcon(name);
+        }
+        
         protected void ReadSkillConfig(string name)
         {
-            var config = ConfigReader.ReadSkillConfig(name);
+            var config = ResourceReader.ReadSkillConfig(name);
             heroName = config.heroName;
             skillName = config.skillName;
 
@@ -71,7 +81,7 @@ namespace Classes{
             _destinationDistance = config._destinationDistance;
         }
 
-        public bool SkillUpdate()
+        public bool SkillGradeUp()
         {
             if (_skillLevel < _maxSkillLevel)
             {

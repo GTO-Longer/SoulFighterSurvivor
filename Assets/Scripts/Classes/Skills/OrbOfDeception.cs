@@ -10,10 +10,8 @@ namespace Classes.Skills
         private float _APDamage => _baseSkillValue[0][Math.Max(0, _skillLevel - 1)] + 0.5f * owner.abilityPower;
         private float _realDamage => _baseSkillValue[1][Math.Max(0, _skillLevel - 1)] + 0.5f * owner.abilityPower;
         
-        public OrbOfDeception()
+        public OrbOfDeception() : base("OrbOfDeception")
         {
-            ReadSkillConfig("OrbOfDeception");
-            
             _skillLevel = 1;
             _maxSkillLevel = 5;
             

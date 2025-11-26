@@ -9,11 +9,9 @@ namespace Classes.Skills
     {
         private float _controlTime => _baseSkillValue[0][Math.Max(0, _skillLevel - 1)];
         private float _damage => _baseSkillValue[1][Math.Max(0, _skillLevel - 1)] + 0.85f * owner.abilityPower;
-        
-        public Charm()
+
+        public Charm() : base("Charm")
         {
-            ReadSkillConfig("Charm");
-            
             _skillLevel = 1;
             _maxSkillLevel = 5;
             

@@ -65,7 +65,7 @@ namespace Classes.Entities
         {
             #region 读取英雄数据配置初始化数据
 
-            var config = ConfigReader.ReadHeroConfig(name);
+            var config = ResourceReader.ReadHeroConfig(name);
             if (config != null)
             {
                 _baseMaxHealthPoint = config._baseMaxHealthPoint;
@@ -423,6 +423,8 @@ namespace Classes.Entities
                 {
                     skill.specialTimer -= Time.deltaTime;
                 }
+
+                skill.skillCoolDownMask.fillAmount = skill.skillCoolDownProportion;
             }
         }
         

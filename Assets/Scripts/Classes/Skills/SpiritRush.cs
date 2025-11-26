@@ -12,10 +12,8 @@ namespace Classes.Skills
 
         private float _damage => _baseSkillValue[0][Math.Max(0, _skillLevel - 1)] + 0.35f * owner.abilityPower;
         
-        public SpiritRush()
+        public SpiritRush() : base("SpiritRush")
         {
-            ReadSkillConfig("SpiritRush");
-            
             _skillLevel = 1;
             _maxSkillLevel = 3;
             maxSkillChargeCount = 3;

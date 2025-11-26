@@ -8,10 +8,8 @@ namespace Classes.Skills
         private int soulPieces;
         private float healCount => 35 + owner.level.Value / 3 * 10 + 0.2f * owner.abilityPower.Value;
         
-        public EssenceTheft()
+        public EssenceTheft() : base("EssenceTheft")
         {
-            ReadSkillConfig("EssenceTheft");
-            
             _skillLevel = 0;
             _maxSkillLevel = 0;
         }

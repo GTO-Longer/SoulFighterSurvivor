@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace DataManagement
 {
-    [System.Serializable]
+    [Serializable]
     public class HeroConfig
     {
         public string heroName;
@@ -43,13 +43,13 @@ namespace DataManagement
         public string _RSkill;
     }
 
-    [System.Serializable]
+    [Serializable]
     internal class HeroConfigCollection
     {
         public HeroConfig[] heroes;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class SkillConfig
     {
         public string id;
@@ -68,13 +68,13 @@ namespace DataManagement
         public float _destinationDistance;
     }
 
-    [System.Serializable]
+    [Serializable]
     internal class SkillConfigCollection
     {
         public SkillConfig[] skills;
     }
 
-    public static class ConfigReader
+    public static class ResourceReader
     {
         private static Dictionary<string, HeroConfig> _heroConfigMap;
         private static Dictionary<string, SkillConfig> _skillConfigMap;
@@ -114,6 +114,11 @@ namespace DataManagement
             }
         }
 
+        /// <summary>
+        /// 读取英雄配置
+        /// </summary>
+        /// <param name="heroName"></param>
+        /// <returns></returns>
         public static HeroConfig ReadHeroConfig(string heroName)
         {
             if (_heroConfigMap == null)
@@ -173,6 +178,11 @@ namespace DataManagement
             }
         }
 
+        /// <summary>
+        /// 读取技能配置
+        /// </summary>
+        /// <param name="skillId"></param>
+        /// <returns></returns>
         public static SkillConfig ReadSkillConfig(string skillId)
         {
             if (_skillConfigMap == null)
@@ -193,6 +203,46 @@ namespace DataManagement
 
             Debug.LogWarning($"Skill config not found: '{skillId}'. Available skill IDs: {string.Join(", ", _skillConfigMap.Keys)}");
             return null;
+        }
+        
+        
+        /// <summary>
+        /// 根据资源路径加载图片
+        /// </summary>
+        public static Sprite ReadImage(string imagePath)
+        {
+            if (string.IsNullOrEmpty(imagePath))
+            {
+                Debug.LogWarning("ReadImage called with null or empty imagePath.");
+                return null;
+            }
+
+            var sprite = Resources.Load<Sprite>(imagePath);
+            if (sprite == null)
+            {
+                Debug.LogError($"Texture not found at path: {imagePath}");
+                return null;
+            }
+
+            return sprite;
+        }
+
+        /// <summary>
+        /// 根据名称读取对应的图标
+        /// </summary>
+        /// <param name="name">图标名称</param>
+        public static Sprite ReadIcon(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                Debug.LogWarning("ReadIcon called with null or empty name.");
+                return null;
+            }
+
+            var iconName = $"{name}_Icon";
+            var imagePath = $"Sprites/UI/Icons/{iconName}";
+
+            return ReadImage(imagePath);
         }
     }
 }

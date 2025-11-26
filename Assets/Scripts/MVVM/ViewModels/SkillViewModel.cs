@@ -3,6 +3,7 @@ using Classes;
 using DataManagement;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace MVVM.ViewModels
 {
@@ -14,13 +15,14 @@ namespace MVVM.ViewModels
 
         private void Start()
         {
+            var skillIcon = transform.Find("Background/TitleBanner/SkillIconContainer/SkillIcon").GetComponent<Image>();
             var skillName = transform.Find("Background/TitleBanner/SkillName").GetComponent<TMP_Text>();
             var skillCoolDown = transform.Find("Background/TitleBanner/CoolDownAndCostContainer/CoolDown").GetComponent<TMP_Text>();
             var skillCost = transform.Find("Background/TitleBanner/CoolDownAndCostContainer/Cost").GetComponent<TMP_Text>();
             var skillDescription = transform.Find("Background/Description").GetComponent<TMP_Text>();
             var background = transform.Find("Background").gameObject;
             
-            UnBindEvent += Binder.BindSkill(background, skillName, skillCoolDown, skillCost, skillDescription, chosenSkill);
+            UnBindEvent += Binder.BindSkill(skillIcon, background, skillName, skillCoolDown, skillCost, skillDescription, chosenSkill);
         }
 
         // 物体销毁时触发注销对应事件

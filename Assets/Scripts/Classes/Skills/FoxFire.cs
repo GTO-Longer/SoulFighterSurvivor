@@ -11,10 +11,8 @@ namespace Classes.Skills
         private float _firstDamage => _baseSkillValue[0][Math.Max(0, _skillLevel - 1)] + 0.4f * owner.abilityPower;
         private float _secondDamage => _baseSkillValue[1][Math.Max(0, _skillLevel - 1)] + 0.16f * owner.abilityPower;
         
-        public FoxFire()
+        public FoxFire() : base("FoxFire")
         {
-            ReadSkillConfig("FoxFire");
-            
             _skillLevel = 1;
             _maxSkillLevel = 5;
             

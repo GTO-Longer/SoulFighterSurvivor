@@ -9,11 +9,6 @@ namespace Systems
         public bool InfinityHealthPoint = false;
         public bool SkillNoCoolDown = false;
 
-        private void Awake()
-        {
-            DontDestroyOnLoad(this);
-        }
-
         private void Update()
         {
             if (InfinityMagicPoint)

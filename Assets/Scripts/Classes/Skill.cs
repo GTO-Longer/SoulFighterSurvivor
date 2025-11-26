@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Classes.Entities;
 using DataManagement;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Utilities;
@@ -32,11 +33,12 @@ namespace Classes{
         
         public Image skillCoolDownMask;
         public Image skillIcon;
+        public TMP_Text skillCD;
 
         /// <summary>
         /// 技能冷却完成百分比
         /// </summary>
-        public float skillCoolDownProportion => 1 - Mathf.Min(coolDownTimer / actualSkillCoolDown, 1);
+        public float skillCoolDownProportion => 1 - Mathf.Min(actualSkillCoolDown == 0 ? 1 : coolDownTimer / actualSkillCoolDown, 1);
         
         protected string _skillDescription;
         protected SkillType _skillType;
@@ -56,7 +58,9 @@ namespace Classes{
             ReadSkillConfig(name);
             
             skillIcon = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{_skillType.ToString()}/SkillIcon").GetComponent<Image>();
-            skillCoolDownMask = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{_skillType.ToString()}/CDMask").GetComponent<Image>();
+            skillCoolDownMask = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{_skillType.ToString()}/CDMask")?.GetComponent<Image>();
+            skillCD = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{_skillType.ToString()}/SkillCD")?.GetComponent<TMP_Text>();
+            
             skillIcon.sprite = ResourceReader.ReadIcon(name);
         }
         

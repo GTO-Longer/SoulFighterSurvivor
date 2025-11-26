@@ -424,7 +424,13 @@ namespace Classes.Entities
                     skill.specialTimer -= Time.deltaTime;
                 }
 
-                skill.skillCoolDownMask.fillAmount = skill.skillCoolDownProportion;
+                // 设置技能冷却mask和文字
+                if (skill.skillCoolDownMask != null && skill.skillCD != null)
+                {
+                    skill.skillCoolDownMask.fillAmount = skill.skillCoolDownProportion;
+                    skill.skillCD.text = $"{(skill.actualSkillCoolDown - skill.coolDownTimer):F1}";
+                    skill.skillCD.gameObject.SetActive(skill.skillCoolDownProportion > 0);
+                }
             }
         }
         

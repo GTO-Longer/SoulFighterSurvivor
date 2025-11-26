@@ -64,7 +64,7 @@ namespace Classes.Skills
                 if (skillChargeCount > 0)
                 {
                     skillChargeCount -= 1;
-                    coolDownTimer = actualSkillCoolDown - 0.5f;
+                    coolDownTimer = actualSkillCoolDown - 1f;
                 }
                 else
                 {

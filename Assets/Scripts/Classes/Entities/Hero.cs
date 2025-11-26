@@ -34,7 +34,10 @@ namespace Classes.Entities
         /// 是否启用自动攻击模式
         /// </summary>
         private bool _autoAttack;
-
+        /// <summary>
+        /// 鼠标位置
+        /// </summary>
+        private Vector2 _mousePosition;
         /// <summary>
         /// 攻击计时器
         /// </summary>
@@ -197,8 +200,7 @@ namespace Classes.Entities
             _agent.speed = actualMovementSpeed;
             
             // 获取鼠标位置
-            var _mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            _mousePosition.z = 0;
+            _mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             
             // 当玩家点击左键
             if (Input.GetMouseButtonDown(0))
@@ -442,16 +444,7 @@ namespace Classes.Entities
             if (!_agent.hasPath || _agent.path.corners.Length == 0 || _agent.isStopped || _asyncRotating)
                 return;
 
-            Vector3 targetPosition;
-    
-            if (_agent.path.corners.Length > 1)
-            {
-                targetPosition = _agent.path.corners[1];
-            }
-            else
-            {
-                targetPosition = _agent.destination;
-            }
+            var targetPosition = _agent.path.corners.Length > 1 ? _agent.path.corners[1] : _agent.destination;
 
             // 计算2d方向
             var direction = new Vector2(
@@ -467,9 +460,6 @@ namespace Classes.Entities
         /// </summary>
         public void TargetCheck()
         {
-            // 获取鼠标位置
-            var _mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            
             // 当玩家点击左键
             if (Input.GetMouseButton(0))
             {
@@ -575,9 +565,6 @@ namespace Classes.Entities
         /// </summary>
         public override void RotateToMousePoint()
         {
-            // 获取鼠标位置
-            var _mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            
             // 计算方向
             var direction = new Vector2(
                 _mousePosition.x - _gameObject.transform.position.x,

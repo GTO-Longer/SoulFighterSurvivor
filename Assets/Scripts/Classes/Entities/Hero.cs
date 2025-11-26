@@ -7,6 +7,7 @@ using Factories;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 using Utilities;
 
 namespace Classes.Entities
@@ -221,28 +222,7 @@ namespace Classes.Entities
                 //开始移动
                 _agent.isStopped = false;
 
-                // 检测鼠标点击位置是否有物体
-                var _findTarget = false;
-                var _hitBoxes = Physics2D.RaycastAll(_mousePosition, Vector2.zero);
-                foreach (var _hit in _hitBoxes)
-                {
-                    if (!_hit.collider.IsUnityNull() && !_gameObject.CompareTag(_hit.collider.gameObject.tag))
-                    {
-                        // 若有目标则设置为新的目标
-                        var newTarget = _hit.collider.gameObject.GetComponent<EntityData>().entity;
-                        
-                        // 防止反复锁定相同目标
-                        if (target.Value == null || !target.Value.Equals(newTarget))
-                        {
-                            target.Value = newTarget;
-                        }
-                        _autoAttack = true;
-                        _findTarget = true;
-                        break;
-                    }
-                }
-
-                if (!_findTarget)
+                if (!ToolFunctions.IsObjectAtMousePoint(out _))
                 {
                     target.Value = null;
                 }
@@ -446,13 +426,7 @@ namespace Classes.Entities
 
             var targetPosition = _agent.path.corners.Length > 1 ? _agent.path.corners[1] : _agent.destination;
 
-            // 计算2d方向
-            var direction = new Vector2(
-                targetPosition.x - _gameObject.transform.position.x,
-                targetPosition.y - _gameObject.transform.position.y
-            );
-
-            RotateTo(direction);
+            RotateTo(targetPosition - _gameObject.transform.position);
         }
 
         /// <summary>
@@ -463,24 +437,9 @@ namespace Classes.Entities
             // 当玩家点击左键
             if (Input.GetMouseButton(0))
             {
-                // 检测鼠标点击位置是否有物体
-                var _hitBoxes = Physics2D.RaycastAll(_mousePosition, Vector2.zero);
-                
-                var _findTarget = false;
-                var _find = new RaycastHit2D();
-                foreach (var _hit in _hitBoxes)
+                if (ToolFunctions.IsObjectAtMousePoint(out var results))
                 {
-                    if (!_hit.collider.IsUnityNull() && !_gameObject.CompareTag(_hit.collider.gameObject.tag))
-                    {
-                        _findTarget = true;
-                        _find = _hit;
-                        break;
-                    }
-                }
-                
-                if (_findTarget)
-                {
-                    target.Value = _find.collider.gameObject.GetComponent<EntityData>().entity;
+                    target.Value = results[0].GetComponent<EntityData>().entity;
                 }
             }
         }

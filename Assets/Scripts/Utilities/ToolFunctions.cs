@@ -112,5 +112,38 @@ namespace Utilities
             // 提取 Entity 数组并返回
             return overlappingEntities.Select(item => item.entity).ToArray();
         }
+
+        /// <summary>
+        /// 鼠标处是否有物体
+        /// </summary>
+        public static bool IsObjectAtMousePoint(out List<GameObject> objects, string tag = null, bool sameTag = false)
+        {
+            objects = new List<GameObject>();  
+            Vector2 _mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            var results = new RaycastHit2D[10];
+            var size = Physics2D.RaycastNonAlloc(_mousePosition, Vector2.zero, results);
+            if (size <= 0)
+            {
+                return false;
+            }
+            
+            foreach (var result in results)
+            {
+                if (result.collider == null) continue;
+                if (tag == null)
+                {
+                    objects.Add(result.collider.gameObject);
+                }
+                else
+                {
+                    var obj = result.collider.gameObject;
+                    if (obj.CompareTag(tag) == sameTag)
+                    {
+                        objects.Add(obj);
+                    }
+                }
+            }
+            return true;
+        }
     }
 }

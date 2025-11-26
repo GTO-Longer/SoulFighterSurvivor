@@ -69,7 +69,7 @@
             "id": "FoxFire",
             "heroName": "Ahri",
             "skillName": "妖异狐火",
-            "_skillDescription": "阿狸释放出3团狐火来追踪附近的敌人们并造成<color=#7700BB>{0:F0}魔法伤害</color>，第一团之后的狐火降低至<color=#7700BB>{1:F0}伤害</color>（40%）。她还会获得在2秒里持续衰减的40%<color=#FDF9C8>移动速度</color>。 \n\n狐火会优先攻击最近的敌人。20%生命值以下的敌人会受到200%伤害。",
+            "_skillDescription": "阿狸释放出3团狐火来追踪附近的敌人们并造成<color=#7700BB>{0:F0}魔法伤害</color>，第一团之后的狐火降低至<color=#7700BB>{1:F0}伤害</color>（40%）。她还会获得在2秒里持续衰减的<color=#FDF9C8>40%移动速度</color>。 \n\n狐火会优先攻击最近的敌人。20%生命值以下的敌人会受到200%伤害。",
             "_skillType": "WSkill",
             "_baseSkillCost": [
                 40,

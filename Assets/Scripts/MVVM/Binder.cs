@@ -227,7 +227,7 @@ namespace MVVM
 
             void OnChanged(object sender, EventArgs e)
             {
-                if (text == null || image == null || source?.Value == null) return;
+                if (text == null || image == null || source.Value == null) return;
                 BindText(text, source.Value.healthPoint, source.Value.maxHealthPoint, "{0:F0} / {1:F0}");
                 BindFillAmount(image, source.Value.healthPointProportion);
             }
@@ -257,8 +257,8 @@ namespace MVVM
                 background.SetActive(true);
                 skillIcon.sprite = skillSource.Value.skillIcon.sprite;
                 skillName.text = (skillSource.Value.skillName);
-                skillCoolDown.text = ($"{skillSource.Value.actualSkillCoolDown:F2}秒");
-                skillCost.text = ($"{skillSource.Value.actualSkillCost:F0}法力值");
+                skillCoolDown.text = skillSource.Value.actualSkillCoolDown == 0 ? "无冷却" : $"{skillSource.Value.actualSkillCoolDown:F2}秒";
+                skillCost.text = skillSource.Value.actualSkillCost == 0 ? "无消耗" : $"{skillSource.Value.actualSkillCost:F0}法力值";
                 skillDescription.text = (skillSource.Value.GetDescription());
                 LayoutRebuilder.ForceRebuildLayoutImmediate(background.GetComponent<RectTransform>());
             }

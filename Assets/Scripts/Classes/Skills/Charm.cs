@@ -10,8 +10,8 @@ namespace Classes.Skills
 {
     public class Charm : Skill
     {
-        private float _controlTime => _baseSkillValue[0][Math.Max(0, _skillLevel - 1)];
-        private float _damage => _baseSkillValue[1][Math.Max(0, _skillLevel - 1)] + 0.85f * owner.abilityPower;
+        private float _controlTime => _baseSkillValue[0][skillLevelToIndex];
+        private float _damage => _baseSkillValue[1][skillLevelToIndex] + 0.85f * owner.abilityPower;
 
         public Charm() : base("Charm")
         {
@@ -19,6 +19,7 @@ namespace Classes.Skills
             _maxSkillLevel = 5;
             
             coolDownTimer = 999;
+            Debug.Log(_baseSkillValue[0][3]);
         }
 
         public override string GetDescription()
@@ -38,7 +39,7 @@ namespace Classes.Skills
                     return;
                 }
                 
-                if (_baseSkillCost[_skillLevel] > owner.magicPoint)
+                if (_baseSkillCost[skillLevelToIndex] > owner.magicPoint)
                 {
                     Binder.ShowText(SkillViewModel.instance.skillTips, "施法资源不够，技能无法使用", 1);
                     return;
@@ -51,7 +52,7 @@ namespace Classes.Skills
                 }
                 
                 owner.RotateToMousePoint();
-                owner.magicPoint.Value -= _baseSkillCost[_skillLevel];
+                owner.magicPoint.Value -= _baseSkillCost[skillLevelToIndex];
                 coolDownTimer = 0;
                 
                 // 计算飞出目标点

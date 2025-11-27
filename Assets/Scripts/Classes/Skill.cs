@@ -29,6 +29,7 @@ namespace Classes{
         
         protected int _skillLevel = 0;
         protected int _maxSkillLevel = 0;
+        protected int skillLevelToIndex => Math.Max(0, _skillLevel - 1);
 
         public int skillChargeCount = 0;
         public int maxSkillChargeCount = 0;

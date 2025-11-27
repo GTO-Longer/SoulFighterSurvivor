@@ -64,7 +64,7 @@ def convert_xlsx_to_json_in_current_dir():
                                         else:
                                             nums = [x.strip() for x in clean_part.split(',') if x.strip()]
                                         try:
-                                            int_list = [int(float(x)) for x in nums]
+                                            int_list = [float(x) for x in nums]
                                             converted_2d.append(int_list)
                                         except Exception:
                                             converted_2d.append([])

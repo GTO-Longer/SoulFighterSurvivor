@@ -13,7 +13,7 @@ namespace Classes.Skills
     {
         private const float dashDuration = 0.5f;
 
-        private float _damage => _baseSkillValue[0][Math.Max(0, _skillLevel - 1)] + 0.35f * owner.abilityPower;
+        private float _damage => _baseSkillValue[0][skillLevelToIndex] + 0.35f * owner.abilityPower;
         
         public SpiritRush() : base("SpiritRush")
         {
@@ -47,7 +47,7 @@ namespace Classes.Skills
                     return;
                 }
                 
-                if (_baseSkillCost[_skillLevel] > owner.magicPoint && specialTimer <= 0)
+                if (_baseSkillCost[skillLevelToIndex] > owner.magicPoint && specialTimer <= 0)
                 {
                     Binder.ShowText(SkillViewModel.instance.skillTips, "施法资源不够，技能无法使用", 1);
                     return;
@@ -63,7 +63,7 @@ namespace Classes.Skills
                 if (skillChargeCount == 0 && specialTimer == 0)
                 {
                     // 消耗魔法值
-                    owner.magicPoint.Value -= _baseSkillCost[_skillLevel];
+                    owner.magicPoint.Value -= _baseSkillCost[skillLevelToIndex];
                     skillChargeCount = maxSkillChargeCount;
                     specialTimer = 10;
                     specialCoolDown = 1f;

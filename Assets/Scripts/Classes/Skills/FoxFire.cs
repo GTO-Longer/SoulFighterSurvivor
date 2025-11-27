@@ -10,8 +10,8 @@ namespace Classes.Skills
 {
     public class FoxFire : Skill
     {
-        private float _firstDamage => _baseSkillValue[0][Math.Max(0, _skillLevel - 1)] + 0.4f * owner.abilityPower;
-        private float _secondDamage => _baseSkillValue[1][Math.Max(0, _skillLevel - 1)] + 0.16f * owner.abilityPower;
+        private float _firstDamage => _baseSkillValue[0][skillLevelToIndex] + 0.4f * owner.abilityPower;
+        private float _secondDamage => _baseSkillValue[1][skillLevelToIndex] + 0.16f * owner.abilityPower;
         
         public FoxFire() : base("FoxFire")
         {
@@ -38,7 +38,7 @@ namespace Classes.Skills
                     return;
                 }
 
-                if (_baseSkillCost[_skillLevel] > owner.magicPoint)
+                if (_baseSkillCost[skillLevelToIndex] > owner.magicPoint)
                 {
                     Binder.ShowText(SkillViewModel.instance.skillTips, "施法资源不够，技能无法使用", 1);
                     return;
@@ -50,7 +50,7 @@ namespace Classes.Skills
                     return;
                 }
 
-                owner.magicPoint.Value -= _baseSkillCost[_skillLevel];
+                owner.magicPoint.Value -= _baseSkillCost[skillLevelToIndex];
                 coolDownTimer = 0;
 
                 // 获得2s内40%递减的加速

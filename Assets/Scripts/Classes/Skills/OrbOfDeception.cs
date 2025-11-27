@@ -10,8 +10,8 @@ namespace Classes.Skills
 {
     public class OrbOfDeception : Skill
     {
-        private float _APDamage => _baseSkillValue[0][Math.Max(0, _skillLevel - 1)] + 0.5f * owner.abilityPower;
-        private float _realDamage => _baseSkillValue[1][Math.Max(0, _skillLevel - 1)] + 0.5f * owner.abilityPower;
+        private float _APDamage => _baseSkillValue[0][skillLevelToIndex] + 0.5f * owner.abilityPower;
+        private float _realDamage => _baseSkillValue[1][skillLevelToIndex] + 0.5f * owner.abilityPower;
         
         public OrbOfDeception() : base("OrbOfDeception")
         {
@@ -38,7 +38,7 @@ namespace Classes.Skills
                     return;
                 }
                 
-                if (_baseSkillCost[_skillLevel] > owner.magicPoint)
+                if (_baseSkillCost[skillLevelToIndex] > owner.magicPoint)
                 {
                     Binder.ShowText(SkillViewModel.instance.skillTips, "施法资源不够，技能无法使用", 1);
                     return;
@@ -51,7 +51,7 @@ namespace Classes.Skills
                 }
 
                 owner.RotateToMousePoint();
-                owner.magicPoint.Value -= _baseSkillCost[_skillLevel];
+                owner.magicPoint.Value -= _baseSkillCost[skillLevelToIndex];
                 coolDownTimer = 0;
                 
                 // 计算飞出目标点

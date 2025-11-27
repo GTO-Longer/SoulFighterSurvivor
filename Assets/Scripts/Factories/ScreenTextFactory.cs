@@ -45,19 +45,21 @@ namespace Factories
         /// <summary>
         /// 在指定位置创建ScreenText
         /// </summary>
-        public void Spawn(Vector2 position, string content, float duration, float moveRange, Color? color = null)
+        public void Spawn(Vector2 position, string content, float duration, float moveRange, float fontSize, Color? color = null)
         {
             var actualColor = color ??= Color.red;
             var text = _screenTextPool.Get();
             _activeTexts.Add(text);
+            
             text.GetComponent<TMP_Text>().text = content;
             text.GetComponent<TMP_Text>().color = actualColor;
+            text.GetComponent<TMP_Text>().fontSize = fontSize;
             
-            text.anchoredPosition = position;
-            text.DOMoveX(gameObject.transform.position.x + (Random.Range(0, 1) * 2 - 1) * moveRange, duration);
-            text.DOMoveY(gameObject.transform.position.y + moveRange, duration / 2f).SetEase(Ease.OutQuad).OnComplete(() =>
+            text.position = position;
+            text.DOMoveX(position.x + (Random.Range(0, 1) * 2 - 1) * moveRange, duration);
+            text.DOMoveY(position.y + moveRange, duration / 2f).SetEase(Ease.OutQuad).OnComplete(() =>
             {
-                text.DOMoveY(gameObject.transform.position.y, duration / 2f).SetEase(Ease.InQuad).OnComplete(() =>
+                text.DOMoveY(position.y, duration / 2f).SetEase(Ease.InQuad).OnComplete(() =>
                 {
                     Despawn(text);
                 });

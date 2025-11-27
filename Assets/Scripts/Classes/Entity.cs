@@ -533,8 +533,10 @@ namespace Classes
                 DamageType.AD => new Color(1, 0.6f, 0, 1),
                 DamageType.Real => Color.white,
                 DamageType.AP => new Color(0, 0.6f, 1, 1),
+                DamageType.None => Color.black,
+                _ => throw new ArgumentOutOfRangeException(nameof(damageType), damageType, null)
             };
-           ScreenTextFactory.Instance.Spawn(gameObject.transform.position, $"-{damageCount:F0}", 0.5f, 0.75f, color);
+           ScreenTextFactory.Instance.Spawn(_gameObject.transform.position, $"-{damageCount:F0}", 0.5f, 0.5f, 0.6f, color);
            
             healthPoint.Value -= damageCount;
             if (healthPoint.Value < 0)

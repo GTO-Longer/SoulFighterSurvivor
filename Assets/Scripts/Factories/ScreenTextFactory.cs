@@ -90,7 +90,6 @@ namespace Factories
         private void OnDestroy()
         {
             DespawnAll();
-            _screenTextPool?.Dispose();
         }
     }
 }

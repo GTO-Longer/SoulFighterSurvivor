@@ -17,7 +17,7 @@ namespace Classes.Skills
         
         public SpiritRush() : base("SpiritRush")
         {
-            _skillLevel = 1;
+            _skillLevel = 0;
             _maxSkillLevel = 3;
             maxSkillChargeCount = 3;
             

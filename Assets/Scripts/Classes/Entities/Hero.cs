@@ -22,6 +22,7 @@ namespace Classes.Entities
         private Transform _attackRangeIndicator;
         private bool _asyncRotating => DOTween.IsTweening(_gameObject.transform);
         private const float rotateTime = 0.5f;
+        private const int maxLevel = 18;
         
         /// <summary>
         /// 玩家锁定的实体
@@ -30,6 +31,8 @@ namespace Classes.Entities
         
         public Property<bool> isMoving = new Property<bool>();
         public Property<bool> showAttributes = new Property<bool>();
+
+        public int skillPoint;
         
         /// <summary>
         /// 是否启用自动攻击模式
@@ -156,6 +159,12 @@ namespace Classes.Entities
                     Debug.Log("Read skill:" + skillList[(int)SkillType.RSkill].skillName +
                               "\nSkillDescription:" + skillList[(int)SkillType.RSkill].GetDescription());
                 }
+
+                for (var index = (int)SkillType.QSkill; index <= (int)SkillType.RSkill; index++)
+                {
+                    var skill = skillList[index];
+                    MVVM.Binder.BindButton(skill.upgradeButton, () => SkillUpgrade(skill));
+                }
                 
                 #endregion
             }
@@ -188,9 +197,12 @@ namespace Classes.Entities
             _attackTimer = 0;
             _regenerateTimer = 0;
             _attackWindUpTimer = 0;
-            level.Value = 1;
+            skillPoint = 0;
+            level.Value = 0;
+            experience.Value = 0;
             magicPoint.Value = maxMagicPoint.Value;
             healthPoint.Value = maxHealthPoint.Value;
+            LevelUp();
         }
 
         private const float rotationSpeed = 10;
@@ -421,11 +433,16 @@ namespace Classes.Entities
                 }
 
                 // 设置技能冷却mask和文字
-                if (skill.skillCoolDownMask != null && skill.skillCD != null)
+                if (skill.skillCoolDownMask != null && skill.skillCD != null && skill.upgradeButton != null)
                 {
                     skill.skillCoolDownMask.fillAmount = skill.skillCoolDownProportion;
-                    skill.skillCD.text = $"{(skill.actualSkillCoolDown - skill.coolDownTimer):F1}";
+                    skill.skillCD.text = skill.actualSkillCoolDown - skill.coolDownTimer >= 1 ? $"{skill.actualSkillCoolDown - skill.coolDownTimer:F0}" : $"{skill.actualSkillCoolDown - skill.coolDownTimer:F1}";
                     skill.skillCD.gameObject.SetActive(skill.skillCoolDownProportion > 0);
+                    if (skill.skillType is >= SkillType.QSkill and <= SkillType.RSkill)
+                    {
+                        skill.upgradeButton.gameObject.SetActive(skillPoint > 0);
+                        skill.upgradeButton.interactable = skill.SkillCanUpgrade();
+                    }
                 }
             }
         }
@@ -548,6 +565,37 @@ namespace Classes.Entities
             
             Async.SetAsync(rotateTime,gameObject.transform, () => RotateTo(direction)); 
         }
+
+        /// <summary>
+        /// 获取经验
+        /// </summary>
+        public void GetExperience(float count)
+        {
+            experience.Value += count;
+            if (experience.Value >= maxExperience.Value)
+            {
+                LevelUp();
+                experience.Value -= maxExperience.Value;
+            }
+        }
+
+        /// <summary>
+        /// 玩家升级
+        /// </summary>
+        public void LevelUp()
+        {
+            if (level < maxLevel)
+            {
+                var maxHealthPointCache = maxHealthPoint.Value;
+                var maxMagicPointCache = maxMagicPoint.Value;
+
+                level.Value += 1;
+                skillPoint += 1;
+
+                healthPoint.Value += maxHealthPoint.Value - maxHealthPointCache;
+                magicPoint.Value += maxMagicPoint.Value - maxMagicPointCache;
+            }
+        }
         
         #region 私有工具函数
         /// <summary>
@@ -566,6 +614,15 @@ namespace Classes.Entities
                     targetRot,
                     rotationSpeed * Time.deltaTime
                 );
+            }
+        }
+
+        private void SkillUpgrade(Skill skill)
+        {
+            if (skillPoint > 0 && skill.skillType != SkillType.PassiveSkill)
+            {
+                skill.SkillUpgrade();
+                skillPoint -= 1;
             }
         }
         

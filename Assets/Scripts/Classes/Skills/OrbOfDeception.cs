@@ -15,7 +15,7 @@ namespace Classes.Skills
         
         public OrbOfDeception() : base("OrbOfDeception")
         {
-            _skillLevel = 1;
+            _skillLevel = 0;
             _maxSkillLevel = 5;
             
             coolDownTimer = 999;

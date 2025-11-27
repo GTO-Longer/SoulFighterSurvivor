@@ -14,6 +14,7 @@ namespace Classes{
         public string heroName;
         public Hero owner;
         public int skillLevel => _skillLevel;
+        public SkillType skillType => _skillType;
         public float skillCost => _baseSkillCost[Math.Max(0, _skillLevel - 1)];
         public float actualSkillRange => _skillRange / 100f;
         public float actualSkillCoolDown => specialCoolDown != 0 ? specialCoolDown :_baseSkillCoolDown[Math.Max(0, _skillLevel - 1)] * owner.actualAbilityCooldown;
@@ -35,6 +36,7 @@ namespace Classes{
         public Image skillCoolDownMask;
         public Image skillIcon;
         public TMP_Text skillCD;
+        public Button upgradeButton;
 
         /// <summary>
         /// 技能冷却完成百分比
@@ -61,6 +63,7 @@ namespace Classes{
             skillIcon = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{_skillType.ToString()}/SkillIcon").GetComponent<Image>();
             skillCoolDownMask = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{_skillType.ToString()}/CDMask")?.GetComponent<Image>();
             skillCD = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{_skillType.ToString()}/SkillCD")?.GetComponent<TMP_Text>();
+            upgradeButton = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{_skillType.ToString()}/UpgradeButton")?.GetComponent<Button>();
             
             skillIcon.sprite = ResourceReader.ReadIcon(name);
         }
@@ -86,15 +89,28 @@ namespace Classes{
             _destinationDistance = config._destinationDistance;
         }
 
-        public bool SkillGradeUp()
+        public void SkillUpgrade()
         {
-            if (_skillLevel < _maxSkillLevel)
+            if (SkillCanUpgrade())
             {
                 _skillLevel++;
-                return true;
             }
+        }
 
-            return false;
+        public bool SkillCanUpgrade()
+        {
+            if (skillType == SkillType.RSkill)
+            {
+                return _skillLevel < _maxSkillLevel && (_skillLevel + 1) * 5 < owner.level;
+            }
+            else if(skillType is >= SkillType.QSkill and <= SkillType.ESkill)
+            {
+                return _skillLevel < _maxSkillLevel && (_skillLevel + 1) * 2 < owner.level + 2;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public virtual string GetDescription()

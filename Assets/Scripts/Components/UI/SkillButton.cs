@@ -22,8 +22,6 @@ namespace Components.UI
             button.onClick.AddListener(OnButtonClick);
             
             skillIcon??= GetComponentInChildren<Image>();
-            // TODO:添加技能图标读取
-            // skillIcon.sprite = 
         }
 
         public void OnPointerEnter(PointerEventData eventData)

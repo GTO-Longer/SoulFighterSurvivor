@@ -8,6 +8,7 @@ namespace Systems
         public bool InfinityMagicPoint = false;
         public bool InfinityHealthPoint = false;
         public bool SkillNoCoolDown = false;
+        public bool LevelUp = false;
 
         private void Update()
         {
@@ -27,6 +28,12 @@ namespace Systems
                 {
                     skill.coolDownTimer = 999f;
                 }
+            }
+
+            if (LevelUp)
+            {
+                HeroManager.hero.LevelUp();
+                LevelUp = false;
             }
         }
     }

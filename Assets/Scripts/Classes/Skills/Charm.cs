@@ -15,7 +15,7 @@ namespace Classes.Skills
 
         public Charm() : base("Charm")
         {
-            _skillLevel = 1;
+            _skillLevel = 0;
             _maxSkillLevel = 5;
             
             coolDownTimer = 999;

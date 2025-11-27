@@ -284,7 +284,7 @@ namespace MVVM
         /// <summary>
         /// 绑定技能
         /// </summary>
-        public static Action BindSkill(Image skillIcon, GameObject background, TMP_Text skillName, TMP_Text skillCoolDown, TMP_Text skillCost, TMP_Text skillDescription, Property<Skill> skillSource)
+        public static Action BindSkill(Image skillIcon, GameObject background, TMP_Text skillName, TMP_Text skillLevel, TMP_Text skillCoolDown, TMP_Text skillCost, TMP_Text skillDescription, Property<Skill> skillSource)
         {
             void OnChanged(object sender, EventArgs e)
             {
@@ -296,10 +296,11 @@ namespace MVVM
 
                 background.SetActive(true);
                 skillIcon.sprite = skillSource.Value.skillIcon.sprite;
-                skillName.text = (skillSource.Value.skillName);
-                skillCoolDown.text = skillSource.Value.actualSkillCoolDown == 0 ? "无冷却" : $"{skillSource.Value.actualSkillCoolDown:F2}秒";
+                skillName.text = skillSource.Value.skillName;
+                skillLevel.text = skillSource.Value.skillLevel == 0 ? "无等级" :$"技能等级{skillSource.Value.skillLevel:F0}";
+                skillCoolDown.text = skillSource.Value.actualSkillCoolDown == 0 ? "无冷却" : $"{skillSource.Value.actualSkillCoolDown:F1}秒";
                 skillCost.text = skillSource.Value.actualSkillCost == 0 ? "无消耗" : $"{skillSource.Value.actualSkillCost:F0}法力值";
-                skillDescription.text = (skillSource.Value.GetDescription());
+                skillDescription.text = skillSource.Value.GetDescription();
                 LayoutRebuilder.ForceRebuildLayoutImmediate(background.GetComponent<RectTransform>());
             }
 

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Factories;
+using MVVM;
+using MVVM.ViewModels;
 using Systems;
 using UnityEngine;
 using Utilities;
@@ -41,19 +43,19 @@ namespace Classes.Skills
             {
                 if (_skillLevel <= 0)
                 {
-                    Debug.Log("Skill level too low to use.");
+                    Binder.ShowText(SkillViewModel.instance.skillTips, "技能尚未解锁", 1);
                     return;
                 }
                 
                 if (_baseSkillCost[_skillLevel] > owner.magicPoint && specialTimer <= 0)
                 {
-                    Debug.Log("Magic point too low to use.");
+                    Binder.ShowText(SkillViewModel.instance.skillTips, "施法资源不够，技能无法使用", 1);
                     return;
                 }
                 
                 if (actualSkillCoolDown > coolDownTimer)
                 {
-                    Debug.Log("Skill is in cooldown.");
+                    Binder.ShowText(SkillViewModel.instance.skillTips, "技能正在冷却", 1);
                     return;
                 }
                 
@@ -74,7 +76,7 @@ namespace Classes.Skills
                 }
                 else
                 {
-                    Debug.Log("Charge time no enough.");
+                    Binder.ShowText(SkillViewModel.instance.skillTips, "没有充能次数", 1);
                     return;
                 }
 

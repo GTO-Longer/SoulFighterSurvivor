@@ -1,12 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Classes;
 using TMPro;
 using System.Reflection;
 using DataManagement;
+using DG.Tweening;
 using Unity.VisualScripting;
 using Utilities;
 
@@ -370,6 +370,41 @@ namespace MVVM
             return () => button.onClick.RemoveListener(OnClick);
         }
         
+        #endregion
+
+        #region 普通UI显示
+        
+        public static Dictionary<TMP_Text, Tweener> Tweeners = new();
+        public static void ShowText(TMP_Text text, string content, float duration = -1)
+        {
+            if (duration < 0)
+            {
+                text.text = content;
+                text.gameObject.SetActive(true);
+            }
+            else
+            {
+                if (Tweeners.TryGetValue(text, out var tweener) && tweener != null)
+                {
+                    tweener.Kill();
+                }
+                
+                Tweeners[text] = Async.SetAsync(duration - 0.5f, null, () =>
+                {
+                    text.gameObject.SetActive(true);
+                    text.color = new Color(text.color.r, text.color.g, text.color.b, 1);
+                    text.text = content;
+                }, () =>
+                {
+                    text.DOFade(0, 0.5f).OnComplete(() =>
+                    {
+                        text.gameObject.SetActive(false);
+                        Tweeners.Remove(text);
+                    });
+                });
+            }
+        }
+
         #endregion
     }
 }

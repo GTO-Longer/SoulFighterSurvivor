@@ -8,6 +8,14 @@ namespace Utilities
         Enemy
     }
 
+    public enum DamageType
+    {
+        None = 0,
+        AD,
+        AP,
+        Real
+    }
+
     public enum DataType
     {
         None = 0,

@@ -61,6 +61,7 @@
     <Compile Include="Assets\Scripts\Systems\CameraSystem.cs" />
     <Compile Include="Assets\Scripts\Classes\Entities\Enemy.cs" />
     <Compile Include="Assets\Scripts\Systems\EventSystem.cs" />
+    <Compile Include="Assets\Scripts\Factories\ScreenTextFactory.cs" />
     <Compile Include="Assets\Scripts\DataManagement\EntiyData.cs" />
     <Compile Include="Assets\Scripts\Classes\Entities\Hero.cs" />
     <Compile Include="Assets\Scripts\Classes\Skills\Charm.cs" />

@@ -164,12 +164,12 @@ namespace Classes.Skills
                         if (self.bulletStateID == 1)
                         {
                             // 第一段造成魔法伤害
-                            self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, _APDamage));
+                            self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, _APDamage), DamageType.AP);
                         }
                         else if (self.bulletStateID == 2)
                         {
                             // 第二段造成真实伤害
-                            self.target.TakeDamage(_realDamage);
+                            self.target.TakeDamage(_realDamage, DamageType.Real);
                         }
 
                         // 造成技能特效

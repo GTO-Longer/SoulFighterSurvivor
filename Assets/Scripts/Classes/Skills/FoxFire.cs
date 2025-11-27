@@ -164,22 +164,22 @@ namespace Classes.Skills
                                 // 对20%生命值以下的敌人造成200%伤害
                                 if (self.target.healthPointProportion.Value <= 0.2f)
                                 {
-                                    self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, _firstDamage * 2));
+                                    self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, _firstDamage * 2), DamageType.AP);
                                 }
                                 else
                                 {
-                                    self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, _firstDamage));
+                                    self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, _firstDamage), DamageType.AP);
                                 }
                             }
                             else
                             {
                                 if (self.target.healthPointProportion.Value <= 0.2f)
                                 {
-                                    self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, _secondDamage * 2));
+                                    self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, _secondDamage * 2), DamageType.AP);
                                 }
                                 else
                                 {
-                                    self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, _secondDamage));
+                                    self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, _secondDamage), DamageType.AP);
                                 }
                             }
                             

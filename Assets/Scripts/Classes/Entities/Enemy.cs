@@ -144,7 +144,7 @@ namespace Classes.Entities
 
                 bullet.OnBulletHit += (self) =>
                 {
-                    self.target.TakeDamage(self.target.CalculateADDamage(self.owner, self.owner.attackDamage));
+                    self.target.TakeDamage(self.target.CalculateADDamage(self.owner, self.owner.attackDamage), DamageType.AD);
                 };
 
                 bullet.Awake();

@@ -4,12 +4,10 @@ using System.Reflection;
 using DataManagement;
 using DG.Tweening;
 using Factories;
-using NavMeshPlus.Extensions;
 using Systems;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.EventSystems;
 using Utilities;
 
 namespace Classes.Entities
@@ -379,7 +377,7 @@ namespace Classes.Entities
                 bullet.OnBulletHit += (self) =>
                 {
                     // 计算平A伤害
-                    self.target.TakeDamage(self.target.CalculateADDamage(self.owner, self.owner.attackDamage));
+                    self.target.TakeDamage(self.target.CalculateADDamage(self.owner, self.owner.attackDamage), DamageType.AD);
                     
                     // 造成攻击特效
                     self.AttackEffectActivate();

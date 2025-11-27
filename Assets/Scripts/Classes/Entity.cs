@@ -1,5 +1,6 @@
 using System;
 using DataManagement;
+using Factories;
 using Systems;
 using UnityEngine;
 using Utilities;
@@ -525,9 +526,16 @@ namespace Classes
         /// <summary>
         /// 受到伤害
         /// </summary>
-        public void TakeDamage(float damageCount)
+        public void TakeDamage(float damageCount, DamageType damageType)
         {
-            Debug.Log(gameObject.name + "受到" + damageCount + "点伤害");
+            var color = damageType switch
+            {
+                DamageType.AD => new Color(1, 0.6f, 0, 1),
+                DamageType.Real => Color.white,
+                DamageType.AP => new Color(0, 0.6f, 1, 1),
+            };
+           ScreenTextFactory.Instance.Spawn(gameObject.transform.position, $"-{damageCount:F0}", 0.5f, 0.75f, color);
+           
             healthPoint.Value -= damageCount;
             if (healthPoint.Value < 0)
             {
@@ -717,7 +725,7 @@ namespace Classes
                 level, _maxMagicPointBonus, _percentageMaxMagicPointBonus);
             attackDamage = new Property<float>(() => (_baseAttackDamage + _attackDamageGrowth * level + _attackDamageBonus) * (1 + _percentageAttackDamageBonus),
                 DataType.Int,
-                level, _attackDamageBonus, _percentageAttackDamageBonus);;
+                level, _attackDamageBonus, _percentageAttackDamageBonus);
             abilityPower = new Property<float>(() => _abilityPowerBonus * (1 + _percentageAbilityPowerBonus),
                 DataType.Int,
                 _abilityPowerBonus, _percentageAbilityPowerBonus);

@@ -4,6 +4,7 @@ using System.Reflection;
 using DataManagement;
 using DG.Tweening;
 using Factories;
+using NavMeshPlus.Extensions;
 using Systems;
 using Unity.VisualScripting;
 using UnityEngine;

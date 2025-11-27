@@ -4,6 +4,8 @@ using Classes;
 using DataManagement;
 using Systems;
 using UnityEngine;
+using UnityEngine.AI;
+
 
 namespace Utilities
 {
@@ -131,6 +133,7 @@ namespace Utilities
             foreach (var result in results)
             {
                 if (result.collider == null) continue;
+                if (result.collider.gameObject.CompareTag("Untagged")) continue;
                 if (tag == null)
                 {
                     objects.Add(result.collider.gameObject);

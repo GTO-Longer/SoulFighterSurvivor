@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Classes;
 using TMPro;
@@ -101,7 +102,25 @@ namespace MVVM
             };
         }
         
-        public static Action BindFillAmount(Image image, Property<float> source){
+        public static Action BindFillAmountSmooth(Image image, float duration, Property<float> source){
+            if (image == null || source == null)
+                return () => { };
+
+            void OnChanged(object sender, EventArgs e)
+            {
+                if (image == null) return;
+                Async.SetFillAmountAsync(image, source.Value, duration);
+            }
+
+            Async.SetFillAmountAsync(image, source.Value, duration);
+            source.PropertyChanged += OnChanged;
+            return () =>
+            {
+                source.PropertyChanged -= OnChanged;
+            };
+        }
+        
+        public static Action BindFillAmountImmediate(Image image, Property<float> source){
             if (image == null || source == null)
                 return () => { };
 
@@ -110,7 +129,7 @@ namespace MVVM
                 if (image == null) return;
                 image.fillAmount = source.Value;
             }
-            
+
             image.fillAmount = source.Value;
             source.PropertyChanged += OnChanged;
             return () =>
@@ -231,8 +250,9 @@ namespace MVVM
             Action UnBind = () => {};
             stateBar.gameObject.SetActive(true);
             
-            UnBind += BindFillAmount(stateBar.Find("HPBarBackground/HPBar").GetComponent<Image>(), entity.healthPointProportion);
-            UnBind += BindFillAmount(stateBar.Find("MPBarBackground/MPBar").GetComponent<Image>(), entity.magicPointProportion);
+            UnBind += BindFillAmountImmediate(stateBar.Find("HPBarBackground/HPBar").GetComponent<Image>(), entity.healthPointProportion);
+            UnBind += BindFillAmountSmooth(stateBar.Find("HPBarBackground/HPBarSmooth").GetComponent<Image>(), 0.2f, entity.healthPointProportion);
+            UnBind += BindFillAmountImmediate(stateBar.Find("MPBarBackground/MPBar").GetComponent<Image>(), entity.magicPointProportion);
             UnBind += BindText(stateBar.Find("LevelBackground/Level").GetComponent<TMP_Text>(), entity.level, "{0:F0}");
             
             return UnBind;
@@ -249,7 +269,7 @@ namespace MVVM
             {
                 if (text == null || image == null || source.Value == null) return;
                 BindText(text, source.Value.healthPoint, source.Value.maxHealthPoint, "{0:F0} / {1:F0}");
-                BindFillAmount(image, source.Value.healthPointProportion);
+                BindFillAmountImmediate(image, source.Value.healthPointProportion);
             }
 
             source.PropertyChanged += OnChanged;

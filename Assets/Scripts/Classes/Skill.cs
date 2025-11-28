@@ -69,6 +69,10 @@ namespace Classes{
             upgradeButton = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{_skillType.ToString()}/UpgradeButton")?.GetComponent<Button>();
             
             skillIcon.sprite = ResourceReader.ReadIcon(name);
+            if (skillType is >= SkillType.QSkill and <= SkillType.RSkill)
+            {
+                skillIcon.material = Resources.Load<Material>("Materials/ImageGreyTexture");
+            }
         }
         
         protected void ReadSkillConfig(string name)
@@ -96,6 +100,7 @@ namespace Classes{
         {
             if (SkillCanUpgrade())
             {
+                skillIcon.material = null;
                 _skillLevel++;
             }
         }
@@ -106,14 +111,12 @@ namespace Classes{
             {
                 return _skillLevel < _maxSkillLevel && (_skillLevel + 1) * 5 < owner.level;
             }
-            else if(skillType is >= SkillType.QSkill and <= SkillType.ESkill)
+            if(skillType is >= SkillType.QSkill and <= SkillType.ESkill)
             {
                 return _skillLevel < _maxSkillLevel && (_skillLevel + 1) * 2 < owner.level + 2;
             }
-            else
-            {
-                return false;
-            }
+            
+            return false;
         }
 
         public virtual string GetDescription()

@@ -19,7 +19,6 @@ namespace Classes.Skills
             _maxSkillLevel = 5;
             
             coolDownTimer = 999;
-            Debug.Log(_baseSkillValue[0][3]);
         }
 
         public override string GetDescription()

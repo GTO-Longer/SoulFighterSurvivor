@@ -165,6 +165,14 @@ namespace Classes
         /// </summary>
         public float actualAbilityCooldown => 100f / (abilityHaste + 100f);
         /// <summary>
+        /// 实际物理减伤率
+        /// </summary>
+        public float actualAttackDamageReduction => attackDefense / (attackDefense + 100f);
+        /// <summary>
+        /// 实际魔法减伤率
+        /// </summary>
+        public float actualMagicDamageReduction => magicDefense / (magicDefense + 100f);
+        /// <summary>
         /// 实际攻击间隔
         /// </summary>
         public float actualAttackInterval => attackSpeed == 0 ? 999 : 1f / attackSpeed;
@@ -518,6 +526,19 @@ namespace Classes
         /// 实体所属队伍
         /// </summary>
         public Team team => _team;
+
+        /// <summary>
+        /// 基础攻击力
+        /// </summary>
+        public float baseAttackDamage => _baseAttackDamage + _attackDamageGrowth * level;
+        /// <summary>
+        /// 基础护甲
+        /// </summary>
+        public float baseAttackDefense => _baseAttackDefense + _attackDefenseGrowth * level;
+        /// <summary>
+        /// 基础魔法抗性
+        /// </summary>
+        public float baseMagicDefense => _baseMagicDefense + _magicDefenseGrowth * level;
         
         #endregion
         
@@ -571,18 +592,18 @@ namespace Classes
 
         public float CalculateADDamage(Entity damageSource, float damageCount)
         {
-            var actualAttackDefense = (attackDefense - damageSource.attackPenetration)
+            var damageAttackDefense = (attackDefense - damageSource.attackPenetration)
                                       * (1 - damageSource.percentageAttackPenetration);
             return  damageCount * 
-                    (1 - (actualAttackDefense / (actualAttackDefense + 100)));
+                    (1 - damageAttackDefense / (damageAttackDefense + 100f));
         }
 
         public float CalculateAPDamage(Entity damageSource, float damageCount)
         {
-            var actualMagicDefense = (magicDefense - damageSource.magicPenetration)
+            var damageMagicDefense = (magicDefense - damageSource.magicPenetration)
                                      * (1 - damageSource.percentageMagicPenetration);
             return  damageCount * 
-                    (1 - (actualMagicDefense / (actualMagicDefense + 100)));
+                    (1 - damageMagicDefense / (damageMagicDefense + 100f));
         }
         
         /// <summary>

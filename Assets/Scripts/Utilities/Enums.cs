@@ -24,7 +24,6 @@ namespace Utilities
         Percentage
     }
 
-    [Serializable]
     public enum SkillType
     {
         None = -1,
@@ -33,6 +32,26 @@ namespace Utilities
         WSkill,
         ESkill,
         RSkill,
+    }
+
+    public enum AttributeType
+    {
+        None = 0,
+        AttackDamage,
+        AbilityPower,
+        AttackDefense,
+        MagicDefense,
+        AttackSpeed,
+        AbilityHaste,
+        CriticalRate,
+        MovementSpeed,
+        HealthRegeneration,
+        HealAndShieldPower,
+        AttackPenetration,
+        MagicPenetration,
+        LifeSteel,
+        OmniVamp,
+        AttackRange
     }
 
     public enum BulletType
@@ -54,35 +73,6 @@ namespace Utilities
         /// 即刻生效
         /// </summary>
         Immediate
-    }
-
-    public enum SkillUsageType
-    {
-        None = 0,
-        /// <summary>
-        /// 控制
-        /// </summary>
-        Control,
-        /// <summary>
-        /// 伤害
-        /// </summary>
-        Damage,
-        /// <summary>
-        /// 增益
-        /// </summary>
-        Buff,
-        /// <summary>
-        /// 位移
-        /// </summary>
-        Displacement,
-        /// <summary>
-        /// 负面效果
-        /// </summary>
-        Debuff,
-        /// <summary>
-        /// 数值提升
-        /// </summary>
-        Stat
     }
 
     public enum Team

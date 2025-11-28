@@ -7,6 +7,7 @@ using TMPro;
 using System.Reflection;
 using DataManagement;
 using DG.Tweening;
+using MVVM.ViewModels;
 using Unity.VisualScripting;
 using Utilities;
 
@@ -309,6 +310,53 @@ namespace MVVM
             return () =>
             {
                 skillSource.PropertyChanged -= OnChanged;
+            };
+        }
+        
+        /// <summary>
+        /// 绑定技能
+        /// </summary>
+        public static Action BindAttribute(GameObject background, TMP_Text attrName, TMP_Text attrDescription, TMP_Text attrAmount, Property<AttributeType> attrType)
+        {
+            var dependencies = new List<Property<float>>();
+            void OnChanged(object sender, EventArgs e)
+            {
+                if (attrType.Value == AttributeType.None)
+                {
+                    background.SetActive(false);
+                    AttributeViewModel.UnBindEvent?.Invoke();
+                    AttributeViewModel.UnBindEvent = null;
+                    return;
+                }
+
+                
+                if (!(AttributeViewModel.attributeDependenciesSettings.TryGetValue(attrType.Value, out dependencies) &&
+                      dependencies != null))
+                {
+                    return;
+                }
+                
+                background.SetActive(true);
+                attrName.text = AttributeViewModel.attributeDescriptionSettings[attrType.Value][0];
+                attrDescription.text = AttributeViewModel.attributeDescriptionSettings[attrType.Value][1];
+                attrAmount.text = AttributeViewModel.attributeDescriptionSettings[attrType.Value][2];
+                LayoutRebuilder.ForceRebuildLayoutImmediate(background.GetComponent<RectTransform>());
+            }
+
+            OnChanged(null, null);
+            attrType.PropertyChanged += OnChanged;
+
+            foreach (var dependence in dependencies)
+            {
+                dependence.PropertyChanged += OnChanged;
+            }
+            
+            return () =>
+            {
+                foreach (var dependence in dependencies)
+                {
+                    dependence.PropertyChanged -= OnChanged;
+                }
             };
         }
         

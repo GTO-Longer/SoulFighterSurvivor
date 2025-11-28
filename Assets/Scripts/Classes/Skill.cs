@@ -24,6 +24,9 @@ namespace Classes{
         public float destinationDistance => _destinationDistance / 100f;
         public float coolDownTimer;
         public float specialTimer;
+        /// <summary>
+        /// 特殊CD（比如内置CD）
+        /// </summary>
         public float specialCoolDown = 0;
         public event Action OnSpecialTimeOut; 
         
@@ -51,7 +54,6 @@ namespace Classes{
         protected List<List<float>> _baseSkillValue;
         protected float _skillRange;
         protected BulletType[] _skillBulletType;
-        protected SkillUsageType[] _skillUsageType;
         protected float _castTime;
         protected float _bulletWidth;
         protected float _bulletSpeed;

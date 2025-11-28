@@ -54,6 +54,7 @@
     <Compile Include="Assets\Scripts\Classes\Skills\EssenceTheft.cs" />
     <Compile Include="Assets\Scripts\DataManagement\Property.cs" />
     <Compile Include="Assets\Scripts\MVVM\ViewModels\TargetAttributeViewModel.cs" />
+    <Compile Include="Assets\Scripts\MVVM\ViewModels\AttributeViewModel.cs" />
     <Compile Include="Assets\Scripts\Classes\Entity.cs" />
     <Compile Include="Assets\Scripts\Systems\TestSystem.cs" />
     <Compile Include="Assets\Scripts\Classes\Bullet.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="Assets\Scripts\Systems\CameraSystem.cs" />
     <Compile Include="Assets\Scripts\Classes\Entities\Enemy.cs" />
     <Compile Include="Assets\Scripts\Systems\EventSystem.cs" />
+    <Compile Include="Assets\Scripts\Components\UI\AttributeButton.cs" />
     <Compile Include="Assets\Scripts\Factories\ScreenTextFactory.cs" />
     <Compile Include="Assets\Scripts\DataManagement\EntiyData.cs" />
     <Compile Include="Assets\Scripts\Classes\Entities\Hero.cs" />

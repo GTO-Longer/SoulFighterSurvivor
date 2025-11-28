@@ -160,6 +160,7 @@ namespace Classes.Entities
                               "\nSkillDescription:" + skillList[(int)SkillType.RSkill].GetDescription());
                 }
 
+                // 绑定技能升级按钮
                 for (var index = (int)SkillType.QSkill; index <= (int)SkillType.RSkill; index++)
                 {
                     var skill = skillList[index];
@@ -596,6 +597,19 @@ namespace Classes.Entities
                 magicPoint.Value += maxMagicPoint.Value - maxMagicPointCache;
             }
         }
+
+        /// <summary>
+        /// 技能升级
+        /// </summary>
+        /// <param name="skill"></param>
+        public void SkillUpgrade(Skill skill)
+        {
+            if (skillPoint > 0 && skill.skillType != SkillType.PassiveSkill)
+            {
+                skill.SkillUpgrade();
+                skillPoint -= 1;
+            }
+        }
         
         #region 私有工具函数
         /// <summary>
@@ -614,15 +628,6 @@ namespace Classes.Entities
                     targetRot,
                     rotationSpeed * Time.deltaTime
                 );
-            }
-        }
-
-        private void SkillUpgrade(Skill skill)
-        {
-            if (skillPoint > 0 && skill.skillType != SkillType.PassiveSkill)
-            {
-                skill.SkillUpgrade();
-                skillPoint -= 1;
             }
         }
         

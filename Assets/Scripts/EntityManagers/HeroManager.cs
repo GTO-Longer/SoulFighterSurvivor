@@ -1,6 +1,7 @@
 using UnityEngine;
 using DataManagement;
 using Classes.Entities;
+using Utilities;
 
 namespace EntityManagers
 {
@@ -26,22 +27,51 @@ namespace EntityManagers
 
             if (Input.GetKeyDown(KeyCode.Q) && hero.canUseSkill)
             {
-                hero.QSkillRelease();
+                if (Input.GetKey(KeyCode.LeftControl))
+                {
+                    hero.SkillUpgrade(hero.skillList[(int)SkillType.QSkill]);
+                }
+                else
+                {
+                    hero.QSkillRelease();
+                }
             }
 
             if (Input.GetKeyDown(KeyCode.W) && hero.canUseSkill)
             {
-                hero.WSkillRelease();
+                if (Input.GetKey(KeyCode.LeftControl))
+                {
+                    hero.SkillUpgrade(hero.skillList[(int)SkillType.WSkill]);
+                }
+                else
+                {
+                    hero.WSkillRelease();
+                }
             }
 
             if (Input.GetKeyDown(KeyCode.E) && hero.canUseSkill)
             {
-                hero.ESkillRelease();
+
+                if (Input.GetKey(KeyCode.LeftControl))
+                {
+                    hero.SkillUpgrade(hero.skillList[(int)SkillType.ESkill]);
+                }
+                else
+                {
+                    hero.ESkillRelease();
+                }
             }
 
             if (Input.GetKeyDown(KeyCode.R) && hero.canUseSkill)
             {
-                hero.RSkillRelease();
+                if (Input.GetKey(KeyCode.LeftControl))
+                {
+                    hero.SkillUpgrade(hero.skillList[(int)SkillType.RSkill]);
+                }
+                else
+                {
+                    hero.RSkillRelease();
+                }
             }
         }
     }

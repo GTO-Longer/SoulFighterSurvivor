@@ -92,6 +92,7 @@ namespace Classes.Entities
                 _baseMovementSpeed = config._baseMovementSpeed;
                 _baseScale = config._baseScale;
                 _attackWindUp = config._attackWindUp;
+                _attackSpeedYield = config._attackSpeedYield;
 
                 _maxHealthPointGrowth = config._maxHealthPointGrowth;
                 _maxMagicPointGrowth = config._maxMagicPointGrowth;
@@ -607,10 +608,10 @@ namespace Classes.Entities
         {
             if (skillPoint > 0 && skill.skillType != SkillType.PassiveSkill)
             {
-                SkillViewModel.chosenSkill.Value = null;
                 skill.SkillUpgrade();
                 skillPoint -= 1;
-                SkillViewModel.chosenSkill.Value = skill;
+                
+                SkillViewModel.chosenSkill.Value = SkillViewModel.chosenSkill.Value != null ? skill : null;
             }
         }
         

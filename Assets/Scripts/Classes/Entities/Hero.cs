@@ -11,6 +11,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using Utilities;
+using Vector2 = UnityEngine.Vector2;
 
 namespace Classes.Entities
 {
@@ -34,7 +35,7 @@ namespace Classes.Entities
         public Property<bool> isMoving = new Property<bool>();
         public Property<bool> showAttributes = new Property<bool>();
 
-        public int skillPoint;
+        private int skillPoint;
         
         /// <summary>
         /// 是否启用自动攻击模式
@@ -232,6 +233,7 @@ namespace Classes.Entities
                 {
                     target.Value = null;
                     _agent.SetDestination(_mousePosition);
+                    // agent.SetDestination(_mousePosition);
                     _agent.stoppingDistance = 0;
                     _autoAttack = true;
                 }
@@ -265,6 +267,7 @@ namespace Classes.Entities
                 {
                     // 若没有物体则走到对应位置
                     _agent.SetDestination(_mousePosition);
+                    // agent.SetDestination(_mousePosition);
                     _agent.stoppingDistance = 0;
                     
                     // 打断当前的转身动作
@@ -317,6 +320,7 @@ namespace Classes.Entities
                     // 若有锁定的目标则持续索敌
                     // 走到敌人进入攻击范围为止
                     _agent.SetDestination(target.Value.gameObject.transform.position);
+                    // agent.SetDestination(target.Value.gameObject.transform.position);
                     _agent.isStopped = Vector2.Distance(gameObject.transform.position, target.Value.gameObject.transform.position)
                                        <= actualScale + actualAttackRange + 0.1f;
                 }

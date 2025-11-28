@@ -46,13 +46,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModulePhysics.cs" />
+    <Compile Include="Assets\Plugins\RVO2\src\Vector2.cs" />
+    <Compile Include="Assets\Plugins\RVO2\src\Simulator.cs" />
     <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModuleUtils.cs" />
+    <Compile Include="Assets\Plugins\RVO2\examples\Circle.cs" />
     <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModuleAudio.cs" />
     <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModuleSprite.cs" />
     <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModuleUI.cs" />
+    <Compile Include="Assets\Plugins\RVO2\src\Line.cs" />
     <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModulePhysics2D.cs" />
     <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
     <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModuleEPOOutline.cs" />
+    <Compile Include="Assets\Plugins\RVO2\examples\Blocks.cs" />
+    <Compile Include="Assets\Plugins\RVO2\src\RVOMath.cs" />
+    <Compile Include="Assets\Plugins\RVO2\src\KdTree.cs" />
+    <Compile Include="Assets\Plugins\RVO2\src\Agent.cs" />
+    <Compile Include="Assets\Plugins\RVO2\src\Obstacle.cs" />
+    <None Include="Assets\Plugins\RVO2\examples\CMakeLists.txt" />
+    <None Include="Assets\Plugins\RVO2\src\CMakeLists.txt" />
     <None Include="Assets\Plugins\Demigiant\DOTween\readme.txt" />
     <Reference Include="UnityEngine">
       <HintPath>D:\UnityHub3\2022.3.41f1c1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>

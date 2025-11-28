@@ -316,36 +316,34 @@ namespace MVVM
         /// <summary>
         /// 绑定技能
         /// </summary>
-        public static Action BindAttribute(GameObject background, TMP_Text attrName, TMP_Text attrDescription, TMP_Text attrAmount, Property<AttributeType> attrType)
+        public static Action BindAttribute(GameObject background, TMP_Text attrName, TMP_Text attrDescription, TMP_Text attrAmount, AttributeType attrType)
         {
             var dependencies = new List<Property<float>>();
             void OnChanged(object sender, EventArgs e)
             {
-                if (attrType.Value == AttributeType.None)
+                if (attrType == AttributeType.None)
                 {
                     background.SetActive(false);
-                    AttributeViewModel.UnBindEvent?.Invoke();
-                    AttributeViewModel.UnBindEvent = null;
+                    AttributeViewModel.instance.UnBindEvent?.Invoke();
+                    AttributeViewModel.instance.UnBindEvent = null;
                     return;
                 }
 
                 
-                if (!(AttributeViewModel.attributeDependenciesSettings.TryGetValue(attrType.Value, out dependencies) &&
+                if (!(AttributeViewModel.instance.attributeDependenciesSettings.TryGetValue(attrType, out dependencies) &&
                       dependencies != null))
                 {
                     return;
                 }
                 
                 background.SetActive(true);
-                attrName.text = AttributeViewModel.attributeDescriptionSettings[attrType.Value][0];
-                attrDescription.text = AttributeViewModel.attributeDescriptionSettings[attrType.Value][1];
-                attrAmount.text = AttributeViewModel.attributeDescriptionSettings[attrType.Value][2];
+                attrName.text = AttributeViewModel.instance.attributeDescriptionSettings[attrType][0].Invoke();
+                attrDescription.text = AttributeViewModel.instance.attributeDescriptionSettings[attrType][1].Invoke();
+                attrAmount.text = AttributeViewModel.instance.attributeDescriptionSettings[attrType][2].Invoke();
                 LayoutRebuilder.ForceRebuildLayoutImmediate(background.GetComponent<RectTransform>());
             }
 
             OnChanged(null, null);
-            attrType.PropertyChanged += OnChanged;
-
             foreach (var dependence in dependencies)
             {
                 dependence.PropertyChanged += OnChanged;

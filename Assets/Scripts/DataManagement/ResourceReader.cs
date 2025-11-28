@@ -24,6 +24,7 @@ namespace DataManagement
         public float _baseMovementSpeed;
         public float _baseScale;
         public float _attackWindUp;
+        public float _attackSpeedYield;
 
         // 成长属性
         public float _maxHealthPointGrowth;

@@ -31,13 +31,13 @@ namespace Components.UI
         {
             if (attributeType != AttributeType.None)
             {
-                AttributeViewModel.chosenAttribute.Value = attributeType;
+                AttributeViewModel.instance.BindAttributePanel(attributeType);
             }
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            AttributeViewModel.chosenAttribute.Value = AttributeType.None;
+            AttributeViewModel.instance.UnBindAttribute();
         }
 
         public void OnButtonClick()

@@ -25,8 +25,10 @@ namespace EntityManagers
             hero.Regenerate();
             hero.SkillCoolDown();
 
+            // 技能释放
             if (Input.GetKeyDown(KeyCode.Q) && hero.canUseSkill)
             {
+                // 快捷键升级技能
                 if (Input.GetKey(KeyCode.LeftControl))
                 {
                     hero.SkillUpgrade(hero.skillList[(int)SkillType.QSkill]);

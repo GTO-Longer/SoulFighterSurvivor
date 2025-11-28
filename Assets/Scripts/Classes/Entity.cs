@@ -218,10 +218,6 @@ namespace Classes
         /// 百分比攻击速度加成
         /// </summary>
         public Property<float> _percentageAttackSpeedBonus;
-        /// <summary>
-        /// 攻速收益率
-        /// </summary>
-        public Property<float> _attackSpeedYield;
         
         // 攻击力相关
         /// <summary>
@@ -476,6 +472,10 @@ namespace Classes
         /// 攻击蓄力占比
         /// </summary>
         protected float _attackWindUp;
+        /// <summary>
+        /// 攻速收益率
+        /// </summary>
+        public float _attackSpeedYield;
 
         #endregion
         
@@ -539,6 +539,10 @@ namespace Classes
         /// 基础魔法抗性
         /// </summary>
         public float baseMagicDefense => _baseMagicDefense + _magicDefenseGrowth * level;
+        /// <summary>
+        /// 基础移动速度
+        /// </summary>
+        public float baseMovementSpeed => _baseMovementSpeed + _movementSpeedBonus;
         
         #endregion
         
@@ -752,7 +756,7 @@ namespace Classes
             abilityPower = new Property<float>(() => _abilityPowerBonus * (1 + _percentageAbilityPowerBonus),
                 DataType.Int,
                 _abilityPowerBonus, _percentageAbilityPowerBonus);
-            attackSpeed = new Property<float>(() => (_baseAttackSpeed + _attackSpeedGrowth * level + _attackSpeedBonus) * (1 + _percentageAttackSpeedBonus),
+            attackSpeed = new Property<float>(() => (_baseAttackSpeed + _attackSpeedGrowth * level + _attackSpeedBonus * _attackSpeedYield) * (1 + _percentageAttackSpeedBonus),
                 DataType.Float,
                 level, _attackSpeedBonus, _percentageAttackSpeedBonus);
             abilityHaste = new Property<float>(() => _abilityHasteBonus * (1 + _percentageAbilityHasteBonus),

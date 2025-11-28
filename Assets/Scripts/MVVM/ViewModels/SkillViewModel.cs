@@ -29,6 +29,7 @@ namespace MVVM.ViewModels
             
             skillTips.gameObject.SetActive(false);
             
+            // 绑定技能介绍面板
             UnBindEvent += Binder.BindSkill(skillIcon, background, skillName, skillLevel, skillCoolDown, skillCost, skillDescription, chosenSkill);
         }
 

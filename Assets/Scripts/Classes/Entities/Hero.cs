@@ -4,6 +4,7 @@ using System.Reflection;
 using DataManagement;
 using DG.Tweening;
 using Factories;
+using MVVM.ViewModels;
 using Systems;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -606,8 +607,10 @@ namespace Classes.Entities
         {
             if (skillPoint > 0 && skill.skillType != SkillType.PassiveSkill)
             {
+                SkillViewModel.chosenSkill.Value = null;
                 skill.SkillUpgrade();
                 skillPoint -= 1;
+                SkillViewModel.chosenSkill.Value = skill;
             }
         }
         

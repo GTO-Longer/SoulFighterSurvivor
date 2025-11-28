@@ -299,7 +299,7 @@ namespace MVVM
                 skillIcon.sprite = skillSource.Value.skillIcon.sprite;
                 skillName.text = skillSource.Value.skillName;
                 skillLevel.text = skillSource.Value.skillLevel == 0 ? "无等级" :$"技能等级{skillSource.Value.skillLevel:F0}";
-                skillCoolDown.text = skillSource.Value.actualSkillCoolDown == 0 ? "无冷却" : $"{skillSource.Value.actualSkillCoolDown:F1}秒";
+                skillCoolDown.text = skillSource.Value.actualSkillCoolDown == 0 ? "无冷却" : $"{skillSource.Value.actualSkillCoolDown:0.#}秒";
                 skillCost.text = skillSource.Value.actualSkillCost == 0 ? "无消耗" : $"{skillSource.Value.actualSkillCost:F0}法力值";
                 skillDescription.text = skillSource.Value.GetDescription();
                 LayoutRebuilder.ForceRebuildLayoutImmediate(background.GetComponent<RectTransform>());

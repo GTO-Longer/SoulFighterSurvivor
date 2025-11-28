@@ -606,12 +606,16 @@ namespace Classes.Entities
         /// <param name="skill"></param>
         public void SkillUpgrade(Skill skill)
         {
-            if (skillPoint > 0 && skill.skillType != SkillType.PassiveSkill)
+            if (skillPoint > 0 && skill.skillType is >= SkillType.QSkill and <= SkillType.RSkill)
             {
                 skill.SkillUpgrade();
                 skillPoint -= 1;
-                
-                SkillViewModel.chosenSkill.Value = SkillViewModel.chosenSkill.Value != null ? skill : null;
+
+                if (SkillViewModel.chosenSkill.Value != null)
+                {
+                    SkillViewModel.chosenSkill.Value = null;
+                    SkillViewModel.chosenSkill.Value = skill;
+                }
             }
         }
         

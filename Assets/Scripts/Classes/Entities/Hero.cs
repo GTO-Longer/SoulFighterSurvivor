@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using DataManagement;
 using DG.Tweening;
@@ -250,7 +251,14 @@ namespace Classes.Entities
                 else
                 {
                     _autoAttack = true;
-                    target.Value = obj[0].GetComponent<EntityData>().entity;
+
+                    foreach (var result in obj)
+                    {
+                        if (result.GetComponent<EntityData>())
+                        {
+                            target.Value = result.GetComponent<EntityData>().entity;
+                        }
+                    }
                 }
                 
                 if (target.Value.IsUnityNull())
@@ -470,13 +478,10 @@ namespace Classes.Entities
             {
                 if (ToolFunctions.IsObjectAtMousePoint(out var results, gameObject.tag))
                 {
-                    foreach (var result in results)
+                    foreach (var result in results.Where(result => result.GetComponent<EntityData>()))
                     {
-                        if (result.GetComponent<EntityData>())
-                        {
-                            target.Value = result.GetComponent<EntityData>().entity;
-                            break;
-                        }
+                        target.Value = result.GetComponent<EntityData>().entity;
+                        break;
                     }
                 }
             }

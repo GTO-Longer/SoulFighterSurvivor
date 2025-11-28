@@ -470,7 +470,14 @@ namespace Classes.Entities
             {
                 if (ToolFunctions.IsObjectAtMousePoint(out var results, gameObject.tag))
                 {
-                    target.Value = results[0].GetComponent<EntityData>().entity;
+                    foreach (var result in results)
+                    {
+                        if (result.GetComponent<EntityData>())
+                        {
+                            target.Value = result.GetComponent<EntityData>().entity;
+                            break;
+                        }
+                    }
                 }
             }
         }

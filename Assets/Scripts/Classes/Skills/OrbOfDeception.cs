@@ -1,4 +1,3 @@
-using System;
 using Factories;
 using MVVM;
 using MVVM.ViewModels;
@@ -57,7 +56,7 @@ namespace Classes.Skills
                 // 计算飞出目标点
                 var mouseWorld = CameraSystem._mainCamera.ScreenToWorldPoint(Input.mousePosition);
                 var direction = ((Vector2)mouseWorld - (Vector2)owner.gameObject.transform.position).normalized;
-                var targetPosition = (Vector2)owner.gameObject.transform.position + direction * actualSkillRange;
+                var targetPosition = (Vector2)owner.gameObject.transform.position + direction * skillRange;
                 
                 // 吟唱时间
                 Async.SetAsync(_castTime, null, () =>
@@ -88,7 +87,7 @@ namespace Classes.Skills
                             if (!hasInitialized)
                             {
                                 // 计算加速度
-                                acceleration = (bulletSpeed * bulletSpeed) / (2f * actualSkillRange);
+                                acceleration = (bulletSpeed * bulletSpeed) / (2f * skillRange);
                                 
                                 // 初速度
                                 speed = direction * bulletSpeed;
@@ -148,8 +147,7 @@ namespace Classes.Skills
                             }
 
                             // 命中检测
-                            var target = ToolFunctions.IsOverlappingOtherTag(self.gameObject);
-                            if (target != null)
+                            if (ToolFunctions.IsOverlappingOtherTag(self.gameObject, out var target))
                             {
                                 if (self.target == null || !target.Equals(self.target))
                                 {

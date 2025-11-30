@@ -1,10 +1,10 @@
 {
   "dependencies": {
-    "com.coffee.softmask-for-ugui": "https://github.com/mob-sakai/SoftMaskForUGUI.git?path=Packages/src",
     "com.h8man.2d.navmeshplus": "https://github.com/h8man/NavMeshPlus.git",
     "com.unity.addressables": "1.22.3",
-    "com.unity.ai.navigation": "1.1.7",
+    "com.unity.ai.navigation": "1.1.5",
     "com.unity.collab-proxy": "2.4.4",
+    "com.unity.collections": "1.4.0",
     "com.unity.feature.2d": "2.0.1",
     "com.unity.ide.rider": "3.0.31",
     "com.unity.ide.visualstudio": "2.0.22",
@@ -42,9 +42,7 @@
     "com.unity.modules.unitywebrequesttexture": "1.0.0",
     "com.unity.modules.unitywebrequestwww": "1.0.0",
     "com.unity.modules.vehicles": "1.0.0",
-    "com.unity.modules.video": "1.0.0",
-    "com.unity.modules.vr": "1.0.0",
-    "com.unity.modules.wind": "1.0.0",
-    "com.unity.modules.xr": "1.0.0"
+    "com.unity.modules.video": "1.0.0"
   }
 }
+

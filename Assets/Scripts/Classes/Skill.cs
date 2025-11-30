@@ -16,12 +16,12 @@ namespace Classes{
         public int skillLevel => _skillLevel;
         public SkillType skillType => _skillType;
         public float skillCost => _baseSkillCost[Math.Max(0, _skillLevel - 1)];
-        public float actualSkillRange => _skillRange / 100f;
+        public float skillRange => _skillRange;
         public float actualSkillCoolDown => specialCoolDown != 0 ? specialCoolDown :_baseSkillCoolDown[Math.Max(0, _skillLevel - 1)] * owner.actualAbilityCooldown;
         public float actualSkillCost => _baseSkillCost[Math.Max(0, _skillLevel - 1)];
-        public float bulletWidth => _bulletWidth / 100f;
-        public float bulletSpeed => _bulletSpeed / 100f;
-        public float destinationDistance => _destinationDistance / 100f;
+        public float bulletWidth => _bulletWidth;
+        public float bulletSpeed => _bulletSpeed;
+        public float destinationDistance => _destinationDistance;
         public float coolDownTimer;
         public float specialTimer;
         /// <summary>

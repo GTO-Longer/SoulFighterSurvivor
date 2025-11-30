@@ -4,8 +4,6 @@ using Classes;
 using DataManagement;
 using Systems;
 using UnityEngine;
-using UnityEngine.AI;
-
 
 namespace Utilities
 {
@@ -14,11 +12,12 @@ namespace Utilities
         /// <summary>
         /// 检测圆形范围内是否有与指定tag不同的其他碰撞体，并返回最近的一个Entity
         /// </summary>
-        public static Entity IsOverlappingOtherTag(GameObject obj, float radius = 0)
+        public static bool IsOverlappingOtherTag(GameObject obj, out Entity entity , float radius = 0)
         {
             var excludeTag = obj.tag;
             var collider = obj.GetComponent<CircleCollider2D>();
-            if (collider == null) return null;
+            entity = null;
+            if (collider == null) return false;
             
             var _overlapColliders = new Collider2D[20];
 
@@ -31,10 +30,7 @@ namespace Utilities
 
             // 获取所有重叠的碰撞箱
             var count = Physics2D.OverlapCircleNonAlloc(center, radius, _overlapColliders);
-
-            Entity targetEntity = null;
             var nearestDistanceSqr = float.MaxValue;
-
             for (var i = 0; i < count; i++)
             {
                 var col = _overlapColliders[i];
@@ -57,11 +53,54 @@ namespace Utilities
                 if (distSqr < nearestDistanceSqr)
                 {
                     nearestDistanceSqr = distSqr;
-                    targetEntity = entityData.entity;
+                    entity = entityData.entity;
                 }
             }
 
-            return targetEntity;
+            return entity != null;
+        }
+        
+        /// <summary>
+        /// 检测圆形范围内是否目标Entity
+        /// </summary>
+        public static bool IsOverlappingTarget(GameObject obj, GameObject target, float radius = 0)
+        {
+            var collider = obj.GetComponent<CircleCollider2D>();
+            if (collider == null) return false;
+            
+            var _overlapColliders = new Collider2D[20];
+
+            Vector2 center = collider.bounds.center;
+            
+            if (radius == 0)
+            {
+                radius = collider.radius * collider.transform.lossyScale.x;
+            }
+
+            // 获取所有重叠的碰撞箱
+            var count = Physics2D.OverlapCircleNonAlloc(center, radius, _overlapColliders);
+            for (var i = 0; i < count; i++)
+            {
+                var col = _overlapColliders[i];
+                if (col == null) continue;
+
+                var otherGo = col.gameObject;
+                
+                // 跳过没有Tag的对象
+                if (otherGo.CompareTag("Untagged")) continue;
+
+                // 获取EntityData，没有则跳过
+                var entityData = otherGo.GetComponent<EntityData>();
+                if (entityData == null) continue;
+
+                // 判断实例id是否相同
+                if (otherGo.GetInstanceID() == target.GetInstanceID())
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public static Entity[] IsOverlappingOtherTagAll(GameObject obj, float radius = 0)

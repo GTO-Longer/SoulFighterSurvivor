@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Factories;
 using MVVM;
@@ -121,9 +120,9 @@ namespace Classes.Skills
 
                                 if (continuousTime > 0.4f + index * 0.1f)
                                 {
-                                    self.target = ToolFunctions.IsOverlappingOtherTag(self.owner.gameObject, actualSkillRange);
-                                    if (self.target != null)
+                                    if (ToolFunctions.IsOverlappingOtherTag(self.owner.gameObject, out var targetEntity, skillRange))
                                     {
+                                        self.target = targetEntity;
                                         self.bulletStateID = 2;
                                     }
                                 }
@@ -146,7 +145,7 @@ namespace Classes.Skills
                                 self.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
 
                                 // 子弹的销毁逻辑
-                                if (Vector3.Distance(self.gameObject.transform.position, self.target.gameObject.transform.position) <= self.target.actualScale)
+                                if (Vector3.Distance(self.gameObject.transform.position, self.target.gameObject.transform.position) <= self.target.scale)
                                 {
                                     self.BulletHit();
                                     self.Destroy();

@@ -1,13 +1,15 @@
 using Factories;
+using RVO;
 using UnityEngine;
-using UnityEngine.AI;
 using Utilities;
 
 namespace Classes.Entities
 {
     public class Enemy : Entity
     {
-        private readonly NavMeshAgent _agent;
+        private readonly RVOAgent _agent;
+        
+        private Transform _attackRangeIndicator;
         
         /// <summary>
         /// 攻击计时器
@@ -20,7 +22,7 @@ namespace Classes.Entities
         /// <summary>
         /// 普攻弹道速度
         /// </summary>
-        private const float attackBulletSpeed = 15f;
+        private const float attackBulletSpeed = 1500f;
 
         public Entity target;
         
@@ -60,16 +62,18 @@ namespace Classes.Entities
             _team = Team.Enemy;
             
             // 配置敌人寻路组件
-            _agent = _gameObject.GetComponent<NavMeshAgent>();
-            _agent.updateUpAxis = false;
-            _agent.updateRotation = false;
-            _agent.speed = actualMovementSpeed;
+            _agent = _gameObject.GetComponent<RVOAgent>();
             
             // 配置敌人体型
-            _gameObject.transform.localScale = new Vector2(actualScale * 2, actualScale * 2);
+            _gameObject.transform.localScale = new Vector2(scale * 2, scale * 2);
             
             // 创建状态条
             StateBarFactory.Instance.Spawn(this);
+            
+            // 配置攻击距离指示器
+            _attackRangeIndicator = _gameObject.transform.Find("AttackRangeIndicator");
+            _attackRangeIndicator.localScale = new Vector2(attackRange / scale, attackRange / scale);
+            _attackRangeIndicator.GetComponent<SpriteRenderer>().enabled = false;
             
             // 其他变量初始化
             level.Value = 1;
@@ -81,10 +85,7 @@ namespace Classes.Entities
         public override void Move()
         {
             _agent.SetDestination(target.gameObject.transform.position);
-            _agent.stoppingDistance = actualAttackRange + target.actualScale;
-            
-            var distance = Vector3.Distance(target.gameObject.transform.position, gameObject.transform.position);
-            _agent.isStopped = distance <= _agent.stoppingDistance + 0.5f;
+            _agent.isStopped = ToolFunctions.IsOverlappingTarget(_gameObject, target.gameObject);
         }
 
         public override void Attack()
@@ -93,7 +94,6 @@ namespace Classes.Entities
             {
                 _attackTimer += Time.deltaTime;
             }
-            
 
             if (_attackTimer < actualAttackInterval || !_agent.isStopped)
             {

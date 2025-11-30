@@ -149,18 +149,6 @@ namespace Classes
         #region 实际属性
         
         /// <summary>
-        /// 实际移动速度
-        /// </summary>
-        protected float actualMovementSpeed => movementSpeed / 100f;
-        /// <summary>
-        /// 实际射程
-        /// </summary>
-        protected float actualAttackRange => attackRange / 100f;
-        /// <summary>
-        /// 实际体型（半径）
-        /// </summary>
-        public float actualScale => scale / 100f;
-        /// <summary>
         /// 实际冷却缩减
         /// </summary>
         public float actualAbilityCooldown => 100f / (abilityHaste + 100f);
@@ -561,7 +549,7 @@ namespace Classes
                 DamageType.None => Color.black,
                 _ => throw new ArgumentOutOfRangeException(nameof(damageType), damageType, null)
             };
-           ScreenTextFactory.Instance.Spawn(_gameObject.transform.position, $"-{damageCount:F0}", 0.5f, 0.5f, 0.6f, color);
+           ScreenTextFactory.Instance.Spawn(_gameObject.transform.position, $"-{damageCount:F0}", 0.5f, 50f, 0.6f, color);
            
             healthPoint.Value -= damageCount;
             if (healthPoint.Value < 0)

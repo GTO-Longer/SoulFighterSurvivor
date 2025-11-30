@@ -7,16 +7,16 @@ namespace Systems
         public Transform focusTarget;
 
         [Header("摄像机边缘拖动设置")]
-        public float cameraMoveSpeed = 10f;
-        public float edgeBuffer = 50f;
+        private const float cameraMoveSpeed = 1000f;
+        private const float edgeBuffer = 50f;
 
         [Header("摄像机缩放设置")]
-        private const float zoomSensitivity = 2f;
-        private const float minOrthographicSize = 5f;
-        private const float maxOrthographicSize = 10f;
+        private const float zoomSensitivity = 100f;
+        private const float minOrthographicSize = 500f;
+        private const float maxOrthographicSize = 1000f;
 
         [Header("跟随设置")]
-        public bool isFollowing = false;
+        public bool isFollowing;
         public float followSpeed = 5f;
 
         public static Camera _mainCamera;
@@ -59,7 +59,7 @@ namespace Systems
 
             if (direction != Vector3.zero)
             {
-                _mainCamera.transform.position += direction.normalized * cameraMoveSpeed * Time.deltaTime;
+                _mainCamera.transform.position += direction.normalized * (cameraMoveSpeed * Time.deltaTime);
             }
         }
 

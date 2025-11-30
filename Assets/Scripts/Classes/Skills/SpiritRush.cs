@@ -88,7 +88,7 @@ namespace Classes.Skills
                 owner.Dash(destinationDistance, dashDuration, direction, () =>
                 {
                     // 到目的地检测是否有敌人
-                    var targets = ToolFunctions.IsOverlappingOtherTagAll(owner.gameObject, actualSkillRange);
+                    var targets = ToolFunctions.IsOverlappingOtherTagAll(owner.gameObject, skillRange);
                     if (targets != null)
                     {
                         var spiritOrbList = new List<Bullet>
@@ -138,7 +138,7 @@ namespace Classes.Skills
 
                                     // 子弹的销毁逻辑
                                     if (Vector3.Distance(self.gameObject.transform.position,
-                                            self.target.gameObject.transform.position) <= self.target.actualScale)
+                                            self.target.gameObject.transform.position) <= self.target.scale)
                                     {
                                         self.BulletHit();
                                         self.Destroy();

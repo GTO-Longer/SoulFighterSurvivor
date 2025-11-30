@@ -92,7 +92,7 @@ namespace Classes.Skills
                             }
 
                             // 到达目标位置
-                            if (Vector2.Distance(self.gameObject.transform.position, owner.gameObject.transform.position) > actualSkillRange)
+                            if (Vector2.Distance(self.gameObject.transform.position, owner.gameObject.transform.position) > skillRange)
                             {
                                 self.Destroy();
                             }
@@ -105,8 +105,7 @@ namespace Classes.Skills
                             }
 
                             // 技能命中判定
-                            var target = ToolFunctions.IsOverlappingOtherTag(self.gameObject);
-                            if (target != null)
+                            if (ToolFunctions.IsOverlappingOtherTag(self.gameObject, out var target))
                             {
                                 if (self.target == null || !target.Equals(self.target))
                                 {

@@ -171,7 +171,7 @@ namespace Classes.Entities
             var hero = entity as Hero;
 
             var totalExp = experience.Value + 5f * (level - 1) * (level - 1) + 80f * (level - 1) + 195;
-            hero?.GetExperience(100 + totalExp * 0.2f);
+            hero?.GetExperience(100 + totalExp * 3.4f / (level.Value + 16));
             isAlive = false;
             EnemyFactory.Instance.Despawn(gameObject.GetComponent<EnemyManager>());
         }

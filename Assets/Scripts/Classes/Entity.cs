@@ -27,7 +27,8 @@ namespace Classes
         public RVOAgent agent => _agent;
         public bool isAlive;
         protected const int maxLevel = 18;
-        protected int skillPoint;
+        protected int _skillPoint;
+        public int skillPoint => _skillPoint;
         
         #region 最终属性
 
@@ -592,6 +593,7 @@ namespace Classes
             if (healthPoint.Value <= 0)
             {
                 healthPoint.Value = 0;
+                damageSource.KillEntity(damageSource, this);
                 Die(damageSource);
             }
         }
@@ -648,7 +650,7 @@ namespace Classes
                 var maxMagicPointCache = maxMagicPoint.Value;
 
                 level.Value += 1;
-                skillPoint += 1;
+                _skillPoint += 1;
 
                 healthPoint.Value += maxHealthPoint.Value - maxHealthPointCache;
                 magicPoint.Value += maxMagicPoint.Value - maxMagicPointCache;

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Classes.Entities;
 using DataManagement;
+using EntityManagers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -30,7 +31,7 @@ namespace Classes{
         public float specialCoolDown = 0;
         public event Action OnSpecialTimeOut; 
         
-        protected int _skillLevel = 0;
+        protected int _skillLevel;
         protected int _maxSkillLevel = 0;
         protected int skillLevelToIndex => Math.Max(0, _skillLevel - 1);
 
@@ -40,6 +41,7 @@ namespace Classes{
         public Image skillCoolDownMask;
         public Image skillIcon;
         public TMP_Text skillCD;
+        public TMP_Text skillCharge;
         public Button upgradeButton;
 
         /// <summary>
@@ -66,6 +68,7 @@ namespace Classes{
             skillIcon = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{_skillType.ToString()}/SkillIcon").GetComponent<Image>();
             skillCoolDownMask = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{_skillType.ToString()}/CDMask")?.GetComponent<Image>();
             skillCD = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{_skillType.ToString()}/SkillCD")?.GetComponent<TMP_Text>();
+            skillCharge = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{_skillType.ToString()}/SkillCharge")?.GetComponent<TMP_Text>();
             upgradeButton = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{_skillType.ToString()}/UpgradeButton")?.GetComponent<Button>();
             
             skillIcon.sprite = ResourceReader.ReadIcon(name);
@@ -129,6 +132,25 @@ namespace Classes{
         public void SpecialTimeOut()
         {
             OnSpecialTimeOut?.Invoke();
+        }
+
+        public void UpdateSkillUI()
+        {
+            // 设置技能冷却mask和文字
+            if (skillCoolDownMask != null && skillCD != null)
+            {
+                skillCoolDownMask.fillAmount = skillCoolDownProportion;
+                skillCD.text = actualSkillCoolDown - coolDownTimer >= 1 ? $"{actualSkillCoolDown - coolDownTimer:F0}" : $"{actualSkillCoolDown - coolDownTimer:F1}";
+                skillCD.gameObject.SetActive(skillCoolDownProportion > 0);
+                skillCharge.text = skillChargeCount.ToString();
+                skillCharge.gameObject.SetActive(maxSkillChargeCount > 0);
+                    
+                if (skillType is >= SkillType.QSkill and <= SkillType.RSkill)
+                {
+                    upgradeButton.gameObject.SetActive(HeroManager.hero.skillPoint > 0);
+                    upgradeButton.interactable = SkillCanUpgrade();
+                }
+            }
         }
     }
 }

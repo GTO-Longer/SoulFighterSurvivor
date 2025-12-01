@@ -183,7 +183,7 @@ namespace Classes.Entities
             _attackTimer = 0;
             _regenerateTimer = 0;
             _attackWindUpTimer = 0;
-            skillPoint = 0;
+            _skillPoint = 0;
             level.Value = 0;
             experience.Value = 0;
             magicPoint.Value = maxMagicPoint.Value;
@@ -415,18 +415,7 @@ namespace Classes.Entities
                     skill.specialTimer -= Time.deltaTime;
                 }
 
-                // 设置技能冷却mask和文字
-                if (skill.skillCoolDownMask != null && skill.skillCD != null && skill.upgradeButton != null)
-                {
-                    skill.skillCoolDownMask.fillAmount = skill.skillCoolDownProportion;
-                    skill.skillCD.text = skill.actualSkillCoolDown - skill.coolDownTimer >= 1 ? $"{skill.actualSkillCoolDown - skill.coolDownTimer:F0}" : $"{skill.actualSkillCoolDown - skill.coolDownTimer:F1}";
-                    skill.skillCD.gameObject.SetActive(skill.skillCoolDownProportion > 0);
-                    if (skill.skillType is >= SkillType.QSkill and <= SkillType.RSkill)
-                    {
-                        skill.upgradeButton.gameObject.SetActive(skillPoint > 0);
-                        skill.upgradeButton.interactable = skill.SkillCanUpgrade();
-                    }
-                }
+                skill.UpdateSkillUI();
             }
         }
 
@@ -527,10 +516,10 @@ namespace Classes.Entities
         /// </summary>
         public void SkillUpgrade(Skill skill)
         {
-            if (skillPoint > 0 && skill.skillType is >= SkillType.QSkill and <= SkillType.RSkill)
+            if (_skillPoint > 0 && skill.skillType is >= SkillType.QSkill and <= SkillType.RSkill)
             {
                 skill.SkillUpgrade();
-                skillPoint -= 1;
+                _skillPoint -= 1;
 
                 if (SkillViewModel.chosenSkill.Value != null)
                 {

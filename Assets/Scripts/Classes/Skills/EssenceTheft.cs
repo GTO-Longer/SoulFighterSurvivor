@@ -5,13 +5,13 @@ namespace Classes.Skills
 {
     public class EssenceTheft : Skill
     {
-        private int soulPieces;
         private float healCount => 35 + owner.level.Value / 3 * 10 + 0.2f * owner.abilityPower.Value;
         
         public EssenceTheft() : base("EssenceTheft")
         {
             _skillLevel = 0;
             _maxSkillLevel = 0;
+            maxSkillChargeCount = 5;
         }
 
         public override string GetDescription()
@@ -23,13 +23,14 @@ namespace Classes.Skills
         public override void SkillEffect()
         {
             Debug.Log(skillName + ":Skill effective");
-            owner.OnKillEntity += (_, _) => soulPieces++;
+            owner.OnKillEntity += (_, _) => skillChargeCount++;
             owner.EntityUpdateEvent += (_) =>
             {
-                if (soulPieces >= 9)
+                if (skillChargeCount >= maxSkillChargeCount)
                 {
-                    soulPieces = 0;
+                    skillChargeCount = 0;
                     owner.TakeHeal(healCount);
+                    owner.TakeMagicRecover(healCount);
                     if (owner.skillList[(int)SkillType.RSkill].specialTimer > 0 && 
                         owner.skillList[(int)SkillType.RSkill].skillChargeCount < owner.skillList[(int)SkillType.RSkill].maxSkillChargeCount)
                     {

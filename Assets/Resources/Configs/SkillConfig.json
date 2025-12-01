@@ -4,7 +4,7 @@
             "id": "EssenceTheft",
             "heroName": "Ahri",
             "skillName": "摄魂夺魄",
-            "_skillDescription": "击杀敌人会为阿狸提供一层【魂魄碎片】。在拥有9个碎片后，阿狸会吞噬掉它们来回复<color=#33FF33>{0:F0}生命值</color>。",
+            "_skillDescription": "击杀敌人会为阿狸提供一层【魂魄碎片】。在拥有5个碎片后，阿狸会吞噬掉它们来回复<color=#33FF33>{0:F0}生命值和法力值</color>。",
             "_skillType": "PassiveSkill",
             "_baseSkillCost": [
                 0

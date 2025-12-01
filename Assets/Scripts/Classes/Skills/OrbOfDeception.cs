@@ -48,8 +48,7 @@ namespace Classes.Skills
                     Binder.ShowText(SkillViewModel.instance.skillTips, "技能正在冷却", 1);
                     return;
                 }
-
-                owner.RotateToMousePoint();
+                
                 owner.magicPoint.Value -= _baseSkillCost[skillLevelToIndex];
                 coolDownTimer = 0;
                 
@@ -62,13 +61,15 @@ namespace Classes.Skills
                 Async.SetAsync(_castTime, null, () =>
                 {
                     owner.canUseSkill = false;
-                    owner.canCancelTurn = false;
+                    owner.canMove = false;
+                    owner.RotateTo(direction);
                 }, () =>
                 {
                     owner.canUseSkill = true;
-                    owner.canCancelTurn = true;
+                    owner.canMove = true;
+                    owner.agent.SetStop(false);
+                    
                     var deceptionOrb = BulletFactory.Instance.CreateBullet(owner);
-
                     deceptionOrb.OnBulletAwake += (self) =>
                     {
                         self.target = null;
@@ -147,7 +148,7 @@ namespace Classes.Skills
                             }
 
                             // 命中检测
-                            if (ToolFunctions.IsOverlappingOtherTag(self.gameObject, out var target))
+                            if (ToolFunctions.IsOverlappingOtherTag(self.gameObject, self.gameObject.tag, out var target))
                             {
                                 if (self.target == null || !target.Equals(self.target))
                                 {

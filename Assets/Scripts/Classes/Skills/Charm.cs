@@ -1,4 +1,3 @@
-using System;
 using Factories;
 using MVVM;
 using MVVM.ViewModels;
@@ -50,7 +49,6 @@ namespace Classes.Skills
                     return;
                 }
                 
-                owner.RotateToMousePoint();
                 owner.magicPoint.Value -= _baseSkillCost[skillLevelToIndex];
                 coolDownTimer = 0;
                 
@@ -62,13 +60,15 @@ namespace Classes.Skills
                 Async.SetAsync(_castTime, null, () =>
                 {
                     owner.canUseSkill = false;
-                    owner.canCancelTurn = false;
+                    owner.canMove = false;
+                    owner.RotateTo(direction);
                 }, () =>
                 {
                     owner.canUseSkill = true;
-                    owner.canCancelTurn = true;
+                    owner.canMove = true;
+                    owner.agent.SetStop(false);
+                    
                     var charm = BulletFactory.Instance.CreateBullet(owner);
-
                     charm.OnBulletAwake += (self) =>
                     {
                         self.target = null;
@@ -105,7 +105,7 @@ namespace Classes.Skills
                             }
 
                             // 技能命中判定
-                            if (ToolFunctions.IsOverlappingOtherTag(self.gameObject, out var target))
+                            if (ToolFunctions.IsOverlappingOtherTag(self.gameObject, self.gameObject.tag, out var target))
                             {
                                 if (self.target == null || !target.Equals(self.target))
                                 {

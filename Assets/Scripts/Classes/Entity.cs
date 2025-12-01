@@ -549,7 +549,7 @@ namespace Classes
                 DamageType.None => Color.black,
                 _ => throw new ArgumentOutOfRangeException(nameof(damageType), damageType, null)
             };
-           ScreenTextFactory.Instance.Spawn(_gameObject.transform.position, $"-{damageCount:F0}", 0.5f, 50f, 0.6f, color);
+           ScreenTextFactory.Instance.Spawn(_gameObject.transform.position, $"-{damageCount:F0}", 0.5f, 50f, 50f, color);
            
             healthPoint.Value -= damageCount;
             if (healthPoint.Value < 0)
@@ -608,10 +608,26 @@ namespace Classes
         /// </summary>
         public virtual void Attack(){}
         
+        private const float rotationSpeed = 10;
+        
         /// <summary>
-        /// 转向鼠标指针
+        /// 平滑转向指定方向
         /// </summary>
-        public virtual void RotateToMousePoint(){}
+        /// <param name="direction">方向</param>
+        public void RotateTo(Vector2 direction)
+        {
+            if (direction.sqrMagnitude > 0.01f)
+            {
+                var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                var targetRot = Quaternion.Euler(0, 0, angle);
+
+                _gameObject.transform.rotation = Quaternion.Slerp(
+                    _gameObject.transform.rotation,
+                    targetRot,
+                    rotationSpeed * Time.deltaTime
+                );
+            }
+        }
         
         #endregion
 

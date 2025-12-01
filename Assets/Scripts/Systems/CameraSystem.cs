@@ -11,7 +11,7 @@ namespace Systems
         private const float edgeBuffer = 50f;
 
         [Header("摄像机缩放设置")]
-        private const float zoomSensitivity = 100f;
+        private const float zoomSensitivity = 200f;
         private const float minOrthographicSize = 500f;
         private const float maxOrthographicSize = 1000f;
 

@@ -83,7 +83,7 @@ namespace Classes.Skills
                 var mouseWorldPos = CameraSystem._mainCamera.ScreenToWorldPoint(Input.mousePosition);
                 mouseWorldPos.z = owner.gameObject.transform.position.z;
                 var direction = (mouseWorldPos - owner.gameObject.transform.position).normalized;
-                const float r = 1.5f;
+                const float r = 150f;
 
                 owner.Dash(destinationDistance, dashDuration, direction, () =>
                 {

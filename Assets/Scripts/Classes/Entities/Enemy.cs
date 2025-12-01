@@ -8,7 +8,6 @@ namespace Classes.Entities
     public class Enemy : Entity
     {
         private readonly RVOAgent _agent;
-        
         private Transform _attackRangeIndicator;
         
         /// <summary>
@@ -85,7 +84,7 @@ namespace Classes.Entities
         public override void Move()
         {
             _agent.SetDestination(target.gameObject.transform.position);
-            _agent.isStopped = ToolFunctions.IsOverlappingTarget(_gameObject, target.gameObject);
+            _agent.SetStop(ToolFunctions.IsOverlappingTarget(_attackRangeIndicator.gameObject, target.gameObject));
         }
 
         public override void Attack()
@@ -131,7 +130,7 @@ namespace Classes.Entities
                         self.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
 
                         // 子弹的销毁逻辑
-                        const float destroyDistance = 0.3f;
+                        const float destroyDistance = 30f;
                         if (Vector3.Distance(self.gameObject.transform.position,
                                 self.target.gameObject.transform.position) <= destroyDistance)
                         {

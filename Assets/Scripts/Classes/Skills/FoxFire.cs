@@ -51,6 +51,7 @@ namespace Classes.Skills
 
                 owner.magicPoint.Value -= _baseSkillCost[skillLevelToIndex];
                 coolDownTimer = 0;
+                var attackIndex = 0;
 
                 // 获得2s内40%递减的加速
                 owner._percentageMovementSpeedBonus.Value += 0.4f;
@@ -70,7 +71,7 @@ namespace Classes.Skills
                 };
 
                 const float rotationSpeed = Mathf.PI;
-                const float r = 1.5f;
+                const float r = 150f;
 
                 for (var i = 0; i < foxFire.Count; i++)
                 {
@@ -120,7 +121,7 @@ namespace Classes.Skills
 
                                 if (continuousTime > 0.4f + index * 0.1f)
                                 {
-                                    if (ToolFunctions.IsOverlappingOtherTag(self.owner.gameObject, out var targetEntity, skillRange))
+                                    if (ToolFunctions.IsOverlappingOtherTag(self.gameObject, self.gameObject.tag, out var targetEntity, skillRange))
                                     {
                                         self.target = targetEntity;
                                         self.bulletStateID = 2;
@@ -158,7 +159,7 @@ namespace Classes.Skills
                     {
                         if (self.target != null)
                         {
-                            if (index == 0)
+                            if (attackIndex == 0)
                             {
                                 // 对20%生命值以下的敌人造成200%伤害
                                 if (self.target.healthPointProportion.Value <= 0.2f)
@@ -183,6 +184,7 @@ namespace Classes.Skills
                             }
                             
                             self.AbilityEffectActivate();
+                            attackIndex += 1;
                         }
                     };
 

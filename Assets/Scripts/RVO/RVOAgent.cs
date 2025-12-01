@@ -10,49 +10,37 @@ namespace RVO
     {
         private RVOManager manager;
         public Entity entity;
+        private NavMeshPath navPath;
+        public NavMeshAgent navAgent;
 
-        public bool isStopped;
-        private bool changeGoal;
+        /// <summary>
+        /// 是否停止寻路
+        /// </summary>
+        private bool _isStopped;
+        public bool isStopped => _isStopped;
+        
         public float2 goal;
-
         private int agentId = -1;
 
-        private NavMeshPath navPath;
+        private bool changeGoal;
         private int currentCornerIndex;
-        public bool forceNavWhenPathIncomplete = true;
-
-        public float neighborMultiplier = 3.0f;
-        public float neighborMinFactor = 1.5f;
-        public float neighborMax = 800f;
-
-        public float navSwitchDistanceFactor = 5f;
 
         public LayerMask unitsLayer;
         public LayerMask navObstacleLayer;
 
-        public bool debugDrawPath;
-        public bool enableDebugLogs = true;
-
-        public bool enableMinSpeedFallback = true;
-        public float minPrefVelThresholdFactor = 0.05f;
-        public float minSpeedFactor = 0.25f;
-
-        private float lastNavPathLength;
         /// <summary>
         /// 是否使用NavMesh寻路
         /// </summary>
         private bool useNavMeshMovement;
-
         public bool UsingNavMeshMovement => useNavMeshMovement;
-        public float LastNavPathLength => lastNavPathLength;
 
         private void Start()
         {
             manager = RVOManager.Instance;
             agentId = manager.AddAgent(this);
             entity = GetComponent<EntityData>().entity;
+            navAgent = GetComponent<NavMeshAgent>();
 
-            var navAgent = GetComponent<NavMeshAgent>();
             if (navAgent != null)
             {
                 navAgent.updateRotation = false;
@@ -65,7 +53,6 @@ namespace RVO
 
             navPath = new NavMeshPath();
             currentCornerIndex = 0;
-            lastNavPathLength = 0f;
             useNavMeshMovement = false;
         }
         
@@ -74,15 +61,15 @@ namespace RVO
         /// </summary>
         public void AgentUpdate()
         {
-            CheckReachTarget();
-            
             if (!isStopped)
             {
+                CheckReachTarget();
+                
                 var pos = manager.simulator.GetAgentPosition(agentId);
                 transform.position = new Vector3(pos.x, pos.y, 0f);
-
-                var velocity = manager.simulator.GetAgentVelocity(agentId);
-                transform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg);
+                
+                var velocity = (Vector2)manager.simulator.GetAgentVelocity(agentId);
+                entity.RotateTo(velocity);
             }
         }
 
@@ -91,6 +78,8 @@ namespace RVO
         /// </summary>
         public void SetDestination(Vector2 position)
         {
+            if (isStopped) return;
+            
             if (NavMesh.SamplePosition(position, out var hit, 1000f, NavMesh.AllAreas))
             {
                 goal = new float2(hit.position.x, hit.position.y);
@@ -103,7 +92,9 @@ namespace RVO
             changeGoal = true;
         }
 
-        // 检查是否需要更换寻路方式
+        /// <summary>
+        /// 检查是否需要更换寻路方式
+        /// </summary>
         public void ChangePathFindMethod(float2 pos)
         {
             // 只有更新目标的时候或者使用RVO寻路时才需要重算路线
@@ -167,7 +158,9 @@ namespace RVO
             useNavMeshMovement = true;
         }
         
-        // RVO寻路中向没墙体的方向逃逸
+        /// <summary>
+        /// RVO寻路中向没墙体的方向逃逸
+        /// </summary>
         public bool TryWallSideAvoidance(float2 pos, out float2 escapeDir)
         {
             escapeDir = float2.zero;
@@ -227,14 +220,56 @@ namespace RVO
 
             return false;
         }
-        
-        // 检查Agent是否抵达目标点
-        private void CheckReachTarget()
+
+        /// <summary>
+        /// 瞬移到指定地点
+        /// </summary>
+        /// <param name="pos"></param>
+        public void Warp(Vector2 pos)
         {
-            isStopped = Vector2.Distance(transform.position, new Vector2(goal.x, goal.y)) <= entity.scale.Value * 0.3f;
+            manager.simulator.SetAgentPosition(agentId, new float2(pos.x, pos.y));
+        }
+
+        /// <summary>
+        /// 设置是否停止
+        /// </summary>
+        public void SetStop(bool stopped)
+        {
+            if (stopped)
+            {
+                // 停止时设置Agent属性
+                manager.simulator.SetAgentTimeHorizon(agentId, 1000f);
+                manager.simulator.SetAgentTimeHorizonObst(agentId, 1000f); 
+                manager.simulator.SetAgentNeighborDist(agentId, 0f);
+                manager.simulator.SetAgentMaxSpeed(agentId, 0f);
+                
+                manager.simulator.SetAgentPrefVelocity(agentId, float2.zero);
+            }
+            else
+            {
+                manager.simulator.SetAgentTimeHorizon(agentId, 3f);
+                manager.simulator.SetAgentTimeHorizonObst(agentId, 60f);
+                manager.simulator.SetAgentNeighborDist(agentId, 600f);
+                manager.simulator.SetAgentMaxSpeed(agentId, 3000f);
+                
+                // 恢复时回到物体所在位置
+                Warp(transform.position);
+            }
+            
+            _isStopped = stopped;
         }
         
-        // 获取期望速度
+        /// <summary>
+        /// 检查Agent是否抵达目标点
+        /// </summary>
+        private void CheckReachTarget()
+        {
+            _isStopped = Vector2.Distance(transform.position, new Vector2(goal.x, goal.y)) <= entity.scale.Value * 0.3f;
+        }
+        
+        /// <summary>
+        /// 获取期望速度
+        /// </summary>
         public float2 GetDesiredVelocity(Simulator sim, int id)
         {
             var pos = sim.GetAgentPosition(id);
@@ -302,29 +337,6 @@ namespace RVO
 
             navPath ??= new NavMeshPath();
             NavMesh.CalculatePath(start, goalV, NavMesh.AllAreas, navPath);
-        }
-        
-        private void OnDrawGizmosSelected()
-        {
-            if (!debugDrawPath) return;
-
-            if (navPath != null && navPath.corners != null)
-            {
-                Gizmos.color = Color.cyan;
-                for (var i = 0; i < navPath.corners.Length - 1; i++)
-                {
-                    var a = navPath.corners[i]; a.z = 0f;
-                    var b = navPath.corners[i + 1]; b.z = 0f;
-                    Gizmos.DrawLine(a, b);
-                }
-
-                if (currentCornerIndex < navPath.corners.Length)
-                {
-                    var cc = navPath.corners[currentCornerIndex];
-                    Gizmos.color = Color.yellow;
-                    Gizmos.DrawSphere(new Vector3(cc.x, cc.y, 0f), 0.2f);
-                }
-            }
         }
     }
 }

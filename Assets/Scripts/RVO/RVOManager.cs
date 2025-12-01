@@ -70,18 +70,16 @@ namespace RVO
             {
                 var agent = agentDic[id];
 
+                // 停止则跳过
+                if (agent.isStopped)
+                {
+                    continue;
+                }
+
                 // 判断该使用什么寻路方式
                 agent.ChangePathFindMethod(simulator.GetAgentPosition(id));
                 simulator.SetAgentMaxSpeed(id, agent.entity.movementSpeed.Value);
                 var prefVel = agent.GetDesiredVelocity(simulator, id);
-
-                // 停止逻辑
-                if (agent.isStopped)
-                {
-                    simulator.SetAgentPrefVelocity(id, float2.zero);
-                    agent.goal = new float2(agent.transform.position.x, agent.transform.position.y);
-                    continue;
-                }
 
                 // Nav寻路时RVO避障
                 if (agent.UsingNavMeshMovement)

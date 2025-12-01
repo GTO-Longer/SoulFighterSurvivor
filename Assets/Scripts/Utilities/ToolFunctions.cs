@@ -10,11 +10,10 @@ namespace Utilities
     public static class ToolFunctions
     {
         /// <summary>
-        /// 检测圆形范围内是否有与指定tag不同的其他碰撞体，并返回最近的一个Entity
+        /// 检测obj范围内是否有与指定tag不同的其他碰撞体，并返回最近的一个Entity
         /// </summary>
-        public static bool IsOverlappingOtherTag(GameObject obj, out Entity entity , float radius = 0)
+        public static bool IsOverlappingOtherTag(GameObject obj, string tag, out Entity entity , float radius = 0)
         {
-            var excludeTag = obj.tag;
             var collider = obj.GetComponent<CircleCollider2D>();
             entity = null;
             if (collider == null) return false;
@@ -42,7 +41,7 @@ namespace Utilities
                 if (otherGo.CompareTag("Untagged")) continue;
 
                 // 跳过相同Tag的对象
-                if (otherGo.CompareTag(excludeTag)) continue;
+                if (otherGo.CompareTag(tag)) continue;
 
                 // 获取EntityData，没有则跳过
                 var entityData = otherGo.GetComponent<EntityData>();

@@ -19,7 +19,6 @@ namespace EntityManagers
         {
             hero.Move();
             hero.TargetCheck();
-            hero.SetRotate();
             hero.Attack();
             hero.EntityUpdate();
             hero.Regenerate();

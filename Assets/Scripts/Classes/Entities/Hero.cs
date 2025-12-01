@@ -21,10 +21,10 @@ namespace Classes.Entities
         /// 寻路组件
         /// </summary>
         private readonly RVOAgent _agent;
+        public RVOAgent agent => _agent;
         
         private Transform _attackRangeIndicator;
         
-        private bool _asyncRotating => DOTween.IsTweening(_gameObject.transform);
         private const float rotateTime = 0.5f;
         private const int maxLevel = 18;
         
@@ -61,15 +61,15 @@ namespace Classes.Entities
         /// <summary>
         /// 普攻弹道速度
         /// </summary>
-        private const float attackBulletSpeed = 15f;
+        private const float attackBulletSpeed = 1500f;
 
         public List<Skill> skillList = new();
         /// <summary>
-        /// 是否可以打断转身
+        /// 是否可以移动
         /// </summary>
-        public bool canCancelTurn;
+        public bool canMove;
         /// <summary>
-        /// 是否可以打断转身
+        /// 是否可以使用技能
         /// </summary>
         public bool canUseSkill;
         
@@ -179,7 +179,7 @@ namespace Classes.Entities
             
             _gameObject = gameObject;
             _team = Team.Hero;
-            canCancelTurn = true;
+            canMove = true;
             canUseSkill = true;
             
             // 配置角色寻路组件
@@ -209,32 +209,106 @@ namespace Classes.Entities
             LevelUp();
         }
 
-        private const float rotationSpeed = 10;
-
         /// <summary>
         /// 英雄移动逻辑
         /// </summary>
         public override void Move()
         {
-            // 设置Agent属性
-            
-            
             // 获取鼠标位置
             _mousePosition = CameraSystem._mainCamera.ScreenToWorldPoint(Input.mousePosition);
+
+            if (!canMove)
+            {
+                _agent.SetStop(true);
+                return;
+            }
+            
+            // 当玩家点击左键
+            if (Input.GetMouseButtonDown(0))
+            {
+                // 若提前点击A键，则开启自动攻击
+                if (_attackRangeIndicator.GetComponent<SpriteRenderer>().enabled && !Input.GetKey(KeyCode.C))
+                {
+                    target.Value = null;
+                    _agent.SetDestination(_mousePosition);
+                    _autoAttack = true;
+                }
+            }
+            
+            // 当玩家按下S键
+            if (Input.GetKey(KeyCode.S))
+            {
+                target.Value = null;
+                _autoAttack = false;
+                
+                //停止移动
+                _agent.SetStop(true);
+            }
             
             // 当玩家点击右键
             if (Input.GetMouseButton(1))
             {
-                //开始移动
-                _agent.isStopped = false;
+                // 检测右键是否点击到敌人
+                if (!ToolFunctions.IsObjectAtMousePoint(out var obj, "Enemy", true))
+                {
+                    _agent.SetStop(false);
+                    target.Value = null;
+                    _autoAttack = Input.GetKey(KeyCode.LeftShift);
+                }
+                else
+                {
+                    _autoAttack = true;
+
+                    foreach (var result in obj)
+                    {
+                        if (result.GetComponent<EntityData>())
+                        {
+                            target.Value = result.GetComponent<EntityData>().entity;
+                            break;
+                        }
+                    }
+                }
+                
                 _agent.SetDestination(_mousePosition);
             }
             
-            // 当玩家按下S键
-            if (Input.GetKeyDown(KeyCode.S))
+            // 当玩家点击A键
+            if (Input.GetKeyDown(KeyCode.A) || Input.GetKey(KeyCode.C))
             {
-                //停止移动
-                _agent.isStopped = true;
+                // 若按下C键则显示属性
+                if (Input.GetKey(KeyCode.C))
+                {
+                    showAttributes.Value = true;
+                }
+
+                // 显示攻击范围指示器
+                _attackRangeIndicator.GetComponent<SpriteRenderer>().enabled = true;
+            }
+            else if (Input.anyKeyDown || Input.GetKeyUp(KeyCode.C))
+            {
+                showAttributes.Value = false;
+                _attackRangeIndicator.GetComponent<SpriteRenderer>().enabled = false;
+            }
+            
+            if (_autoAttack)
+            {
+                if (target.Value == null)
+                {
+                    // 自动攻击过程中持续索敌
+                    if (ToolFunctions.IsOverlappingOtherTag(_attackRangeIndicator.gameObject, _gameObject.tag, out var entity))
+                    {
+                        target.Value = entity;
+                        _agent.SetStop(true);
+                    }
+                }
+                
+                if (target.Value != null)
+                {
+                    // 走到敌人进入攻击范围为止
+                    _agent.SetDestination(target.Value.gameObject.transform.position);
+                    _agent.SetStop (Vector2.Distance(gameObject.transform.position, target.Value.gameObject.transform.position)
+                                     <= scale + attackRange);
+                }
             }
         }
 
@@ -259,11 +333,7 @@ namespace Classes.Entities
                 target.Value.gameObject.transform.position.x - _gameObject.transform.position.x,
                 target.Value.gameObject.transform.position.y - _gameObject.transform.position.y
             );
-
-            if (!_asyncRotating)
-            {
-                Async.SetAsync(rotateTime, gameObject.transform, () => RotateTo(rotateDirection));
-            }
+            RotateTo(rotateDirection);
 
             if (_attackTimer < actualAttackInterval)
             {
@@ -301,7 +371,7 @@ namespace Classes.Entities
                         self.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
 
                         // 子弹的销毁逻辑
-                        const float destroyDistance = 0.3f;
+                        const float destroyDistance = 30f;
                         if (Vector3.Distance(self.gameObject.transform.position, self.target.gameObject.transform.position) <= destroyDistance)
                         {
                             self.BulletHit();
@@ -370,11 +440,6 @@ namespace Classes.Entities
                 }
             }
         }
-        
-        public void SetRotate()
-        {
-            
-        }
 
         /// <summary>
         /// 查看目标属性
@@ -414,71 +479,58 @@ namespace Classes.Entities
             var targetPosition = originPoint;
 
             // 定义搜索步长
-            const float step = 0.1f;
+            const float step = 10f;
             var maxSteps = (int)(destinationDistance / step);
             
             // 判断原目标点是否合法
             // 不合法则开始逐步搜索合法点
             var path = new NavMeshPath();
-            // if (!(_agent.CalculatePath(originPoint, path) && path.status == NavMeshPathStatus.PathComplete))
-            // {
-            //     for (var i = 1; i <= maxSteps; i++)
-            //     {
-            //         // 正向搜索
-            //         var forward = originPoint + direction * (step * i);
-            //         if (_agent.CalculatePath(forward, path) && path.status == NavMeshPathStatus.PathComplete)
-            //         {
-            //             targetPosition = forward;
-            //             break;
-            //         }
-            //
-            //         // 反向搜索
-            //         var backward = originPoint - direction * (step * i);
-            //         if (_agent.CalculatePath(backward, path) && path.status == NavMeshPathStatus.PathComplete)
-            //         {
-            //             targetPosition = backward;
-            //             break;
-            //         }
-            //     }
-            // }
+            if (!(_agent.navAgent.CalculatePath(originPoint, path) && path.status == NavMeshPathStatus.PathComplete))
+            {
+                for (var i = 1; i <= maxSteps; i++)
+                {
+                    // 正向搜索
+                    var forward = originPoint + direction * (step * i);
+                    if (_agent.navAgent.CalculatePath(forward, path) && path.status == NavMeshPathStatus.PathComplete)
+                    {
+                        targetPosition = forward;
+                        break;
+                    }
+            
+                    // 反向搜索
+                    var backward = originPoint - direction * (step * i);
+                    if (_agent.navAgent.CalculatePath(backward, path) && path.status == NavMeshPathStatus.PathComplete)
+                    {
+                        targetPosition = backward;
+                        break;
+                    }
+                }
+            }
             
             // 设置面向
             gameObject.transform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
 
             // 关闭agent
-            _agent.isStopped = true;
+            _agent.SetStop(true);
 
             // 使用DOTween平滑位移
             gameObject.transform.DOMove(targetPosition, dashDuration)
             .OnUpdate(() =>
             {
                 canUseSkill = false;
-                canCancelTurn = false;
+                canMove = false;
             })
             .OnComplete(() =>
             {
                 canUseSkill = true;
-                canCancelTurn = true;
+                canMove = true;
                 
                 // 恢复agent
-                _agent.isStopped = false;
+                _agent.Warp(targetPosition);
+                _agent.SetStop(false);
                 
                 onComplete?.Invoke();
             });
-        }
-
-        /// <summary>
-        /// 转向鼠标指针
-        /// </summary>
-        public override void RotateToMousePoint()
-        {
-            // 计算方向
-            var direction = new Vector2(
-                _mousePosition.x - _gameObject.transform.position.x,
-                _mousePosition.y - _gameObject.transform.position.y
-            );
-            
-            Async.SetAsync(rotateTime,gameObject.transform, () => RotateTo(direction)); 
         }
 
         /// <summary>
@@ -515,7 +567,6 @@ namespace Classes.Entities
         /// <summary>
         /// 技能升级
         /// </summary>
-        /// <param name="skill"></param>
         public void SkillUpgrade(Skill skill)
         {
             if (skillPoint > 0 && skill.skillType is >= SkillType.QSkill and <= SkillType.RSkill)
@@ -530,27 +581,5 @@ namespace Classes.Entities
                 }
             }
         }
-        
-        #region 私有工具函数
-        /// <summary>
-        /// 平滑转向指定方向
-        /// </summary>
-        /// <param name="direction">方向</param>
-        private void RotateTo(Vector2 direction)
-        {
-            if (direction.sqrMagnitude > 0.01f)
-            {
-                var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                var targetRot = Quaternion.Euler(0, 0, angle);
-
-                _gameObject.transform.rotation = Quaternion.Slerp(
-                    _gameObject.transform.rotation,
-                    targetRot,
-                    rotationSpeed * Time.deltaTime
-                );
-            }
-        }
-        
-        #endregion
     }
 }

@@ -18,7 +18,7 @@ namespace Classes.Skills
         {
             _skillLevel = 0;
             _maxSkillLevel = 3;
-            maxSkillChargeCount = 3;
+            maxSkillChargeCount = 0;
             
             coolDownTimer = 999;
 
@@ -40,28 +40,32 @@ namespace Classes.Skills
             Debug.Log(skillName + ": Skill effective");
             EventSystem.OnRSkillRelease += (_, _) =>
             {
+                if (specialTimer <= 0)
+                {
+                    maxSkillChargeCount = 0;
+                }
+                
                 if (_skillLevel <= 0)
                 {
                     Binder.ShowText(SkillViewModel.instance.skillTips, "技能尚未解锁", 1);
                     return;
                 }
                 
-                if (_baseSkillCost[skillLevelToIndex] > owner.magicPoint && specialTimer <= 0)
+                if (_baseSkillCost[skillLevelToIndex] > owner.magicPoint)
                 {
                     Binder.ShowText(SkillViewModel.instance.skillTips, "施法资源不够，技能无法使用", 1);
                     return;
                 }
-                
+
                 if (actualSkillCoolDown > coolDownTimer)
                 {
                     Binder.ShowText(SkillViewModel.instance.skillTips, "技能正在冷却", 1);
                     return;
                 }
-                
                 // 设置充能
                 if (skillChargeCount == 0 && specialTimer == 0)
                 {
-                    // 消耗魔法值
+                    maxSkillChargeCount = 3;
                     owner.magicPoint.Value -= _baseSkillCost[skillLevelToIndex];
                     skillChargeCount = maxSkillChargeCount;
                     specialTimer = 10;

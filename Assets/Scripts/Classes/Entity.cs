@@ -148,10 +148,6 @@ namespace Classes
         /// 全能吸血
         /// </summary>
         public Property<float> omnivamp;
-        /// <summary>
-        /// 治疗和护盾强度
-        /// </summary>
-        public Property<float> healAndShieldPower;
         
         #endregion
         
@@ -746,24 +742,23 @@ namespace Classes
             attackDefense = new Property<float>();
             attackPenetration = new Property<float>();
             magicPenetration = new Property<float>();
-            percentageAttackPenetration = new Property<float>();
-            percentageMagicPenetration = new Property<float>();
             criticalRate = new Property<float>();
             criticalDamage = new Property<float>();
             movementSpeed = new Property<float>();
             attackRange = new Property<float>();
             scale = new Property<float>();
-            
-            // 无加成变量
             healthPointProportion = new Property<float>();
             magicPointProportion = new Property<float>();
             experienceProportion = new Property<float>();
+            
+            // 无加成变量
             healthRegeneration = new Property<float>(0, DataType.Int);
             magicRegeneration = new Property<float>(0, DataType.Int);
             adaptiveForce = new Property<float>(0, DataType.Int);
             lifeSteel = new Property<float>(0, DataType.Percentage);
             omnivamp = new Property<float>(0, DataType.Percentage);
-            healAndShieldPower = new Property<float>(0, DataType.Percentage);
+            percentageAttackPenetration = new Property<float>(0, DataType.Percentage);
+            percentageMagicPenetration = new Property<float>(0, DataType.Percentage);
 
             #endregion
             

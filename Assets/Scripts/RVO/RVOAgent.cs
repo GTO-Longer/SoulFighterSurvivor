@@ -1,5 +1,4 @@
 using Classes;
-using DataManagement;
 using UnityEngine;
 using Unity.Mathematics;
 using UnityEngine.AI;
@@ -34,11 +33,14 @@ namespace RVO
         private bool useNavMeshMovement;
         public bool UsingNavMeshMovement => useNavMeshMovement;
 
-        private void Start()
+        /// <summary>
+        /// 初始化Agent
+        /// </summary>
+        public void AgentInitialization(Entity agentEntity)
         {
             manager = RVOManager.Instance;
             agentId = manager.AddAgent(this);
-            entity = GetComponent<EntityData>().entity;
+            entity = agentEntity;
             navAgent = GetComponent<NavMeshAgent>();
 
             if (navAgent != null)
@@ -257,6 +259,14 @@ namespace RVO
             }
             
             _isStopped = stopped;
+        }
+
+        /// <summary>
+        /// 注销Agent
+        /// </summary>
+        public void RemoveAgent()
+        {
+            manager.RemoveAgent(agentId);
         }
         
         /// <summary>

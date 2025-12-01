@@ -1,6 +1,7 @@
 using UnityEngine;
 using DataManagement;
 using Classes.Entities;
+using Systems;
 using Utilities;
 
 namespace EntityManagers
@@ -12,7 +13,9 @@ namespace EntityManagers
         private void Awake()
         {
             // 获取Hero实例
-            hero = (Hero)GetComponent<EntityData>().entity;
+            var entityData = GetComponent<EntityData>();
+            entityData.EntityInitialization();
+            hero = (Hero)entityData.entity;
         }
 
         private void Update()
@@ -34,7 +37,7 @@ namespace EntityManagers
                 }
                 else
                 {
-                    hero.QSkillRelease();
+                    EventSystem.QSkillRelease();
                 }
             }
 
@@ -46,7 +49,7 @@ namespace EntityManagers
                 }
                 else
                 {
-                    hero.WSkillRelease();
+                    EventSystem.WSkillRelease();
                 }
             }
 
@@ -59,7 +62,7 @@ namespace EntityManagers
                 }
                 else
                 {
-                    hero.ESkillRelease();
+                    EventSystem.ESkillRelease();
                 }
             }
 
@@ -71,7 +74,7 @@ namespace EntityManagers
                 }
                 else
                 {
-                    hero.RSkillRelease();
+                    EventSystem.RSkillRelease();
                 }
             }
         }

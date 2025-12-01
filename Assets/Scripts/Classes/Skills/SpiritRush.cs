@@ -39,7 +39,7 @@ namespace Classes.Skills
         public override void SkillEffect()
         {
             Debug.Log(skillName + ": Skill effective");
-            owner.OnRSkillRelease += (_, _) =>
+            EventSystem.OnRSkillRelease += (_, _) =>
             {
                 if (_skillLevel <= 0)
                 {
@@ -148,7 +148,7 @@ namespace Classes.Skills
 
                             spiritOrb.OnBulletHit += (self) =>
                             {
-                                self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, _damage), DamageType.AP);
+                                self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, _damage), DamageType.AP, owner);
                                 self.AbilityEffectActivate();
                             };
 

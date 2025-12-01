@@ -6,7 +6,6 @@ using DataManagement;
 using DG.Tweening;
 using Factories;
 using MVVM.ViewModels;
-using RVO;
 using Systems;
 using UnityEngine;
 using UnityEngine.AI;
@@ -17,15 +16,7 @@ namespace Classes.Entities
 {
     public class Hero : Entity
     {
-        /// <summary>
-        /// 寻路组件
-        /// </summary>
-        private readonly RVOAgent _agent;
-        public RVOAgent agent => _agent;
-        
         private Transform _attackRangeIndicator;
-        
-        private const float rotateTime = 0.5f;
         private const int maxLevel = 18;
         
         /// <summary>
@@ -76,7 +67,7 @@ namespace Classes.Entities
         /// <summary>
         /// 创建游戏角色并初始化
         /// </summary>
-        public Hero(GameObject gameObject, string name)
+        public Hero(GameObject obj, Team team, string name) : base(obj, team)
         {
             #region 读取英雄数据配置初始化数据
 
@@ -177,14 +168,6 @@ namespace Classes.Entities
 
             #endregion
             
-            _gameObject = gameObject;
-            _team = Team.Hero;
-            canMove = true;
-            canUseSkill = true;
-            
-            // 配置角色寻路组件
-            _agent = _gameObject.GetComponent<RVOAgent>();
-            
             // 配置角色体型
             _gameObject.transform.localScale = new Vector2(scale * 2, scale * 2);
             
@@ -198,6 +181,8 @@ namespace Classes.Entities
             
             // 其他变量初始化
             _autoAttack = false;
+            canMove = true;
+            canUseSkill = true;
             _attackTimer = 0;
             _regenerateTimer = 0;
             _attackWindUpTimer = 0;
@@ -383,7 +368,7 @@ namespace Classes.Entities
                 bullet.OnBulletHit += (self) =>
                 {
                     // 计算平A伤害
-                    self.target.TakeDamage(self.target.CalculateADDamage(self.owner, self.owner.attackDamage), DamageType.AD);
+                    self.target.TakeDamage(self.target.CalculateADDamage(self.owner, self.owner.attackDamage), DamageType.AD, this);
                     
                     // 造成攻击特效
                     self.AttackEffectActivate();

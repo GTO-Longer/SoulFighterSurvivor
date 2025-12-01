@@ -29,7 +29,7 @@ namespace Classes.Skills
         public override void SkillEffect()
         {
             Debug.Log(skillName + ": Skill effective");
-            owner.OnESkillRelease += (_, _) =>
+            EventSystem.OnESkillRelease += (_, _) =>
             {
                 if (_skillLevel <= 0)
                 {
@@ -118,7 +118,7 @@ namespace Classes.Skills
 
                     charm.OnBulletHit += (self) =>
                     {
-                        self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, _damage), DamageType.AP);
+                        self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, _damage), DamageType.AP, owner);
 
                         // 造成技能特效
                         self.AbilityEffectActivate();

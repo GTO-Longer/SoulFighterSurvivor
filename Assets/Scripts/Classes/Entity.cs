@@ -1,7 +1,7 @@
 using System;
 using DataManagement;
 using Factories;
-using Systems;
+using RVO;
 using UnityEngine;
 using Utilities;
 
@@ -10,7 +10,7 @@ namespace Classes
     /// <summary>
     /// 实体类
     /// </summary>
-    public class Entity : EventSystem
+    public class Entity
     {
         /// <summary>
         /// 对应的游戏物体
@@ -20,6 +20,11 @@ namespace Classes
         /// 实体所属队伍
         /// </summary>
         protected Team _team;
+        /// <summary>
+        /// 对应的寻路Agent
+        /// </summary>
+        protected RVOAgent _agent;
+        public RVOAgent agent => _agent;
         
         #region 最终属性
 
@@ -533,13 +538,38 @@ namespace Classes
         public float baseMovementSpeed => _baseMovementSpeed + _movementSpeedBonus;
         
         #endregion
+
+        #region 实体事件
+        
+        // 击杀单位
+        public event Action<Entity, Entity> OnKillEntity;
+        public void KillEntity(Entity owner, Entity target)
+        {
+            OnKillEntity?.Invoke(owner, target);
+        }
+        
+        // 技能命中
+        public event Action<Entity, Entity> OnSkillHit;
+        public void SkillHit(Entity owner, Entity target)
+        {
+            OnSkillHit?.Invoke(owner, target);
+        }
+        
+        // 持续更新事件
+        public event Action<Entity> EntityUpdateEvent;
+        public void EntityUpdate()
+        {
+            EntityUpdateEvent?.Invoke(this);
+        }
+
+        #endregion
         
         #region 行为函数
 
         /// <summary>
         /// 受到伤害
         /// </summary>
-        public void TakeDamage(float damageCount, DamageType damageType)
+        public void TakeDamage(float damageCount, DamageType damageType, Entity damageSource)
         {
             var color = damageType switch
             {
@@ -552,9 +582,10 @@ namespace Classes
            ScreenTextFactory.Instance.Spawn(_gameObject.transform.position, $"-{damageCount:F0}", 0.5f, 50f, 50f, color);
            
             healthPoint.Value -= damageCount;
-            if (healthPoint.Value < 0)
+            if (healthPoint.Value <= 0)
             {
                 healthPoint.Value = 0;
+                Die(damageSource);
             }
         }
 
@@ -629,6 +660,11 @@ namespace Classes
             }
         }
         
+        /// <summary>
+        /// 死亡
+        /// </summary>
+        public virtual void Die(Entity killer){}
+        
         #endregion
 
         #region 定义函数
@@ -649,7 +685,7 @@ namespace Classes
 
         #endregion
 
-        protected Entity()
+        protected Entity(GameObject gameObject, Team team)
         {
             #region 最终数据初始化
             
@@ -802,6 +838,21 @@ namespace Classes
             magicPointProportion = new Property<float>(() => maxMagicPoint == 0 ? 0 : magicPoint / maxMagicPoint,
                 DataType.Percentage,
                 maxMagicPoint, magicPoint);
+
+            #endregion
+
+            #region 持有组件初始化
+            
+            // 配置游戏物体
+            _gameObject = gameObject;
+            
+            // 配置队伍
+            _team = team;
+            
+            // 配置角色寻路组件
+            _agent = _gameObject.GetComponent<RVOAgent>();
+            _agent.enabled = true;
+            _agent.AgentInitialization(this);
 
             #endregion
         }

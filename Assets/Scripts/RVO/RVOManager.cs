@@ -62,6 +62,16 @@ namespace RVO
         }
 
         /// <summary>
+        /// 删除Agent
+        /// </summary>
+        public void RemoveAgent(int agentId)
+        {
+            simulator.RemoveAgent(agentId);
+            agents.Remove(agentId);
+            agentDic.Remove(agentId);
+        }
+
+        /// <summary>
         /// 设置每个Agent的期望速度
         /// </summary>
         private void SetPreferredVelocities()

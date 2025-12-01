@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Factories;
 using MVVM;
 using MVVM.ViewModels;
+using Systems;
 using UnityEngine;
 using Utilities;
 
@@ -29,7 +30,7 @@ namespace Classes.Skills
         public override void SkillEffect()
         {
             Debug.Log(skillName + ": Skill effective");
-            owner.OnWSkillRelease += (_, _) =>
+            EventSystem.OnWSkillRelease += (_, _) =>
             {
                 if (_skillLevel <= 0)
                 {
@@ -164,22 +165,22 @@ namespace Classes.Skills
                                 // 对20%生命值以下的敌人造成200%伤害
                                 if (self.target.healthPointProportion.Value <= 0.2f)
                                 {
-                                    self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, _firstDamage * 2), DamageType.AP);
+                                    self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, _firstDamage * 2), DamageType.AP, owner);
                                 }
                                 else
                                 {
-                                    self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, _firstDamage), DamageType.AP);
+                                    self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, _firstDamage), DamageType.AP, owner);
                                 }
                             }
                             else
                             {
                                 if (self.target.healthPointProportion.Value <= 0.2f)
                                 {
-                                    self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, _secondDamage * 2), DamageType.AP);
+                                    self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, _secondDamage * 2), DamageType.AP, owner);
                                 }
                                 else
                                 {
-                                    self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, _secondDamage), DamageType.AP);
+                                    self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, _secondDamage), DamageType.AP, owner);
                                 }
                             }
                             

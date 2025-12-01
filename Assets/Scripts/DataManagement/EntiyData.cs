@@ -9,17 +9,16 @@ namespace DataManagement
     {
         public EntityType type;
         public Entity entity;
-        public string heroName;
 
-        private void Awake()
+        public void EntityInitialization()
         {
             if (type == EntityType.Enemy)
             {
-                entity = new Enemy(this.gameObject);
+                entity = new Enemy(gameObject, Team.Enemy);
             }
             else
             {
-                entity = new Hero(this.gameObject, heroName);
+                entity = new Hero(gameObject, Team.Hero, "Ahri");
             }
         }
     }

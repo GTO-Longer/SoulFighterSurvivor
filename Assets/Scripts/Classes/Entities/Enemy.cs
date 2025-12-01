@@ -1,5 +1,5 @@
+using EntityManagers;
 using Factories;
-using RVO;
 using UnityEngine;
 using Utilities;
 
@@ -7,7 +7,6 @@ namespace Classes.Entities
 {
     public class Enemy : Entity
     {
-        private readonly RVOAgent _agent;
         private Transform _attackRangeIndicator;
         
         /// <summary>
@@ -28,9 +27,8 @@ namespace Classes.Entities
         /// <summary>
         /// 创建敌人并初始化
         /// </summary>
-        public Enemy(GameObject gameObject)
+        public Enemy(GameObject obj, Team team) : base(obj, team)
         {
-
             #region 读取敌人数据配置初始化数据（目前测试采用固定数据）
             
             _baseMaxHealthPoint = 600;
@@ -56,12 +54,6 @@ namespace Classes.Entities
             _magicRegenerationGrowth = 0;
 
             #endregion
-
-            _gameObject = gameObject;
-            _team = Team.Enemy;
-            
-            // 配置敌人寻路组件
-            _agent = _gameObject.GetComponent<RVOAgent>();
             
             // 配置敌人体型
             _gameObject.transform.localScale = new Vector2(scale * 2, scale * 2);
@@ -143,11 +135,21 @@ namespace Classes.Entities
 
                 bullet.OnBulletHit += (self) =>
                 {
-                    self.target.TakeDamage(self.target.CalculateADDamage(self.owner, self.owner.attackDamage), DamageType.AD);
+                    self.target.TakeDamage(self.target.CalculateADDamage(self.owner, self.owner.attackDamage), DamageType.AD, this);
                 };
 
                 bullet.Awake();
             }
+        }
+
+        public override void Die(Entity entity)
+        {
+            var hero = entity as Hero;
+            
+            // TODO:配置不同小兵经验
+            hero?.GetExperience(60);
+            
+            EnemyFactory.Instance.Despawn(gameObject.GetComponent<EnemyManager>());
         }
     }
 }

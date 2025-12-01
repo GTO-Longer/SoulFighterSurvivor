@@ -29,7 +29,7 @@ namespace Classes.Skills
         public override void SkillEffect()
         {
             Debug.Log(skillName + ": Skill effective");
-            owner.OnQSkillRelease += (_, _) =>
+            EventSystem.OnQSkillRelease += (_, _) =>
             {
                 if (_skillLevel <= 0)
                 {
@@ -163,12 +163,12 @@ namespace Classes.Skills
                         if (self.bulletStateID == 1)
                         {
                             // 第一段造成魔法伤害
-                            self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, _APDamage), DamageType.AP);
+                            self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, _APDamage), DamageType.AP, owner);
                         }
                         else if (self.bulletStateID == 2)
                         {
                             // 第二段造成真实伤害
-                            self.target.TakeDamage(_realDamage, DamageType.Real);
+                            self.target.TakeDamage(_realDamage, DamageType.Real, owner);
                         }
 
                         // 造成技能特效

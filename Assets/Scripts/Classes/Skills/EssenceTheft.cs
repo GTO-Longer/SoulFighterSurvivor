@@ -24,7 +24,7 @@ namespace Classes.Skills
         {
             Debug.Log(skillName + ":Skill effective");
             owner.OnKillEntity += (_, _) => soulPieces++;
-            owner.EntityUpdateEvent += (_, _) =>
+            owner.EntityUpdateEvent += (_) =>
             {
                 if (soulPieces >= 9)
                 {

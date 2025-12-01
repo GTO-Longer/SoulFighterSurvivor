@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Classes;
-using Utilities;
 
 namespace Factories
 {

@@ -17,7 +17,6 @@ namespace Classes.Entities
     public class Hero : Entity
     {
         private Transform _attackRangeIndicator;
-        private const int maxLevel = 18;
         
         /// <summary>
         /// 玩家锁定的实体
@@ -26,8 +25,6 @@ namespace Classes.Entities
         
         public Property<bool> isMoving = new Property<bool>();
         public Property<bool> showAttributes = new Property<bool>();
-
-        private int skillPoint;
         
         /// <summary>
         /// 是否启用自动攻击模式
@@ -346,6 +343,13 @@ namespace Classes.Entities
                     // 每帧追踪目标
                     self.OnBulletUpdate += (_) =>
                     {
+                        // 锁定目标死亡则清除子弹
+                        if (self.target == null || !self.target.isAlive)
+                        {
+                            self.Destroy();
+                            return;
+                        }
+                        
                         var currentPosition = self.gameObject.transform.position;
                         var targetPosition = self.target.gameObject.transform.position;
             
@@ -516,37 +520,6 @@ namespace Classes.Entities
                 
                 onComplete?.Invoke();
             });
-        }
-
-        /// <summary>
-        /// 获取经验
-        /// </summary>
-        public void GetExperience(float count)
-        {
-            experience.Value += count;
-            if (experience.Value >= maxExperience.Value)
-            {
-                LevelUp();
-                experience.Value -= maxExperience.Value;
-            }
-        }
-
-        /// <summary>
-        /// 玩家升级
-        /// </summary>
-        public void LevelUp()
-        {
-            if (level < maxLevel)
-            {
-                var maxHealthPointCache = maxHealthPoint.Value;
-                var maxMagicPointCache = maxMagicPoint.Value;
-
-                level.Value += 1;
-                skillPoint += 1;
-
-                healthPoint.Value += maxHealthPoint.Value - maxHealthPointCache;
-                magicPoint.Value += maxMagicPoint.Value - maxMagicPointCache;
-            }
         }
 
         /// <summary>

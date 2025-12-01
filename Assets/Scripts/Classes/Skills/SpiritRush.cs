@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Factories;
 using MVVM;
@@ -125,6 +124,13 @@ namespace Classes.Skills
 
                                 self.OnBulletUpdate += (_) =>
                                 {
+                                    // 锁定目标死亡则清除子弹
+                                    if (self.target == null || !self.target.isAlive)
+                                    {
+                                        self.Destroy();
+                                        return;
+                                    }
+                                    
                                     var bulletCurrentPosition = self.gameObject.transform.position;
                                     var bulletTargetPosition = self.target.gameObject.transform.position;
 

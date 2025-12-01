@@ -1,6 +1,6 @@
-using System;
 using EntityManagers;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Pool;
 
 namespace Factories
@@ -10,6 +10,7 @@ namespace Factories
         public GameObject enemyPrefab;
         public static EnemyFactory Instance { get; private set; }
         private ObjectPool<EnemyManager> _enemyPool;
+        private float enemySpawnTimer;
 
         private void Awake()
         {
@@ -17,7 +18,9 @@ namespace Factories
             {
                 Instance = this;
                 enemyPrefab.SetActive(false);
+                enemySpawnTimer = 0;
 
+                // 定义对象池
                 _enemyPool = new ObjectPool<EnemyManager>(
                     createFunc: () =>
                     {
@@ -27,13 +30,11 @@ namespace Factories
                     },
                     actionOnGet: enemy =>
                     {
-                        enemy.gameObject.SetActive(true);
                         enemy.EnemyDataInitialization();
                         enemy.enabled = true;
                     },
                     actionOnRelease: enemy =>
                     {
-                        enemy.ClearEnemyData();
                         enemy.enabled = false;
                     },
                     actionOnDestroy: enemy => Destroy(enemy.gameObject),
@@ -55,19 +56,43 @@ namespace Factories
         {
             var enemy = _enemyPool.Get();
             enemy.enemy.agent.Warp(position);
+            enemy.gameObject.SetActive(true);
         }
 
         /// <summary>
-        /// 回收对应EnemyManaer
+        /// 回收对应EnemyManager
         /// </summary>
         public void Despawn(EnemyManager enemy)
         {
             _enemyPool.Release(enemy);
+            enemy.ClearEnemyData();
         }
 
         private void Start()
         {
             Spawn(new Vector2(500, 0));
+        }
+
+        private void Update()
+        {
+            enemySpawnTimer += Time.deltaTime;
+            if (enemySpawnTimer > 20 / (5 + HeroManager.hero.level) + 10)
+            {
+                Vector2 heroPosition = HeroManager.hero.gameObject.transform.position;
+                
+                // 随机角度
+                var angle = Random.Range(0f, 360f) * Mathf.Deg2Rad;
+                // 随机半径
+                var radius = Random.Range(1500f, 4500f);
+                
+                // 极坐标转直角坐标
+                var offset = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
+                var spawnPosition = heroPosition + offset;
+                NavMesh.SamplePosition(spawnPosition, out var hit, 500f, NavMesh.AllAreas);
+                
+                Spawn(hit.position);
+                enemySpawnTimer = 0;
+            }
         }
     }
 }

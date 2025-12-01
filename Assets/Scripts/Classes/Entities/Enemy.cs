@@ -22,6 +22,8 @@ namespace Classes.Entities
         /// </summary>
         private const float attackBulletSpeed = 1500f;
 
+        private float gainExpTimer;
+
         public Entity target;
         
         /// <summary>
@@ -31,7 +33,7 @@ namespace Classes.Entities
         {
             #region 读取敌人数据配置初始化数据（目前测试采用固定数据）
             
-            _baseMaxHealthPoint = 600;
+            _baseMaxHealthPoint = 200;
             _baseMaxMagicPoint = 100;
             _baseAttackDamage = 50;
             _baseAttackSpeed = 0.5f;
@@ -44,12 +46,12 @@ namespace Classes.Entities
             _baseScale = 100;
             _attackWindUp = 0.1f;
 
-            _maxHealthPointGrowth = 0;
+            _maxHealthPointGrowth = 50f;
             _maxMagicPointGrowth = 0;
-            _attackDamageGrowth = 0;
-            _attackSpeedGrowth = 0;
-            _attackDefenseGrowth = 0;
-            _magicDefenseGrowth = 0;
+            _attackDamageGrowth = 5f;
+            _attackSpeedGrowth = 0.04f;
+            _attackDefenseGrowth = 5f;
+            _magicDefenseGrowth = 5f;
             _healthRegenerationGrowth = 0;
             _magicRegenerationGrowth = 0;
 
@@ -67,7 +69,8 @@ namespace Classes.Entities
             _attackRangeIndicator.GetComponent<SpriteRenderer>().enabled = false;
             
             // 其他变量初始化
-            level.Value = 1;
+            level.Value = Mathf.Max(1, HeroManager.hero.level - 4);
+            gainExpTimer = 0;
             magicPoint.Value = maxMagicPoint.Value;
             healthPoint.Value = maxHealthPoint.Value;
         }
@@ -112,6 +115,13 @@ namespace Classes.Entities
                     // 每帧追踪目标
                     self.OnBulletUpdate += (_) =>
                     {
+                        // 锁定目标死亡则清除子弹
+                        if (self.target == null || !self.target.isAlive)
+                        {
+                            self.Destroy();
+                            return;
+                        }
+                        
                         var currentPosition = self.gameObject.transform.position;
                         var targetPosition = self.target.gameObject.transform.position;
 
@@ -142,13 +152,27 @@ namespace Classes.Entities
             }
         }
 
+        /// <summary>
+        /// 敌人随时间获得经验值
+        /// </summary>
+        public void GainExperience()
+        {
+            gainExpTimer += Time.deltaTime;
+            
+            if (gainExpTimer > 10)
+            {
+                GetExperience(500 / (500 + maxExperience.Value) * maxExperience.Value);
+                gainExpTimer = 0;
+            }
+        }
+
         public override void Die(Entity entity)
         {
             var hero = entity as Hero;
-            
-            // TODO:配置不同小兵经验
-            hero?.GetExperience(60);
-            
+
+            var totalExp = experience.Value + 5f * (level - 1) * (level - 1) + 80f * (level - 1) + 195;
+            hero?.GetExperience(100 + totalExp * 0.2f);
+            isAlive = false;
             EnemyFactory.Instance.Despawn(gameObject.GetComponent<EnemyManager>());
         }
     }

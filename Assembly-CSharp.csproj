@@ -63,6 +63,7 @@
     <Compile Include="Assets\Scripts\Classes\Entity.cs" />
     <Compile Include="Assets\Scripts\Systems\TestSystem.cs" />
     <Compile Include="Assets\Scripts\Classes\Bullet.cs" />
+    <Compile Include="Assets\Scripts\MVVM\ViewModels\StateBarViewModel.cs" />
     <Compile Include="Assets\RVO2\KdTree.cs" />
     <Compile Include="Assets\RVO2\Agent.cs" />
     <Compile Include="Assets\Scripts\Classes\Skills\OrbOfDeception.cs" />

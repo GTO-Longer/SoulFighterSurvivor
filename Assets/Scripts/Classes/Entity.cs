@@ -25,6 +25,9 @@ namespace Classes
         /// </summary>
         protected RVOAgent _agent;
         public RVOAgent agent => _agent;
+        public bool isAlive;
+        protected const int maxLevel = 18;
+        protected int skillPoint;
         
         #region 最终属性
 
@@ -177,6 +180,10 @@ namespace Classes
         /// 当前法力值百分比
         /// </summary>
         public Property<float> magicPointProportion;
+        /// <summary>
+        /// 当前经验值百分比
+        /// </summary>
+        public Property<float> experienceProportion;
         
         #endregion
         
@@ -572,14 +579,14 @@ namespace Classes
         public void TakeDamage(float damageCount, DamageType damageType, Entity damageSource)
         {
             var color = damageType switch
-            {
+            { 
                 DamageType.AD => new Color(1, 0.6f, 0, 1),
                 DamageType.Real => Color.white,
                 DamageType.AP => new Color(0, 0.6f, 1, 1),
                 DamageType.None => Color.black,
                 _ => throw new ArgumentOutOfRangeException(nameof(damageType), damageType, null)
-            };
-           ScreenTextFactory.Instance.Spawn(_gameObject.transform.position, $"-{damageCount:F0}", 0.5f, 50f, 50f, color);
+            }; 
+            ScreenTextFactory.Instance.Spawn(_gameObject.transform.position, $"-{damageCount:F0}", 0.5f, 50f, 50f, color);
            
             healthPoint.Value -= damageCount;
             if (healthPoint.Value <= 0)
@@ -627,6 +634,38 @@ namespace Classes
                                      * (1 - damageSource.percentageMagicPenetration);
             return  damageCount * 
                     (1 - damageMagicDefense / (damageMagicDefense + 100f));
+        }
+        
+
+        /// <summary>
+        /// 玩家升级
+        /// </summary>
+        public void LevelUp()
+        {
+            if (level < maxLevel)
+            {
+                var maxHealthPointCache = maxHealthPoint.Value;
+                var maxMagicPointCache = maxMagicPoint.Value;
+
+                level.Value += 1;
+                skillPoint += 1;
+
+                healthPoint.Value += maxHealthPoint.Value - maxHealthPointCache;
+                magicPoint.Value += maxMagicPoint.Value - maxMagicPointCache;
+            }
+        }
+
+        /// <summary>
+        /// 获取经验
+        /// </summary>
+        public void GetExperience(float count)
+        {
+            experience.Value += count;
+            if (experience.Value >= maxExperience.Value)
+            {
+                LevelUp();
+                experience.Value -= maxExperience.Value;
+            }
         }
         
         /// <summary>
@@ -716,6 +755,7 @@ namespace Classes
             // 无加成变量
             healthPointProportion = new Property<float>();
             magicPointProportion = new Property<float>();
+            experienceProportion = new Property<float>();
             healthRegeneration = new Property<float>(0, DataType.Int);
             magicRegeneration = new Property<float>(0, DataType.Int);
             adaptiveForce = new Property<float>(0, DataType.Int);
@@ -838,6 +878,9 @@ namespace Classes
             magicPointProportion = new Property<float>(() => maxMagicPoint == 0 ? 0 : magicPoint / maxMagicPoint,
                 DataType.Percentage,
                 maxMagicPoint, magicPoint);
+            experienceProportion = new Property<float>(() => maxExperience == 0 ? 0 : experience / maxExperience,
+                DataType.Percentage,
+                experience, level);
 
             #endregion
 
@@ -853,6 +896,12 @@ namespace Classes
             _agent = _gameObject.GetComponent<RVOAgent>();
             _agent.enabled = true;
             _agent.AgentInitialization(this);
+
+            #endregion
+
+            #region 其他属性初始化
+            
+            isAlive = true;
 
             #endregion
         }

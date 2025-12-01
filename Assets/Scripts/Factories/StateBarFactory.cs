@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Pool;
-using MVVM;
 using Classes;
+using MVVM.ViewModels;
 using UnityEngine.UI;
 using Utilities;
 
@@ -61,7 +61,7 @@ namespace Factories
             }
 
             var bar = _stateBarPool.Get();
-            _unbindEvent.Add(entity, Binder.BindStateBar(bar, entity));
+            _unbindEvent[entity] = bar.GetComponent<StateBarViewModel>().ViewModelInitialization(entity);
             _activeBars[entity] = bar;
         }
 
@@ -113,7 +113,6 @@ namespace Factories
 
         private void OnDestroy()
         {
-            DespawnAll();
             _stateBarPool?.Dispose();
         }
     }

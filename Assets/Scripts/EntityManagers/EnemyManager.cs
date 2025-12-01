@@ -27,6 +27,7 @@ namespace EntityManagers
             {
                 enemy.Move();
                 enemy.Attack();
+                enemy.GainExperience();
             }
         }
 

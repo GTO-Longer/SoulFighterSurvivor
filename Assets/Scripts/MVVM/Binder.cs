@@ -239,27 +239,6 @@ namespace MVVM
         }
         
         /// <summary>
-        /// 绑定实体与StateBar
-        /// </summary>
-        /// <param name="stateBar"></param>
-        /// <param name="entity"></param>
-        public static Action BindStateBar(RectTransform stateBar, Entity entity)
-        {
-            if (stateBar == null || entity == null)
-                return () => { };
-
-            Action UnBind = () => {};
-            stateBar.gameObject.SetActive(true);
-            
-            UnBind += BindFillAmountImmediate(stateBar.Find("HPBarBackground/HPBar").GetComponent<Image>(), entity.healthPointProportion);
-            UnBind += BindFillAmountSmooth(stateBar.Find("HPBarBackground/HPBarSmooth").GetComponent<Image>(), 0.2f, entity.healthPointProportion);
-            UnBind += BindFillAmountImmediate(stateBar.Find("MPBarBackground/MPBar").GetComponent<Image>(), entity.magicPointProportion);
-            UnBind += BindText(stateBar.Find("LevelBackground/Level").GetComponent<TMP_Text>(), entity.level, "{0:F0}");
-            
-            return UnBind;
-        }
-        
-        /// <summary>
         /// 绑定敌人血条相关UI
         /// </summary>
         public static Action BindHPGroup(TMP_Text text,Image image, Property<Entity> source, string format = "{0} / {1}"){

@@ -137,6 +137,13 @@ namespace Classes.Skills
                             }
                             else if (self.bulletStateID == 2)
                             {
+                                // 锁定目标死亡则清除子弹
+                                if (self.target == null || !self.target.isAlive)
+                                {
+                                    self.Destroy();
+                                    return;
+                                }
+                                
                                 var currentPosition = self.gameObject.transform.position;
                                 var targetPosition = self.target.gameObject.transform.position;
             

@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Classes;
 using Classes.Entities;
 using DataManagement;
-using EntityManagers;
+using Managers.EntityManagers;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using Utilities;
 
 namespace MVVM.ViewModels

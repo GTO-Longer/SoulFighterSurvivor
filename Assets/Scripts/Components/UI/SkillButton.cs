@@ -1,4 +1,4 @@
-using EntityManagers;
+using Managers.EntityManagers;
 using MVVM.ViewModels;
 using UnityEngine;
 using UnityEngine.EventSystems;

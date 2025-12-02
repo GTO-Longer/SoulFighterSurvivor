@@ -1,4 +1,4 @@
-using EntityManagers;
+using Managers.EntityManagers;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Pool;

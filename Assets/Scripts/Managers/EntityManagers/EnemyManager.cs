@@ -4,7 +4,7 @@ using Factories;
 using UnityEngine;
 
 
-namespace EntityManagers
+namespace Managers.EntityManagers
 {
     public class EnemyManager : MonoBehaviour
     {

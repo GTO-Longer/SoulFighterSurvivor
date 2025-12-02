@@ -4,7 +4,7 @@ using Classes.Entities;
 using Systems;
 using Utilities;
 
-namespace EntityManagers
+namespace Managers.EntityManagers
 {
     public class HeroManager : MonoBehaviour
     {

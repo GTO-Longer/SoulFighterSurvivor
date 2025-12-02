@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using EntityManagers;
+using Managers.EntityManagers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

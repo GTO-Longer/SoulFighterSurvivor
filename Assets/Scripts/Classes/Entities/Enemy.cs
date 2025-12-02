@@ -1,4 +1,4 @@
-using EntityManagers;
+using Managers.EntityManagers;
 using Factories;
 using UnityEngine;
 using Utilities;

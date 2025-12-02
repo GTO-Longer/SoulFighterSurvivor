@@ -1,6 +1,6 @@
 using System;
 using Classes;
-using EntityManagers;
+using Managers.EntityManagers;
 
 namespace Systems
 {

@@ -76,10 +76,6 @@ namespace DataManagement
         public SkillConfig[] skills;
     }
 
-    // ============================================================
-    //                      Equipment Config
-    // ============================================================
-
     [Serializable]
     public class EquipmentConfig
     {

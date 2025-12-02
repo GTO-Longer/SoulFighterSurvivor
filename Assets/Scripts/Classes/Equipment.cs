@@ -9,18 +9,11 @@ namespace Classes
     public class Equipment
     {
         /// <summary>
-        /// 持有者实体
-        /// </summary>
-        public Entity owner;
-        /// <summary>
-        /// 获取装备事件
-        /// </summary>
-        private event Action EquipmentGet;
-
-        /// <summary>
         /// 装备属性字典
         /// </summary>
-        public Dictionary<AttributeType, float> equipmentAttributes;
+        public Dictionary<EquipmentAttributeType, float> equipmentAttributes;
+
+        public Entity owner;
         
         public string equipmentName;
         public string _usageDescription;
@@ -30,7 +23,7 @@ namespace Classes
         // 技能主动效果
         public string _passiveSkillDescription;
         public string _passiveSkillName;
-        private event Action PassiveSkillEffect;
+        private event Action<Entity> PassiveSkillEffect;
 
         // 装备主动效果
         public string _activeSkillDescription;
@@ -39,9 +32,8 @@ namespace Classes
         
         public EquipmentUniqueEffect _uniqueEffect;
 
-        public Equipment(string name, Entity entity)
+        public Equipment(string name)
         {
-            owner = entity;
             var config = ResourceReader.ReadEquipmentConfig(name);
             equipmentAttributes = ConvertAttributeList(config._attributeList);
             equipmentName = config.equipmentName;
@@ -55,16 +47,16 @@ namespace Classes
             _uniqueEffect = config._uniqueEffect;
         }
 
-        private Dictionary<AttributeType, float> ConvertAttributeList(Dictionary<string, float> rawDict)
+        private Dictionary<EquipmentAttributeType, float> ConvertAttributeList(Dictionary<string, float> rawDict)
         {
-            var result = new Dictionary<AttributeType, float>();
+            var result = new Dictionary<EquipmentAttributeType, float>();
 
             if (rawDict == null)
                 return result;
 
             foreach (var kv in rawDict)
             {
-                if (Enum.TryParse(kv.Key, true, out AttributeType attr))
+                if (Enum.TryParse(kv.Key, true, out EquipmentAttributeType attr))
                 {
                     result[attr] = kv.Value;
                 }
@@ -77,27 +69,223 @@ namespace Classes
             return result;
         }
 
-        public void RegisterOnEquipmentGet(Action callback)
-        {
-            EquipmentGet += callback;
-        }
-
-        public void RegisterOnActiveSkillEffective(Action callback)
-        {
-            ActiveSkillEffective += callback;
-        }
-
-        public void RegisterOnPassiveSkillEffect(Action callback)
-        {
-            PassiveSkillEffect += callback;
-        }
-
         /// <summary>
         /// 装备被获取时调用
         /// </summary>
-        public void OnEquipmentGet()
+        public void OnEquipmentGet(Entity entity)
         {
-            EquipmentGet?.Invoke();
+            owner = entity;
+            
+            // 注册装备被动能力
+            owner.EntityUpdateEvent += PassiveSkillEffect;
+            foreach (var kv in equipmentAttributes)
+            {
+                // 获取装备属性
+                switch (kv.Key)
+                {
+                    case EquipmentAttributeType.None:Debug.LogError("未找到对应属性！");
+                        break;
+                    case EquipmentAttributeType.maxHealthPoint:
+                        owner._maxHealthPointBonus.Value += kv.Value;
+                        break;
+                    case EquipmentAttributeType.percentageMaxHealthPoint:
+                        owner._percentageMaxHealthPointBonus.Value += kv.Value;
+                        break;
+                    case EquipmentAttributeType.maxMagicPoint:
+                        owner._maxMagicPointBonus.Value += kv.Value;
+                        break;
+                    case EquipmentAttributeType.percentageMaxMagicPoint:
+                        owner._percentageMaxMagicPointBonus.Value += kv.Value;
+                        break;
+                    case EquipmentAttributeType.attackSpeed:
+                        owner._attackSpeedBonus.Value += kv.Value;
+                        break;
+                    case EquipmentAttributeType.percentageAttackSpeed:
+                        owner._percentageAttackSpeedBonus.Value += kv.Value;
+                        break;
+                    case EquipmentAttributeType.attackDamage:
+                        owner._attackDamageBonus.Value += kv.Value;
+                        break;
+                    case EquipmentAttributeType.percentageAttackDamage:
+                        owner._percentageAttackDamageBonus.Value += kv.Value;
+                        break;
+                    case EquipmentAttributeType.abilityPower:
+                        owner._abilityPowerBonus.Value += kv.Value;
+                        break;
+                    case EquipmentAttributeType.percentageAbilityPower:
+                        owner._percentageAbilityPowerBonus.Value += kv.Value;
+                        break;
+                    case EquipmentAttributeType.abilityHaste:
+                        owner._abilityHasteBonus.Value += kv.Value;
+                        break;
+                    case EquipmentAttributeType.percentageAbilityHaste:
+                        owner._percentageAbilityHasteBonus.Value += kv.Value;
+                        break;
+                    case EquipmentAttributeType.attackDefense:
+                        owner._attackDefenseBonus.Value += kv.Value;
+                        break;
+                    case EquipmentAttributeType.percentageAttackDefense:
+                        owner._percentageAttackDefenseBonus.Value += kv.Value;
+                        break;
+                    case EquipmentAttributeType.magicDefense:
+                        owner._magicDefenseBonus.Value += kv.Value;
+                        break;
+                    case EquipmentAttributeType.percentageMagicDefense:
+                        owner._percentageMagicDefenseBonus.Value += kv.Value;
+                        break;
+                    case EquipmentAttributeType.attackPenetration:
+                        owner._attackPenetrationBonus.Value += kv.Value;
+                        break;
+                    case EquipmentAttributeType.percentageAttackPenetration:
+                        owner._percentageAttackPenetrationBonus.Value += kv.Value;
+                        break;
+                    case EquipmentAttributeType.magicPenetration:
+                        owner._magicPenetrationBonus.Value += kv.Value;
+                        break;
+                    case EquipmentAttributeType.percentageMagicPenetration:
+                        owner._percentageMagicPenetrationBonus.Value += kv.Value;
+                        break;
+                    case EquipmentAttributeType.criticalRate:
+                        owner._criticalRateBonus.Value += kv.Value;
+                        break;
+                    case EquipmentAttributeType.percentageCriticalRate:
+                        owner._percentageCriticalRateBonus.Value += kv.Value;
+                        break;
+                    case EquipmentAttributeType.criticalDamage:
+                        owner._criticalDamageBonus.Value += kv.Value;
+                        break;
+                    case EquipmentAttributeType.movementSpeed:
+                        owner._movementSpeedBonus.Value += kv.Value;
+                        break;
+                    case EquipmentAttributeType.percentageMovementSpeed:
+                        owner._percentageMovementSpeedBonus.Value += kv.Value;
+                        break;
+                    case EquipmentAttributeType.attackRange:
+                        owner._attackRangeBonus.Value += kv.Value;
+                        break;
+                    case EquipmentAttributeType.percentageAttackRange:
+                        owner._percentageAttackRangeBonus.Value += kv.Value;
+                        break;
+                    case EquipmentAttributeType.percentageHealthRegeneration:
+                        owner._percentageHealthRegenerationBonus.Value += kv.Value;
+                        break;
+                    case EquipmentAttributeType.percentageMagicRegeneration:
+                        owner._percentageMagicRegenerationBonus.Value += kv.Value;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
+
+        /// <summary>
+        /// 装备被移除时调用
+        /// </summary>
+        public void OnEquipmentRemove()
+        {
+            if (owner == null) return;
+            
+            // 注销装备被动能力
+            owner.EntityUpdateEvent -= PassiveSkillEffect;
+            foreach (var kv in equipmentAttributes)
+            {
+                // 移除装备属性
+                switch (kv.Key)
+                {
+                    case EquipmentAttributeType.None:Debug.LogError("未找到对应属性！");
+                        break;
+                    case EquipmentAttributeType.maxHealthPoint:
+                        owner._maxHealthPointBonus.Value -= kv.Value;
+                        break;
+                    case EquipmentAttributeType.percentageMaxHealthPoint:
+                        owner._percentageMaxHealthPointBonus.Value -= kv.Value;
+                        break;
+                    case EquipmentAttributeType.maxMagicPoint:
+                        owner._maxMagicPointBonus.Value -= kv.Value;
+                        break;
+                    case EquipmentAttributeType.percentageMaxMagicPoint:
+                        owner._percentageMaxMagicPointBonus.Value -= kv.Value;
+                        break;
+                    case EquipmentAttributeType.attackSpeed:
+                        owner._attackSpeedBonus.Value -= kv.Value;
+                        break;
+                    case EquipmentAttributeType.percentageAttackSpeed:
+                        owner._percentageAttackSpeedBonus.Value -= kv.Value;
+                        break;
+                    case EquipmentAttributeType.attackDamage:
+                        owner._attackDamageBonus.Value -= kv.Value;
+                        break;
+                    case EquipmentAttributeType.percentageAttackDamage:
+                        owner._percentageAttackDamageBonus.Value -= kv.Value;
+                        break;
+                    case EquipmentAttributeType.abilityPower:
+                        owner._abilityPowerBonus.Value -= kv.Value;
+                        break;
+                    case EquipmentAttributeType.percentageAbilityPower:
+                        owner._percentageAbilityPowerBonus.Value -= kv.Value;
+                        break;
+                    case EquipmentAttributeType.abilityHaste:
+                        owner._abilityHasteBonus.Value -= kv.Value;
+                        break;
+                    case EquipmentAttributeType.percentageAbilityHaste:
+                        owner._percentageAbilityHasteBonus.Value -= kv.Value;
+                        break;
+                    case EquipmentAttributeType.attackDefense:
+                        owner._attackDefenseBonus.Value -= kv.Value;
+                        break;
+                    case EquipmentAttributeType.percentageAttackDefense:
+                        owner._percentageAttackDefenseBonus.Value -= kv.Value;
+                        break;
+                    case EquipmentAttributeType.magicDefense:
+                        owner._magicDefenseBonus.Value -= kv.Value;
+                        break;
+                    case EquipmentAttributeType.percentageMagicDefense:
+                        owner._percentageMagicDefenseBonus.Value -= kv.Value;
+                        break;
+                    case EquipmentAttributeType.attackPenetration:
+                        owner._attackPenetrationBonus.Value -= kv.Value;
+                        break;
+                    case EquipmentAttributeType.percentageAttackPenetration:
+                        owner._percentageAttackPenetrationBonus.Value -= kv.Value;
+                        break;
+                    case EquipmentAttributeType.magicPenetration:
+                        owner._magicPenetrationBonus.Value -= kv.Value;
+                        break;
+                    case EquipmentAttributeType.percentageMagicPenetration:
+                        owner._percentageMagicPenetrationBonus.Value -= kv.Value;
+                        break;
+                    case EquipmentAttributeType.criticalRate:
+                        owner._criticalRateBonus.Value -= kv.Value;
+                        break;
+                    case EquipmentAttributeType.percentageCriticalRate:
+                        owner._percentageCriticalRateBonus.Value -= kv.Value;
+                        break;
+                    case EquipmentAttributeType.criticalDamage:
+                        owner._criticalDamageBonus.Value -= kv.Value;
+                        break;
+                    case EquipmentAttributeType.movementSpeed:
+                        owner._movementSpeedBonus.Value -= kv.Value;
+                        break;
+                    case EquipmentAttributeType.percentageMovementSpeed:
+                        owner._percentageMovementSpeedBonus.Value -= kv.Value;
+                        break;
+                    case EquipmentAttributeType.attackRange:
+                        owner._attackRangeBonus.Value -= kv.Value;
+                        break;
+                    case EquipmentAttributeType.percentageAttackRange:
+                        owner._percentageAttackRangeBonus.Value -= kv.Value;
+                        break;
+                    case EquipmentAttributeType.percentageHealthRegeneration:
+                        owner._percentageHealthRegenerationBonus.Value -= kv.Value;
+                        break;
+                    case EquipmentAttributeType.percentageMagicRegeneration:
+                        owner._percentageMagicRegenerationBonus.Value -= kv.Value;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+            owner = null;
         }
 
         /// <summary>

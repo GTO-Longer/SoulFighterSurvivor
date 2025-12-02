@@ -50,6 +50,7 @@
     <Compile Include="Assets\RVO2\RVOMath.cs" />
     <Compile Include="Assets\Scripts\MVVM\ViewModels\HeroAttributeViewModel.cs" />
     <Compile Include="Assets\Scripts\RVO\RVOObstacle.cs" />
+    <Compile Include="Assets\Scripts\Systems\ShopSystem.cs" />
     <Compile Include="Assets\Scripts\RVO\RVOManager.cs" />
     <Compile Include="Assets\Scripts\Utilities\Async.cs" />
     <Compile Include="Assets\Scripts\Classes\Skills\SpiritRush.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Assets\Scripts\Classes\Skills\Charm.cs" />
     <Compile Include="Assets\Scripts\Factories\StateBarFactory.cs" />
     <Compile Include="Assets\Scripts\MVVM\ViewModels\SkillViewModel.cs" />
+    <Compile Include="Assets\Scripts\Classes\Equipments\Guardian_sOrb.cs" />
     <Compile Include="Assets\Scripts\Classes\Skill.cs" />
     <Compile Include="Assets\Scripts\Utilities\Enums.cs" />
     <Compile Include="Assets\Scripts\Factories\BulletFactory.cs" />

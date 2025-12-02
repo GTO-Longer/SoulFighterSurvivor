@@ -52,6 +52,40 @@ namespace Utilities
         AttackRange
     }
 
+    public enum EquipmentAttributeType
+    {
+        None = 0,
+        maxHealthPoint,
+        percentageMaxHealthPoint,
+        maxMagicPoint,
+        percentageMaxMagicPoint,
+        attackSpeed,
+        percentageAttackSpeed,
+        attackDamage,
+        percentageAttackDamage,
+        abilityPower,
+        percentageAbilityPower,
+        abilityHaste,
+        percentageAbilityHaste,
+        attackDefense,
+        percentageAttackDefense,
+        magicDefense,
+        percentageMagicDefense,
+        attackPenetration,
+        percentageAttackPenetration,
+        magicPenetration,
+        percentageMagicPenetration,
+        criticalRate,
+        percentageCriticalRate,
+        criticalDamage,
+        movementSpeed,
+        percentageMovementSpeed,
+        attackRange,
+        percentageAttackRange,
+        percentageHealthRegeneration,
+        percentageMagicRegeneration
+    }
+
     public enum BulletType
     {
         None = 0,

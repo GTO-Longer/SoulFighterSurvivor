@@ -51,7 +51,14 @@ namespace Classes.Entities
         /// </summary>
         private const float attackBulletSpeed = 1500f;
 
+        /// <summary>
+        /// 角色技能列表
+        /// </summary>
         public List<Skill> skillList = new();
+        /// <summary>
+        /// 角色装备列表
+        /// </summary>
+        public List<Equipment> equipmentList = new(6);
         /// <summary>
         /// 是否可以移动
         /// </summary>

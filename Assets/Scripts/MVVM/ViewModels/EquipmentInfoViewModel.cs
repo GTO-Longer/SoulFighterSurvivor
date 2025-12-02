@@ -38,6 +38,7 @@ namespace MVVM.ViewModels
         public void ShowEquipmentInfo(Equipment equipment)
         {
             ClearEntryList();
+            
             equipmentName.text = equipment.equipmentName;
             usageDescription.text = equipment._usageDescription;
             equipmentCost.text = $"{equipment._cost}</color>";
@@ -177,12 +178,29 @@ namespace MVVM.ViewModels
                 entryList[^1].transform.Find("EntryContent").GetComponent<TMP_Text>().text = entryContent;
                 entryList[^1].SetActive(true);
             }
+
+            if (equipment.GetPassiveSkillDescription(out var passiveContent))
+            {
+                entryList.Add(Instantiate(entryPrefab, entryPrefab.transform.parent));
+                entryList[^1].transform.Find("EntryContent").GetComponent<TMP_Text>().text = passiveContent;
+                entryList[^1].SetActive(true);
+            }
+
+            if (equipment.GetActiveSkillDescription(out var activeContent))
+            {
+                entryList.Add(Instantiate(entryPrefab, entryPrefab.transform.parent));
+                entryList[^1].transform.Find("EntryContent").GetComponent<TMP_Text>().text = activeContent;
+                entryList[^1].SetActive(true);
+            }
             
             equipmentIcon.gameObject.SetActive(true);
             equipmentName.gameObject.SetActive(true);
             usageDescription.gameObject.SetActive(true);
             equipmentCost.transform.parent.gameObject.SetActive(true);
             purchaseButton.gameObject.SetActive(true);
+
+            // 更新UI布局
+            LayoutRebuilder.ForceRebuildLayoutImmediate(entryPrefab.transform.parent.GetComponent<RectTransform>());
         }
 
         public void HideEquipmentInfo()

@@ -265,7 +265,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HealthRegenerationIcon
+      name: MaxHealthPointIcon
       rect:
         serializedVersion: 2
         x: 0
@@ -286,7 +286,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HealAndShieldPowerIcon
+      name: MaxMagicPointIcon
       rect:
         serializedVersion: 2
         x: 160
@@ -349,7 +349,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LifeSteelIcon
+      name: LifeStealIcon
       rect:
         serializedVersion: 2
         x: 0
@@ -411,6 +411,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: CriticalDamageIcon
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 0
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9778103df90b6e84cac3896df50e0be4
+      internalID: -2007289703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -429,12 +450,13 @@ TextureImporter:
       AttackPenetrationIcon: 1969226155
       AttackRangeIcon: -1635256732
       AttackSpeedIcon: 275231924
+      CriticalDamageIcon: -2007289703
       CriticalRateIcon: -1809108279
-      HealAndShieldPowerIcon: -1067980388
-      HealthRegenerationIcon: -2111011355
-      LifeSteelIcon: 1291750763
+      LifeStealIcon: 1291750763
       MagicDefenseIcon: 597841450
       MagicPenetrationIcon: -2065556346
+      MaxHealthPointIcon: -2111011355
+      MaxMagicPointIcon: -1067980388
       MovementSpeedIcon: 1952586895
       OmniVampIcon: -243565279
   mipmapLimitGroupName: 

@@ -58,7 +58,7 @@ namespace Classes.Entities
         /// <summary>
         /// 角色装备列表
         /// </summary>
-        public List<Equipment> equipmentList = new(6);
+        public List<Equipment> equipmentList = new();
         /// <summary>
         /// 是否可以移动
         /// </summary>
@@ -533,6 +533,18 @@ namespace Classes.Entities
                     SkillViewModel.chosenSkill.Value = null;
                     SkillViewModel.chosenSkill.Value = skill;
                 }
+            }
+        }
+
+        /// <summary>
+        /// 穿上装备
+        /// </summary>
+        public void PurchaseEquipment(Equipment equipment)
+        {
+            if (equipmentList.Count < 6)
+            {
+                equipmentList.Add(equipment);
+                equipment.OnEquipmentGet(this);
             }
         }
     }

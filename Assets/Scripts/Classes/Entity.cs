@@ -131,7 +131,7 @@ namespace Classes
         /// <summary>
         /// 生命偷取
         /// </summary>
-        public Property<float> lifeSteel;
+        public Property<float> lifeSteal;
         /// <summary>
         /// 适应之力
         /// </summary>
@@ -755,7 +755,7 @@ namespace Classes
             healthRegeneration = new Property<float>(0, DataType.Int);
             magicRegeneration = new Property<float>(0, DataType.Int);
             adaptiveForce = new Property<float>(0, DataType.Int);
-            lifeSteel = new Property<float>(0, DataType.Percentage);
+            lifeSteal = new Property<float>(0, DataType.Percentage);
             omnivamp = new Property<float>(0, DataType.Percentage);
             percentageAttackPenetration = new Property<float>(0, DataType.Percentage);
             percentageMagicPenetration = new Property<float>(0, DataType.Percentage);

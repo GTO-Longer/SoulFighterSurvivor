@@ -4,17 +4,453 @@
             "id": "Guardian_sOrb",
             "equipmentName": "守护者法球",
             "_usageDescription": "魔法和法力",
-            "_equipmentType": null,
+            "_equipmentType": "Starter",
             "_cost": 500,
             "_attributeList": {
                 "abilityPower": 55,
-                "abilityHaste": 25
+                "AbilityHaste": 25
             },
-            "_passiveSkillDescription": "每5秒回复<color=#0066FF>法力值</color>.如果你不能回复法力值，则转而回复<color=#00FF00>15生命值</color>",
+            "_passiveSkillDescription": "每5秒回复<color=#0066FF>35法力值</color>，如果你不能回复法力值，则转而回复<color=#00FF00>15生命值</color>",
             "_passiveSkillName": "复原力",
+            "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
             "_activeSkillName": null,
+            "_activeSkillCD": 0,
             "_uniqueEffect": "Guardian"
+        },
+        {
+            "id": "Guardian_sBlade",
+            "equipmentName": "守护者之刃",
+            "_usageDescription": null,
+            "_equipmentType": "Starter",
+            "_cost": 500,
+            "_attributeList": {
+                "attackDamage": 25,
+                "maxHealthPoint": 250,
+                "abilityHaste": 15
+            },
+            "_passiveSkillDescription": null,
+            "_passiveSkillName": null,
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": "Guardian"
+        },
+        {
+            "id": "Guardian_sClothes",
+            "equipmentName": "守护者法衣",
+            "_usageDescription": null,
+            "_equipmentType": "Starter",
+            "_cost": 500,
+            "_attributeList": {
+                "maxHealthPoint": 300,
+                "abilityPower": 35,
+                "abilityHaste": 15
+            },
+            "_passiveSkillDescription": null,
+            "_passiveSkillName": null,
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": "Guardian"
+        },
+        {
+            "id": "Guardian_sDagger",
+            "equipmentName": "守护者短匕",
+            "_usageDescription": "护甲穿透",
+            "_equipmentType": "Starter",
+            "_cost": 500,
+            "_attributeList": {
+                "attackDamage": 25,
+                "attackPenetration": 11,
+                "abilityHaste": 10
+            },
+            "_passiveSkillDescription": null,
+            "_passiveSkillName": null,
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": "Guardian"
+        },
+        {
+            "id": "Guardian_sHammer",
+            "equipmentName": "守护者之锤",
+            "_usageDescription": "攻速和吸血",
+            "_equipmentType": "Starter",
+            "_cost": 500,
+            "_attributeList": {
+                "attackDamage": 25,
+                "attackSpeed": 0.35,
+                "lifeSteal": 0.05
+            },
+            "_passiveSkillDescription": null,
+            "_passiveSkillName": null,
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": "Guardian"
+        },
+        {
+            "id": "Guardian_sHorn",
+            "equipmentName": "守护者号角",
+            "_usageDescription": "血量与回复",
+            "_equipmentType": "Starter",
+            "_cost": 500,
+            "_attributeList": {
+                "maxHealthPoint": 300,
+                "percentageHealthRegeneration": 1
+            },
+            "_passiveSkillDescription": "格挡来自英雄的攻击和技能的12伤害",
+            "_passiveSkillName": "不屈不挠",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": "Guardian"
+        },
+        {
+            "id": "InfinityEdge",
+            "equipmentName": "无尽之刃",
+            "_usageDescription": "暴击增幅",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "attackDamage": 55,
+                "percentageCriticalRate": 0.25,
+                "criticalDamage": 0.4
+            },
+            "_passiveSkillDescription": null,
+            "_passiveSkillName": null,
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null
+        },
+        {
+            "id": "Luden_sCompanion",
+            "equipmentName": "卢登的配枪",
+            "_usageDescription": "爆发伤害",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "abilityPower": 85,
+                "maxMagicPoint": 600,
+                "abilityHaste": 25
+            },
+            "_passiveSkillDescription": "伤害型技能会消耗6层弹丸充能来对目标造成额外{0:F0}=（80+5%法术强度+6%额外攻击力）的伤害。每多一层弹丸，就会对主要目标重复造成一次<color=#00D8FF>35%</color>效果的伤害。",
+            "_passiveSkillName": "开火",
+            "_passiveSkillCD": 6,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null
+        },
+        {
+            "id": "Rabadon_sAgony",
+            "equipmentName": "残疫",
+            "_usageDescription": "终极技能强度",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "abilityPower": 70,
+                "maxMagicPoint": 600,
+                "abilityHaste": 20
+            },
+            "_passiveSkillDescription": "你的终极技能获得<color=#FFE761>20技能急速</color>\n\n终极技能命中时，在脚下生成灼烧区域，造成<color=#00D8FF>{0:F0}=（115+5%法术强度）魔法伤害</color>，并削减敌人<color=#C97BFF>25魔法抗性</color>。",
+            "_passiveSkillName": "蔑视与憎恶",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null
+        },
+        {
+            "id": "Liandry_sTorment",
+            "equipmentName": "黯炎火炬",
+            "_usageDescription": "持续伤害",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "abilityPower": 60,
+                "maxMagicPoint": 600,
+                "abilityHaste": 20
+            },
+            "_passiveSkillDescription": "造成技能伤害时会灼烧敌人，每秒造成<color=#00D8FF>{0:F0}=（20+4%法术强度）魔法伤害</color>，持续3秒。",
+            "_passiveSkillName": "邪焰",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null
+        },
+        {
+            "id": "Archangel_sStaff",
+            "equipmentName": "大天使之杖",
+            "_usageDescription": "法力值增长",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "abilityPower": 55,
+                "maxMagicPoint": 600,
+                "abilityHaste": 25
+            },
+            "_passiveSkillDescription": "获得相当于<color=#C97BFF>2%额外法力值</color>的法术强度。\n\n在击杀50个敌人后，这件装备会转变为炽天使之拥",
+            "_passiveSkillName": "敬畏",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": "MPBoost"
+        },
+        {
+            "id": "Seraph_sEmbrace",
+            "equipmentName": "炽天使之拥",
+            "_usageDescription": "法力值增长",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "abilityPower": 60,
+                "maxMagicPoint": 1200,
+                "abilityHaste": 25
+            },
+            "_passiveSkillDescription": "获得相当于<color=#C97BFF>4%额外法力值</color>的法术强度。\n\n生命值低于30%时，获得一个护盾，吸收<color=#1DA1FF>{0:F0} =（300+ <color=#1DA1FF>20%最大法力值</color>）伤害</color>，持续3秒。",
+            "_passiveSkillName": "救主灵刃",
+            "_passiveSkillCD": 45,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": "MPBoost"
+        },
+        {
+            "id": "Muramana",
+            "equipmentName": "魔宗",
+            "_usageDescription": "法力值增长",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "attackDamage": 40,
+                "maxMagicPoint": 600,
+                "abilityHaste": 15
+            },
+            "_passiveSkillDescription": "获得相当于<color=#FF6161>13%额外法力值</color>的攻击力。\n\n在击杀50个敌人后，这件装备会转变为魔切",
+            "_passiveSkillName": "敬畏",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": "MPBoost"
+        },
+        {
+            "id": "Manamune",
+            "equipmentName": "魔切",
+            "_usageDescription": "法力值增长",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "attackDamage": 40,
+                "maxMagicPoint": 1000,
+                "abilityHaste": 15
+            },
+            "_passiveSkillDescription": "获得相当于<color=#FF6161>20%额外法力值</color>的攻击力。\n\n普攻造成额外<color=#FF6A6A>{0:F0}=（5+2%最大法力值）物理伤害</color>\n技能造成额外<color=#FF6A6A>{1:F0}=（20+10%最大法力值）物理伤害</color>。",
+            "_passiveSkillName": "冲击",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": "MPBoost"
+        },
+        {
+            "id": "FrozenHeart",
+            "equipmentName": "冰霜之心",
+            "_usageDescription": "普攻型英雄的克星",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "attackDefense": 90,
+                "maxMagicPoint": 450,
+                "abilityHaste": 15
+            },
+            "_passiveSkillDescription": "使附近敌人的<color=#FFE761>攻击速度降低30%</color>。",
+            "_passiveSkillName": "凛冬之扰",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null
+        },
+        {
+            "id": "RodofAges",
+            "equipmentName": "时光之杖",
+            "_usageDescription": "属性成长",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "abilityPower": 60,
+                "maxHealthPoint": 350,
+                "maxMagicPoint": 300
+            },
+            "_passiveSkillDescription": "在击杀50个敌人后，这个装备获得额外的<color=#C97BFF>50法术强度</color>、<color=#0ACD02>300生命值</color>、<color=#1DA1FF>400法力值</color>，并且你的等级提升1级。\n\n承受伤害时，你会回复相当于<color=#1DA1FF>7%</color>的法力值；施放一个技能时，你会根据消耗的法力值回复自身相当于<color=#0ACD02>25%</color>的生命值",
+            "_passiveSkillName": "时光永恒",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null
+        },
+        {
+            "id": "HextechRocketBelt",
+            "equipmentName": "海克斯科技火箭腰带",
+            "_usageDescription": "机动力",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "abilityPower": 95,
+                "maxHealthPoint": 400,
+                "abilityHaste": 25
+            },
+            "_passiveSkillDescription": null,
+            "_passiveSkillName": null,
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": "（<color=#FFE761>25秒</color>冷却）：向目标方向冲刺并释放一道魔法弹影，造成<color=#00D8FF>100</color>（= <color=#C97BFF>100 + 10% 法强</color>）魔法伤害。",
+            "_activeSkillName": "超音速",
+            "_activeSkillCD": 25,
+            "_uniqueEffect": null
+        },
+        {
+            "id": "HorizonFocus",
+            "equipmentName": "视界专注",
+            "_usageDescription": null,
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "abilityPower": 90,
+                "abilityHaste": 25
+            },
+            "_passiveSkillDescription": "当你命中600码外的英雄时，造成的伤害增加20%",
+            "_passiveSkillName": "高能射击",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null
+        },
+        {
+            "id": "HextechGunblade",
+            "equipmentName": "海克斯科技枪刃",
+            "_usageDescription": "全能吸血",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "abilityPower": 90,
+                "attackDamage": 45,
+                "omnivamp": 0.15
+            },
+            "_passiveSkillDescription": null,
+            "_passiveSkillName": null,
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null
+        },
+        {
+            "id": "Shadowflame",
+            "equipmentName": "影焰",
+            "_usageDescription": "技能暴击",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "abilityPower": 90,
+                "maxHealthPoint": 250,
+                "abilityHaste": 15
+            },
+            "_passiveSkillDescription": "魔法伤害和真实伤害会对生命值低于<color=#0ACD02>40%</color>的敌人造成额外<color=#FFA347>15%</color>提升伤害",
+            "_passiveSkillName": "余烬绽放",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null
+        },
+        {
+            "id": "Stormsurge",
+            "equipmentName": "风暴狂涌",
+            "_usageDescription": "爆发伤害",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "abilityPower": 90,
+                "magicPenetration": 15,
+                "percentageMovementSpeed": 4
+            },
+            "_passiveSkillDescription": "在2.5秒内对一个英雄造成相当于其<color=#0ACD02>25%最大生命值</color>的伤害，则在两秒后对目标造成<color=#00D8FF>{0:F0}=（180 + 30% 法强）魔法伤害</color>。",
+            "_passiveSkillName": "风暴掠袭",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null
+        },
+        {
+            "id": "LichBane",
+            "equipmentName": "巫妖之祸",
+            "_usageDescription": "爆发伤害",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "abilityPower": 80,
+                "percentageMovementSpeed": 0.1,
+                "abilityHaste": 20
+            },
+            "_passiveSkillDescription": "施放技能后，你的下一次普攻会因强化而附带额外的<color=#00D8FF>60</color>=（<color=#FF6161>75% 基础攻击</color> + <color=#C97BFF>66%法术强度</color>）魔法伤害并触发攻击特效",
+            "_passiveSkillName": "咒刃",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": "CursedBlade"
+        },
+        {
+            "id": "BansheesVeil",
+            "equipmentName": "女妖面纱",
+            "_usageDescription": "法术护盾",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "abilityPower": 80,
+                "magicDefense": 40
+            },
+            "_passiveSkillDescription": "提供一层法术护盾以格挡下一个敌方技能",
+            "_passiveSkillName": "废除",
+            "_passiveSkillCD": 10,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": "MagicShield"
+        },
+        {
+            "id": "Nashors_Tooth",
+            "equipmentName": "纳什之牙",
+            "_usageDescription": "攻击附带魔法伤害",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "abilityPower": 70,
+                "attackSpeed": 0.45,
+                "abilityHaste": 10
+            },
+            "_passiveSkillDescription": "攻击附带<color=#00D8FF>{0:F0}</color>=（15 + <color=#C97BFF>20%</color>法强）魔法伤害并触发攻击特效。",
+            "_passiveSkillName": "艾卡西亚之咬",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null
         }
     ]
 }

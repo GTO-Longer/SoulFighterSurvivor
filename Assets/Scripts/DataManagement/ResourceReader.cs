@@ -85,6 +85,8 @@ namespace DataManagement
         public string _usageDescription;
         public string _equipmentType;
         public int _cost;
+        public float _passiveSkillCD;
+        public float _activeSkillCD;
 
         public Dictionary<string, float> _attributeList;
 
@@ -288,7 +290,7 @@ namespace DataManagement
             return null;
         }
 
-        public static Sprite ReadImage(string imagePath)
+        public static Sprite ReadImage(string imagePath, string subname)
         {
             if (string.IsNullOrEmpty(imagePath))
             {
@@ -296,17 +298,34 @@ namespace DataManagement
                 return null;
             }
 
-            var sprite = Resources.Load<Sprite>(imagePath);
-            if (sprite == null)
+            // 加载整张图所有子Sprite
+            var sprites = Resources.LoadAll<Sprite>(imagePath);
+            if (sprites == null || sprites.Length == 0)
             {
-                Debug.LogError($"Texture not found at path: {imagePath}");
+                Debug.LogError($"No sprites found at path: {imagePath}");
                 return null;
             }
 
-            return sprite;
+            // 如果subname为空，直接返回第一个 sprite
+            if (string.IsNullOrEmpty(subname))
+            {
+                return sprites[0];
+            }
+
+            // 匹配子 Sprite
+            foreach (var sprite in sprites)
+            {
+                if (sprite.name == subname)
+                {
+                    return sprite;
+                }
+            }
+
+            Debug.LogError($"Sprite with name '{subname}' not found in '{imagePath}'.");
+            return null;
         }
 
-        public static Sprite ReadIcon(string name)
+        public static Sprite ReadIcon(string name, string subname = null)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -317,7 +336,7 @@ namespace DataManagement
             var iconName = $"{name}_Icon";
             var imagePath = $"Sprites/UI/Icons/{iconName}";
 
-            return ReadImage(imagePath);
+            return ReadImage(imagePath, subname);
         }
     }
 }

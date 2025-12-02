@@ -16,6 +16,7 @@ namespace Factories
             if (Instance == null)
             {
                 Instance = this;
+                DontDestroyOnLoad(this);
                 screenTextPrefab.SetActive(false);
 
                 _screenTextPool = new ObjectPool<RectTransform>(

@@ -4,7 +4,6 @@ using System.Reflection;
 using UnityEngine;
 using Classes;
 using DataManagement;
-using Managers.EntityManagers;
 using Newtonsoft.Json;
 
 namespace Managers
@@ -12,18 +11,23 @@ namespace Managers
     public class EquipmentManager : MonoBehaviour
     {
         public static EquipmentManager Instance;
-        public Dictionary<string, Equipment> EquipmentMap { get; private set; }
+        private Dictionary<string, Equipment> equipmentMap;
+        public List<Equipment> equipmentList { get; private set; }
 
         private void Awake()
         {
-            Instance = this;
-            EquipmentMap = new Dictionary<string, Equipment>(StringComparer.OrdinalIgnoreCase);
-            LoadAllEquipments();
-        }
-
-        private void Start()
-        {
-            GetEquipment("Guardian_sOrb").OnEquipmentGet(HeroManager.hero);
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(this);
+                equipmentMap = new Dictionary<string, Equipment>(StringComparer.OrdinalIgnoreCase);
+                equipmentList = new List<Equipment>();
+                LoadAllEquipments();
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
 
         /// <summary>
@@ -54,8 +58,14 @@ namespace Managers
                 {
                     // 要求装备类必须有无参构造函数
                     var instance = Activator.CreateInstance(type);
-                    EquipmentMap[config.id] = (Equipment)instance;
-                    Debug.Log($"[EquipmentManager] 创建装备实例成功：{config.id + " : " + EquipmentMap[config.id].equipmentName}");
+                    equipmentMap[config.id] = (Equipment)instance;
+                    equipmentList.Add(equipmentMap[config.id]);
+                    var equip = equipmentMap[config.id];
+                    Debug.Log($"[EquipmentManager] 创建装备实例成功：{config.id}" + ":" + 
+                              "\n " + $"{equip.equipmentName}" + 
+                              "\n " + $"{equip._usageDescription}" + 
+                              "\n " + $"{equip._passiveSkillName}:" + $"{equip._passiveSkillDescription}" + 
+                              "\n " + $"{equip._activeSkillName}:" + $"{equip._activeSkillName}");
                 }
                 catch (Exception ex)
                 {
@@ -63,6 +73,7 @@ namespace Managers
                 }
             }
         }
+        
         private List<EquipmentConfig> GetAllEquipmentConfigs()
         {
             var list = new List<EquipmentConfig>();
@@ -95,7 +106,7 @@ namespace Managers
         /// </summary>
         public Equipment GetEquipment(string id)
         {
-            if (EquipmentMap.TryGetValue(id, out var eq))
+            if (equipmentMap.TryGetValue(id, out var eq))
             {
                 return eq;
             }

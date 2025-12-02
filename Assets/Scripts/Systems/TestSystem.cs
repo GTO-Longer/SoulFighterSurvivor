@@ -1,3 +1,4 @@
+using System;
 using Managers.EntityManagers;
 using UnityEngine;
 
@@ -5,10 +6,24 @@ namespace Systems
 {
     public class TestSystem : MonoBehaviour
     {
+        public static TestSystem Instance { get; private set; }
         public bool InfinityMagicPoint = false;
         public bool InfinityHealthPoint = false;
         public bool SkillNoCoolDown = false;
         public bool LevelUp = false;
+
+        private void Start()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(this);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
 
         private void Update()
         {

@@ -27,7 +27,7 @@
             "id": "OrbOfDeception",
             "heroName": "Ahri",
             "skillName": "欺诈宝珠",
-            "_skillDescription": "阿狸投出然后收回她的宝珠，在放出时会沿途对敌人造成<color=#7700BB>{0:F0}魔法伤害</color>，在收回时则会沿途对敌人造成<color=#FFFFFF>{1}真实伤害</color>。",
+            "_skillDescription": "阿狸投出然后收回她的宝珠，在放出时会沿途对敌人造成<color=#7700BB>{0:F0}魔法伤害</color>，在收回时则会沿途对敌人造成<color=#FFFFFF>{1:F0}真实伤害</color>。",
             "_skillType": "QSkill",
             "_baseSkillCost": [
                 65,

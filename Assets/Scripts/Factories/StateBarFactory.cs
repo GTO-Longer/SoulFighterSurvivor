@@ -24,6 +24,7 @@ namespace Factories
             if (Instance == null)
             {
                 Instance = this;
+                DontDestroyOnLoad(this);
                 stateBarPrefab.SetActive(false);
 
                 _stateBarPool = new ObjectPool<RectTransform>(

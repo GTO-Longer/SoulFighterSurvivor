@@ -17,6 +17,7 @@ namespace Factories
             if (Instance == null)
             {
                 Instance = this;
+                DontDestroyOnLoad(this);
                 enemyPrefab.SetActive(false);
                 enemySpawnTimer = 0;
 

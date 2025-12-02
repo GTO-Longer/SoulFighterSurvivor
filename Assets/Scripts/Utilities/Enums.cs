@@ -76,14 +76,20 @@ namespace Utilities
         magicPenetration,
         percentageMagicPenetration,
         criticalRate,
-        percentageCriticalRate,
         criticalDamage,
         movementSpeed,
         percentageMovementSpeed,
-        attackRange,
-        percentageAttackRange,
         percentageHealthRegeneration,
-        percentageMagicRegeneration
+        percentageMagicRegeneration,
+        omnivamp,
+        lifeSteal
+    }
+
+    public enum EquipmentType
+    {
+        None = 0,
+        Starter,
+        Legend
     }
 
     public enum BulletType

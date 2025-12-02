@@ -14,8 +14,15 @@ namespace Utilities
 
         private void Awake()
         {
-            Instance = this;
-            DontDestroyOnLoad(this);
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(this);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
 
         public static TweenerCore<Vector3, Vector3, VectorOptions> SetAsync(float duration, Transform target = null, TweenCallback update = null, TweenCallback complete = null)

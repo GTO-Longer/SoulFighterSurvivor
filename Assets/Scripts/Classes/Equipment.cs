@@ -14,10 +14,11 @@ namespace Classes
         public Dictionary<EquipmentAttributeType, float> equipmentAttributes;
 
         public Entity owner;
-        
+
+        public string id;
         public string equipmentName;
         public string _usageDescription;
-        public string _equipmentType;
+        public EquipmentType _equipmentType;
         public int _cost;
 
         // 技能主动效果
@@ -35,10 +36,12 @@ namespace Classes
         public Equipment(string name)
         {
             var config = ResourceReader.ReadEquipmentConfig(name);
+            id = config.id;
             equipmentAttributes = ConvertAttributeList(config._attributeList);
             equipmentName = config.equipmentName;
             _usageDescription = config._usageDescription;
-            _equipmentType = config._equipmentType;
+            Enum.TryParse(config._equipmentType, true, out EquipmentType equipmentType);
+            _equipmentType = equipmentType;
             _cost = config._cost;
             _passiveSkillDescription = config._passiveSkillDescription;
             _passiveSkillName = config._passiveSkillName;
@@ -78,6 +81,8 @@ namespace Classes
             
             // 注册装备被动能力
             owner.EntityUpdateEvent += PassiveSkillEffect;
+            
+            // 将装备属性加入加成
             foreach (var kv in equipmentAttributes)
             {
                 // 获取装备属性
@@ -86,16 +91,24 @@ namespace Classes
                     case EquipmentAttributeType.None:Debug.LogError("未找到对应属性！");
                         break;
                     case EquipmentAttributeType.maxHealthPoint:
+                        var healthCache1 = owner.maxHealthPoint.Value;
                         owner._maxHealthPointBonus.Value += kv.Value;
+                        owner.healthPoint.Value += owner.maxHealthPoint.Value - healthCache1;
                         break;
                     case EquipmentAttributeType.percentageMaxHealthPoint:
+                        var healthCache2 = owner.maxHealthPoint.Value;
                         owner._percentageMaxHealthPointBonus.Value += kv.Value;
+                        owner.healthPoint.Value += owner.maxHealthPoint.Value - healthCache2;
                         break;
                     case EquipmentAttributeType.maxMagicPoint:
+                        var magicCache1 = owner.maxMagicPoint.Value;
                         owner._maxMagicPointBonus.Value += kv.Value;
+                        owner.magicPoint.Value += owner.maxMagicPoint.Value - magicCache1;
                         break;
                     case EquipmentAttributeType.percentageMaxMagicPoint:
+                        var magicCache2 = owner.maxMagicPoint.Value;
                         owner._percentageMaxMagicPointBonus.Value += kv.Value;
+                        owner.magicPoint.Value += owner.maxMagicPoint.Value - magicCache2;
                         break;
                     case EquipmentAttributeType.attackSpeed:
                         owner._attackSpeedBonus.Value += kv.Value;
@@ -148,9 +161,6 @@ namespace Classes
                     case EquipmentAttributeType.criticalRate:
                         owner._criticalRateBonus.Value += kv.Value;
                         break;
-                    case EquipmentAttributeType.percentageCriticalRate:
-                        owner._percentageCriticalRateBonus.Value += kv.Value;
-                        break;
                     case EquipmentAttributeType.criticalDamage:
                         owner._criticalDamageBonus.Value += kv.Value;
                         break;
@@ -160,17 +170,17 @@ namespace Classes
                     case EquipmentAttributeType.percentageMovementSpeed:
                         owner._percentageMovementSpeedBonus.Value += kv.Value;
                         break;
-                    case EquipmentAttributeType.attackRange:
-                        owner._attackRangeBonus.Value += kv.Value;
-                        break;
-                    case EquipmentAttributeType.percentageAttackRange:
-                        owner._percentageAttackRangeBonus.Value += kv.Value;
-                        break;
                     case EquipmentAttributeType.percentageHealthRegeneration:
                         owner._percentageHealthRegenerationBonus.Value += kv.Value;
                         break;
                     case EquipmentAttributeType.percentageMagicRegeneration:
                         owner._percentageMagicRegenerationBonus.Value += kv.Value;
+                        break;
+                    case EquipmentAttributeType.omnivamp:
+                        owner.omnivamp.Value += kv.Value;
+                        break;
+                    case EquipmentAttributeType.lifeSteal:
+                        owner.lifeSteal.Value += kv.Value;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -257,9 +267,6 @@ namespace Classes
                     case EquipmentAttributeType.criticalRate:
                         owner._criticalRateBonus.Value -= kv.Value;
                         break;
-                    case EquipmentAttributeType.percentageCriticalRate:
-                        owner._percentageCriticalRateBonus.Value -= kv.Value;
-                        break;
                     case EquipmentAttributeType.criticalDamage:
                         owner._criticalDamageBonus.Value -= kv.Value;
                         break;
@@ -269,17 +276,17 @@ namespace Classes
                     case EquipmentAttributeType.percentageMovementSpeed:
                         owner._percentageMovementSpeedBonus.Value -= kv.Value;
                         break;
-                    case EquipmentAttributeType.attackRange:
-                        owner._attackRangeBonus.Value -= kv.Value;
-                        break;
-                    case EquipmentAttributeType.percentageAttackRange:
-                        owner._percentageAttackRangeBonus.Value -= kv.Value;
-                        break;
                     case EquipmentAttributeType.percentageHealthRegeneration:
                         owner._percentageHealthRegenerationBonus.Value -= kv.Value;
                         break;
                     case EquipmentAttributeType.percentageMagicRegeneration:
                         owner._percentageMagicRegenerationBonus.Value -= kv.Value;
+                        break;
+                    case EquipmentAttributeType.omnivamp:
+                        owner.omnivamp.Value -= kv.Value;
+                        break;
+                    case EquipmentAttributeType.lifeSteal:
+                        owner.lifeSteal.Value -= kv.Value;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();

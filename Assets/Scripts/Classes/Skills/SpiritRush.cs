@@ -159,7 +159,7 @@ namespace Classes.Skills
                             spiritOrb.OnBulletHit += (self) =>
                             {
                                 self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, _damage), DamageType.AP, owner);
-                                self.AbilityEffectActivate();
+                                self.owner.AbilityEffectActivate(self.owner, self.target);
                             };
 
                             spiritOrb.Awake();

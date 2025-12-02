@@ -19,14 +19,6 @@ namespace Classes
         public event Action<Bullet> OnBulletUpdate;
         public event Action<Bullet> OnBulletDestroy;
         public event Action<Bullet> OnBulletHit;
-        /// <summary>
-        /// 攻击特效
-        /// </summary>
-        public event Action<Bullet> AttackEffect;
-        /// <summary>
-        /// 技能特效
-        /// </summary>
-        public event Action<Bullet> AbilityEffect;
 
         internal Bullet(Entity owner, GameObject bulletPrefab)
         {
@@ -54,16 +46,6 @@ namespace Classes
             }
 
             OnBulletHit?.Invoke(this);
-        }
-
-        public void AttackEffectActivate()
-        {
-            AttackEffect?.Invoke(this);
-        }
-
-        public void AbilityEffectActivate()
-        {
-            AbilityEffect?.Invoke(this);
         }
 
         public void Destroy()

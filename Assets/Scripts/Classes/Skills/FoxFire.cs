@@ -191,7 +191,7 @@ namespace Classes.Skills
                                 }
                             }
                             
-                            self.AbilityEffectActivate();
+                            self.owner.AbilityEffectActivate(self.owner, self.target);
                             attackIndex += 1;
                         }
                     };

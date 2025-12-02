@@ -553,17 +553,43 @@ namespace Classes
         }
         
         // 技能命中
-        public event Action<Entity, Entity> OnSkillHit;
-        public void SkillHit(Entity owner, Entity target)
+        public event Action<Entity, Entity> SkillHit;
+        public void OnSkillHit(Entity owner, Entity target)
         {
-            OnSkillHit?.Invoke(owner, target);
+            SkillHit?.Invoke(owner, target);
         }
         
+        // 攻击命中
+        public event Action<Entity, Entity> AttackHit;
+        public void OnAttackHit(Entity owner, Entity target)
+        {
+            AttackHit?.Invoke(owner, target);
+        }
+
         // 持续更新事件
         public event Action<Entity> EntityUpdateEvent;
         public void EntityUpdate()
         {
             EntityUpdateEvent?.Invoke(this);
+        }
+        
+
+        /// <summary>
+        /// 攻击特效
+        /// </summary>
+        public event Action<Entity, Entity> AttackEffect;
+        public void AttackEffectActivate(Entity owner, Entity target)
+        {
+            AttackEffect?.Invoke(owner, target);
+        }
+        /// <summary>
+        /// 技能特效
+        /// </summary>
+        public event Action<Entity, Entity> AbilityEffect;
+
+        public void AbilityEffectActivate(Entity owner, Entity target)
+        {
+            AbilityEffect?.Invoke(owner, target);
         }
 
         #endregion

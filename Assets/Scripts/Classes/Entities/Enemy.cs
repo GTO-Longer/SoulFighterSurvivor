@@ -137,7 +137,6 @@ namespace Classes.Entities
                                 self.target.gameObject.transform.position) <= destroyDistance)
                         {
                             self.BulletHit();
-                            self.AttackEffectActivate();
                             self.Destroy();
                         }
                     };

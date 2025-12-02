@@ -196,6 +196,23 @@ namespace Classes.Entities
             magicPoint.Value = maxMagicPoint.Value;
             healthPoint.Value = maxHealthPoint.Value;
             LevelUp();
+
+            // 定义基础攻击命中事件
+            AttackHit += (self, targetEntity) =>
+            {
+                // 计算平A伤害
+                targetEntity.TakeDamage(targetEntity.CalculateADDamage(self, self.attackDamage), DamageType.AD, this);
+
+                // 造成攻击特效
+                self.AttackEffectActivate(self, targetEntity);
+            };
+            
+            // 定义基础技能命中事件
+            AbilityEffect += (self, targetEntity) =>
+            {
+                // 造成技能特效
+                self.AbilityEffectActivate(self, targetEntity);
+            };
         }
 
         /// <summary>
@@ -371,6 +388,7 @@ namespace Classes.Entities
                         if (Vector3.Distance(self.gameObject.transform.position, self.target.gameObject.transform.position) <= destroyDistance)
                         {
                             self.BulletHit();
+                            self.owner.AttackEffectActivate(self.owner, self.target);
                             self.Destroy();
                         }
                     };
@@ -378,11 +396,8 @@ namespace Classes.Entities
 
                 bullet.OnBulletHit += (self) =>
                 {
-                    // 计算平A伤害
-                    self.target.TakeDamage(self.target.CalculateADDamage(self.owner, self.owner.attackDamage), DamageType.AD, this);
-                    
-                    // 造成攻击特效
-                    self.AttackEffectActivate();
+                    // 触发普通攻击命中事件
+                    self.owner.OnAttackHit(self.owner, self.target);
                 };
                 
                 bullet.Awake();

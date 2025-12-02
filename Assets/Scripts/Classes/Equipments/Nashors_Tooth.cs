@@ -26,8 +26,6 @@ namespace Classes.Equipments
             base.OnEquipmentGet(entity);
 
             owner.AttackEffect += equipmentEffect;
-
-            Debug.Log("纳什之牙已装备");
         }
 
         public override void OnEquipmentRemove()
@@ -35,14 +33,11 @@ namespace Classes.Equipments
             base.OnEquipmentRemove();
             
             owner.AttackEffect -= equipmentEffect;
-            
-            Debug.Log("纳什之牙已卖出");
         }
 
         public override bool GetPassiveSkillDescription(out string description)
         {
             description = string.Format(_passiveSkillName + "\n" + _passiveSkillDescription, damageCount);
-            Debug.Log(description);
             return true;
         }
     }

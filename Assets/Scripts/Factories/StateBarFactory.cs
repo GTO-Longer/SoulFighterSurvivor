@@ -106,7 +106,7 @@ namespace Factories
             foreach (var (entity, bar) in _activeBars)
             {
                 if (entity?.gameObject == null || bar == null) continue;
-                bar.anchoredPosition = new Vector2(entity.gameObject.transform.position.x - 100, entity.gameObject.transform.position.y + 200);
+                bar.anchoredPosition = new Vector2(entity.gameObject.transform.position.x - entity.scale, entity.gameObject.transform.position.y + entity.scale * 2);
                 bar.Find("HPBarBackground/HPBar").GetComponent<Image>().color = entity.team == Team.Hero ? Color.green : Color.red;
             }
         }

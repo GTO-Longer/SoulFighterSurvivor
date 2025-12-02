@@ -87,8 +87,8 @@
     <Compile Include="Assets\Scripts\MVVM\Binder.cs" />
     <Compile Include="Assets\Scripts\Components\UI\SkillButton.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipment.cs" />
-    <Compile Include="Assets\Scripts\Utilities\EditorUtils.cs" />
     <Compile Include="Assets\Scripts\Factories\EnemyFactory.cs" />
+    <Compile Include="Assets\Scripts\Utilities\EditorUtils.cs" />
     <Compile Include="Assets\Scripts\DataManagement\ResourceReader.cs" />
     <Compile Include="Assets\Scripts\Classes\Skills\FoxFire.cs" />
     <Compile Include="Assets\Scripts\EntityManagers\EnemyManager.cs" />
@@ -109,6 +109,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
+    <None Include="Assets\Resources\Configs\EquipmentConfig.json" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\Resources\Configs\HeroConfig.json" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />

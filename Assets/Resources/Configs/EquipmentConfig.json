@@ -1,0 +1,20 @@
+{
+    "equipments": [
+        {
+            "id": "Guardian'sOrb",
+            "equipmentName": "守护者法球",
+            "_usageDescription": "魔法和法力",
+            "_equipmentType": null,
+            "_cost": 500,
+            "_attributeList": {
+                "abilityPower": 55,
+                "AbilityHaste": 25
+            },
+            "_passiveSkillDescription": "每5秒回复<color=#0066FF>法力值</color>.如果你不能回复法力值，则转而回复<color=#00FF00>15生命值</color>",
+            "_passiveSkillName": "复原力",
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_uniqueEffect": "Guardian"
+        }
+    ]
+}

@@ -293,7 +293,7 @@ namespace MVVM
         }
         
         /// <summary>
-        /// 绑定技能
+        /// 绑定属性
         /// </summary>
         public static Action BindAttribute(GameObject background, TMP_Text attrName, TMP_Text attrDescription, TMP_Text attrAmount, AttributeType attrType)
         {

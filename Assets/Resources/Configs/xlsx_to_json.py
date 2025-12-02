@@ -2,6 +2,28 @@ import os
 import pandas as pd
 import json
 
+def smart_convert(value):
+    """智能转换字符串为 int/float/str/None"""
+    if value is None or (isinstance(value, str) and value.strip() == ''):
+        return None
+    if isinstance(value, str):
+        s = value.strip()
+        # 尝试解析 JSON（用于 _attributeList 等字段）
+        if s.startswith('{') and s.endswith('}'):
+            try:
+                return json.loads(s)
+            except Exception:
+                pass  # 如果不是合法 JSON，继续按普通字符串处理
+        if s.replace('.', '', 1).replace('-', '', 1).isdigit() and s.count('-') <= 1 and s.count('.') <= 1:
+            if '.' in s:
+                return float(s)
+            else:
+                return int(s)
+        else:
+            return s
+    else:
+        return value
+
 def convert_xlsx_to_json_in_current_dir():
     current_dir = os.path.dirname(os.path.abspath(__file__))
     xlsx_files = [f for f in os.listdir(current_dir) if f.lower().endswith('.xlsx')]
@@ -13,7 +35,6 @@ def convert_xlsx_to_json_in_current_dir():
         xlsx_path = os.path.join(current_dir, filename)
         json_filename = os.path.splitext(filename)[0] + '.json'
         json_path = os.path.join(current_dir, json_filename)
-
         try:
             df = pd.read_excel(xlsx_path, sheet_name=0, dtype=str)
             df = df.where(pd.notnull(df), None)
@@ -23,7 +44,7 @@ def convert_xlsx_to_json_in_current_dir():
                 continue
 
             attr_col = columns[0]
-            data_cols = columns[1:]  # 技能英文名或英雄ID
+            data_cols = columns[1:]
             records = df.to_dict(orient='records')
             attr_to_row = {}
             for row in records:
@@ -34,16 +55,16 @@ def convert_xlsx_to_json_in_current_dir():
             # 判断配置类型
             is_skill_config = 'skillName' in attr_to_row or '_skillType' in attr_to_row
             is_hero_config = 'heroName' in attr_to_row
+            is_equipment_config = 'equipmentName' in attr_to_row
 
             if is_skill_config:
-                # === 修改后的 SkillConfig 处理逻辑：输出为 { "skills": [ {...}, ... ] } 格式 ===
+                # === SkillConfig 处理逻辑（保持不变）===
                 skills_list = []
-                for col in data_cols:  # col 是技能英文ID，如 "EssenceTheft"
-                    skill_data = {"id": col}  # 添加 id 字段
+                for col in data_cols:
+                    skill_data = {"id": col}
                     for attr, row in attr_to_row.items():
                         value = row.get(col)
                         if attr == '_baseSkillValue':
-                            # 新格式："[40,65,90],[40,65,90]" 或空值
                             if value is None or str(value).strip() == '':
                                 skill_data[attr] = []
                             else:
@@ -97,7 +118,7 @@ def convert_xlsx_to_json_in_current_dir():
                 output_json = {"skills": skills_list}
 
             elif is_hero_config:
-                # === 保留原有 HeroConfig 处理逻辑 ===
+                # === HeroConfig 处理逻辑（保持不变）===
                 heroes = []
                 for col in data_cols:
                     raw_name = attr_to_row['heroName'].get(col)
@@ -111,8 +132,21 @@ def convert_xlsx_to_json_in_current_dir():
                         hero_data[attr] = converted
                     heroes.append(hero_data)
                 output_json = {"heroes": heroes}
+
+            elif is_equipment_config:
+                # === 新增：EquipmentConfig 处理逻辑 ===
+                equipments = []
+                for col in data_cols:
+                    equipment_data = {"id": col}  # 以列名（英文ID）作为 id
+                    for attr, row in attr_to_row.items():
+                        value = row.get(col)
+                        converted = smart_convert(value)
+                        equipment_data[attr] = converted
+                    equipments.append(equipment_data)
+                output_json = {"equipments": equipments}
+
             else:
-                print(f"跳过 {filename}：无法识别配置类型（缺少 heroName 或 skillName）")
+                print(f"跳过 {filename}：无法识别配置类型（缺少 heroName / skillName / equipmentName）")
                 continue
 
             with open(json_path, 'w', encoding='utf-8') as f:
@@ -123,22 +157,6 @@ def convert_xlsx_to_json_in_current_dir():
             print(f"转换失败: {filename} - 错误: {e}")
 
     print("所有 .xlsx 文件处理完成！")
-
-def smart_convert(value):
-    """智能转换字符串为 int/float/str/None"""
-    if value is None or (isinstance(value, str) and value.strip() == ''):
-        return None
-    if isinstance(value, str):
-        s = value.strip()
-        if s.replace('.', '', 1).replace('-', '', 1).isdigit() and s.count('-') <= 1 and s.count('.') <= 1:
-            if '.' in s:
-                return float(s)
-            else:
-                return int(s)
-        else:
-            return s
-    else:
-        return value
 
 if __name__ == "__main__":
     convert_xlsx_to_json_in_current_dir()

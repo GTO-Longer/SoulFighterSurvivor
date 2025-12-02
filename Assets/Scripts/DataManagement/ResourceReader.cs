@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
+using Utilities;
 
 namespace DataManagement
 {
@@ -10,7 +11,7 @@ namespace DataManagement
     public class HeroConfig
     {
         public string heroName;
-        
+
         // 基础属性
         public float _baseMaxHealthPoint;
         public float _baseMaxMagicPoint;
@@ -35,7 +36,7 @@ namespace DataManagement
         public float _magicDefenseGrowth;
         public float _healthRegenerationGrowth;
         public float _magicRegenerationGrowth;
-        
+
         // 技能名
         public string _passiveSkill;
         public string _QSkill;
@@ -56,7 +57,7 @@ namespace DataManagement
         public string id;
         public string heroName;
         public string skillName;
-        
+
         public string _skillDescription;
         public string _skillType;
         public float[] _baseSkillCost;
@@ -75,16 +76,66 @@ namespace DataManagement
         public SkillConfig[] skills;
     }
 
+    // ============================================================
+    //                      Equipment Config
+    // ============================================================
+
+    [Serializable]
+    public class EquipmentConfig
+    {
+        public string id;
+        public string equipmentName;
+
+        public string _usageDescription;
+        public string _equipmentType;
+        public int _cost;
+
+        public Dictionary<string, float> _attributeList;
+
+        public string _passiveSkillDescription;
+        public string _passiveSkillName;
+
+        public string _activeSkillDescription;
+        public string _activeSkillName;
+
+        // JSON 字段（字符串）
+        [JsonProperty("_uniqueEffect")]
+        private string _uniqueEffectRaw;
+
+        // 外部使用统一枚举
+        [JsonIgnore]
+        public EquipmentUniqueEffect _uniqueEffect
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(_uniqueEffectRaw))
+                    return EquipmentUniqueEffect.None;
+
+                if (Enum.TryParse(_uniqueEffectRaw, true, out EquipmentUniqueEffect result))
+                    return result;
+
+                return EquipmentUniqueEffect.None;
+            }
+        }
+    }
+
+    [Serializable]
+    internal class EquipmentConfigCollection
+    {
+        public EquipmentConfig[] equipments;
+    }
+
     public static class ResourceReader
     {
         private static Dictionary<string, HeroConfig> _heroConfigMap;
         private static Dictionary<string, SkillConfig> _skillConfigMap;
+        private static Dictionary<string, EquipmentConfig> _equipmentConfigMap;
 
         private static void LoadAllHeroConfigs()
         {
             if (_heroConfigMap != null) return;
 
-            var jsonFile = Resources.Load< TextAsset >("Configs/HeroConfig");
+            var jsonFile = Resources.Load<TextAsset>("Configs/HeroConfig");
             if (jsonFile == null)
             {
                 Debug.LogError("HeroConfig.json not found in Resources/Configs/");
@@ -115,17 +166,10 @@ namespace DataManagement
             }
         }
 
-        /// <summary>
-        /// 读取英雄配置
-        /// </summary>
-        /// <param name="heroName"></param>
-        /// <returns></returns>
+
         public static HeroConfig ReadHeroConfig(string heroName)
         {
-            if (_heroConfigMap == null)
-            {
-                LoadAllHeroConfigs();
-            }
+            if (_heroConfigMap == null) LoadAllHeroConfigs();
 
             if (string.IsNullOrEmpty(heroName))
             {
@@ -134,9 +178,7 @@ namespace DataManagement
             }
 
             if (_heroConfigMap.TryGetValue(heroName, out HeroConfig config))
-            {
                 return config;
-            }
 
             Debug.LogWarning($"Hero config not found: '{heroName}'. Available heroes: {string.Join(", ", _heroConfigMap.Keys)}");
             return null;
@@ -146,7 +188,7 @@ namespace DataManagement
         {
             if (_skillConfigMap != null) return;
 
-            var jsonFile = Resources.Load< TextAsset >("Configs/SkillConfig");
+            var jsonFile = Resources.Load<TextAsset>("Configs/SkillConfig");
             if (jsonFile == null)
             {
                 Debug.LogError("SkillConfig.json not found in Resources/Configs/");
@@ -179,17 +221,9 @@ namespace DataManagement
             }
         }
 
-        /// <summary>
-        /// 读取技能配置
-        /// </summary>
-        /// <param name="skillId"></param>
-        /// <returns></returns>
         public static SkillConfig ReadSkillConfig(string skillId)
         {
-            if (_skillConfigMap == null)
-            {
-                LoadAllSkillConfigs();
-            }
+            if (_skillConfigMap == null) LoadAllSkillConfigs();
 
             if (string.IsNullOrEmpty(skillId))
             {
@@ -198,18 +232,66 @@ namespace DataManagement
             }
 
             if (_skillConfigMap.TryGetValue(skillId, out SkillConfig config))
-            {
                 return config;
-            }
 
             Debug.LogWarning($"Skill config not found: '{skillId}'. Available skill IDs: {string.Join(", ", _skillConfigMap.Keys)}");
             return null;
         }
-        
-        
-        /// <summary>
-        /// 根据资源路径加载图片
-        /// </summary>
+
+        private static void LoadAllEquipmentConfigs()
+        {
+            if (_equipmentConfigMap != null) return;
+
+            var jsonFile = Resources.Load<TextAsset>("Configs/EquipmentConfig");
+            if (jsonFile == null)
+            {
+                Debug.LogError("EquipmentConfig.json not found in Resources/Configs/");
+                _equipmentConfigMap = new Dictionary<string, EquipmentConfig>();
+                return;
+            }
+
+            try
+            {
+                var collection = JsonConvert.DeserializeObject<EquipmentConfigCollection>(jsonFile.text);
+                if (collection?.equipments == null || collection.equipments.Length == 0)
+                {
+                    Debug.LogError("EquipmentConfig.json is empty or missing 'equipments' array.");
+                    _equipmentConfigMap = new Dictionary<string, EquipmentConfig>();
+                    return;
+                }
+
+                _equipmentConfigMap = collection.equipments
+                    .Where(e => !string.IsNullOrEmpty(e.id))
+                    .ToDictionary(
+                        e => e.id,
+                        e => e,
+                        StringComparer.OrdinalIgnoreCase
+                    );
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Failed to parse EquipmentConfig.json: {ex}");
+                _equipmentConfigMap = new Dictionary<string, EquipmentConfig>();
+            }
+        }
+
+        public static EquipmentConfig ReadEquipmentConfig(string equipmentId)
+        {
+            if (_equipmentConfigMap == null) LoadAllEquipmentConfigs();
+
+            if (string.IsNullOrEmpty(equipmentId))
+            {
+                Debug.LogWarning("ReadEquipmentConfig called with null or empty equipmentId.");
+                return null;
+            }
+
+            if (_equipmentConfigMap.TryGetValue(equipmentId, out EquipmentConfig config))
+                return config;
+
+            Debug.LogWarning($"Equipment config not found: '{equipmentId}'. Available equipments: {string.Join(", ", _equipmentConfigMap.Keys)}");
+            return null;
+        }
+
         public static Sprite ReadImage(string imagePath)
         {
             if (string.IsNullOrEmpty(imagePath))
@@ -228,10 +310,6 @@ namespace DataManagement
             return sprite;
         }
 
-        /// <summary>
-        /// 根据名称读取对应的图标
-        /// </summary>
-        /// <param name="name">图标名称</param>
         public static Sprite ReadIcon(string name)
         {
             if (string.IsNullOrEmpty(name))

@@ -1,5 +1,3 @@
-using System;
-
 namespace Utilities
 {
     public enum EntityType{
@@ -80,5 +78,11 @@ namespace Utilities
         None = 0,
         Hero,
         Enemy
+    }
+
+    public enum EquipmentUniqueEffect
+    {
+        None = 0,
+        Guardian,
     }
 }

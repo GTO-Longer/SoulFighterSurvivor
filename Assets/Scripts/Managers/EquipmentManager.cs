@@ -60,12 +60,6 @@ namespace Managers
                     var instance = Activator.CreateInstance(type);
                     equipmentMap[config.id] = (Equipment)instance;
                     equipmentList.Add(equipmentMap[config.id]);
-                    var equip = equipmentMap[config.id];
-                    Debug.Log($"[EquipmentManager] 创建装备实例成功：{config.id}" + ":" + 
-                              "\n " + $"{equip.equipmentName}" + 
-                              "\n " + $"{equip._usageDescription}" + 
-                              "\n " + $"{equip._passiveSkillName}:" + $"{equip._passiveSkillDescription}" + 
-                              "\n " + $"{equip._activeSkillName}:" + $"{equip._activeSkillName}");
                 }
                 catch (Exception ex)
                 {

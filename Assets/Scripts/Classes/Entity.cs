@@ -573,23 +573,22 @@ namespace Classes
             EntityUpdateEvent?.Invoke(this);
         }
         
-
         /// <summary>
         /// 攻击特效
         /// </summary>
         public event Action<Entity, Entity> AttackEffect;
-        public void AttackEffectActivate(Entity owner, Entity target)
+        public void AttackEffectActivate(Entity attacker, Entity target)
         {
-            AttackEffect?.Invoke(owner, target);
+            AttackEffect?.Invoke(attacker, target);
         }
+        
         /// <summary>
         /// 技能特效
         /// </summary>
         public event Action<Entity, Entity> AbilityEffect;
-
-        public void AbilityEffectActivate(Entity owner, Entity target)
+        public void AbilityEffectActivate(Entity attacker, Entity target)
         {
-            AbilityEffect?.Invoke(owner, target);
+            AbilityEffect?.Invoke(attacker, target);
         }
 
         #endregion

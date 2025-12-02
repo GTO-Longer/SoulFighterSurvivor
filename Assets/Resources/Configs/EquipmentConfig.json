@@ -120,7 +120,7 @@
             "_cost": 2500,
             "_attributeList": {
                 "attackDamage": 55,
-                "percentageCriticalRate": 0.25,
+                "criticalRate": 0.25,
                 "criticalDamage": 0.4
             },
             "_passiveSkillDescription": null,
@@ -407,7 +407,7 @@
                 "percentageMovementSpeed": 0.1,
                 "abilityHaste": 20
             },
-            "_passiveSkillDescription": "施放技能后，你的下一次普攻会因强化而附带额外的<color=#00D8FF>60</color>=（<color=#FF6161>75% 基础攻击</color> + <color=#C97BFF>66%法术强度</color>）魔法伤害并触发攻击特效",
+            "_passiveSkillDescription": "施放技能后，你的下一次普攻会因强化而附带额外的<color=#00D8FF>60</color>=（<color=#FF6161>75%基础攻击</color>+<color=#C97BFF>66%法术强度</color>）魔法伤害并触发攻击特效",
             "_passiveSkillName": "咒刃",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
@@ -444,7 +444,7 @@
                 "attackSpeed": 0.45,
                 "abilityHaste": 10
             },
-            "_passiveSkillDescription": "攻击附带<color=#00D8FF>{0:F0}</color>=（15 + <color=#C97BFF>20%</color>法强）魔法伤害并触发攻击特效。",
+            "_passiveSkillDescription": "攻击附带<color=#C97BFF>{0:F0}=（15+20%法强）魔法伤害</color>的攻击特效。",
             "_passiveSkillName": "艾卡西亚之咬",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,

@@ -75,7 +75,7 @@ namespace Classes
         /// <summary>
         /// 装备被获取时调用
         /// </summary>
-        public void OnEquipmentGet(Entity entity)
+        public virtual void OnEquipmentGet(Entity entity)
         {
             owner = entity;
             
@@ -191,7 +191,7 @@ namespace Classes
         /// <summary>
         /// 装备被移除时调用
         /// </summary>
-        public void OnEquipmentRemove()
+        public virtual void OnEquipmentRemove()
         {
             if (owner == null) return;
             
@@ -301,6 +301,18 @@ namespace Classes
         public void OnActiveSkillEffective()
         {
             ActiveSkillEffective?.Invoke();
+        }
+
+        public virtual bool GetPassiveSkillDescription(out string description)
+        {
+            description = "";
+            return false;
+        }
+
+        public virtual bool GetActiveSkillDescription(out string description)
+        {
+            description = "";
+            return false;
         }
     }
 }

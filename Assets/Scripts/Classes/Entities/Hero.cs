@@ -204,15 +204,11 @@ namespace Classes.Entities
                 targetEntity.TakeDamage(targetEntity.CalculateADDamage(self, self.attackDamage), DamageType.AD, this);
 
                 // 造成攻击特效
-                self.AttackEffectActivate(self, targetEntity);
+                AttackEffectActivate(self, targetEntity);
             };
             
             // 定义基础技能命中事件
-            AbilityEffect += (self, targetEntity) =>
-            {
-                // 造成技能特效
-                self.AbilityEffectActivate(self, targetEntity);
-            };
+            AbilityEffect += AbilityEffectActivate;
         }
 
         /// <summary>
@@ -388,7 +384,7 @@ namespace Classes.Entities
                         if (Vector3.Distance(self.gameObject.transform.position, self.target.gameObject.transform.position) <= destroyDistance)
                         {
                             self.BulletHit();
-                            self.owner.AttackEffectActivate(self.owner, self.target);
+                            AttackEffectActivate(self.owner, self.target);
                             self.Destroy();
                         }
                     };
@@ -556,7 +552,7 @@ namespace Classes.Entities
         /// </summary>
         public void PurchaseEquipment(Equipment equipment)
         {
-            if (equipmentList.Count < 6)
+            if (equipmentList.Count < 6 && equipment.owner == null)
             {
                 equipmentList.Add(equipment);
                 equipment.OnEquipmentGet(this);

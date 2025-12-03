@@ -27,6 +27,7 @@ namespace Classes.Entities
         public Property<int> coins = new Property<int>();
 
         private float cursedBladeTimer;
+        private float gainCoinTimer;
         public bool isCuredBladeEffective => cursedBladeTimer > 0f;
         
         /// <summary>
@@ -229,6 +230,7 @@ namespace Classes.Entities
             _attackTimer = 0;
             _regenerateTimer = 0;
             _attackWindUpTimer = 0;
+            gainCoinTimer = 0;
             _skillPoint = 0;
             level.Value = 0;
             experience.Value = 0;
@@ -257,6 +259,20 @@ namespace Classes.Entities
             
             // 定义基础技能命中事件
             // AbilityEffect += ;
+            
+            // 定义基础Update事件
+            EntityUpdateEvent += (_) =>
+            {
+                if (gainCoinTimer > 0.5f)
+                {
+                    gainCoinTimer = 0;
+                    coins.Value += 3;
+                }
+                else
+                {
+                    gainCoinTimer += Time.deltaTime;
+                }
+            };
         }
 
         /// <summary>

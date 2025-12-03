@@ -1,4 +1,3 @@
-using System;
 using Managers.EntityManagers;
 using UnityEngine;
 
@@ -7,10 +6,11 @@ namespace Systems
     public class TestSystem : MonoBehaviour
     {
         public static TestSystem Instance { get; private set; }
-        public bool InfinityMagicPoint = false;
-        public bool InfinityHealthPoint = false;
-        public bool SkillNoCoolDown = false;
-        public bool LevelUp = false;
+        public bool InfinityMagicPoint;
+        public bool InfinityHealthPoint;
+        public bool SkillNoCoolDown;
+        public bool LevelUp;
+        public bool Gain20000Coin;
 
         private void Start()
         {
@@ -49,6 +49,12 @@ namespace Systems
             {
                 HeroManager.hero.LevelUp();
                 LevelUp = false;
+            }
+
+            if (Gain20000Coin)
+            {
+                HeroManager.hero.coins.Value += 20000;
+                Gain20000Coin = false;
             }
         }
     }

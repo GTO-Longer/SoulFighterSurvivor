@@ -53,8 +53,8 @@ namespace Factories
             text.GetComponent<TMP_Text>().fontSize = fontSize;
             
             text.position = position;
-            text.DOMoveX(position.x + (Random.Range(0, 1) * 2 - 1) * moveRange, duration);
-            text.DOMoveY(position.y + moveRange, duration / 2f).SetEase(Ease.OutQuad).OnComplete(() =>
+            text.DOMoveX(position.x + moveRange * 2, duration);
+            text.DOMoveY(position.y + moveRange * Random.Range(1f, 2f), duration / 2f).SetEase(Ease.OutQuad).OnComplete(() =>
             {
                 text.DOMoveY(position.y, duration / 2f).SetEase(Ease.InQuad).OnComplete(() =>
                 {

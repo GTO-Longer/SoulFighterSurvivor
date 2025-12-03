@@ -628,7 +628,7 @@ namespace Classes
             ScreenTextFactory.Instance.Spawn(_gameObject.transform.position, $"-{damageCount:F0}", 0.5f, 150 * Mathf.Max(0.5f, damageCount / (damageCount + 100)), 50f, color);
            
             healthPoint.Value -= damageCount;
-            if (healthPoint.Value <= 0)
+            if (healthPoint.Value < 1)
             {
                 healthPoint.Value = 0;
                 damageSource.KillEntity(this);
@@ -642,7 +642,11 @@ namespace Classes
         public void TakeHeal(float healCount)
         {
             healthPoint.Value += healCount;
-            ScreenTextFactory.Instance.Spawn(_gameObject.transform.position, $"+{healCount:F0}", 0.5f, 150 * Mathf.Max(0.5f, healCount / (healCount + 100)), 50f, Color.green);
+            if (healCount > 1)
+            {
+                ScreenTextFactory.Instance.Spawn(_gameObject.transform.position, $"+{healCount:F0}", 0.5f,
+                    150 * Mathf.Max(0.5f, healCount / (healCount + 100)), 50f, Color.green);
+            }
 
             if (healthPoint.Value > maxHealthPoint.Value)
             {

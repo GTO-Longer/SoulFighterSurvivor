@@ -24,6 +24,7 @@ namespace Classes.Entities
         public Property<Entity> target = new Property<Entity>();
         public Property<bool> isMoving = new Property<bool>();
         public Property<bool> showAttributes = new Property<bool>();
+        public Property<int> coins = new Property<int>();
 
         private float cursedBladeTimer;
         public bool isCuredBladeEffective => cursedBladeTimer > 0f;
@@ -234,6 +235,7 @@ namespace Classes.Entities
             cursedBladeTimer = 0;
             magicPoint.Value = maxMagicPoint.Value;
             healthPoint.Value = maxHealthPoint.Value;
+            coins.Value = 750;
             LevelUp();
 
             // 定义基础攻击命中事件
@@ -602,8 +604,9 @@ namespace Classes.Entities
         /// </summary>
         public void PurchaseEquipment(Equipment equipment)
         {
-            if (equipmentList.Count < 6 && equipment.owner == null)
+            if (equipmentList.Count < 6 && equipment.owner == null && coins.Value > equipment._cost)
             {
+                coins.Value -= equipment._cost;
                 equipmentList.Add(equipment);
                 equipment.OnEquipmentGet(this);
             }

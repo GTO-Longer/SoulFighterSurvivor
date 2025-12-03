@@ -28,6 +28,7 @@ namespace MVVM.ViewModels
             var MPBar = transform.Find("MainStateBackground/MPBarBackground/MPBar").GetComponent<Image>();;
             var otherAttributes = transform.Find("AttributesAndHexes/OtherAttributesBackground").gameObject;
             var hexes = transform.Find("AttributesAndHexes/HexesBackground").gameObject;
+            var coinContent = transform.Find("Equipments/ShopButton/CoinContent").gameObject.GetComponent<TMP_Text>();
 
             notFullHealth = new Property<bool>(
                 () => Mathf.Abs(HeroManager.hero.healthPoint.Value - HeroManager.hero.maxHealthPoint.Value) > 0.1f, DataType.None,
@@ -53,6 +54,7 @@ namespace MVVM.ViewModels
             UnBindEvent += Binder.BindFillAmountImmediate(HPBar, HeroManager.hero.healthPointProportion);
             UnBindEvent += Binder.BindFillAmountSmooth(HPBarSmooth, 0.2f, HeroManager.hero.healthPointProportion);
             UnBindEvent += Binder.BindFillAmountImmediate(MPBar, HeroManager.hero.magicPointProportion);
+            UnBindEvent += Binder.BindText(coinContent, HeroManager.hero.coins);
         }
 
         // 物体销毁时触发注销对应事件

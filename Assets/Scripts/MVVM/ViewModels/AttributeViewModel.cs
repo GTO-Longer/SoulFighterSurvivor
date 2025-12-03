@@ -89,6 +89,41 @@ namespace MVVM.ViewModels
                         () => "移动速度", () => "你移动时的速度",
                         () => $"移动速度：<color=#0066FF>{hero.movementSpeed.Value:F0}</color>（<color=#0066FF>{hero.baseMovementSpeed:F0}</color>基础+<color=#00FF00>{hero.movementSpeed.Value - hero.baseMovementSpeed:F0}</color>加成）码/秒"
                     }
+                },
+                {
+                    AttributeType.AttackPenetration, new List<AttributeDescriptionDelegate>
+                    {
+                        () => "物理穿透", () => "你能够无视敌方物理防御的数额和比例",
+                        () => $"固定穿透：<color=#0066FF>{hero.attackPenetration.Value:F0}</color>\n百分比穿透：<color=#00FF00>{hero.percentageAttackPenetration.Value:P0}</color>"
+                    }
+                },
+                {
+                    AttributeType.MagicPenetration, new List<AttributeDescriptionDelegate>
+                    {
+                        () => "法术穿透", () => "你能够无视敌方法术防御的数额和比例",
+                        () => $"固定穿透：<color=#0066FF>{hero.magicPenetration.Value:F0}</color>\n百分比穿透：<color=#00FF00>{hero.percentageMagicPenetration.Value:P0}</color>"
+                    }
+                },
+                {
+                    AttributeType.LifeSteel, new List<AttributeDescriptionDelegate>
+                    {
+                        () => "生命偷取", () => "在攻击时以一定比例偷取敌方的生命值",
+                        () => $"生命偷取：<color=#0066FF>{hero.lifeSteal.Value:P0}</color>"
+                    }
+                },
+                {
+                    AttributeType.OmniVamp, new List<AttributeDescriptionDelegate>
+                    {
+                        () => "全能吸血", () => "在技能命中时以一定比例吸取敌方的生命值",
+                        () => $"全能吸血：<color=#0066FF>{hero.omnivamp.Value:P0}</color>"
+                    }
+                },
+                {
+                    AttributeType.AttackRange, new List<AttributeDescriptionDelegate>
+                    {
+                        () => "攻击距离", () => "你攻击时的距离",
+                        () => $"攻击距离：<color=#0066FF>{hero.attackRange.Value:F0}</color>码"
+                    }
                 }
             };
 
@@ -125,6 +160,26 @@ namespace MVVM.ViewModels
                 {
                     AttributeType.MovementSpeed, new List<Property<float>>
                         {hero.movementSpeed}
+                },
+                {
+                    AttributeType.AttackPenetration, new List<Property<float>>
+                        {hero.attackPenetration, hero.percentageAttackPenetration}
+                },
+                {
+                    AttributeType.MagicPenetration, new List<Property<float>>
+                        {hero.magicPenetration, hero.percentageMagicPenetration}
+                },
+                {
+                    AttributeType.LifeSteel, new List<Property<float>>
+                        {hero.lifeSteal}
+                },
+                {
+                    AttributeType.OmniVamp, new List<Property<float>>
+                        {hero.omnivamp}
+                },
+                {
+                    AttributeType.AttackRange, new List<Property<float>>
+                        {hero.attackRange}
                 }
             };
         }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using DataManagement;
 using Classes.Entities;
+using Components.UI;
 using Utilities;
 
 namespace Managers.EntityManagers
@@ -27,7 +28,7 @@ namespace Managers.EntityManagers
             hero.SkillCoolDown();
 
             // 技能释放
-            if (Input.GetKeyDown(KeyCode.Q) && hero.canUseSkill)
+            if (Input.GetKeyDown(KeyCode.Q) && hero.canUseSkill && PanelUIRoot.Instance.playerCanInteractGame)
             {
                 // 快捷键升级技能
                 if (Input.GetKey(KeyCode.LeftControl))
@@ -40,7 +41,7 @@ namespace Managers.EntityManagers
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.W) && hero.canUseSkill)
+            if (Input.GetKeyDown(KeyCode.W) && hero.canUseSkill && PanelUIRoot.Instance.playerCanInteractGame)
             {
                 if (Input.GetKey(KeyCode.LeftControl))
                 {
@@ -52,9 +53,8 @@ namespace Managers.EntityManagers
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.E) && hero.canUseSkill)
+            if (Input.GetKeyDown(KeyCode.E) && hero.canUseSkill && PanelUIRoot.Instance.playerCanInteractGame)
             {
-
                 if (Input.GetKey(KeyCode.LeftControl))
                 {
                     hero.SkillUpgrade(hero.skillList[(int)SkillType.ESkill]);
@@ -65,7 +65,7 @@ namespace Managers.EntityManagers
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.R) && hero.canUseSkill)
+            if (Input.GetKeyDown(KeyCode.R) && hero.canUseSkill && PanelUIRoot.Instance.playerCanInteractGame)
             {
                 if (Input.GetKey(KeyCode.LeftControl))
                 {

@@ -10,6 +10,7 @@ namespace Components.UI
         public static PanelUIRoot Instance;
         public bool isShopOpen;
         private ShopSystem shopSystem;
+        public bool playerCanInteractGame => !isShopOpen;
 
         private void Start()
         {

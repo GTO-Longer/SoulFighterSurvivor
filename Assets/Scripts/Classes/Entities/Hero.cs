@@ -300,7 +300,12 @@ namespace Classes.Entities
         {
             // 获取鼠标位置
             _mousePosition = CameraSystem._mainCamera.ScreenToWorldPoint(Input.mousePosition);
-
+            
+            if (!PanelUIRoot.Instance.playerCanInteractGame)
+            {
+                return;
+            }
+            
             if (!canMove)
             {
                 _agent.SetStop(true);
@@ -528,6 +533,11 @@ namespace Classes.Entities
         /// </summary>
         public void TargetCheck()
         {
+            if (!PanelUIRoot.Instance.playerCanInteractGame)
+            {
+                return;
+            }
+            
             // 当玩家点击左键
             if (Input.GetMouseButton(0))
             {

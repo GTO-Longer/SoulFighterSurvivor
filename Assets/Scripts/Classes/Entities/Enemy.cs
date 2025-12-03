@@ -71,6 +71,7 @@ namespace Classes.Entities
             // 其他变量初始化
             level.Value = Mathf.Max(1, HeroManager.hero.level - 4);
             gainExpTimer = 0;
+            isAlive = true;
             magicPoint.Value = maxMagicPoint.Value;
             healthPoint.Value = maxHealthPoint.Value;
         }
@@ -167,12 +168,15 @@ namespace Classes.Entities
 
         public override void Die(Entity entity)
         {
-            var hero = entity as Hero;
+            if (isAlive)
+            {
+                var hero = entity as Hero;
 
-            var totalExp = experience.Value + 5f * (level - 1) * (level - 1) + 80f * (level - 1) + 195;
-            hero?.GetExperience(100 + totalExp * 3.4f / (level.Value + 16));
-            isAlive = false;
-            EnemyFactory.Instance.Despawn(gameObject.GetComponent<EnemyManager>());
+                var totalExp = experience.Value + 5f * (level - 1) * (level - 1) + 80f * (level - 1) + 195;
+                hero?.GetExperience(100 + totalExp * 3.4f / (level.Value + 16));
+                isAlive = false;
+                EnemyFactory.Instance.Despawn(gameObject.GetComponent<EnemyManager>());
+            }
         }
     }
 }

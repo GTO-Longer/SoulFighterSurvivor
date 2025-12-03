@@ -31,7 +31,6 @@ namespace Factories
                     },
                     actionOnGet: enemy =>
                     {
-                        enemy.EnemyDataInitialization();
                         enemy.enabled = true;
                     },
                     actionOnRelease: enemy =>
@@ -56,8 +55,7 @@ namespace Factories
         public void Spawn(Vector2 position)
         {
             var enemy = _enemyPool.Get();
-            enemy.enemy.agent.Warp(position);
-            enemy.gameObject.SetActive(true);
+            enemy.EnemyDataInitialization(position);
         }
 
         /// <summary>

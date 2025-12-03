@@ -13,12 +13,15 @@ namespace Managers.EntityManagers
         /// <summary>
         /// 初始化敌人数据
         /// </summary>
-        public void EnemyDataInitialization()
+        public void EnemyDataInitialization(Vector2 position)
         {
             var entityData = GetComponent<EntityData>();
             entityData.EntityInitialization();
             enemy = (Enemy)entityData.entity;
+            enemy.agent.Warp(position);
             enemy.target = HeroManager.hero;
+            enemy.isAlive = true;
+            enemy.gameObject.SetActive(true);
         }
 
         private void Update()

@@ -1,6 +1,5 @@
 using System;
 using Managers.EntityManagers;
-using UnityEngine;
 using Utilities;
 
 namespace Classes.Equipments

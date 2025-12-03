@@ -16,6 +16,7 @@ namespace Classes.Equipments
                 if (HeroManager.hero.isCuredBladeEffective)
                 {
                     target.TakeDamage(target.CalculateAPDamage(attacker, damageCount), DamageType.AP, attacker);
+                    _passiveSkillCDTimer = 0;
                 }
             };
         }

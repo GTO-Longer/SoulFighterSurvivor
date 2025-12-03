@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Classes;
-using Components.UI;
 using DataManagement;
 using Managers.EntityManagers;
 using TMPro;
@@ -48,12 +47,27 @@ namespace MVVM.ViewModels
                 equipmentIcon.sprite = equipment.equipmentIcon;
 
                 purchaseButton.onClick.RemoveAllListeners();
-                purchaseButton.onClick.AddListener(() =>
+
+                if (HeroManager.hero.equipmentList.Find(equip => equip.Value == equipment) == null)
                 {
-                    HeroManager.hero.PurchaseEquipment(equipment);
-                    HideEquipmentInfo();
-                    ShowEquipmentInfo(equipment);
-                });
+                    purchaseButton.transform.Find("PurchaseContent").GetComponent<TMP_Text>().text = $"以{equipment._cost:D}金币购买 " + equipment.equipmentName;
+                    purchaseButton.onClick.AddListener(() =>
+                    {
+                        HeroManager.hero.PurchaseEquipment(equipment);
+                        HideEquipmentInfo();
+                        ShowEquipmentInfo(equipment);
+                    });
+                }
+                else
+                {
+                    purchaseButton.transform.Find("PurchaseContent").GetComponent<TMP_Text>().text = $"以{(int)(equipment._cost * 0.7f):D}金币售出 " + equipment.equipmentName;
+                    purchaseButton.onClick.AddListener(() =>
+                    {
+                        HeroManager.hero.SellEquipment(equipment);
+                        HideEquipmentInfo();
+                        ShowEquipmentInfo(equipment);
+                    });
+                }
 
                 foreach (var kv in equipment.equipmentAttributes)
                 {

@@ -17,6 +17,7 @@ namespace Systems
         public Transform starterEquipmentArea;
         public Transform legendEquipmentArea;
         public GameObject equipmentSlotPrefab;
+        public Button purchaseButton;
         public List<GameObject> equipmentSlots = new();
         
         private void Start()

@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using Components.UI;
 using DataManagement;
 using Managers;
+using Managers.EntityManagers;
 using MVVM.ViewModels;
 using UnityEngine;
 using UnityEngine.UI;
@@ -44,7 +46,8 @@ namespace Systems
                 {
                     equipmentSlot.GetComponent<Image>().sprite = equipment.equipmentIcon;
                 }
-                equipmentSlot.GetComponent<Button>().onClick.AddListener(() => EquipmentInfoViewModel.Instance.ShowEquipmentInfo(equipment));
+                equipmentSlot.GetComponent<EquipmentShopSlotButton>().leftClick += () => EquipmentInfoViewModel.Instance.ShowEquipmentInfo(equipment);
+                equipmentSlot.GetComponent<EquipmentShopSlotButton>().rightClick += () => HeroManager.hero.PurchaseEquipment(equipment);
                 equipmentSlot.SetActive(true);
             }
         }

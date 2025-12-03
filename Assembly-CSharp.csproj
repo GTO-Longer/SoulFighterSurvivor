@@ -57,7 +57,6 @@
     <Compile Include="Assets\Scripts\Systems\ShopSystem.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\InfinityEdge.cs" />
     <Compile Include="Assets\Scripts\RVO\RVOManager.cs" />
-    <Compile Include="Assets\Scripts\Classes\Equipments\BansheesVeil.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Seraph_sEmbrace.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Guardian_sClothes.cs" />
     <Compile Include="Assets\Scripts\Utilities\Async.cs" />

@@ -416,24 +416,6 @@
             "_uniqueEffect": "CursedBlade"
         },
         {
-            "id": "BansheesVeil",
-            "equipmentName": "女妖面纱",
-            "_usageDescription": "法术护盾",
-            "_equipmentType": "Legend",
-            "_cost": 2500,
-            "_attributeList": {
-                "abilityPower": 80,
-                "magicDefense": 40
-            },
-            "_passiveSkillDescription": "提供一层法术护盾以格挡下一个敌方技能",
-            "_passiveSkillName": "废除",
-            "_passiveSkillCD": 10,
-            "_activeSkillDescription": null,
-            "_activeSkillName": null,
-            "_activeSkillCD": 0,
-            "_uniqueEffect": "MagicShield"
-        },
-        {
             "id": "Nashors_Tooth",
             "equipmentName": "纳什之牙",
             "_usageDescription": "攻击附带魔法伤害",

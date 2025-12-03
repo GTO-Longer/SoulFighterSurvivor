@@ -205,9 +205,9 @@ namespace Classes.Entities
                 targetEntity.TakeDamage(damageCount, DamageType.AD, this);
 
                 // 造成攻击特效
-                if (targetEntity != null && targetEntity.isAlive)
+                if (targetEntity.isAlive)
                 {
-                    AttackEffectActivate(self, targetEntity, damageCount);
+                    AttackEffectActivate(targetEntity, damageCount);
                 }
             };
             
@@ -396,7 +396,7 @@ namespace Classes.Entities
                 bullet.OnBulletHit += (self) =>
                 {
                     // 触发普通攻击命中事件
-                    self.owner.AttackHit(self.owner, self.target);
+                    self.owner.AttackHit(self.target);
                 };
                 
                 bullet.Awake();

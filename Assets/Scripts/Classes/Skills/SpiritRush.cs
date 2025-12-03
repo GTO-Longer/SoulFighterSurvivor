@@ -160,7 +160,7 @@ namespace Classes.Skills
                             {
                                 var damageCount = self.target.CalculateAPDamage(self.owner, _damage);
                                 self.target.TakeDamage(damageCount, DamageType.AP, owner);
-                                self.owner.AbilityEffectActivate(self.owner, self.target, damageCount);
+                                self.owner.AbilityEffectActivate(self.target, damageCount);
                             };
 
                             spiritOrb.Awake();

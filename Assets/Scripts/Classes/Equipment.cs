@@ -24,11 +24,15 @@ namespace Classes
         // 技能主动效果
         public string _passiveSkillDescription;
         public string _passiveSkillName;
+        public float _passiveSkillCD;
+        public float _passiveSkillCDTimer;
         private event Action<Entity> PassiveSkillEffect;
 
         // 装备主动效果
         public string _activeSkillDescription;
         public string _activeSkillName;
+        public float _activeSkillCD;
+        public float _activeSkillCDTimer;
         private event Action ActiveSkillEffective;
         
         public EquipmentUniqueEffect _uniqueEffect;
@@ -48,6 +52,10 @@ namespace Classes
             _activeSkillDescription = config._activeSkillDescription;
             _activeSkillName = config._activeSkillName;
             _uniqueEffect = config._uniqueEffect;
+            _activeSkillCD = config._activeSkillCD;
+            _passiveSkillCD = config._passiveSkillCD;
+            _passiveSkillCDTimer = _passiveSkillCD;
+            _activeSkillCDTimer = _activeSkillCD;
         }
 
         private Dictionary<EquipmentAttributeType, float> ConvertAttributeList(Dictionary<string, float> rawDict)

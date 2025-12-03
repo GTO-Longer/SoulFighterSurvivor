@@ -4,7 +4,6 @@ using Factories;
 using RVO;
 using UnityEngine;
 using Utilities;
-using Random = UnityEngine.Random;
 
 namespace Classes
 {
@@ -27,7 +26,7 @@ namespace Classes
         protected RVOAgent _agent;
         public RVOAgent agent => _agent;
         public bool isAlive;
-        protected const int maxLevel = 18;
+        private const int maxLevel = 18;
         protected int _skillPoint;
         public int skillPoint => _skillPoint;
         
@@ -545,29 +544,46 @@ namespace Classes
         #endregion
 
         #region 实体事件
+
+        /// <summary>
+        /// 受伤事件
+        /// </summary>
+        public event Action<Entity, Entity> OnHurt;
+        public void Hurt(Entity attacker)
+        {
+            OnHurt?.Invoke(this, attacker);
+        } 
         
-        // 击杀单位
+        /// <summary>
+        /// 击杀单位
+        /// </summary>
         public event Action<Entity, Entity> OnKillEntity;
-        public void KillEntity(Entity owner, Entity target)
+        public void KillEntity(Entity target)
         {
-            OnKillEntity?.Invoke(owner, target);
+            OnKillEntity?.Invoke(this, target);
         }
         
-        // 技能命中
-        public event Action<Entity, Entity> SkillHit;
-        public void OnSkillHit(Entity owner, Entity target)
+        /// <summary>
+        /// 技能命中事件
+        /// </summary>
+        public event Action<Entity, Entity> OnSkillHit;
+        public void SkillHit(Entity target)
         {
-            SkillHit?.Invoke(owner, target);
+            OnSkillHit?.Invoke(this, target);
         }
         
-        // 攻击命中
+        /// <summary>
+        /// 攻击命中事件
+        /// </summary>
         public event Action<Entity, Entity> OnAttackHit;
-        public void AttackHit(Entity owner, Entity target)
+        public void AttackHit(Entity target)
         {
-            OnAttackHit?.Invoke(owner, target);
+            OnAttackHit?.Invoke(this, target);
         }
 
-        // 持续更新事件
+        /// <summary>
+        /// 持续更新事件
+        /// </summary>
         public event Action<Entity> EntityUpdateEvent;
         public void EntityUpdate()
         {
@@ -578,18 +594,18 @@ namespace Classes
         /// 攻击特效
         /// </summary>
         public event Action<Entity, Entity, float> AttackEffect;
-        public void AttackEffectActivate(Entity attacker, Entity target, float damageCount)
+        public void AttackEffectActivate(Entity target, float damageCount)
         {
-            AttackEffect?.Invoke(attacker, target, damageCount);
+            AttackEffect?.Invoke(this, target, damageCount);
         }
         
         /// <summary>
         /// 技能特效
         /// </summary>
         public event Action<Entity, Entity, float> AbilityEffect;
-        public void AbilityEffectActivate(Entity attacker, Entity target, float damageCount)
+        public void AbilityEffectActivate(Entity target, float damageCount)
         {
-            AbilityEffect?.Invoke(attacker, target, damageCount);
+            AbilityEffect?.Invoke(this, target, damageCount);
         }
 
         #endregion
@@ -615,7 +631,7 @@ namespace Classes
             if (healthPoint.Value <= 0)
             {
                 healthPoint.Value = 0;
-                damageSource.KillEntity(damageSource, this);
+                damageSource.KillEntity(this);
                 Die(damageSource);
             }
         }

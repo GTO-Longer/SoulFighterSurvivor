@@ -25,7 +25,8 @@ namespace Classes.Entities
         public Property<bool> isMoving = new Property<bool>();
         public Property<bool> showAttributes = new Property<bool>();
 
-        public float cursedBladeTimer;
+        private float cursedBladeTimer;
+        public bool isCuredBladeEffective => cursedBladeTimer > 0f;
         
         /// <summary>
         /// 是否启用自动攻击模式
@@ -247,6 +248,9 @@ namespace Classes.Entities
                 {
                     AttackEffectActivate(targetEntity, damageCount);
                 }
+
+                // 清空咒刃计时器
+                cursedBladeTimer = 0;
             };
             
             // 定义基础技能命中事件
@@ -475,6 +479,11 @@ namespace Classes.Entities
                 }
 
                 skill.UpdateSkillUI();
+            }
+
+            if (cursedBladeTimer > 0)
+            {
+                cursedBladeTimer -= Time.deltaTime;
             }
         }
 

@@ -29,7 +29,7 @@ namespace Classes.Skills
         public override void SkillEffect()
         {
             Debug.Log(skillName + ": Skill effective");
-            EventSystem.OnQSkillRelease += (_, _) =>
+            owner.OnQSkillRelease += (_, _) =>
             {
                 if (_skillLevel <= 0)
                 {

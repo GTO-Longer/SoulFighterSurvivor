@@ -22,9 +22,10 @@ namespace Classes.Entities
         /// 玩家锁定的实体
         /// </summary>
         public Property<Entity> target = new Property<Entity>();
-        
         public Property<bool> isMoving = new Property<bool>();
         public Property<bool> showAttributes = new Property<bool>();
+
+        public float cursedBladeTimer;
         
         /// <summary>
         /// 是否启用自动攻击模式
@@ -67,6 +68,42 @@ namespace Classes.Entities
         /// 是否可以使用技能
         /// </summary>
         public bool canUseSkill;
+
+        #region 英雄事件
+        
+        // Q技能释放事件
+        public event Action<Hero, Entity> OnQSkillRelease;
+        public void QSkillRelease(Entity targetEntity = null)
+        {
+            cursedBladeTimer = 5;
+            OnQSkillRelease?.Invoke(this, targetEntity);
+        }
+        
+        // W技能释放事件
+        public event Action<Hero, Entity> OnWSkillRelease;
+        public void WSkillRelease(Entity targetEntity = null)
+        {
+            cursedBladeTimer = 5;
+            OnWSkillRelease?.Invoke(this, targetEntity);
+        }
+        
+        // E技能释放事件
+        public event Action<Hero, Entity> OnESkillRelease;
+        public void ESkillRelease(Entity targetEntity = null)
+        {
+            cursedBladeTimer = 5;
+            OnESkillRelease?.Invoke(this, targetEntity);
+        }
+        
+        // R技能释放事件
+        public event Action<Hero, Entity> OnRSkillRelease;
+        public void RSkillRelease(Entity targetEntity = null)
+        {
+            cursedBladeTimer = 5;
+            OnRSkillRelease?.Invoke(this, targetEntity);
+        }
+
+        #endregion
         
         /// <summary>
         /// 创建游戏角色并初始化
@@ -193,6 +230,7 @@ namespace Classes.Entities
             _skillPoint = 0;
             level.Value = 0;
             experience.Value = 0;
+            cursedBladeTimer = 0;
             magicPoint.Value = maxMagicPoint.Value;
             healthPoint.Value = maxHealthPoint.Value;
             LevelUp();

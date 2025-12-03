@@ -1,7 +1,6 @@
 using UnityEngine;
 using DataManagement;
 using Classes.Entities;
-using Systems;
 using Utilities;
 
 namespace Managers.EntityManagers
@@ -37,7 +36,7 @@ namespace Managers.EntityManagers
                 }
                 else
                 {
-                    EventSystem.QSkillRelease();
+                    hero.QSkillRelease();
                 }
             }
 
@@ -49,7 +48,7 @@ namespace Managers.EntityManagers
                 }
                 else
                 {
-                    EventSystem.WSkillRelease();
+                    hero.WSkillRelease();
                 }
             }
 
@@ -62,7 +61,7 @@ namespace Managers.EntityManagers
                 }
                 else
                 {
-                    EventSystem.ESkillRelease();
+                    hero.ESkillRelease();
                 }
             }
 
@@ -74,7 +73,7 @@ namespace Managers.EntityManagers
                 }
                 else
                 {
-                    EventSystem.RSkillRelease();
+                    hero.RSkillRelease();
                 }
             }
         }

@@ -118,10 +118,11 @@ namespace Classes.Skills
 
                     charm.OnBulletHit += (self) =>
                     {
-                        self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, _damage), DamageType.AP, owner);
+                        var damageCount = self.target.CalculateAPDamage(self.owner, _damage);
+                        self.target.TakeDamage(damageCount, DamageType.AP, owner);
 
                         // 造成技能特效
-                        self.owner.AbilityEffectActivate(self.owner, self.target);
+                        self.owner.AbilityEffectActivate(self.owner, self.target, damageCount);
                     };
 
                     charm.Awake();

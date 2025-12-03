@@ -160,19 +160,22 @@ namespace Classes.Skills
 
                     deceptionOrb.OnBulletHit += (self) =>
                     {
+                        float damageCount;
                         if (self.bulletStateID == 1)
                         {
                             // 第一段造成魔法伤害
-                            self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, _APDamage), DamageType.AP, owner);
+                            damageCount = self.target.CalculateAPDamage(self.owner, _APDamage);
+                            self.target.TakeDamage(damageCount, DamageType.AP, owner);
                         }
-                        else if (self.bulletStateID == 2)
+                        else
                         {
                             // 第二段造成真实伤害
-                            self.target.TakeDamage(_realDamage, DamageType.Real, owner);
+                            damageCount = _realDamage;
+                            self.target.TakeDamage(damageCount, DamageType.Real, owner);
                         }
 
                         // 造成技能特效
-                        self.owner.AbilityEffectActivate(self.owner, self.target);
+                        self.owner.AbilityEffectActivate(self.owner, self.target, damageCount);
                     };
 
                     deceptionOrb.Awake();

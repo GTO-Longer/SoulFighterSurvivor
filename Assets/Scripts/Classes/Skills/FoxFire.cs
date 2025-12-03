@@ -167,31 +167,36 @@ namespace Classes.Skills
                     {
                         if (self.target != null)
                         {
+                            float damageCount;
                             if (attackIndex == 0)
                             {
                                 // 对20%生命值以下的敌人造成200%伤害
                                 if (self.target.healthPointProportion.Value <= 0.2f)
                                 {
-                                    self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, _firstDamage * 2), DamageType.AP, owner);
+                                    damageCount = self.target.CalculateAPDamage(self.owner, _firstDamage * 2);
+                                    self.target.TakeDamage(damageCount, DamageType.AP, owner);
                                 }
                                 else
                                 {
-                                    self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, _firstDamage), DamageType.AP, owner);
+                                    damageCount = self.target.CalculateAPDamage(self.owner, _firstDamage);
+                                    self.target.TakeDamage(damageCount, DamageType.AP, owner);
                                 }
                             }
                             else
                             {
                                 if (self.target.healthPointProportion.Value <= 0.2f)
                                 {
-                                    self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, _secondDamage * 2), DamageType.AP, owner);
+                                    damageCount = self.target.CalculateAPDamage(self.owner, _secondDamage * 2);
+                                    self.target.TakeDamage(damageCount, DamageType.AP, owner);
                                 }
                                 else
                                 {
-                                    self.target.TakeDamage(self.target.CalculateAPDamage(self.owner, _secondDamage), DamageType.AP, owner);
+                                    damageCount = self.target.CalculateAPDamage(self.owner, _secondDamage);
+                                    self.target.TakeDamage(damageCount, DamageType.AP, owner);
                                 }
                             }
                             
-                            self.owner.AbilityEffectActivate(self.owner, self.target);
+                            self.owner.AbilityEffectActivate(self.owner, self.target, damageCount);
                             attackIndex += 1;
                         }
                     };

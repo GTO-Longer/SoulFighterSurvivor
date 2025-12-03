@@ -198,13 +198,14 @@ namespace Classes.Entities
             LevelUp();
 
             // 定义基础攻击命中事件
-            AttackHit += (self, targetEntity) =>
+            OnAttackHit += (self, targetEntity) =>
             {
                 // 计算平A伤害
-                targetEntity.TakeDamage(targetEntity.CalculateADDamage(self, self.attackDamage), DamageType.AD, this);
+                var damageCount = targetEntity.CalculateADDamage(self, self.attackDamage);
+                targetEntity.TakeDamage(damageCount, DamageType.AD, this);
 
                 // 造成攻击特效
-                AttackEffectActivate(self, targetEntity);
+                AttackEffectActivate(self, targetEntity, damageCount);
             };
             
             // 定义基础技能命中事件
@@ -384,7 +385,7 @@ namespace Classes.Entities
                         if (Vector3.Distance(self.gameObject.transform.position, self.target.gameObject.transform.position) <= destroyDistance)
                         {
                             self.BulletHit();
-                            AttackEffectActivate(self.owner, self.target);
+                            AttackHit(self.owner, self.target);
                             self.Destroy();
                         }
                     };
@@ -393,7 +394,7 @@ namespace Classes.Entities
                 bullet.OnBulletHit += (self) =>
                 {
                     // 触发普通攻击命中事件
-                    self.owner.OnAttackHit(self.owner, self.target);
+                    self.owner.AttackHit(self.owner, self.target);
                 };
                 
                 bullet.Awake();

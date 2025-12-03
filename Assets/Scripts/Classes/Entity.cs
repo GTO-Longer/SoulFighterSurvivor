@@ -560,10 +560,10 @@ namespace Classes
         }
         
         // 攻击命中
-        public event Action<Entity, Entity> AttackHit;
-        public void OnAttackHit(Entity owner, Entity target)
+        public event Action<Entity, Entity> OnAttackHit;
+        public void AttackHit(Entity owner, Entity target)
         {
-            AttackHit?.Invoke(owner, target);
+            OnAttackHit?.Invoke(owner, target);
         }
 
         // 持续更新事件
@@ -576,19 +576,19 @@ namespace Classes
         /// <summary>
         /// 攻击特效
         /// </summary>
-        public event Action<Entity, Entity> AttackEffect;
-        public void AttackEffectActivate(Entity attacker, Entity target)
+        public event Action<Entity, Entity, float> AttackEffect;
+        public void AttackEffectActivate(Entity attacker, Entity target, float damageCount)
         {
-            AttackEffect?.Invoke(attacker, target);
+            AttackEffect?.Invoke(attacker, target, damageCount);
         }
         
         /// <summary>
         /// 技能特效
         /// </summary>
-        public event Action<Entity, Entity> AbilityEffect;
-        public void AbilityEffectActivate(Entity attacker, Entity target)
+        public event Action<Entity, Entity, float> AbilityEffect;
+        public void AbilityEffectActivate(Entity attacker, Entity target, float damageCount)
         {
-            AbilityEffect?.Invoke(attacker, target);
+            AbilityEffect?.Invoke(attacker, target, damageCount);
         }
 
         #endregion

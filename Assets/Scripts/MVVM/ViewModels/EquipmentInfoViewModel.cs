@@ -42,6 +42,7 @@ namespace MVVM.ViewModels
             equipmentName.text = equipment.equipmentName;
             usageDescription.text = equipment._usageDescription;
             equipmentCost.text = $"{equipment._cost}</color>";
+            equipmentIcon.sprite = equipment.equipmentIcon;
             
             purchaseButton.onClick.RemoveAllListeners();
             purchaseButton.onClick.AddListener(() =>

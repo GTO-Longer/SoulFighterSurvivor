@@ -20,6 +20,7 @@ namespace Classes
         public string _usageDescription;
         public EquipmentType _equipmentType;
         public int _cost;
+        public Sprite equipmentIcon;
 
         // 技能主动效果
         protected string _passiveSkillDescription;
@@ -58,6 +59,8 @@ namespace Classes
             _passiveSkillCD = config._passiveSkillCD;
             _passiveSkillCDTimer = _passiveSkillCD;
             _activeSkillCDTimer = _activeSkillCD;
+            
+            equipmentIcon = ResourceReader.ReadIcon(id);
             
             equipmentTimerUpdate = (_) =>
             {

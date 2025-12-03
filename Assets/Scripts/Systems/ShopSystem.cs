@@ -40,6 +40,10 @@ namespace Systems
                 
                 var equipmentSlot = equipmentSlots[^1];
                 equipmentSlot.GetComponent<EquipmentData>().equipment = equipment;
+                if (equipment.equipmentIcon != null)
+                {
+                    equipmentSlot.GetComponent<Image>().sprite = equipment.equipmentIcon;
+                }
                 equipmentSlot.GetComponent<Button>().onClick.AddListener(() => EquipmentInfoViewModel.Instance.ShowEquipmentInfo(equipment));
                 equipmentSlot.SetActive(true);
             }

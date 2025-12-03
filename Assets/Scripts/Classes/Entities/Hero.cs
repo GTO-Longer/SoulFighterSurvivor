@@ -250,6 +250,11 @@ namespace Classes.Entities
             LevelUp();
 
             // 定义基础攻击命中事件
+            AttackEffect += (self, targetEntity, adDamage) =>
+            {
+                self.TakeHeal(adDamage * lifeSteal);
+            };
+            
             OnAttackHit += (self, targetEntity) =>
             {
                 // 计算平A伤害
@@ -267,7 +272,11 @@ namespace Classes.Entities
             };
             
             // 定义基础技能命中事件
-            // AbilityEffect += ;
+            AbilityEffect += (self, targetEntity, skillDamage) =>
+            {
+                self.TakeHeal(skillDamage * omnivamp);
+            };
+
             
             // 定义基础Update事件
             EntityUpdateEvent += (_) =>

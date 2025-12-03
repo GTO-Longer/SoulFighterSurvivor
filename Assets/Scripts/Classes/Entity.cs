@@ -642,6 +642,8 @@ namespace Classes
         public void TakeHeal(float healCount)
         {
             healthPoint.Value += healCount;
+            ScreenTextFactory.Instance.Spawn(_gameObject.transform.position, $"+{healCount:F0}", 0.5f, 150 * Mathf.Max(0.5f, healCount / (healCount + 100)), 50f, Color.green);
+
             if (healthPoint.Value > maxHealthPoint.Value)
             {
                 healthPoint.Value = maxHealthPoint.Value;

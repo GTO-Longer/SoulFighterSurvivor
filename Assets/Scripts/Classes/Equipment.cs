@@ -26,6 +26,7 @@ namespace Classes
         public string _passiveSkillName;
         public float _passiveSkillCD;
         public float _passiveSkillCDTimer;
+        public bool _passiveSkillActive => _passiveSkillCD >= _passiveSkillCDTimer;
         private event Action<Entity> PassiveSkillEffect;
 
         // 装备主动效果
@@ -36,6 +37,7 @@ namespace Classes
         private event Action ActiveSkillEffective;
         
         public EquipmentUniqueEffect _uniqueEffect;
+        protected Action<Entity> equipmentTimerUpdate;
 
         public Equipment(string name)
         {
@@ -56,6 +58,11 @@ namespace Classes
             _passiveSkillCD = config._passiveSkillCD;
             _passiveSkillCDTimer = _passiveSkillCD;
             _activeSkillCDTimer = _activeSkillCD;
+            
+            equipmentTimerUpdate = (_) =>
+            {
+                _passiveSkillCDTimer += Time.deltaTime;
+            };
         }
 
         private Dictionary<EquipmentAttributeType, float> ConvertAttributeList(Dictionary<string, float> rawDict)

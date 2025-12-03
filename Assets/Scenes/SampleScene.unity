@@ -7962,7 +7962,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5796da5c4b0298c4c84db3b0e0d92af7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  equipmentInfoViewModel: {fileID: 1613992013}
+  equipmentInfoViewModel: {fileID: 218381840}
   localEquipmentInfoShow: {fileID: 1613992013}
 --- !u!1 &689847800
 GameObject:
@@ -13796,7 +13796,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 60.934998, y: -25}
-  m_SizeDelta: {x: 51.87, y: 25}
+  m_SizeDelta: {x: 0, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1177166087
 MonoBehaviour:

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Components.UI;
+using DataManagement;
 using Managers.EntityManagers;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -29,7 +30,7 @@ namespace MVVM.ViewModels
 
                 void OnChange(object sender, EventArgs e)
                 {
-                    slotTransform.GetComponent<DataManagement.EquipmentData>().equipment = equipmentProp.Value;
+                    slotTransform.GetComponent<EquipmentData>().equipment = equipmentProp.Value;
                 }
 
                 equipmentProp.PropertyChanged += OnChange;
@@ -42,7 +43,7 @@ namespace MVVM.ViewModels
                     button.canDrag = true;
                     button.leftClick = () =>
                     {
-                        var current = equipmentProp.Value;
+                        var current = button.GetComponent<EquipmentData>().equipment;
                         if (current != null)
                         {
                             if (PanelUIRoot.Instance.isShopOpen)
@@ -54,7 +55,7 @@ namespace MVVM.ViewModels
 
                     button.rightClick = () =>
                     {
-                        var current = equipmentProp.Value;
+                        var current = button.GetComponent<EquipmentData>().equipment;
                         if (current != null)
                         {
                             if (PanelUIRoot.Instance.isShopOpen)
@@ -70,7 +71,7 @@ namespace MVVM.ViewModels
                     button.onPointerEnter = () =>
                     {
                         var current = equipmentProp.Value;
-                        if (current != null)
+                        if (current != null && !PanelUIRoot.Instance.isShopOpen)
                         {
                             localEquipmentInfoShow.gameObject.SetActive(true);
                             localEquipmentInfoShow.ShowEquipmentInfo(current);

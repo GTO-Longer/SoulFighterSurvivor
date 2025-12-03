@@ -31,10 +31,9 @@ namespace Classes.Equipments
 
         public override void OnEquipmentRemove()
         {
-            base.OnEquipmentRemove();
-            
             owner.AttackEffect -= equipmentEffect;
             owner.EntityUpdateEvent -= equipmentTimerUpdate;
+            base.OnEquipmentRemove();
         }
 
         public override bool GetPassiveSkillDescription(out string description)

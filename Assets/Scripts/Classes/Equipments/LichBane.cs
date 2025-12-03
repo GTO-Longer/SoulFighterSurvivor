@@ -1,10 +1,45 @@
+using System;
+using Managers.EntityManagers;
+using Utilities;
+
 namespace Classes.Equipments
 {
     public class LichBane : Equipment
     {
+        private float damageCount => 0.75f * HeroManager.hero.baseAttackDamage + 0.66f * HeroManager.hero.abilityPower;
+        private Action<Entity, Entity, float> equipmentEffect;
+        
         public LichBane() : base("LichBane")
         {
+            equipmentEffect = (attacker, target, _) =>
+            {
+                if (HeroManager.hero.isCuredBladeEffective)
+                {
+                    target.TakeDamage(target.CalculateAPDamage(attacker, damageCount), DamageType.AP, attacker);
+                }
+            };
+        }
+
+        public override void OnEquipmentGet(Entity entity)
+        {
+            base.OnEquipmentGet(entity);
+
+            owner.AttackEffect += equipmentEffect;
+            owner.EntityUpdateEvent += equipmentTimerUpdate;
+        }
+
+        public override void OnEquipmentRemove()
+        {
+            base.OnEquipmentRemove();
             
+            owner.AttackEffect -= equipmentEffect;
+            owner.EntityUpdateEvent -= equipmentTimerUpdate;
+        }
+
+        public override bool GetPassiveSkillDescription(out string description)
+        {
+            description = string.Format(_passiveSkillName + "\n" + _passiveSkillDescription, damageCount);
+            return true;
         }
     }
 }

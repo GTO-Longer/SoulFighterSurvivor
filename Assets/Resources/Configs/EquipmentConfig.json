@@ -380,7 +380,7 @@
         {
             "id": "Stormsurge",
             "equipmentName": "风暴狂涌",
-            "_usageDescription": "爆发伤害",
+            "_usageDescription": "技能爆发",
             "_equipmentType": "Legend",
             "_cost": 2500,
             "_attributeList": {
@@ -388,9 +388,9 @@
                 "magicPenetration": 15,
                 "percentageMovementSpeed": 0.04
             },
-            "_passiveSkillDescription": "在2.5秒内对一个英雄造成相当于其<color=#0ACD02>25%最大生命值</color>的伤害，则在两秒后对目标造成<color=#00D8FF>{0:F0}=（180 + 30% 法强）魔法伤害</color>。",
+            "_passiveSkillDescription": "在2.5秒内使用技能对一个英雄造成相当于其<color=#0ACD02>25%最大生命值</color>的伤害，则在2秒后对目标造成<color=#00D8FF>{0:F0}=（180+50% 法术强度）魔法伤害</color>。",
             "_passiveSkillName": "风暴掠袭",
-            "_passiveSkillCD": 0,
+            "_passiveSkillCD": 10,
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
@@ -409,7 +409,7 @@
             },
             "_passiveSkillDescription": "施放技能后5秒内，你的下一次普攻会因强化而附带额外的<color=#00D8FF>{0:F0}</color>=（<color=#FF6161>75%基础攻击</color>+<color=#C97BFF>66%法术强度</color>）魔法伤害的攻击特效",
             "_passiveSkillName": "咒刃",
-            "_passiveSkillCD": 0,
+            "_passiveSkillCD": 3,
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,

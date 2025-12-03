@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Classes;
 using TMPro;
 using System.Reflection;
+using Components.UI;
 using DataManagement;
 using DG.Tweening;
 using MVVM.ViewModels;
@@ -396,6 +397,40 @@ namespace MVVM
             return () => button.onClick.RemoveListener(OnClick);
         }
         
+        #endregion
+
+        #region Image-自定义类绑定
+        
+        public static Action BindEquipmentImage(Image image, Property<Equipment> source)
+        {
+            if (image == null)
+                return () => { };
+
+            void OnChanged(object sender, EventArgs e)
+            {
+                if (image == null) return;
+                if (source.Value == null)
+                {
+                    image.sprite = null;
+                }
+                else
+                {
+                    image.sprite = source.Value.equipmentIcon;
+                }
+            }
+
+            if (source.Value == null)
+            {
+                image.sprite = null;
+            }
+            else
+            {
+                image.sprite = source.Value.equipmentIcon;
+            }
+            source.PropertyChanged += OnChanged;
+            return () => source.PropertyChanged -= OnChanged;
+        }
+
         #endregion
 
         #region 普通UI显示

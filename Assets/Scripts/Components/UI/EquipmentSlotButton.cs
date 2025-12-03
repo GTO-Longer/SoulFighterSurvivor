@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Components.UI
 {
-    public class EquipmentShopSlotButton : Button
+    public class EquipmentSlotButton : Button
     {
         public Action leftClick = () => { };
         public Action rightClick = () => { };

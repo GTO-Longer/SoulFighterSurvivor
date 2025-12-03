@@ -7,11 +7,13 @@ namespace Components.UI
 {
     public class PanelUIRoot : MonoBehaviour
     {
+        public static PanelUIRoot Instance;
         public bool isShopOpen;
         private ShopSystem shopSystem;
 
         private void Start()
         {
+            Instance = this;
             isShopOpen = false;
             shopSystem = transform.Find("ShopBackground").GetComponent<ShopSystem>();
         }
@@ -22,13 +24,11 @@ namespace Components.UI
             if (Input.GetKeyDown(KeyCode.P) && !isShopOpen)
             {
                 shopSystem.OpenShopPanel();
-                isShopOpen = true;
             }
 
             if (Input.GetKeyDown(KeyCode.Escape) && isShopOpen)
             {
                 shopSystem.CloseShopPanel();
-                isShopOpen = false;
             }
         }
     }

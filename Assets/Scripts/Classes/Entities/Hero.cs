@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Components.UI;
 using DataManagement;
 using DG.Tweening;
 using Factories;
@@ -62,7 +63,7 @@ namespace Classes.Entities
         /// <summary>
         /// 角色装备列表
         /// </summary>
-        public List<Equipment> equipmentList = new();
+        public List<Property<Equipment>> equipmentList = new();
         /// <summary>
         /// 是否可以移动
         /// </summary>
@@ -219,6 +220,14 @@ namespace Classes.Entities
             _attackRangeIndicator = _gameObject.transform.Find("AttackRangeIndicator");
             _attackRangeIndicator.localScale = new Vector2(attackRange / scale, attackRange / scale);
             _attackRangeIndicator.GetComponent<SpriteRenderer>().enabled = false;
+            
+            // 配置初始装备表
+            equipmentList.Add(new Property<Equipment>());
+            equipmentList.Add(new Property<Equipment>());
+            equipmentList.Add(new Property<Equipment>());
+            equipmentList.Add(new Property<Equipment>());
+            equipmentList.Add(new Property<Equipment>());
+            equipmentList.Add(new Property<Equipment>());
             
             // 创建状态条
             StateBarFactory.Instance.Spawn(this);
@@ -620,11 +629,40 @@ namespace Classes.Entities
         /// </summary>
         public void PurchaseEquipment(Equipment equipment)
         {
-            if (equipmentList.Count < 6 && equipment.owner == null && coins.Value > equipment._cost)
+            if (equipment == null) return;
+            if (equipment.owner == null && coins.Value > equipment._cost)
             {
-                coins.Value -= equipment._cost;
-                equipmentList.Add(equipment);
-                equipment.OnEquipmentGet(this);
+                foreach (var property in equipmentList)
+                {
+                    if (property.Value == null)
+                    {
+                        coins.Value -= equipment._cost;
+                        property.Value = equipment;
+                        equipment.OnEquipmentGet(this);
+                        return;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 出售装备
+        /// </summary>
+        public void SellEquipment(Equipment equipment)
+        {
+            if (equipment == null) return;
+            if (PanelUIRoot.Instance.isShopOpen)
+            {
+                foreach (var property in equipmentList)
+                {
+                    if (property.Value == equipment)
+                    {
+                        coins.Value += (int)(property.Value._cost * 0.7f);
+                        property.Value.OnEquipmentRemove();
+                        property.Value = null;
+                        return;
+                    }
+                }
             }
         }
     }

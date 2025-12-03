@@ -13,6 +13,7 @@ namespace Systems
 {
     public class ShopSystem : MonoBehaviour
     {
+        public static ShopSystem Instance;
         public Transform starterEquipmentArea;
         public Transform legendEquipmentArea;
         public GameObject equipmentSlotPrefab;
@@ -20,6 +21,7 @@ namespace Systems
         
         private void Start()
         {
+            Instance = this;
             equipmentSlotPrefab.SetActive(false);
             gameObject.SetActive(false);
             
@@ -46,8 +48,8 @@ namespace Systems
                 {
                     equipmentSlot.GetComponent<Image>().sprite = equipment.equipmentIcon;
                 }
-                equipmentSlot.GetComponent<EquipmentShopSlotButton>().leftClick += () => EquipmentInfoViewModel.Instance.ShowEquipmentInfo(equipment);
-                equipmentSlot.GetComponent<EquipmentShopSlotButton>().rightClick += () => HeroManager.hero.PurchaseEquipment(equipment);
+                equipmentSlot.GetComponent<EquipmentSlotButton>().leftClick += () => EquipmentInfoViewModel.Instance.ShowEquipmentInfo(equipment);
+                equipmentSlot.GetComponent<EquipmentSlotButton>().rightClick += () => HeroManager.hero.PurchaseEquipment(equipment);
                 equipmentSlot.SetActive(true);
             }
         }
@@ -59,6 +61,7 @@ namespace Systems
         {
             gameObject.SetActive(false);
             EquipmentInfoViewModel.Instance.HideEquipmentInfo();
+            PanelUIRoot.Instance.isShopOpen = false;
         }
 
         /// <summary>
@@ -67,6 +70,7 @@ namespace Systems
         public void OpenShopPanel()
         {
             gameObject.SetActive(true);
+            PanelUIRoot.Instance.isShopOpen = true;
         }
     }
 }

@@ -47,7 +47,6 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Classes\Equipments\Guardian_sHammer.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Archangel_sStaff.cs" />
-    <Compile Include="Assets\Scripts\Components\UI\EquipmentShopSlotButton.cs" />
     <Compile Include="Assets\Scripts\RVO\RVOAgent.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Guardian_sHorn.cs" />
     <Compile Include="Assets\RVO2\JobHandleExtensions.cs" />
@@ -73,6 +72,7 @@
     <Compile Include="Assets\Scripts\MVVM\ViewModels\AttributeViewModel.cs" />
     <Compile Include="Assets\Scripts\Classes\Entity.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Manamune.cs" />
+    <Compile Include="Assets\Scripts\Components\UI\EquipmentSlotButton.cs" />
     <Compile Include="Assets\Scripts\DataManagement\EquipmentData.cs" />
     <Compile Include="Assets\Scripts\Components\UI\PanelUIRoot.cs" />
     <Compile Include="Assets\Scripts\Systems\TestSystem.cs" />
@@ -112,6 +112,7 @@
     <Compile Include="Assets\Scripts\MVVM\ViewModels\EquipmentInfoViewModel.cs" />
     <Compile Include="Assets\Scripts\Utilities\Enums.cs" />
     <Compile Include="Assets\Scripts\Factories\BulletFactory.cs" />
+    <Compile Include="Assets\Scripts\MVVM\ViewModels\EquipmentListViewModel.cs" />
     <Compile Include="Assets\Scripts\Managers\EquipmentManager.cs" />
     <Compile Include="Assets\Scripts\MVVM\Binder.cs" />
     <Compile Include="Assets\Scripts\Components\UI\SkillButton.cs" />

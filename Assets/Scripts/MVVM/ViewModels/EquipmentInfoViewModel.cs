@@ -38,7 +38,7 @@ namespace MVVM.ViewModels
 
         public void ShowEquipmentInfo(Equipment equipment)
         {
-            if (PanelUIRoot.Instance.isShopOpen && equipment != null)
+            if (equipment != null)
             {
                 ClearEntryList();
 

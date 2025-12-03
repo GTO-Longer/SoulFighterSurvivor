@@ -1,17 +1,17 @@
-using System;
 using UnityEngine;
 
 namespace Systems
 {
-    [Obsolete("Obsolete")]
     public class MousePointSystem : MonoBehaviour
     {
-        private RectTransform _rectTransform;
+        public static MousePointSystem Instance;
+        public RectTransform _rectTransform;
         private Canvas _canvas;
         public GameObject mousePointIndicator;
 
         private void Start()
         {
+            Instance = this;
             _rectTransform = GetComponent<RectTransform>();
             _canvas = GetComponentInParent<Canvas>();
 
@@ -33,13 +33,12 @@ namespace Systems
                 return;
 
             Vector2 mousePos = Input.mousePosition;
-            Vector2 localPoint;
 
             if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
                     _canvas.transform as RectTransform,
                     mousePos,
                     null, 
-                    out localPoint))
+                    out var localPoint))
             {
                 _rectTransform.anchoredPosition = localPoint;
             }
@@ -56,7 +55,8 @@ namespace Systems
             {
                 var obj = Instantiate(mousePointIndicator, mousePointIndicator.transform.parent).GetComponent<ParticleSystem>();
                 obj.Play();
-                obj.startColor = Input.GetKey(KeyCode.LeftShift) ? Color.red : Color.green;
+                var main = obj.main;
+                main.startColor = Input.GetKey(KeyCode.LeftShift) ? Color.red : Color.green;
             }
         }
     }

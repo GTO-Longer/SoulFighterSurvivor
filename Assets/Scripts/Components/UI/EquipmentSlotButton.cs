@@ -1,21 +1,70 @@
 using System;
+using Systems;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Components.UI
 {
-    public class EquipmentSlotButton : Button
+    public class EquipmentSlotButton : Button, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         public Action leftClick = () => { };
         public Action rightClick = () => { };
 
+        public bool canDrag;
+        public Action onDragEnd;
+        public bool isDragging;
+        private RectTransform rectTransform;
+        private Vector2 originalPosition;
+        private int originalSiblingIndex;
+        private GameObject tempIcon;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            rectTransform = GetComponent<RectTransform>();
+        }
 
         public override void OnPointerClick(PointerEventData eventData)
         {
-            if (eventData.button == PointerEventData.InputButton.Left)
-                leftClick.Invoke();
-            else if (eventData.button == PointerEventData.InputButton.Right)
-                rightClick.Invoke();
+            if (!isDragging)
+            {
+                if (eventData.button == PointerEventData.InputButton.Left)
+                    leftClick.Invoke();
+                else if (eventData.button == PointerEventData.InputButton.Right)
+                    rightClick.Invoke();
+            }
+        }
+
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            if (!canDrag) return;
+
+            isDragging = true;
+            originalPosition = rectTransform.position;
+            tempIcon = Instantiate(gameObject, transform.parent);
+            tempIcon.GetComponent<Image>().sprite = null;
+            tempIcon.transform.SetSiblingIndex(originalSiblingIndex);
+            originalSiblingIndex = transform.GetSiblingIndex();
+            transform.SetAsLastSibling();
+        }
+
+        public void OnDrag(PointerEventData eventData)
+        {
+            if (!canDrag) return;
+            rectTransform.position = MousePointSystem.Instance._rectTransform.position;
+        }
+
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            if (!canDrag) return;
+
+            onDragEnd?.Invoke();
+
+            isDragging = false;
+            rectTransform.position = originalPosition;
+            transform.SetSiblingIndex(originalSiblingIndex);
+            Destroy(tempIcon);
         }
     }
 }

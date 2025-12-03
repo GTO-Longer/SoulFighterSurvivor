@@ -651,17 +651,14 @@ namespace Classes.Entities
         public void SellEquipment(Equipment equipment)
         {
             if (equipment == null) return;
-            if (PanelUIRoot.Instance.isShopOpen)
+            foreach (var property in equipmentList)
             {
-                foreach (var property in equipmentList)
+                if (property.Value == equipment)
                 {
-                    if (property.Value == equipment)
-                    {
-                        coins.Value += (int)(property.Value._cost * 0.7f);
-                        property.Value.OnEquipmentRemove();
-                        property.Value = null;
-                        return;
-                    }
+                    coins.Value += (int)(property.Value._cost * 0.7f);
+                    property.Value.OnEquipmentRemove();
+                    property.Value = null;
+                    return;
                 }
             }
         }

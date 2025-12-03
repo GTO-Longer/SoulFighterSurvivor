@@ -11,9 +11,11 @@ namespace Components.UI
     {
         public Action leftClick = () => { };
         public Action rightClick = () => { };
+        public Action onDragEnd;
+        public Action onPointerEnter;
+        public Action onPointerExit;
 
         public bool canDrag;
-        public Action onDragEnd;
         public bool isDragging;
         private RectTransform rectTransform;
         private Vector2 originalPosition;
@@ -24,6 +26,24 @@ namespace Components.UI
         {
             base.Awake();
             rectTransform = GetComponent<RectTransform>();
+        }
+
+        public override void OnPointerEnter(PointerEventData eventData)
+        {
+            base.OnPointerEnter(eventData);
+
+            if (canDrag)
+            {
+                onPointerEnter?.Invoke();
+            }
+        }
+
+        public override void OnPointerExit(PointerEventData eventData)
+        {
+            if (canDrag)
+            {
+                onPointerExit?.Invoke();
+            }
         }
 
         public override void OnPointerClick(PointerEventData eventData)

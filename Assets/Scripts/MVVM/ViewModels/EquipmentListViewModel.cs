@@ -12,9 +12,12 @@ namespace MVVM.ViewModels
     {
         private List<Transform> equipmentSlotList;
         private Action UnBindEvent;
+        public EquipmentInfoViewModel equipmentInfoViewModel;
+        public EquipmentInfoViewModel localEquipmentInfoShow;
 
         private void Start()
         {
+            localEquipmentInfoShow.gameObject.SetActive(false);
             equipmentSlotList = new List<Transform>();
 
             for (var index = 0; index < 6; index++)
@@ -44,7 +47,7 @@ namespace MVVM.ViewModels
                         {
                             if (PanelUIRoot.Instance.isShopOpen)
                             {
-                                EquipmentInfoViewModel.Instance.ShowEquipmentInfo(current);
+                                equipmentInfoViewModel.ShowEquipmentInfo(current);
                             }
                         }
                     };
@@ -63,6 +66,21 @@ namespace MVVM.ViewModels
 
                     // 拖拽交换
                     button.onDragEnd = () => SwapSlot(slotIndex);
+                    
+                    button.onPointerEnter = () =>
+                    {
+                        var current = equipmentProp.Value;
+                        if (current != null)
+                        {
+                            localEquipmentInfoShow.gameObject.SetActive(true);
+                            localEquipmentInfoShow.ShowEquipmentInfo(current);
+                        }
+                    };
+
+                    button.onPointerExit = () =>
+                    {
+                        localEquipmentInfoShow.gameObject.SetActive(false);
+                    };
                 }
             }
         }

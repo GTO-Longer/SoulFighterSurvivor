@@ -12,7 +12,6 @@ namespace MVVM.ViewModels
 {
     public class EquipmentInfoViewModel : MonoBehaviour
     {
-        public static EquipmentInfoViewModel Instance;
         private Image equipmentIcon;
         private TMP_Text equipmentName;
         private TMP_Text usageDescription;
@@ -23,14 +22,13 @@ namespace MVVM.ViewModels
 
         private void Start()
         {
-            Instance = this;
             entryPrefab.SetActive(false);
             
             equipmentIcon = transform.Find("EquipmentTitle/EquipmentIcon").GetComponent<Image>();
             equipmentName = transform.Find("EquipmentTitle/NameAndDescription/EquipmentName").GetComponent<TMP_Text>();
             usageDescription = transform.Find("EquipmentTitle/NameAndDescription/UsageDescription").GetComponent<TMP_Text>();
             equipmentCost = transform.Find("EquipmentTitle/EquipmentPrice/EquipmentCost").GetComponent<TMP_Text>();
-            purchaseButton = transform.Find("PurchaseButton").GetComponent<Button>();
+            purchaseButton = transform.Find("PurchaseButton")?.GetComponent<Button>();
 
             HideEquipmentInfo();
         }
@@ -46,27 +44,32 @@ namespace MVVM.ViewModels
                 equipmentCost.text = $"{equipment._cost}</color>";
                 equipmentIcon.sprite = equipment.equipmentIcon;
 
-                purchaseButton.onClick.RemoveAllListeners();
+                if (purchaseButton != null)
+                {
+                    purchaseButton.onClick.RemoveAllListeners();
 
-                if (HeroManager.hero.equipmentList.Find(equip => equip.Value == equipment) == null)
-                {
-                    purchaseButton.transform.Find("PurchaseContent").GetComponent<TMP_Text>().text = $"以{equipment._cost:D}金币购买 " + equipment.equipmentName;
-                    purchaseButton.onClick.AddListener(() =>
+                    if (HeroManager.hero.equipmentList.Find(equip => equip.Value == equipment) == null)
                     {
-                        HeroManager.hero.PurchaseEquipment(equipment);
-                        HideEquipmentInfo();
-                        ShowEquipmentInfo(equipment);
-                    });
-                }
-                else
-                {
-                    purchaseButton.transform.Find("PurchaseContent").GetComponent<TMP_Text>().text = $"以{(int)(equipment._cost * 0.7f):D}金币售出 " + equipment.equipmentName;
-                    purchaseButton.onClick.AddListener(() =>
+                        purchaseButton.transform.Find("PurchaseContent").GetComponent<TMP_Text>().text =
+                            $"以{equipment._cost:D}金币购买 " + equipment.equipmentName;
+                        purchaseButton.onClick.AddListener(() =>
+                        {
+                            HeroManager.hero.PurchaseEquipment(equipment);
+                            HideEquipmentInfo();
+                            ShowEquipmentInfo(equipment);
+                        });
+                    }
+                    else
                     {
-                        HeroManager.hero.SellEquipment(equipment);
-                        HideEquipmentInfo();
-                        ShowEquipmentInfo(equipment);
-                    });
+                        purchaseButton.transform.Find("PurchaseContent").GetComponent<TMP_Text>().text =
+                            $"以{(int)(equipment._cost * 0.7f):D}金币售出 " + equipment.equipmentName;
+                        purchaseButton.onClick.AddListener(() =>
+                        {
+                            HeroManager.hero.SellEquipment(equipment);
+                            HideEquipmentInfo();
+                            ShowEquipmentInfo(equipment);
+                        });
+                    }
                 }
 
                 foreach (var kv in equipment.equipmentAttributes)
@@ -246,7 +249,7 @@ namespace MVVM.ViewModels
                 equipmentName.gameObject.SetActive(true);
                 usageDescription.gameObject.SetActive(true);
                 equipmentCost.transform.parent.gameObject.SetActive(true);
-                purchaseButton.gameObject.SetActive(true);
+                purchaseButton?.gameObject.SetActive(true);
 
                 // 更新UI布局
                 LayoutRebuilder.ForceRebuildLayoutImmediate(entryPrefab.transform.parent.GetComponent<RectTransform>());
@@ -259,7 +262,7 @@ namespace MVVM.ViewModels
             equipmentName.gameObject.SetActive(false);
             usageDescription.gameObject.SetActive(false);
             equipmentCost.transform.parent.gameObject.SetActive(false);
-            purchaseButton.gameObject.SetActive(false);
+            purchaseButton?.gameObject.SetActive(false);
             ClearEntryList();
         }
 

@@ -17,14 +17,17 @@ namespace Systems
         public Transform starterEquipmentArea;
         public Transform legendEquipmentArea;
         public GameObject equipmentSlotPrefab;
-        public Button purchaseButton;
-        public List<GameObject> equipmentSlots = new();
+        private Button purchaseButton;
+        private List<GameObject> equipmentSlots = new();
+        private EquipmentInfoViewModel equipmentInfoViewModel;
         
         private void Start()
         {
             Instance = this;
             equipmentSlotPrefab.SetActive(false);
             gameObject.SetActive(false);
+            equipmentInfoViewModel = transform.Find("EquipmentInfo").GetComponent<EquipmentInfoViewModel>();
+            purchaseButton = transform.Find("EquipmentInfo/PurchaseButton").GetComponent<Button>();
             
             foreach (var equipment in EquipmentManager.Instance.equipmentList)
             {
@@ -49,7 +52,7 @@ namespace Systems
                 {
                     equipmentSlot.GetComponent<Image>().sprite = equipment.equipmentIcon;
                 }
-                equipmentSlot.GetComponent<EquipmentSlotButton>().leftClick += () => EquipmentInfoViewModel.Instance.ShowEquipmentInfo(equipment);
+                equipmentSlot.GetComponent<EquipmentSlotButton>().leftClick += () => equipmentInfoViewModel.ShowEquipmentInfo(equipment);
                 equipmentSlot.GetComponent<EquipmentSlotButton>().rightClick += () => HeroManager.hero.PurchaseEquipment(equipment);
                 equipmentSlot.SetActive(true);
             }
@@ -61,7 +64,7 @@ namespace Systems
         public void CloseShopPanel()
         {
             gameObject.SetActive(false);
-            EquipmentInfoViewModel.Instance.HideEquipmentInfo();
+            equipmentInfoViewModel.HideEquipmentInfo();
             PanelUIRoot.Instance.isShopOpen = false;
         }
 

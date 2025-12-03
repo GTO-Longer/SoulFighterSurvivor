@@ -22,21 +22,21 @@ namespace Classes
         public int _cost;
 
         // 技能主动效果
-        public string _passiveSkillDescription;
-        public string _passiveSkillName;
-        public float _passiveSkillCD;
-        public float _passiveSkillCDTimer;
-        public bool _passiveSkillActive => _passiveSkillCD >= _passiveSkillCDTimer;
+        protected string _passiveSkillDescription;
+        protected string _passiveSkillName;
+        protected float _passiveSkillCD;
+        protected float _passiveSkillCDTimer;
+        protected bool _passiveSkillActive => _passiveSkillCDTimer >= _passiveSkillCD;
         private event Action<Entity> PassiveSkillEffect;
 
         // 装备主动效果
-        public string _activeSkillDescription;
-        public string _activeSkillName;
-        public float _activeSkillCD;
-        public float _activeSkillCDTimer;
+        protected string _activeSkillDescription;
+        protected string _activeSkillName;
+        protected float _activeSkillCD;
+        protected float _activeSkillCDTimer;
         private event Action ActiveSkillEffective;
         
-        public EquipmentUniqueEffect _uniqueEffect;
+        protected EquipmentUniqueEffect _uniqueEffect;
         protected Action<Entity> equipmentTimerUpdate;
 
         public Equipment(string name)
@@ -61,7 +61,10 @@ namespace Classes
             
             equipmentTimerUpdate = (_) =>
             {
-                _passiveSkillCDTimer += Time.deltaTime;
+                if (!_passiveSkillActive)
+                {
+                    _passiveSkillCDTimer += Time.deltaTime;
+                }
             };
         }
 

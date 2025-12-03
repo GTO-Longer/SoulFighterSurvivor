@@ -4,6 +4,7 @@ using Factories;
 using RVO;
 using UnityEngine;
 using Utilities;
+using Random = UnityEngine.Random;
 
 namespace Classes
 {
@@ -608,7 +609,7 @@ namespace Classes
                 DamageType.None => Color.black,
                 _ => throw new ArgumentOutOfRangeException(nameof(damageType), damageType, null)
             }; 
-            ScreenTextFactory.Instance.Spawn(_gameObject.transform.position, $"-{damageCount:F0}", 0.5f, 50f, 50f, color);
+            ScreenTextFactory.Instance.Spawn(_gameObject.transform.position, $"-{damageCount:F0}", 0.5f, 150 * Mathf.Max(0.5f, damageCount / (damageCount + 100)), 50f, color);
            
             healthPoint.Value -= damageCount;
             if (healthPoint.Value <= 0)

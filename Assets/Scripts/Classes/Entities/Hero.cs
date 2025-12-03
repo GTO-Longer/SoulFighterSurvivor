@@ -205,11 +205,14 @@ namespace Classes.Entities
                 targetEntity.TakeDamage(damageCount, DamageType.AD, this);
 
                 // 造成攻击特效
-                AttackEffectActivate(self, targetEntity, damageCount);
+                if (targetEntity != null && targetEntity.isAlive)
+                {
+                    AttackEffectActivate(self, targetEntity, damageCount);
+                }
             };
             
             // 定义基础技能命中事件
-            AbilityEffect += AbilityEffectActivate;
+            // AbilityEffect += ;
         }
 
         /// <summary>
@@ -385,7 +388,6 @@ namespace Classes.Entities
                         if (Vector3.Distance(self.gameObject.transform.position, self.target.gameObject.transform.position) <= destroyDistance)
                         {
                             self.BulletHit();
-                            AttackHit(self.owner, self.target);
                             self.Destroy();
                         }
                     };

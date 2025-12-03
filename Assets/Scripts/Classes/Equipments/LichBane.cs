@@ -13,7 +13,7 @@ namespace Classes.Equipments
         {
             equipmentEffect = (attacker, target, _) =>
             {
-                if (HeroManager.hero.isCuredBladeEffective)
+                if (HeroManager.hero.isCuredBladeEffective && _passiveSkillActive)
                 {
                     target.TakeDamage(target.CalculateAPDamage(attacker, damageCount), DamageType.AP, attacker);
                     _passiveSkillCDTimer = 0;

@@ -14,13 +14,24 @@ namespace Classes.Equipments
         {
             equipmentEffect = (attacker, target, damageCount) =>
             {
-                damageSum += damageCount;
-                Async.SetAsync(2.5f, null, null, () => damageSum -= damageCount);
-
-                if (damageSum >= target.maxHealthPoint.Value * 0.25f)
+                if (_passiveSkillActive)
                 {
-                    Async.SetAsync(2, null, null, () => target.TakeDamage(target.CalculateAPDamage(attacker, damageCount), DamageType.AP, attacker));
-                    _passiveSkillCDTimer = 0;
+                    damageSum += damageCount;
+                    Async.SetAsync(2.5f, null, null, () => damageSum -= damageCount);
+
+                    if (damageSum >= target.maxHealthPoint.Value * 0.25f)
+                    {
+                        Async.SetAsync(2, null, null,
+                        () =>
+                        {
+                            if (target != null)
+                            {
+                                target.TakeDamage(target.CalculateAPDamage(attacker, damageCount), DamageType.AP,
+                                    attacker);
+                                _passiveSkillCDTimer = 0;
+                            }
+                        });
+                    }
                 }
             };
         }

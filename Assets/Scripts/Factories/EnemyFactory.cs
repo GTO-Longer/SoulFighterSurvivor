@@ -75,7 +75,7 @@ namespace Factories
         private void Update()
         {
             enemySpawnTimer += Time.deltaTime;
-            if (enemySpawnTimer > 20 / (5 + HeroManager.hero.level) + 10)
+            if (enemySpawnTimer > 15 / (5 + HeroManager.hero.level) + 7)
             {
                 Vector2 heroPosition = HeroManager.hero.gameObject.transform.position;
                 

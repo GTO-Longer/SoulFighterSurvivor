@@ -1,4 +1,5 @@
 using System;
+using DataManagement;
 using Systems;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -38,7 +39,7 @@ namespace Components.UI
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            if (!canDrag) return;
+            if (!canDrag || GetComponent<EquipmentData>().equipment == null) return;
 
             isDragging = true;
             originalPosition = rectTransform.position;
@@ -51,13 +52,13 @@ namespace Components.UI
 
         public void OnDrag(PointerEventData eventData)
         {
-            if (!canDrag) return;
+            if (!canDrag || GetComponent<EquipmentData>().equipment == null) return;
             rectTransform.position = MousePointSystem.Instance._rectTransform.position;
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            if (!canDrag) return;
+            if (!canDrag || GetComponent<EquipmentData>().equipment == null) return;
 
             onDragEnd?.Invoke();
 

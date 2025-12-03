@@ -24,8 +24,12 @@ namespace MVVM.ViewModels
                 var slotTransform = transform.GetChild(slotIndex);
                 equipmentSlotList.Add(slotTransform);
 
-                var data = slotTransform.GetComponent<DataManagement.EquipmentData>();
-                data.equipment = equipmentProp.Value;
+                void OnChange(object sender, EventArgs e)
+                {
+                    slotTransform.GetComponent<DataManagement.EquipmentData>().equipment = equipmentProp.Value;
+                }
+
+                equipmentProp.PropertyChanged += OnChange;
 
                 UnBindEvent += Binder.BindEquipmentImage(slotTransform.GetComponent<Image>(), equipmentProp);
 

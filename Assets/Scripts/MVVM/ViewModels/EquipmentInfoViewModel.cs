@@ -47,6 +47,8 @@ namespace MVVM.ViewModels
             purchaseButton.onClick.AddListener(() =>
             {
                 HeroManager.hero.PurchaseEquipment(equipment);
+                HideEquipmentInfo();
+                ShowEquipmentInfo(equipment);
             });
 
             foreach (var kv in equipment.equipmentAttributes)

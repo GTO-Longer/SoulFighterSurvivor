@@ -3222,6 +3222,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+  canDrag: 0
+  isDragging: 0
 --- !u!114 &361439862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3638,6 +3640,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+  canDrag: 0
+  isDragging: 0
 --- !u!114 &379157409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7361,6 +7365,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+  canDrag: 0
+  isDragging: 0
 --- !u!114 &692838933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8734,6 +8740,7 @@ MonoBehaviour:
   starterEquipmentArea: {fileID: 942553150}
   legendEquipmentArea: {fileID: 986846612}
   equipmentSlotPrefab: {fileID: 1472784112}
+  purchaseButton: {fileID: 0}
   equipmentSlots: []
 --- !u!1 &822169379
 GameObject:
@@ -9953,6 +9960,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+  canDrag: 0
+  isDragging: 0
 --- !u!114 &963216934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12298,7 +12307,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 60.934998, y: -25}
-  m_SizeDelta: {x: 0, y: 25}
+  m_SizeDelta: {x: 51.87, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1177166087
 MonoBehaviour:
@@ -13690,6 +13699,7 @@ MonoBehaviour:
   InfinityHealthPoint: 0
   SkillNoCoolDown: 0
   LevelUp: 0
+  Gain20000Coin: 0
 --- !u!1 &1303771041
 GameObject:
   m_ObjectHideFlags: 0
@@ -14009,6 +14019,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+  canDrag: 0
+  isDragging: 0
 --- !u!114 &1329903296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20831,6 +20843,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+  canDrag: 0
+  isDragging: 0
 --- !u!1 &1480047820
 GameObject:
   m_ObjectHideFlags: 0
@@ -26169,6 +26183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4417ad1e3e18de4db6e5effe7e9a815, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rectTransform: {fileID: 0}
   mousePointIndicator: {fileID: 1354837183}
 --- !u!114 &1913211127
 MonoBehaviour:
@@ -27001,6 +27016,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+  canDrag: 0
+  isDragging: 0
 --- !u!114 &1975366620
 MonoBehaviour:
   m_ObjectHideFlags: 0

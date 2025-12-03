@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Managers.EntityManagers;
 using Utilities;
 
@@ -8,29 +9,38 @@ namespace Classes.Equipments
     {
         private float damageCount => 180 + 0.5f * HeroManager.hero.abilityPower;
         private Action<Entity, Entity, float> equipmentEffect;
-        private float damageSum;
+        private Dictionary<Entity, float> damageSum = new();
         
         public Stormsurge() : base("Stormsurge")
         {
-            equipmentEffect = (attacker, target, damageCount) =>
+            equipmentEffect = (attacker, target, skillDamageCount) =>
             {
-                if (_passiveSkillActive)
+                if (_passiveSkillActive && target.isAlive)
                 {
-                    damageSum += damageCount;
-                    Async.SetAsync(2.5f, null, null, () => damageSum -= damageCount);
+                    damageSum.TryAdd(target, skillDamageCount);
+                    Async.SetAsync(2.5f, null, null, () => damageSum[target] -= skillDamageCount);
 
-                    if (damageSum >= target.maxHealthPoint.Value * 0.25f)
+                    foreach (var kv in damageSum)
                     {
-                        Async.SetAsync(2, null, null,
-                        () =>
+                        if (kv.Value >= kv.Key.maxHealthPoint.Value * 0.25f)
                         {
-                            if (target != null)
+                            _passiveSkillCDTimer = 0;
+                            Async.SetAsync(2, null, () =>
                             {
-                                target.TakeDamage(target.CalculateAPDamage(attacker, damageCount), DamageType.AP,
-                                    attacker);
-                                _passiveSkillCDTimer = 0;
-                            }
-                        });
+                                if (!kv.Key.isAlive)
+                                {
+                                    _passiveSkillCDTimer = _passiveSkillCD;
+                                }
+                            },
+                            () =>
+                            {
+                                if (kv.Key.isAlive)
+                                {
+                                    kv.Key.TakeDamage(kv.Key.CalculateAPDamage(attacker, damageCount), DamageType.AP,
+                                        attacker);
+                                }
+                            });
+                        }
                     }
                 }
             };

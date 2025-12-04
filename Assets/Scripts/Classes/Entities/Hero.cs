@@ -512,6 +512,7 @@ namespace Classes.Entities
                 if (skill.specialTimer < 0)
                 {
                     skill.SpecialTimeOut();
+                    skill.SkillEnterCoolDown();
                     skill.specialTimer = 0;
                 }
                 else if (skill.specialTimer > 0)

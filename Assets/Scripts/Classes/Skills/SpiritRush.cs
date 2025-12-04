@@ -26,6 +26,8 @@ namespace Classes.Skills
             {
                 coolDownTimer = 0;
                 specialCoolDown = 0;
+                maxSkillChargeCount = 0;
+                skillChargeCount = 0;
             };
         }
 
@@ -40,18 +42,13 @@ namespace Classes.Skills
             Debug.Log(skillName + ": Skill effective");
             owner.OnRSkillRelease += (_, _) =>
             {
-                if (specialTimer <= 0)
-                {
-                    maxSkillChargeCount = 0;
-                }
-                
                 if (_skillLevel <= 0)
                 {
                     Binder.ShowText(SkillViewModel.instance.skillTips, "技能尚未解锁", 1);
                     return;
                 }
                 
-                if (_baseSkillCost[skillLevelToIndex] > owner.magicPoint)
+                if (_baseSkillCost[skillLevelToIndex] > owner.magicPoint && specialTimer <= 0)
                 {
                     Binder.ShowText(SkillViewModel.instance.skillTips, "施法资源不够，技能无法使用", 1);
                     return;

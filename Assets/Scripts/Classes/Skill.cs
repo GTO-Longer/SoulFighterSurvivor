@@ -29,7 +29,8 @@ namespace Classes{
         /// 特殊CD（比如内置CD）
         /// </summary>
         public float specialCoolDown = 0;
-        public event Action OnSpecialTimeOut; 
+        public event Action OnSpecialTimeOut;
+        public event Action OnSkillEnterCoolDown; 
         
         protected int _skillLevel;
         protected int _maxSkillLevel = 0;
@@ -171,6 +172,14 @@ namespace Classes{
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// 技能进入冷却
+        /// </summary>
+        public void SkillEnterCoolDown()
+        {
+            OnSkillEnterCoolDown?.Invoke();
         }
     }
 }

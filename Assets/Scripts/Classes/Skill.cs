@@ -80,10 +80,6 @@ namespace Classes{
             levelBar = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{_skillType.ToString()}/LevelBar")?.transform;
             
             skillIcon.sprite = ResourceReader.ReadIcon(name);
-            if (skillType is >= SkillType.QSkill and <= SkillType.RSkill)
-            {
-                skillIcon.material = Resources.Load<Material>("Materials/ImageGreyTexture");
-            }
         }
         
         protected void ReadSkillConfig(string name)
@@ -112,7 +108,6 @@ namespace Classes{
             if (SkillCanUpgrade())
             {
                 owner._skillPoint -= 1;
-                skillIcon.material = null;
                 _skillLevel++;
             }
         }
@@ -154,12 +149,13 @@ namespace Classes{
                 skillCD.gameObject.SetActive(skillCoolDownProportion > 0);
                 skillCharge.text = skillChargeCount.ToString();
                 skillCharge.gameObject.SetActive(maxSkillChargeCount > 0);
+            }
                     
-                if (skillType is >= SkillType.QSkill and <= SkillType.RSkill)
-                {
-                    upgradeButton.gameObject.SetActive(HeroManager.hero._skillPoint > 0);
-                    upgradeButton.interactable = SkillCanUpgrade();
-                }
+            if (skillType is >= SkillType.QSkill and <= SkillType.RSkill)
+            {
+                upgradeButton.gameObject.SetActive(HeroManager.hero._skillPoint > 0);
+                upgradeButton.interactable = SkillCanUpgrade();
+                skillIcon.material = skillChargeCount <= 0 && maxSkillChargeCount > 0 || skillLevel == 0 ? Resources.Load<Material>("Materials/ImageGreyTexture") : null;
             }
             
             // 设置技能等级

@@ -28,14 +28,14 @@ namespace Classes
         protected float _passiveSkillCD;
         protected float _passiveSkillCDTimer;
         protected bool _passiveSkillActive => _passiveSkillCDTimer >= _passiveSkillCD;
-        private event Action<Entity> PassiveSkillEffect;
 
         // 装备主动效果
         protected string _activeSkillDescription;
         protected string _activeSkillName;
         protected float _activeSkillCD;
         protected float _activeSkillCDTimer;
-        private event Action ActiveSkillEffective;
+        protected Action ActiveSkillEffective;
+        protected bool _activeSkillActive => _activeSkillCDTimer >= _activeSkillCD;
         
         protected EquipmentUniqueEffect _uniqueEffect;
         protected Action<Entity> equipmentTimerUpdate;
@@ -99,9 +99,6 @@ namespace Classes
         public virtual void OnEquipmentGet(Entity entity)
         {
             owner = entity;
-            
-            // 注册装备被动能力
-            owner.EntityUpdateEvent += PassiveSkillEffect;
             
             // 将装备属性加入加成
             foreach (var kv in equipmentAttributes)
@@ -217,7 +214,6 @@ namespace Classes
             if (owner == null) return;
             
             // 注销装备被动能力
-            owner.EntityUpdateEvent -= PassiveSkillEffect;
             foreach (var kv in equipmentAttributes)
             {
                 // 移除装备属性

@@ -86,6 +86,14 @@ namespace Managers.EntityManagers
             {
                 hero.FSkillRelease();
             }
+
+            for (int index = 0; index < 6; index++)
+            {
+                if (Input.GetKeyDown(KeyCode.Alpha1 + index) && PanelUIRoot.Instance.playerCanInteractGame)
+                {
+                    hero.EquipmentRelease(index);
+                }
+            }
         }
     }
 }

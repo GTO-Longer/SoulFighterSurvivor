@@ -122,6 +122,11 @@ namespace Classes.Entities
         {
             OnFSkillRelease?.Invoke(this, targetEntity);
         }
+        
+        public void EquipmentRelease(int equipmentId)
+        {
+            equipmentList[equipmentId].Value.OnActiveSkillEffective();
+        }
 
         #endregion
         
@@ -652,7 +657,7 @@ namespace Classes.Entities
                 
                 // 恢复agent
                 _agent.Warp(targetPosition);
-                _agent.SetStop(false);
+                _agent.SetStop(true);
                 
                 onComplete?.Invoke();
             });

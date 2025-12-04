@@ -364,6 +364,29 @@
             "_bulletWidth": 0,
             "_bulletSpeed": 0,
             "_destinationDistance": 400
+        },
+        {
+            "id": "GoustPoro",
+            "heroName": null,
+            "skillName": "幽灵疾步",
+            "_skillDescription": "使用后获得4秒的40%加速并使自身处于幽灵状态",
+            "_skillType": "FSkill",
+            "_baseSkillCost": [
+                0
+            ],
+            "_baseSkillCoolDown": [
+                20
+            ],
+            "_baseSkillValue": [
+                [
+                    0.0
+                ]
+            ],
+            "_skillRange": 0,
+            "_castTime": 0,
+            "_bulletWidth": 0,
+            "_bulletSpeed": 0,
+            "_destinationDistance": 0
         }
     ]
 }

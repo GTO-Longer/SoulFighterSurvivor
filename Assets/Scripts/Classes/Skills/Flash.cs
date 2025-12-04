@@ -7,11 +7,11 @@ namespace Classes.Skills
 {
     public class Flash : Skill
     {
-        public Flash(SkillType skillType) : base("Flash")
+        public Flash() : base("Flash")
         {
             _skillLevel = 1;
             _maxSkillLevel = 1;
-            _skillType = skillType;
+            base.skillType = skillType;
             
             coolDownTimer = 999;
         }

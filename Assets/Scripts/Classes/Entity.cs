@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using DataManagement;
 using Factories;
 using RVO;
@@ -29,6 +30,8 @@ namespace Classes
         private const int maxLevel = 18;
         public int _skillPoint;
         protected Vector2 forcedDirection;
+        protected float damageBoost;
+        public List<Buff> buffList;
         
         #region 最终属性
 
@@ -627,7 +630,7 @@ namespace Classes
             }; 
             ScreenTextFactory.Instance.Spawn(_gameObject.transform.position, $"-{damageCount:F0}", 0.5f, 150 * Mathf.Max(0.5f, damageCount / (damageCount + 100)), 50f, color);
            
-            healthPoint.Value -= damageCount;
+            healthPoint.Value -= damageCount * damageBoost;
             if (healthPoint.Value < 1)
             {
                 healthPoint.Value = 0;
@@ -681,7 +684,6 @@ namespace Classes
             return  damageCount * 
                     (1 - damageMagicDefense / (damageMagicDefense + 100f));
         }
-        
 
         /// <summary>
         /// 玩家升级
@@ -754,6 +756,18 @@ namespace Classes
         /// 死亡
         /// </summary>
         public virtual void Die(Entity killer){}
+        
+        /// <summary>
+        /// 获取buff
+        /// </summary>
+        public void GetBuff(Buff buff)
+        {
+            var buffInList = buffList.Find(buffInList => buffInList.buffName == buff.buffName);
+            if (buffInList == null || !buffInList.isUnique)
+            {
+                buffList.Add(buff.GetBuff());
+            }
+        }
         
         #endregion
 
@@ -953,6 +967,8 @@ namespace Classes
             
             isAlive = true;
             forcedDirection = Vector2.zero;
+            damageBoost = 1;
+            buffList = new List<Buff>();
 
             #endregion
         }

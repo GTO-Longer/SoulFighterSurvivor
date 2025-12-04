@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Classes;
 using DataManagement;
 using Managers.EntityManagers;
 using TMPro;
@@ -12,11 +13,14 @@ namespace MVVM.ViewModels
     public class HeroAttributeViewModel : MonoBehaviour
     {
         private event Action UnBindEvent;
+        public static HeroAttributeViewModel Instance;
         private Property<bool> notFullHealth;
         private Property<bool> notFullMagic;
 
         private void Start()
         {
+            Instance = this;
+            
             var textGroup = new Dictionary<string, TMP_Text>();
             var attributeList = transform.GetComponentsInChildren<TMP_Text>();
             var HPContent = transform.Find("MainStateBackground/HPBarBackground/HPContent").GetComponent<TMP_Text>();
@@ -61,6 +65,31 @@ namespace MVVM.ViewModels
         private void OnDestroy()
         {
             UnBindEvent?.Invoke();
+        }
+
+        public Transform CreateBuffUI(Buff buff)
+        {
+            var buffBar = transform.transform.Find("MainStateBackground/BuffBar");
+            var buffPrefab = buffBar.GetChild(0);
+            var newBuffUI = Instantiate(buffPrefab, buffBar);
+            newBuffUI.GetComponent<BuffData>().buff = buff;
+            return newBuffUI;
+        }
+
+        public void DeleteBuffUI(Buff buff)
+        {
+            var buffBar = transform.Find("MainStateBackground/BuffBar");
+            for (var index = 0; index < buffBar.childCount; index++)
+            {
+                var buffData = buffBar.GetChild(index).GetComponent<BuffData>();
+                if (buffData != null && buffData.buff != null)
+                {
+                    if (buffData.buff == buff)
+                    {
+                        Destroy(buffBar.GetChild(index).gameObject);
+                    }
+                }
+            }
         }
     }
 }

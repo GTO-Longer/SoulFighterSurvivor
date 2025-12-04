@@ -15,7 +15,6 @@ namespace Classes{
         public string heroName;
         public Hero owner;
         public int skillLevel => _skillLevel;
-        public SkillType skillType => _skillType;
         public float skillCost => _baseSkillCost[Math.Max(0, _skillLevel - 1)];
         public float skillRange => _skillRange;
 
@@ -57,7 +56,7 @@ namespace Classes{
         public float skillCoolDownProportion => 1 - Mathf.Min(actualSkillCoolDown == 0 ? 1 : coolDownTimer / actualSkillCoolDown, 1);
         
         protected string _skillDescription;
-        protected SkillType _skillType;
+        public SkillType skillType;
         protected float[] _baseSkillCost;
         protected float[] _baseSkillCoolDown;
         protected List<List<float>> _baseSkillValue;
@@ -72,12 +71,12 @@ namespace Classes{
         {
             ReadSkillConfig(name);
             
-            skillIcon = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{_skillType.ToString()}/SkillIcon").GetComponent<Image>();
-            skillCoolDownMask = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{_skillType.ToString()}/CDMask")?.GetComponent<Image>();
-            skillCD = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{_skillType.ToString()}/SkillCD")?.GetComponent<TMP_Text>();
-            skillCharge = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{_skillType.ToString()}/SkillCharge")?.GetComponent<TMP_Text>();
-            upgradeButton = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{_skillType.ToString()}/UpgradeButton")?.GetComponent<Button>();
-            levelBar = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{_skillType.ToString()}/LevelBar")?.transform;
+            skillIcon = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{skillType.ToString()}/SkillIcon").GetComponent<Image>();
+            skillCoolDownMask = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{skillType.ToString()}/CDMask")?.GetComponent<Image>();
+            skillCD = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{skillType.ToString()}/SkillCD")?.GetComponent<TMP_Text>();
+            skillCharge = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{skillType.ToString()}/SkillCharge")?.GetComponent<TMP_Text>();
+            upgradeButton = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{skillType.ToString()}/UpgradeButton")?.GetComponent<Button>();
+            levelBar = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{skillType.ToString()}/LevelBar")?.transform;
             
             skillIcon.sprite = ResourceReader.ReadIcon(name);
         }
@@ -91,7 +90,7 @@ namespace Classes{
             coolDownTimer = 0;
             
             _skillDescription = config._skillDescription;
-            _skillType = (SkillType)Enum.Parse(typeof(SkillType), config._skillType);
+            skillType = (SkillType)Enum.Parse(typeof(SkillType), config._skillType);
             _baseSkillCost = config._baseSkillCost;
             _baseSkillCoolDown = config._baseSkillCoolDown;
             _baseSkillValue = config._baseSkillValue;

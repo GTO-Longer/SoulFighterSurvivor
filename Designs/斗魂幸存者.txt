@@ -6,14 +6,11 @@
 		Entity实体类，子类：
 			Hero英雄类
 			Enemy敌人类
-			SceneObject场景物体类（比如能量花卉）
-			Summon召唤物类
 		Buff状态类
 		Bullet子弹类
 		Skill技能类
 		Hex海克斯类
 		Equipment装备类
-		Goods商品类
 	b、数据的设计
 		SkillConfig技能配置
 		HexConfig海克斯配置
@@ -22,7 +19,6 @@
 		EnemyConfig敌人配置
 		StageConfig关卡配置
 		EquipmentConfig装备配置
-		GoodsConfig商品配置
 5、操作模式：
 	右键点击自动寻路移动√
 	右键点击锁定目标攻击√

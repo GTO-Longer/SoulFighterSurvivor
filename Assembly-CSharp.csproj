@@ -49,11 +49,13 @@
     <Compile Include="Assets\Scripts\Classes\Equipments\Archangel_sStaff.cs" />
     <Compile Include="Assets\Scripts\RVO\RVOAgent.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Guardian_sHorn.cs" />
+    <Compile Include="Assets\Scripts\Classes\Buff.cs" />
     <Compile Include="Assets\RVO2\JobHandleExtensions.cs" />
     <Compile Include="Assets\RVO2\RVOMath.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Liandry_sTorment.cs" />
     <Compile Include="Assets\Scripts\MVVM\ViewModels\HeroAttributeViewModel.cs" />
     <Compile Include="Assets\Scripts\RVO\RVOObstacle.cs" />
+    <Compile Include="Assets\Scripts\DataManagement\BuffData.cs" />
     <Compile Include="Assets\Scripts\Systems\ShopSystem.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\InfinityEdge.cs" />
     <Compile Include="Assets\Scripts\RVO\RVOManager.cs" />
@@ -62,11 +64,13 @@
     <Compile Include="Assets\Scripts\Utilities\Async.cs" />
     <Compile Include="Assets\Scripts\Classes\Skills\SpiritRush.cs" />
     <Compile Include="Assets\Scripts\Classes\Skills\Flash.cs" />
+    <Compile Include="Assets\Scripts\Classes\Skills\GoustPoro.cs" />
     <Compile Include="Assets\Scripts\Utilities\ToolFunctions.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Stormsurge.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\RodofAges.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\HorizonFocus.cs" />
     <Compile Include="Assets\Scripts\Systems\MousePointSystem.cs" />
+    <Compile Include="Assets\Scripts\Classes\Buffs\GoustPoro.cs" />
     <Compile Include="Assets\Scripts\Classes\Skills\EssenceTheft.cs" />
     <Compile Include="Assets\Scripts\DataManagement\Property.cs" />
     <Compile Include="Assets\Scripts\MVVM\ViewModels\TargetAttributeViewModel.cs" />

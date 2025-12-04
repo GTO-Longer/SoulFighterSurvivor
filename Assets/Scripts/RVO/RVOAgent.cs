@@ -18,6 +18,9 @@ namespace RVO
         private bool _isStopped;
         public bool isStopped => _isStopped;
         
+        // 处于幽灵模式
+        public bool isGoust;
+        
         public float2 goal;
         private int agentId = -1;
 
@@ -66,6 +69,17 @@ namespace RVO
             if (!isStopped)
             {
                 CheckReachTarget();
+                
+                // 幽灵模式下不避障
+                if (isGoust)
+                {
+                    useNavMeshMovement = true;
+                    manager.simulator.SetAgentMaxNeighbors(agentId, 0);
+                }
+                else
+                {
+                    manager.simulator.SetAgentMaxNeighbors(agentId, 50);
+                }
                 
                 var pos = manager.simulator.GetAgentPosition(agentId);
                 transform.position = new Vector3(pos.x, pos.y, 0f);

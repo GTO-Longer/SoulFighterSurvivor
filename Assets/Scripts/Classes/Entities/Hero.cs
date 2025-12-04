@@ -246,10 +246,17 @@ namespace Classes.Entities
             equipmentList.Add(new Property<Equipment>());
             
             // 配置召唤师技能
-            var flash = new Flash(SkillType.DSkill);
+            var flash = new Flash();
+            flash.skillType = SkillType.DSkill;
             flash.owner= this;
             flash.SkillEffect();
             skillList.Add(flash);
+            
+            var goustPoro = new GoustPoro();
+            goustPoro.skillType = SkillType.FSkill;
+            goustPoro.owner= this;
+            goustPoro.SkillEffect();
+            skillList.Add(goustPoro);
             
             // 创建状态条
             StateBarFactory.Instance.Spawn(this);

@@ -11,7 +11,8 @@ namespace Classes.Equipments
     public class HextechRocketBelt : Equipment
     {
         private float damageCount => 100 + 0.1f * HeroManager.hero.abilityPower;
-        
+        private static readonly float[] angles = new float[] {-120f, -105f, -90f, -75f, -60f };
+
         public HextechRocketBelt() : base("HextechRocketBelt")
         {
             ActiveSkillEffective += () =>
@@ -39,32 +40,29 @@ namespace Classes.Equipments
                     for (var index = 0; index < hexRocketBeltBullet.Count; index++)
                     {
                         var hexBullet = hexRocketBeltBullet[index];
-
                         var bulletIndex = index;
-                        float[] angles = { -120f, -105f, -90f, -75f, -60f };
+                        
                         hexBullet.OnBulletAwake += (self) =>
                         {
                             self.gameObject.SetActive(true);
                             hexBullet.gameObject.transform.position = hero.gameObject.transform.position;
+
+                            // 预设方向
+                            var ownerPos = owner.gameObject.transform.position;
+                            mouseWorldPos.z = ownerPos.z;
+                            var fireDirs = new Vector2[6];
+                            var baseDir = (mouseWorldPos - ownerPos).normalized;
+                            for (var i = 0; i < 5; i++)
+                                fireDirs[i] = Quaternion.Euler(0, 0, angles[i]) * baseDir;
+                            fireDirs[5] = Quaternion.Euler(0, 0, 90) * baseDir;
+                            
+                            // 当前子弹的方向
+                            var dir = fireDirs[bulletIndex];
+                            self.gameObject.transform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
                             
                             self.OnBulletUpdate += (_) =>
                             {
                                 // 子弹的移动逻辑
-                                var ownerPos = owner.gameObject.transform.position;
-                                mouseWorldPos.z = ownerPos.z;
-                                var baseDir = (mouseWorldPos - ownerPos).normalized;
-
-                                // 预设方向
-                                var fireDirs = new Vector2[6];
-                                for (var i = 0; i < 5; i++)
-                                    fireDirs[i] = Quaternion.Euler(0, 0, angles[i]) * baseDir;
-                                fireDirs[5] = Quaternion.Euler(0, 0, 90) * baseDir;
-
-                                // 当前子弹的方向
-                                var dir = fireDirs[bulletIndex];
-                                self.gameObject.transform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
-
-                                // 每帧移动
                                 self.gameObject.transform.position += self.gameObject.transform.up * (2000 * Time.deltaTime);
 
                                 // 子弹的销毁逻辑
@@ -93,6 +91,20 @@ namespace Classes.Equipments
                     }
                 });
             };
+        }
+        
+        public override void OnEquipmentGet(Entity entity)
+        {
+            base.OnEquipmentGet(entity);
+
+            owner.EntityUpdateEvent += equipmentTimerUpdate;
+        }
+
+        public override void OnEquipmentRemove()
+        {
+            owner.EntityUpdateEvent -= equipmentTimerUpdate;
+            
+            base.OnEquipmentRemove();
         }
 
         public override bool GetActiveSkillDescription(out string description)

@@ -125,7 +125,10 @@ namespace Classes.Entities
         
         public void EquipmentRelease(int equipmentId)
         {
-            equipmentList[equipmentId].Value.OnActiveSkillEffective();
+            if (equipmentList[equipmentId].Value != null)
+            {
+                equipmentList[equipmentId].Value.OnActiveSkillEffective();
+            }
         }
 
         #endregion

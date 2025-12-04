@@ -68,6 +68,10 @@ namespace Classes
                 {
                     _passiveSkillCDTimer += Time.deltaTime;
                 }
+                if (!_activeSkillActive)
+                {
+                    _activeSkillCDTimer += Time.deltaTime;
+                }
             };
         }
 

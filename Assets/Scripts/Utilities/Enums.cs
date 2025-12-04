@@ -30,6 +30,8 @@ namespace Utilities
         WSkill,
         ESkill,
         RSkill,
+        DSkill,
+        FSkill
     }
 
     public enum AttributeType
@@ -124,5 +126,6 @@ namespace Utilities
     {
         None = 0,
         Guardian,
+        CursedBlade,
     }
 }

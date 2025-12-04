@@ -341,6 +341,29 @@
             "_bulletWidth": 0,
             "_bulletSpeed": 0,
             "_destinationDistance": 0
+        },
+        {
+            "id": "Flash",
+            "heroName": null,
+            "skillName": "闪现",
+            "_skillDescription": "向指针位置位移一小段距离。",
+            "_skillType": "DSkill",
+            "_baseSkillCost": [
+                0
+            ],
+            "_baseSkillCoolDown": [
+                180
+            ],
+            "_baseSkillValue": [
+                [
+                    0.0
+                ]
+            ],
+            "_skillRange": 0,
+            "_castTime": 0,
+            "_bulletWidth": 0,
+            "_bulletSpeed": 0,
+            "_destinationDistance": 400
         }
     ]
 }

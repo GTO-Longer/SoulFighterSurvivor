@@ -55,19 +55,19 @@ namespace Classes.Skills
                 // 计算飞出目标点
                 var mouseWorld = CameraSystem._mainCamera.ScreenToWorldPoint(Input.mousePosition);
                 var direction = ((Vector2)mouseWorld - (Vector2)owner.gameObject.transform.position).normalized;
-                var targetPosition = (Vector2)owner.gameObject.transform.position + direction * skillRange;
                 
                 // 吟唱时间
                 Async.SetAsync(_castTime, null, () =>
                 {
                     owner.canUseSkill = false;
                     owner.canMove = false;
-                    owner.RotateTo(direction);
+                    owner.RotateTo(ref direction);
                 }, () =>
                 {
                     owner.canUseSkill = true;
                     owner.canMove = true;
                     owner.agent.SetStop(false);
+                    var targetPosition = (Vector2)owner.gameObject.transform.position + direction * skillRange;
                     
                     var deceptionOrb = BulletFactory.Instance.CreateBullet(owner);
                     deceptionOrb.OnBulletAwake += (self) =>

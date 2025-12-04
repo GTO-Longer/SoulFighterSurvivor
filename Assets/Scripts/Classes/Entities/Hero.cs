@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Classes.Skills;
 using Components.UI;
 using DataManagement;
 using DG.Tweening;
@@ -29,6 +30,7 @@ namespace Classes.Entities
 
         private float cursedBladeTimer;
         private float gainCoinTimer;
+        public bool canFlash;
         public bool isCuredBladeEffective => cursedBladeTimer > 0f;
         
         /// <summary>
@@ -38,7 +40,7 @@ namespace Classes.Entities
         /// <summary>
         /// 鼠标位置
         /// </summary>
-        private Vector2 _mousePosition;
+        public Vector2 _mousePosition;
         /// <summary>
         /// 攻击计时器
         /// </summary>
@@ -105,6 +107,20 @@ namespace Classes.Entities
         {
             cursedBladeTimer = 5;
             OnRSkillRelease?.Invoke(this, targetEntity);
+        }
+        
+        // D技能释放事件
+        public event Action<Hero, Entity> OnDSkillRelease;
+        public void DSkillRelease(Entity targetEntity = null)
+        {
+            OnDSkillRelease?.Invoke(this, targetEntity);
+        }
+        
+        // D技能释放事件
+        public event Action<Hero, Entity> OnFSkillRelease;
+        public void FSkillRelease(Entity targetEntity = null)
+        {
+            OnFSkillRelease?.Invoke(this, targetEntity);
         }
 
         #endregion
@@ -229,6 +245,12 @@ namespace Classes.Entities
             equipmentList.Add(new Property<Equipment>());
             equipmentList.Add(new Property<Equipment>());
             
+            // 配置召唤师技能
+            var flash = new Flash(SkillType.DSkill);
+            flash.owner= this;
+            flash.SkillEffect();
+            skillList.Add(flash);
+            
             // 创建状态条
             StateBarFactory.Instance.Spawn(this);
             
@@ -247,6 +269,7 @@ namespace Classes.Entities
             magicPoint.Value = maxMagicPoint.Value;
             healthPoint.Value = maxHealthPoint.Value;
             coins.Value = 750;
+            canFlash = true;
             LevelUp();
 
             // 定义基础攻击命中事件
@@ -422,7 +445,7 @@ namespace Classes.Entities
                 target.Value.gameObject.transform.position.x - _gameObject.transform.position.x,
                 target.Value.gameObject.transform.position.y - _gameObject.transform.position.y
             );
-            RotateTo(rotateDirection);
+            RotateTo(ref rotateDirection);
 
             if (_attackTimer < actualAttackInterval)
             {
@@ -610,11 +633,13 @@ namespace Classes.Entities
             gameObject.transform.DOMove(targetPosition, dashDuration)
             .OnUpdate(() =>
             {
+                canFlash = false;
                 canUseSkill = false;
                 canMove = false;
             })
             .OnComplete(() =>
             {
+                canFlash = true;
                 canUseSkill = true;
                 canMove = true;
                 
@@ -624,6 +649,19 @@ namespace Classes.Entities
                 
                 onComplete?.Invoke();
             });
+        }
+
+        /// <summary>
+        /// 闪烁
+        /// </summary>
+        public void Flash(Vector2 direction, float distance)
+        {
+            var targetPosition = (Vector2)gameObject.transform.position + direction.normalized * distance;
+            NavMesh.SamplePosition(targetPosition, out var hit, 10000, NavMesh.AllAreas);
+            agent.Warp(hit.position);
+            agent.SetStop(true);
+            forcedDirection = direction;
+            gameObject.transform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
         }
 
         /// <summary>

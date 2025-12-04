@@ -28,6 +28,7 @@ namespace Classes
         public bool isAlive;
         private const int maxLevel = 18;
         public int _skillPoint;
+        protected Vector2 forcedDirection;
         
         #region 最终属性
 
@@ -729,8 +730,13 @@ namespace Classes
         /// 平滑转向指定方向
         /// </summary>
         /// <param name="direction">方向</param>
-        public void RotateTo(Vector2 direction)
+        public void RotateTo(ref Vector2 direction)
         {
+            if (forcedDirection != Vector2.zero)
+            {
+                direction = forcedDirection;
+                forcedDirection = Vector2.zero;
+            }
             if (direction.sqrMagnitude > 0.01f)
             {
                 var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -946,6 +952,7 @@ namespace Classes
             #region 其他属性初始化
             
             isAlive = true;
+            forcedDirection = Vector2.zero;
 
             #endregion
         }

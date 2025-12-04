@@ -61,7 +61,7 @@ namespace Classes.Skills
                 {
                     owner.canUseSkill = false;
                     owner.canMove = false;
-                    owner.RotateTo(direction);
+                    owner.RotateTo(ref direction);
                 }, () =>
                 {
                     owner.canUseSkill = true;

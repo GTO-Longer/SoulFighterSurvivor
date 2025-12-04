@@ -18,7 +18,12 @@ namespace Classes{
         public SkillType skillType => _skillType;
         public float skillCost => _baseSkillCost[Math.Max(0, _skillLevel - 1)];
         public float skillRange => _skillRange;
-        public float actualSkillCoolDown => specialCoolDown != 0 ? specialCoolDown :_baseSkillCoolDown[Math.Max(0, _skillLevel - 1)] * owner.actualAbilityCooldown;
+
+        public float actualSkillCoolDown => skillType is SkillType.DSkill or SkillType.FSkill
+            ? _baseSkillCoolDown[0]
+            : specialCoolDown != 0
+                ? specialCoolDown
+                : _baseSkillCoolDown[Math.Max(0, _skillLevel - 1)] * owner.actualAbilityCooldown;
         public float actualSkillCost => _baseSkillCost[Math.Max(0, _skillLevel - 1)];
         public float bulletWidth => _bulletWidth;
         public float bulletSpeed => _bulletSpeed;

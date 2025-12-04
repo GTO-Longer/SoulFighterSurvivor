@@ -71,7 +71,7 @@ namespace RVO
                 transform.position = new Vector3(pos.x, pos.y, 0f);
                 
                 var velocity = (Vector2)manager.simulator.GetAgentVelocity(agentId);
-                entity.RotateTo(velocity);
+                entity.RotateTo(ref velocity);
             }
         }
 
@@ -230,6 +230,7 @@ namespace RVO
         public void Warp(Vector2 pos)
         {
             manager.simulator.SetAgentPosition(agentId, new float2(pos.x, pos.y));
+            gameObject.transform.position = pos;
         }
 
         /// <summary>

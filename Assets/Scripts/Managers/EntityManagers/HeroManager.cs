@@ -76,6 +76,11 @@ namespace Managers.EntityManagers
                     hero.RSkillRelease();
                 }
             }
+
+            if (Input.GetKeyDown(KeyCode.D) && PanelUIRoot.Instance.playerCanInteractGame)
+            {
+                hero.DSkillRelease();
+            }
         }
     }
 }

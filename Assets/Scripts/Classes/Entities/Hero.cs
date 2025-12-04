@@ -525,8 +525,8 @@ namespace Classes.Entities
 
             if (_regenerateTimer >= 5)
             {
-                TakeHeal(healthRegeneration);
-                TakeMagicRecover(magicRegeneration);
+                healthPoint.Value += healthRegeneration.Value;
+                magicPoint.Value += magicRegeneration.Value;
                 _regenerateTimer = 0;
             }
         }

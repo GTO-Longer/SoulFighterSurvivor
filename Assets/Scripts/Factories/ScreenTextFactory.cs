@@ -51,8 +51,11 @@ namespace Factories
             text.GetComponent<TMP_Text>().text = content;
             text.GetComponent<TMP_Text>().color = actualColor;
             text.GetComponent<TMP_Text>().fontSize = fontSize;
+            text.transform.localScale = new Vector3(2, 2, 2);
             
             text.position = position;
+            
+            text.transform.DOScale(1, duration);
             text.DOMoveX(position.x + moveRange * 2, duration);
             text.DOMoveY(position.y + moveRange * Random.Range(1f, 2f), duration / 2f).SetEase(Ease.OutQuad).OnComplete(() =>
             {

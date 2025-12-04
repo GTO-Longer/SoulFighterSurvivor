@@ -627,8 +627,10 @@ namespace Classes
                 DamageType.AP => new Color(0, 0.6f, 1, 1),
                 DamageType.None => Color.black,
                 _ => throw new ArgumentOutOfRangeException(nameof(damageType), damageType, null)
-            }; 
-            ScreenTextFactory.Instance.Spawn(_gameObject.transform.position, $"-{damageCount:F0}", 0.5f, 150 * Mathf.Max(0.5f, damageCount / (damageCount + 100)), 50f, color);
+            };
+            ScreenTextFactory.Instance.Spawn(_gameObject.transform.position, $"-{damageCount:F0}", 0.5f,
+                150 * Mathf.Max(0.5f, damageCount / (damageCount + 100)), Mathf.Clamp(damageCount / 3f, 30, 100),
+                color);
            
             healthPoint.Value -= damageCount * damageBoost;
             if (healthPoint.Value < 1)
@@ -648,7 +650,7 @@ namespace Classes
             if (healCount > 1)
             {
                 ScreenTextFactory.Instance.Spawn(_gameObject.transform.position, $"+{healCount:F0}", 0.5f,
-                    150 * Mathf.Max(0.5f, healCount / (healCount + 100)), 50f, Color.green);
+                    150 * Mathf.Max(0.5f, healCount / (healCount + 100)), Mathf.Clamp(healCount / 2f, 30, 100), Color.green);
             }
 
             if (healthPoint.Value > maxHealthPoint.Value)

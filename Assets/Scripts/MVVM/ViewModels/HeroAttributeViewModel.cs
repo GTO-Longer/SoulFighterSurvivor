@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Classes;
 using DataManagement;
 using Managers.EntityManagers;
 using TMPro;
@@ -29,7 +28,7 @@ namespace MVVM.ViewModels
             var MPRegenerateContent = transform.Find("MainStateBackground/MPBarBackground/MPRegenerateContent").GetComponent<TMP_Text>();
             var HPBar = transform.Find("MainStateBackground/HPBarBackground/HPBar").GetComponent<Image>();
             var HPBarSmooth = transform.Find("MainStateBackground/HPBarBackground/HPBarSmooth").GetComponent<Image>();
-            var MPBar = transform.Find("MainStateBackground/MPBarBackground/MPBar").GetComponent<Image>();;
+            var MPBar = transform.Find("MainStateBackground/MPBarBackground/MPBar").GetComponent<Image>();
             var otherAttributes = transform.Find("AttributesAndHexes/OtherAttributesBackground").gameObject;
             var hexes = transform.Find("AttributesAndHexes/HexesBackground").gameObject;
             var coinContent = transform.Find("Equipments/ShopButton/CoinContent").gameObject.GetComponent<TMP_Text>();
@@ -65,31 +64,6 @@ namespace MVVM.ViewModels
         private void OnDestroy()
         {
             UnBindEvent?.Invoke();
-        }
-
-        public Transform CreateBuffUI(Buff buff)
-        {
-            var buffBar = transform.transform.Find("MainStateBackground/BuffBar");
-            var buffPrefab = buffBar.GetChild(0);
-            var newBuffUI = Instantiate(buffPrefab, buffBar);
-            newBuffUI.GetComponent<BuffData>().buff = buff;
-            return newBuffUI;
-        }
-
-        public void DeleteBuffUI(Buff buff)
-        {
-            var buffBar = transform.Find("MainStateBackground/BuffBar");
-            for (var index = 0; index < buffBar.childCount; index++)
-            {
-                var buffData = buffBar.GetChild(index).GetComponent<BuffData>();
-                if (buffData != null && buffData.buff != null)
-                {
-                    if (buffData.buff == buff)
-                    {
-                        Destroy(buffBar.GetChild(index).gameObject);
-                    }
-                }
-            }
         }
     }
 }

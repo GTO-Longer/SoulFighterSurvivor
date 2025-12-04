@@ -15,7 +15,7 @@ namespace MVVM.ViewModels
         public delegate string AttributeDescriptionDelegate();
         public Dictionary<AttributeType, List<AttributeDescriptionDelegate>> attributeDescriptionSettings;
         public Dictionary<AttributeType, List<Property<float>>> attributeDependenciesSettings;
-        public static AttributeViewModel instance;
+        public static AttributeViewModel Instance;
         private TMP_Text attributeName;
         private TMP_Text attributeDescription;
         private TMP_Text attributeAmount;
@@ -24,7 +24,7 @@ namespace MVVM.ViewModels
 
         private void Start()
         {
-            instance = this;
+            Instance = this;
             hero = HeroManager.hero;
             attributeName = transform.Find("Background/AttributeNameContainer/AttributeName").GetComponent<TMP_Text>();
             attributeDescription = transform.Find("Background/AttributeDescription").GetComponent<TMP_Text>();

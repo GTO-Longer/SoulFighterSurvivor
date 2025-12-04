@@ -1,5 +1,4 @@
 using System;
-using Managers.EntityManagers;
 using MVVM.ViewModels;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -31,13 +30,13 @@ namespace Components.UI
         {
             if (attributeType != AttributeType.None)
             {
-                AttributeViewModel.instance.BindAttributePanel(attributeType);
+                AttributeViewModel.Instance.BindAttributePanel(attributeType);
             }
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            AttributeViewModel.instance.UnBindAttribute();
+            AttributeViewModel.Instance.UnBindAttribute();
         }
 
         public void OnButtonClick()

@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using Classes;
 using TMPro;
 using System.Reflection;
-using Components.UI;
 using DataManagement;
 using DG.Tweening;
 using MVVM.ViewModels;
@@ -332,22 +331,22 @@ namespace MVVM
                 if (attrType == AttributeType.None)
                 {
                     background.SetActive(false);
-                    AttributeViewModel.instance.UnBindEvent?.Invoke();
-                    AttributeViewModel.instance.UnBindEvent = null;
+                    AttributeViewModel.Instance.UnBindEvent?.Invoke();
+                    AttributeViewModel.Instance.UnBindEvent = null;
                     return;
                 }
 
                 
-                if (!(AttributeViewModel.instance.attributeDependenciesSettings.TryGetValue(attrType, out dependencies) &&
+                if (!(AttributeViewModel.Instance.attributeDependenciesSettings.TryGetValue(attrType, out dependencies) &&
                       dependencies != null))
                 {
                     return;
                 }
                 
                 background.SetActive(true);
-                attrName.text = AttributeViewModel.instance.attributeDescriptionSettings[attrType][0].Invoke();
-                attrDescription.text = AttributeViewModel.instance.attributeDescriptionSettings[attrType][1].Invoke();
-                attrAmount.text = AttributeViewModel.instance.attributeDescriptionSettings[attrType][2].Invoke();
+                attrName.text = AttributeViewModel.Instance.attributeDescriptionSettings[attrType][0].Invoke();
+                attrDescription.text = AttributeViewModel.Instance.attributeDescriptionSettings[attrType][1].Invoke();
+                attrAmount.text = AttributeViewModel.Instance.attributeDescriptionSettings[attrType][2].Invoke();
                 LayoutRebuilder.ForceRebuildLayoutImmediate(background.GetComponent<RectTransform>());
             }
 

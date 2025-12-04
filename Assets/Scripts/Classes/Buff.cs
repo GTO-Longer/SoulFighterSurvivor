@@ -1,5 +1,4 @@
 using System;
-using DataManagement;
 using MVVM.ViewModels;
 using UnityEngine;
 using UnityEngine.UI;
@@ -85,7 +84,7 @@ namespace Classes
         {
             if (owner.team == Team.Hero)
             {
-                var buffUI = HeroAttributeViewModel.Instance.CreateBuffUI(this);
+                var buffUI = BuffViewModel.Instance.CreateBuffUI(this);
                 buffUI.GetComponent<Image>().sprite = buffIcon;
             }
             
@@ -107,7 +106,7 @@ namespace Classes
 
         public void RemoveBuffUI()
         {
-            HeroAttributeViewModel.Instance.DeleteBuffUI(this);
+            BuffViewModel.Instance.DeleteBuffUI(this);
         }
     }
 }

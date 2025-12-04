@@ -27,8 +27,7 @@ namespace Classes
         public RVOAgent agent => _agent;
         public bool isAlive;
         private const int maxLevel = 18;
-        protected int _skillPoint;
-        public int skillPoint => _skillPoint;
+        public int _skillPoint;
         
         #region 最终属性
 

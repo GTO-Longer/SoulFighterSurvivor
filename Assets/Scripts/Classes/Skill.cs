@@ -105,6 +105,7 @@ namespace Classes{
         {
             if (SkillCanUpgrade())
             {
+                owner._skillPoint -= 1;
                 skillIcon.material = null;
                 _skillLevel++;
             }
@@ -150,7 +151,7 @@ namespace Classes{
                     
                 if (skillType is >= SkillType.QSkill and <= SkillType.RSkill)
                 {
-                    upgradeButton.gameObject.SetActive(HeroManager.hero.skillPoint > 0);
+                    upgradeButton.gameObject.SetActive(HeroManager.hero._skillPoint > 0);
                     upgradeButton.interactable = SkillCanUpgrade();
                 }
             }

@@ -633,7 +633,6 @@ namespace Classes.Entities
             if (_skillPoint > 0 && skill.skillType is >= SkillType.QSkill and <= SkillType.RSkill)
             {
                 skill.SkillUpgrade();
-                _skillPoint -= 1;
 
                 if (SkillViewModel.chosenSkill.Value != null)
                 {

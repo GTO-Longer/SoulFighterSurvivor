@@ -37,7 +37,7 @@ namespace Classes.Skills
         {
             if (actualSkillCoolDown > coolDownTimer)
             {
-                Binder.ShowText(SkillViewModel.instance.skillTips, "技能正在冷却", 1);
+                Binder.ShowText(SkillViewModel.Instance.skillTips, "技能正在冷却", 1);
                 return;
             }
 

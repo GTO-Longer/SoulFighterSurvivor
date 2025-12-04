@@ -44,19 +44,19 @@ namespace Classes.Skills
             {
                 if (_skillLevel <= 0)
                 {
-                    Binder.ShowText(SkillViewModel.instance.skillTips, "技能尚未解锁", 1);
+                    Binder.ShowText(SkillViewModel.Instance.skillTips, "技能尚未解锁", 1);
                     return;
                 }
                 
                 if (_baseSkillCost[skillLevelToIndex] > owner.magicPoint && specialTimer <= 0)
                 {
-                    Binder.ShowText(SkillViewModel.instance.skillTips, "施法资源不够，技能无法使用", 1);
+                    Binder.ShowText(SkillViewModel.Instance.skillTips, "施法资源不够，技能无法使用", 1);
                     return;
                 }
 
                 if (actualSkillCoolDown > coolDownTimer)
                 {
-                    Binder.ShowText(SkillViewModel.instance.skillTips, "技能正在冷却", 1);
+                    Binder.ShowText(SkillViewModel.Instance.skillTips, "技能正在冷却", 1);
                     return;
                 }
                 // 设置充能
@@ -76,7 +76,7 @@ namespace Classes.Skills
                 }
                 else
                 {
-                    Binder.ShowText(SkillViewModel.instance.skillTips, "没有充能次数", 1);
+                    Binder.ShowText(SkillViewModel.Instance.skillTips, "没有充能次数", 1);
                     return;
                 }
 

@@ -2,6 +2,7 @@ using System;
 using DataManagement;
 using MVVM.ViewModels;
 using UnityEngine;
+using UnityEngine.UI;
 using Utilities;
 
 namespace Classes
@@ -84,7 +85,8 @@ namespace Classes
         {
             if (owner.team == Team.Hero)
             {
-                HeroAttributeViewModel.Instance.CreateBuffUI(this);
+                var buffUI = HeroAttributeViewModel.Instance.CreateBuffUI(this);
+                buffUI.GetComponent<Image>().sprite = buffIcon;
             }
             
             OnBuffGet?.Invoke();

@@ -294,6 +294,34 @@ namespace MVVM
         }
         
         /// <summary>
+        /// 绑定Buff
+        /// </summary>
+        public static Action BindBuff(Image buffIcon, GameObject background, TMP_Text buffName, TMP_Text buffDescription, Property<Buff> buffSource)
+        {
+            void OnChanged(object sender, EventArgs e)
+            {
+                if (buffSource.Value == null)
+                {
+                    background.SetActive(false);
+                    return;
+                }
+
+                background.SetActive(true);
+                buffIcon.sprite = buffSource.Value.buffIcon;
+                buffName.text = buffSource.Value.buffName;
+                buffDescription.text = buffSource.Value.buffDescription;
+                LayoutRebuilder.ForceRebuildLayoutImmediate(background.GetComponent<RectTransform>());
+            }
+
+            OnChanged(null, null);
+            buffSource.PropertyChanged += OnChanged;
+            return () =>
+            {
+                buffSource.PropertyChanged -= OnChanged;
+            };
+        }
+
+        /// <summary>
         /// 绑定属性
         /// </summary>
         public static Action BindAttribute(GameObject background, TMP_Text attrName, TMP_Text attrDescription, TMP_Text attrAmount, AttributeType attrType)

@@ -10,13 +10,13 @@ namespace MVVM.ViewModels
     public class SkillViewModel : MonoBehaviour
     {
         private event Action UnBindEvent;
-        public static SkillViewModel instance;
+        public static SkillViewModel Instance;
         public static Property<Skill> chosenSkill = new Property<Skill>();
         public TMP_Text skillTips;
 
         private void Start()
         {
-            instance = this;
+            Instance = this;
             
             var skillIcon = transform.Find("Background/TitleBanner/SkillIconContainer/SkillIcon").GetComponent<Image>();
             var skillName = transform.Find("Background/TitleBanner/SkillNameAndLevelContainer/SkillName").GetComponent<TMP_Text>();

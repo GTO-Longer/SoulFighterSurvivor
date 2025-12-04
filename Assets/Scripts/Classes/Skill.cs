@@ -43,6 +43,7 @@ namespace Classes{
         public TMP_Text skillCD;
         public TMP_Text skillCharge;
         public Button upgradeButton;
+        public Transform levelBar;
 
         /// <summary>
         /// 技能冷却完成百分比
@@ -70,6 +71,7 @@ namespace Classes{
             skillCD = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{_skillType.ToString()}/SkillCD")?.GetComponent<TMP_Text>();
             skillCharge = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{_skillType.ToString()}/SkillCharge")?.GetComponent<TMP_Text>();
             upgradeButton = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{_skillType.ToString()}/UpgradeButton")?.GetComponent<Button>();
+            levelBar = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{_skillType.ToString()}/LevelBar")?.transform;
             
             skillIcon.sprite = ResourceReader.ReadIcon(name);
             if (skillType is >= SkillType.QSkill and <= SkillType.RSkill)
@@ -134,6 +136,7 @@ namespace Classes{
             OnSpecialTimeOut?.Invoke();
         }
 
+        // 更新技能UI
         public void UpdateSkillUI()
         {
             // 设置技能冷却mask和文字
@@ -149,6 +152,22 @@ namespace Classes{
                 {
                     upgradeButton.gameObject.SetActive(HeroManager.hero.skillPoint > 0);
                     upgradeButton.interactable = SkillCanUpgrade();
+                }
+            }
+            
+            // 设置技能等级
+            if (skillType is >= SkillType.QSkill and <= SkillType.RSkill)
+            {
+                for (var index = 0; index < levelBar.childCount; index++)
+                {
+                    if (index < _skillLevel)
+                    {
+                        levelBar.GetChild(index).GetComponent<Image>().color = new Color(1, 0.6f, 0);
+                    }
+                    else
+                    {
+                        levelBar.GetChild(index).GetComponent<Image>().color = new Color(0.425f, 0.425f, 0.425f);
+                    }
                 }
             }
         }

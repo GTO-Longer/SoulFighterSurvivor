@@ -22,14 +22,13 @@ namespace MVVM.ViewModels
 
         private void Start()
         {
-            entryPrefab.SetActive(false);
-            
             equipmentIcon = transform.Find("EquipmentTitle/EquipmentIcon").GetComponent<Image>();
             equipmentName = transform.Find("EquipmentTitle/NameAndDescription/EquipmentName").GetComponent<TMP_Text>();
             usageDescription = transform.Find("EquipmentTitle/NameAndDescription/UsageDescription").GetComponent<TMP_Text>();
             equipmentCost = transform.Find("EquipmentTitle/EquipmentPrice/EquipmentCost").GetComponent<TMP_Text>();
             purchaseButton = transform.Find("PurchaseButton")?.GetComponent<Button>();
 
+            entryPrefab.SetActive(false);
             HideEquipmentInfo();
         }
 
@@ -37,6 +36,7 @@ namespace MVVM.ViewModels
         {
             if (equipment != null)
             {
+                gameObject.SetActive(true);
                 ClearEntryList();
 
                 equipmentName.text = equipment.equipmentName;
@@ -263,6 +263,7 @@ namespace MVVM.ViewModels
             usageDescription.gameObject.SetActive(false);
             equipmentCost.transform.parent.gameObject.SetActive(false);
             purchaseButton?.gameObject.SetActive(false);
+            gameObject.SetActive(false);
             ClearEntryList();
         }
 

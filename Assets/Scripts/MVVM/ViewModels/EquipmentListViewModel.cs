@@ -18,7 +18,6 @@ namespace MVVM.ViewModels
 
         private void Start()
         {
-            localEquipmentInfoShow.gameObject.SetActive(false);
             equipmentSlotList = new List<Transform>();
 
             for (var index = 0; index < 6; index++)
@@ -60,7 +59,9 @@ namespace MVVM.ViewModels
                         {
                             if (PanelUIRoot.Instance.isShopOpen)
                             {
+                                equipmentInfoViewModel.HideEquipmentInfo();
                                 HeroManager.hero.SellEquipment(current);
+                                equipmentInfoViewModel.ShowEquipmentInfo(current);
                             }
                         }
                     };

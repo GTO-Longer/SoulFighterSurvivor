@@ -53,7 +53,12 @@ namespace Systems
                     equipmentSlot.GetComponent<Image>().sprite = equipment.equipmentIcon;
                 }
                 equipmentSlot.GetComponent<EquipmentSlotButton>().leftClick += () => equipmentInfoViewModel.ShowEquipmentInfo(equipment);
-                equipmentSlot.GetComponent<EquipmentSlotButton>().rightClick += () => HeroManager.hero.PurchaseEquipment(equipment);
+                equipmentSlot.GetComponent<EquipmentSlotButton>().rightClick += () =>
+                {
+                    equipmentInfoViewModel.HideEquipmentInfo();
+                    HeroManager.hero.PurchaseEquipment(equipment);
+                    equipmentInfoViewModel.ShowEquipmentInfo(equipment);
+                };
                 equipmentSlot.SetActive(true);
             }
         }

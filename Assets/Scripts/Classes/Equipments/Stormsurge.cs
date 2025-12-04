@@ -15,28 +15,44 @@ namespace Classes.Equipments
         {
             equipmentEffect = (attacker, target, skillDamageCount) =>
             {
-                if (_passiveSkillActive && target.isAlive)
+                if (!damageSum.ContainsKey(target))
                 {
-                    damageSum.TryAdd(target, skillDamageCount);
-                    Async.SetAsync(2.5f, null, null, () => damageSum[target] -= skillDamageCount);
+                    damageSum.Add(target, 0);
+                }
+                damageSum[target] += skillDamageCount;
+                Async.SetAsync(2.5f, null, null, () =>
+                {
+                    if (target.isAlive)
+                    {
+                        damageSum[target] -= skillDamageCount;
+                    }
+                    else
+                    {
+                        damageSum.Remove(target);
+                    }
+                });
 
+                if (_passiveSkillActive)
+                {
                     foreach (var kv in damageSum)
                     {
                         if (kv.Value >= kv.Key.maxHealthPoint.Value * 0.25f)
                         {
                             _passiveSkillCDTimer = 0;
                             Async.SetAsync(2, null, () =>
-                            {
-                                if (!kv.Key.isAlive)
                                 {
-                                    _passiveSkillCDTimer = _passiveSkillCD;
-                                }
-                            },
-                            () =>
+                                    // 若目标已死亡则恢复技能可用
+                                    if (!target.isAlive && !_passiveSkillActive)
+                                    {
+                                        _passiveSkillCDTimer = _passiveSkillCD;
+                                    }
+                                },
+                                () =>
                             {
                                 if (kv.Key.isAlive)
                                 {
-                                    kv.Key.TakeDamage(kv.Key.CalculateAPDamage(attacker, damageCount), DamageType.AP,
+                                    kv.Key.TakeDamage(kv.Key.CalculateAPDamage(attacker, damageCount),
+                                        DamageType.AP,
                                         attacker);
                                 }
                             });

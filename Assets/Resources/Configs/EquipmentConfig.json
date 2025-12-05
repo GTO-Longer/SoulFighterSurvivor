@@ -10,9 +10,9 @@
                 "abilityPower": 55,
                 "AbilityHaste": 25
             },
-            "_passiveSkillDescription": "每5秒回复<color=#0066FF>35法力值</color>，如果你不能回复法力值，则转而回复<color=#00FF00>15生命值</color>",
+            "_passiveSkillDescription": "回复<color=#0066FF>35法力值</color>",
             "_passiveSkillName": "复原力",
-            "_passiveSkillCD": 0,
+            "_passiveSkillCD": 5,
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
@@ -161,7 +161,7 @@
                 "maxMagicPoint": 600,
                 "abilityHaste": 20
             },
-            "_passiveSkillDescription": "你的终极技能获得<color=#FFE761>20技能急速</color>\n\n终极技能命中时，在脚下生成灼烧区域，造成<color=#00D8FF>{0:F0}=（115+5%法术强度）魔法伤害</color>，并削减敌人<color=#C97BFF>25魔法抗性</color>。",
+            "_passiveSkillDescription": "你的终极技能获得10%额外伤害\n终极技能命中时，在脚下生成灼烧区域，造成<color=#00D8FF>{0:F0}=（115+5%法术强度）魔法伤害</color>，并削减敌人<color=#C97BFF>25魔法抗性</color>。",
             "_passiveSkillName": "蔑视与憎恶",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,

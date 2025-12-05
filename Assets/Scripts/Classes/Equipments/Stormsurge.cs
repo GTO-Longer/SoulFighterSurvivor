@@ -106,7 +106,7 @@ namespace Classes.Equipments
 
         public override bool GetPassiveSkillDescription(out string description)
         {
-            description = string.Format(_passiveSkillName + "\n" + _passiveSkillDescription, damageCount);
+            description = string.Format(_passiveSkillName + "\n冷却时间:" + _passiveSkillCD + "秒\n" + _passiveSkillDescription, damageCount);
             return true;
         }
     }

@@ -109,7 +109,7 @@ namespace Classes.Equipments
 
         public override bool GetActiveSkillDescription(out string description)
         {
-            description = string.Format(_activeSkillName + "\n" + _activeSkillDescription, damageCount);
+            description = string.Format(_activeSkillName + "\n冷却时间:" + _activeSkillCD + "秒\n" + _activeSkillDescription, damageCount);
             return true;
         }
     }

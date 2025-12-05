@@ -428,32 +428,46 @@ namespace MVVM
 
         #region Image-自定义类绑定
         
-        public static Action BindEquipmentImage(Image image, Property<Equipment> source)
+        public static Action BindEquipment(Image image, Image CDMask, TMP_Text CDText, Property<Equipment> source)
         {
             if (image == null)
                 return () => { };
 
             void OnChanged(object sender, EventArgs e)
             {
-                if (image == null) return;
                 if (source.Value == null)
                 {
                     image.sprite = null;
+                    CDMask.enabled = false;
+                    CDText.enabled = false;
                 }
                 else
                 {
                     image.sprite = source.Value.equipmentIcon;
+                    if (source.Value.haveActiveSkillCD || source.Value.havePassiveSkillCD)
+                    {
+                        CDMask.enabled = true;
+                        CDText.enabled = true;
+                        source.Value._passiveSkillCDProportion = new Property<float>();
+                        source.Value._activeSkillCDProportion = new Property<float>();
+                        source.Value._passiveSkillCDDif = new Property<float>();
+                        source.Value._activeSkillCDDif = new Property<float>();
+                        if (source.Value.haveActiveSkillCD)
+                        {
+                            BindFillAmountImmediate(CDMask, source.Value._activeSkillCDProportion);
+                            BindText(CDText, source.Value._activeSkillCDDif, "{0:0.#}");
+                        }
+                        else if(source.Value.havePassiveSkillCD)
+                        {
+                            BindFillAmountImmediate(CDMask, source.Value._passiveSkillCDProportion);
+                            BindText(CDText, source.Value._passiveSkillCDDif, "{0:0.#}");
+                        }
+                    }
                 }
             }
 
-            if (source.Value == null)
-            {
-                image.sprite = null;
-            }
-            else
-            {
-                image.sprite = source.Value.equipmentIcon;
-            }
+            OnChanged(null, null);
+            
             source.PropertyChanged += OnChanged;
             return () => source.PropertyChanged -= OnChanged;
         }

@@ -25,17 +25,24 @@ namespace Classes
         // 技能主动效果
         protected string _passiveSkillDescription;
         protected string _passiveSkillName;
-        protected float _passiveSkillCD;
-        protected float _passiveSkillCDTimer;
+        public float _passiveSkillCD;
+        public float _passiveSkillCDTimer;
+        public Property<float> _passiveSkillCDProportion;
+        public Property<float> _passiveSkillCDDif;
         protected bool _passiveSkillActive => _passiveSkillCDTimer >= _passiveSkillCD;
+        public bool havePassiveSkillCD => _passiveSkillCD > 0; 
 
         // 装备主动效果
         protected string _activeSkillDescription;
         protected string _activeSkillName;
-        protected float _activeSkillCD;
-        protected float _activeSkillCDTimer;
+        public float _activeSkillCD;
+        public float _activeSkillCDTimer;
+        public Property<float> _activeSkillCDProportion;
+        
+        public Property<float> _activeSkillCDDif;
         protected Action ActiveSkillEffective;
         protected bool _activeSkillActive => _activeSkillCDTimer >= _activeSkillCD;
+        public bool haveActiveSkillCD => _activeSkillCD > 0; 
         
         protected EquipmentUniqueEffect _uniqueEffect;
         protected Action<Entity> equipmentTimerUpdate;
@@ -60,6 +67,11 @@ namespace Classes
             _passiveSkillCDTimer = _passiveSkillCD;
             _activeSkillCDTimer = _activeSkillCD;
             
+            _passiveSkillCDProportion = new Property<float>();
+            _activeSkillCDProportion = new Property<float>();
+            _passiveSkillCDDif =  new Property<float>();
+            _activeSkillCDDif =  new Property<float>();
+            
             equipmentIcon = ResourceReader.ReadIcon(id);
             
             equipmentTimerUpdate = (_) =>
@@ -67,10 +79,14 @@ namespace Classes
                 if (!_passiveSkillActive)
                 {
                     _passiveSkillCDTimer += Time.deltaTime;
+                    _passiveSkillCDProportion.Value = 1 - (_passiveSkillCD == 0 ? 1 :_passiveSkillCDTimer / _passiveSkillCD);
+                    _passiveSkillCDDif.Value = _passiveSkillCD - _passiveSkillCDTimer;
                 }
                 if (!_activeSkillActive)
                 {
                     _activeSkillCDTimer += Time.deltaTime;
+                    _activeSkillCDProportion.Value = 1 - (_activeSkillCD == 0 ? 1 :_activeSkillCDTimer / _activeSkillCD);
+                    _activeSkillCDDif.Value = _activeSkillCD - _activeSkillCDTimer;
                 }
             };
         }

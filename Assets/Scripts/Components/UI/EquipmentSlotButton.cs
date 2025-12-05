@@ -1,6 +1,8 @@
 using System;
 using DataManagement;
+using MVVM.ViewModels;
 using Systems;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -32,7 +34,7 @@ namespace Components.UI
         {
             base.OnPointerEnter(eventData);
 
-            if (canDrag)
+            if (canDrag && !isDragging)
             {
                 onPointerEnter?.Invoke();
             }
@@ -40,7 +42,7 @@ namespace Components.UI
 
         public override void OnPointerExit(PointerEventData eventData)
         {
-            if (canDrag)
+            if (canDrag && !isDragging)
             {
                 onPointerExit?.Invoke();
             }
@@ -65,6 +67,8 @@ namespace Components.UI
             originalPosition = rectTransform.position;
             tempIcon = Instantiate(gameObject, transform.parent);
             tempIcon.GetComponent<Image>().sprite = null;
+            tempIcon.transform.Find("CDMask").GetComponent<Image>().enabled = false;
+            tempIcon.transform.Find("EquipmentCD").GetComponent<TMP_Text>().enabled = false;
             tempIcon.transform.SetSiblingIndex(originalSiblingIndex);
             originalSiblingIndex = transform.GetSiblingIndex();
             transform.SetAsLastSibling();

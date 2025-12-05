@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Components.UI;
 using DataManagement;
 using Managers.EntityManagers;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -11,6 +12,7 @@ namespace MVVM.ViewModels
 {
     public class EquipmentListViewModel : MonoBehaviour
     {
+        public static EquipmentListViewModel Instance;
         private List<Transform> equipmentSlotList;
         private Action UnBindEvent;
         public EquipmentInfoViewModel equipmentInfoViewModel;
@@ -18,6 +20,7 @@ namespace MVVM.ViewModels
 
         private void Start()
         {
+            Instance = this;
             equipmentSlotList = new List<Transform>();
 
             for (var index = 0; index < 6; index++)
@@ -34,7 +37,9 @@ namespace MVVM.ViewModels
 
                 equipmentProp.PropertyChanged += OnChange;
 
-                UnBindEvent += Binder.BindEquipmentImage(slotTransform.GetComponent<Image>(), equipmentProp);
+                var equipmentCDMask = slotTransform.Find("CDMask").GetComponent<Image>();
+                var equipmentCDText = slotTransform.Find("EquipmentCD").GetComponent<TMP_Text>();
+                UnBindEvent += Binder.BindEquipment(slotTransform.GetComponent<Image>(), equipmentCDMask, equipmentCDText, equipmentProp);
 
                 var button = slotTransform.GetComponent<EquipmentSlotButton>();
                 if (button != null)

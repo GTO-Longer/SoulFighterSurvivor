@@ -175,7 +175,7 @@ namespace Classes.Skills
                         }
 
                         // 造成技能特效
-                        self.owner.AbilityEffectActivate(self.target, damageCount);
+                        self.owner.AbilityEffectActivate(self.target, damageCount, this);
                     };
 
                     deceptionOrb.Awake();

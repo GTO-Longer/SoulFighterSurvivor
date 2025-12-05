@@ -12,14 +12,14 @@ namespace Classes.Equipments
     public class Stormsurge : Equipment
     {
         private float damageCount => 180 + 0.5f * HeroManager.hero.abilityPower;
-        private Action<Entity, Entity, float> equipmentEffect;
+        private Action<Entity, Entity, float, Skill> equipmentEffect;
         private Dictionary<Entity, float> damageSum = new();
         private TweenerCore<Vector3, Vector3, VectorOptions> storm;
         
         public Stormsurge() : base("Stormsurge")
         {
             storm = null;
-            equipmentEffect = (attacker, target, skillDamageCount) =>
+            equipmentEffect = (attacker, target, skillDamageCount, _) =>
             {
                 // 技能CD结束
                 if (_passiveSkillActive)

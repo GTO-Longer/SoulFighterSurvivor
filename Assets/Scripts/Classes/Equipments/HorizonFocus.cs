@@ -6,10 +6,10 @@ namespace Classes.Equipments
 {
     public class HorizonFocus : Equipment
     {
-        private Action<Entity, Entity, float> equipmentEffect;
+        private Action<Entity, Entity, float, Skill> equipmentEffect;
         public HorizonFocus() : base("HorizonFocus")
         {
-            equipmentEffect = (attacker, target, damageCount) =>
+            equipmentEffect = (attacker, target, damageCount, _) =>
             {
                 var targetPosition = new Vector2(target.gameObject.transform.position.x, target.gameObject.transform.position.y);
                 var attackerPosition = new Vector2(attacker.gameObject.transform.position.x, attacker.gameObject.transform.position.y);

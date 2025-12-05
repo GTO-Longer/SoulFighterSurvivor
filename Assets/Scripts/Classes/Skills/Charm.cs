@@ -122,7 +122,7 @@ namespace Classes.Skills
                         self.target.TakeDamage(damageCount, DamageType.AP, owner);
 
                         // 造成技能特效
-                        self.owner.AbilityEffectActivate(self.target, damageCount);
+                        self.owner.AbilityEffectActivate(self.target, damageCount, this);
                     };
 
                     charm.Awake();

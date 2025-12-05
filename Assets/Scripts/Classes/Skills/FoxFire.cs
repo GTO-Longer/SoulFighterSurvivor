@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Factories;
 using MVVM;
 using MVVM.ViewModels;
-using Systems;
 using UnityEngine;
 using Utilities;
 
@@ -196,7 +195,7 @@ namespace Classes.Skills
                                 }
                             }
                             
-                            self.owner.AbilityEffectActivate(self.target, damageCount);
+                            self.owner.AbilityEffectActivate(self.target, damageCount, this);
                             attackIndex += 1;
                         }
                     };

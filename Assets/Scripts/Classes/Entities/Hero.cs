@@ -310,7 +310,7 @@ namespace Classes.Entities
             };
             
             // 定义基础技能命中事件
-            AbilityEffect += (self, targetEntity, skillDamage) =>
+            AbilityEffect += (self, _, skillDamage, _) =>
             {
                 self.TakeHeal(skillDamage * omnivamp);
             };
@@ -533,8 +533,16 @@ namespace Classes.Entities
 
             if (_regenerateTimer >= 5)
             {
-                healthPoint.Value += healthRegeneration.Value;
-                magicPoint.Value += magicRegeneration.Value;
+                if (healthPoint.Value < maxHealthPoint.Value)
+                {
+                    healthPoint.Value += healthRegeneration.Value;
+                }
+
+                if (magicPoint.Value < maxMagicPoint.Value)
+                {
+                    magicPoint.Value += magicRegeneration.Value;
+                }
+
                 _regenerateTimer = 0;
             }
         }

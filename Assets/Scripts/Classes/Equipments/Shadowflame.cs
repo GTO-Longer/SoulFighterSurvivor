@@ -6,11 +6,11 @@ namespace Classes.Equipments
 {
     public class Shadowflame : Equipment
     {
-        private Action<Entity, Entity, float> equipmentEffect;
+        private Action<Entity, Entity, float, Skill> equipmentEffect;
         
         public Shadowflame() : base("Shadowflame")
         {
-            equipmentEffect = (attacker, target, damageCount) =>
+            equipmentEffect = (attacker, target, damageCount, _) =>
             {
                 target.TakeDamage(damageCount * 0.15f, DamageType.Real, attacker);
             };

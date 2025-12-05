@@ -551,10 +551,10 @@ namespace Classes
         /// <summary>
         /// 受伤事件
         /// </summary>
-        public event Action<Entity, Entity> OnHurt;
-        public void Hurt(Entity attacker)
+        public event Action<Entity, Entity, float> OnHurt;
+        public void Hurt(Entity attacker, float damageCount)
         {
-            OnHurt?.Invoke(this, attacker);
+            OnHurt?.Invoke(this, attacker, damageCount);
         } 
         
         /// <summary>
@@ -605,10 +605,10 @@ namespace Classes
         /// <summary>
         /// 技能特效
         /// </summary>
-        public event Action<Entity, Entity, float> AbilityEffect;
-        public void AbilityEffectActivate(Entity target, float damageCount)
+        public event Action<Entity, Entity, float, Skill> AbilityEffect;
+        public void AbilityEffectActivate(Entity target, float damageCount, Skill skill)
         {
-            AbilityEffect?.Invoke(this, target, damageCount);
+            AbilityEffect?.Invoke(this, target, damageCount, skill);
         }
 
         #endregion
@@ -639,6 +639,8 @@ namespace Classes
                 damageSource.KillEntity(this);
                 Die(damageSource);
             }
+            
+            Hurt(damageSource, damageCount);
         }
 
         /// <summary>

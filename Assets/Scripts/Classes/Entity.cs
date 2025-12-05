@@ -767,9 +767,18 @@ namespace Classes
         public void GetBuff(Buff buff)
         {
             var buffInList = buffList.Find(buffInList => buffInList.buffName == buff.buffName);
-            if (buffInList == null || !buffInList.isUnique)
+            if (buffInList == null)
             {
                 buffList.Add(buff.GetBuff());
+            }
+            else if(!buffInList.isUnique)
+            {
+                buffList.Add(buff.GetBuff());
+            }
+            else
+            {
+                // 刷新持续时间
+                buffInList.buffDurationTimer = 0;
             }
         }
         

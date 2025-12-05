@@ -76,8 +76,6 @@ namespace Classes
                     }
                 }
             };
-
-            owner.EntityUpdateEvent += buffTimer;
         }
 
         public Buff GetBuff()
@@ -87,7 +85,8 @@ namespace Classes
                 var buffUI = BuffViewModel.Instance.CreateBuffUI(this);
                 buffUI.GetComponent<Image>().sprite = buffIcon;
             }
-            
+
+            owner.EntityUpdateEvent += buffTimer;
             OnBuffGet?.Invoke();
             return this;
         }

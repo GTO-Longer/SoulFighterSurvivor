@@ -450,17 +450,17 @@ namespace MVVM
                         CDText.enabled = true;
                         source.Value._passiveSkillCDProportion = new Property<float>();
                         source.Value._activeSkillCDProportion = new Property<float>();
-                        source.Value._passiveSkillCDDif = new Property<float>();
-                        source.Value._activeSkillCDDif = new Property<float>();
+                        source.Value._passiveSkillCDDif = new Property<string>();
+                        source.Value._activeSkillCDDif = new Property<string>();
                         if (source.Value.haveActiveSkillCD)
                         {
                             BindFillAmountImmediate(CDMask, source.Value._activeSkillCDProportion);
-                            BindText(CDText, source.Value._activeSkillCDDif, "{0:0.#}");
+                            BindText(CDText, source.Value._activeSkillCDDif);
                         }
                         else if(source.Value.havePassiveSkillCD)
                         {
                             BindFillAmountImmediate(CDMask, source.Value._passiveSkillCDProportion);
-                            BindText(CDText, source.Value._passiveSkillCDDif, "{0:0.#}");
+                            BindText(CDText, source.Value._passiveSkillCDDif);
                         }
                     }
                 }

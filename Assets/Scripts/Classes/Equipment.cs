@@ -28,7 +28,7 @@ namespace Classes
         public float _passiveSkillCD;
         public float _passiveSkillCDTimer;
         public Property<float> _passiveSkillCDProportion;
-        public Property<float> _passiveSkillCDDif;
+        public Property<string> _passiveSkillCDDif;
         protected bool _passiveSkillActive => _passiveSkillCDTimer >= _passiveSkillCD;
         public bool havePassiveSkillCD => _passiveSkillCD > 0; 
 
@@ -39,7 +39,7 @@ namespace Classes
         public float _activeSkillCDTimer;
         public Property<float> _activeSkillCDProportion;
         
-        public Property<float> _activeSkillCDDif;
+        public Property<string> _activeSkillCDDif;
         protected Action ActiveSkillEffective;
         protected bool _activeSkillActive => _activeSkillCDTimer >= _activeSkillCD;
         public bool haveActiveSkillCD => _activeSkillCD > 0; 
@@ -69,8 +69,8 @@ namespace Classes
             
             _passiveSkillCDProportion = new Property<float>();
             _activeSkillCDProportion = new Property<float>();
-            _passiveSkillCDDif =  new Property<float>();
-            _activeSkillCDDif =  new Property<float>();
+            _passiveSkillCDDif =  new Property<string>();
+            _activeSkillCDDif =  new Property<string>();
             
             equipmentIcon = ResourceReader.ReadIcon(id);
             
@@ -80,13 +80,15 @@ namespace Classes
                 {
                     _passiveSkillCDTimer += Time.deltaTime;
                     _passiveSkillCDProportion.Value = 1 - (_passiveSkillCD == 0 ? 1 :_passiveSkillCDTimer / _passiveSkillCD);
-                    _passiveSkillCDDif.Value = _passiveSkillCD - _passiveSkillCDTimer;
+                    var dif = _passiveSkillCD - _passiveSkillCDTimer;
+                    _passiveSkillCDDif.Value = dif <= 0.01f ? "" : (dif >= 1 ? $"{dif:F0}" : $"{dif:F1}");
                 }
                 if (!_activeSkillActive)
                 {
                     _activeSkillCDTimer += Time.deltaTime;
                     _activeSkillCDProportion.Value = 1 - (_activeSkillCD == 0 ? 1 :_activeSkillCDTimer / _activeSkillCD);
-                    _activeSkillCDDif.Value = _activeSkillCD - _activeSkillCDTimer;
+                    var dif = _activeSkillCD - _activeSkillCDTimer;
+                    _activeSkillCDDif.Value = dif <= 0.01f ? "" : (dif >= 1 ? $"{dif:F0}" : $"{dif:F1}");
                 }
             };
         }

@@ -622,7 +622,7 @@ namespace Classes
         {
             if (isCritical)
             {
-                damageCount = damageCount * (1 + damageSource.criticalDamage.Value);
+                damageCount *= (1 + damageSource.criticalDamage.Value);
 
                 var color = damageType switch
                 {

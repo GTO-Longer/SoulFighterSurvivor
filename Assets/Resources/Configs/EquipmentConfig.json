@@ -199,7 +199,7 @@
                 "maxMagicPoint": 600,
                 "abilityHaste": 25
             },
-            "_passiveSkillDescription": "获得相当于<color=#C97BFF>2%额外法力值</color>的法术强度。\n\n在击杀50个敌人后，这件装备会转变为炽天使之拥",
+            "_passiveSkillDescription": "获得{0:F0}=（<color=#C97BFF>3%最大法力值</color>）法术强度。\n\n在击杀50个敌人后，这件装备会转变为炽天使之拥",
             "_passiveSkillName": "敬畏",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
@@ -218,7 +218,7 @@
                 "maxMagicPoint": 1200,
                 "abilityHaste": 25
             },
-            "_passiveSkillDescription": "获得相当于<color=#C97BFF>4%额外法力值</color>的法术强度。\n\n生命值低于30%时，获得一个护盾，吸收<color=#1DA1FF>{0:F0} =（300+ <color=#1DA1FF>20%最大法力值</color>）伤害</color>，持续3秒。",
+            "_passiveSkillDescription": "获得{0:F0}=（<color=#C97BFF>6%最大法力值</color>）法术强度。\n\n生命值低于30%时，回复{0:F0} =（300+ <color=#1DA1FF>20%最大法力值</color>）生命值，持续3秒。",
             "_passiveSkillName": "救主灵刃",
             "_passiveSkillCD": 45,
             "_activeSkillDescription": null,

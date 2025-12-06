@@ -7,7 +7,6 @@ namespace Classes.Equipments
 {
     public class Manamune : Equipment
     {
-        private float baseAttackBonus;
         private float addCount => 0.1f * HeroManager.hero.maxMagicPoint.Value;
         private float damageCount1 => 5 + 0.02f * HeroManager.hero.maxMagicPoint.Value;
         private float damageCount2 => 20 + 0.1f * HeroManager.hero.maxMagicPoint.Value;

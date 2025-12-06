@@ -928,9 +928,9 @@ namespace Classes
             attackDamage = new Property<float>(() => (_baseAttackDamage + _attackDamageGrowth * level + _attackDamageBonus + maxMagicPoint * _MPToAD_ConversionEfficiency.Value.y) * (1 + _percentageAttackDamageBonus),
                 DataType.Int,
                 level, _attackDamageBonus, _percentageAttackDamageBonus, maxMagicPoint, _MPToAD_ConversionEfficiency);
-            abilityPower = new Property<float>(() => _abilityPowerBonus * (1 + _percentageAbilityPowerBonus),
+            abilityPower = new Property<float>(() => (_abilityPowerBonus + maxMagicPoint * _MPToAP_ConversionEfficiency.Value.y) * (1 + _percentageAbilityPowerBonus),
                 DataType.Int,
-                _abilityPowerBonus, _percentageAbilityPowerBonus);
+                _abilityPowerBonus, _percentageAbilityPowerBonus, maxMagicPoint, _MPToAP_ConversionEfficiency);
             attackSpeed = new Property<float>(() => (_baseAttackSpeed + _attackSpeedGrowth * level + _attackSpeedBonus * _attackSpeedYield) * (1 + _percentageAttackSpeedBonus),
                 DataType.Float,
                 level, _attackSpeedBonus, _percentageAttackSpeedBonus);

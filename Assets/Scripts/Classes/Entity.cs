@@ -622,8 +622,7 @@ namespace Classes
         {
             if (isCritical)
             {
-                Debug.Log(criticalDamage.Value);
-                damageCount *= 1 + criticalDamage;
+                damageCount = damageCount * (1 + damageSource.criticalDamage.Value);
 
                 var color = damageType switch
                 {
@@ -979,7 +978,7 @@ namespace Classes
                 experience, level);
             criticalDamage = new Property<float>(() => _baseCriticalDamage + _criticalDamageBonus.Value,
                 DataType.Percentage,
-                _criticalDamageBonus);
+                _criticalDamageBonus, level);
 
             #endregion
 

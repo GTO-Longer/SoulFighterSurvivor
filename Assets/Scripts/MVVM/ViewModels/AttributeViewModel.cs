@@ -124,6 +124,13 @@ namespace MVVM.ViewModels
                         () => "攻击距离", () => "你攻击时的距离",
                         () => $"攻击距离：<color=#0066FF>{hero.attackRange.Value:F0}</color>码"
                     }
+                },
+                {
+                    AttributeType.CriticalDamage, new List<AttributeDescriptionDelegate>
+                    {
+                        () => "暴击伤害", () => "你暴击时造成的额外伤害的比例",
+                        () => $"暴击时造成<color=#0066FF>{1 + hero.criticalDamage.Value:0.##}</color>倍伤害"
+                    }
                 }
             };
 
@@ -180,6 +187,10 @@ namespace MVVM.ViewModels
                 {
                     AttributeType.AttackRange, new List<Property<float>>
                         {hero.attackRange}
+                },
+                {
+                    AttributeType.CriticalDamage, new List<Property<float>>
+                        {hero.criticalDamage}
                 }
             };
         }

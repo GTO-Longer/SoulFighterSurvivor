@@ -256,7 +256,7 @@
                 "maxMagicPoint": 1000,
                 "abilityHaste": 15
             },
-            "_passiveSkillDescription": "获得相当于<color=#FF6161>20%额外法力值</color>的攻击力。\n\n普攻造成额外<color=#FF6A6A>{0:F0}=（5+2%最大法力值）物理伤害</color>\n技能造成额外<color=#FF6A6A>{1:F0}=（20+10%最大法力值）物理伤害</color>。",
+            "_passiveSkillDescription": "获得{0:F0}=（<color=#FF6161>10%最大法力值</color>）攻击力。\n\n普攻造成额外<color=#FF6A6A>{1:F0}=（5+2%最大法力值）物理伤害</color>\n技能造成额外<color=#FF6A6A>{2:F0}=（20+10%最大法力值）物理伤害</color>。",
             "_passiveSkillName": "冲击",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,

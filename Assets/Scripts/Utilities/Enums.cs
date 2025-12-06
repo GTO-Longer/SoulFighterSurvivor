@@ -51,7 +51,8 @@ namespace Utilities
         MagicPenetration,
         LifeSteel,
         OmniVamp,
-        AttackRange
+        AttackRange,
+        CriticalDamage,
     }
 
     public enum EquipmentAttributeType
@@ -127,5 +128,6 @@ namespace Utilities
         None = 0,
         Guardian,
         CursedBlade,
+        MPBoost
     }
 }

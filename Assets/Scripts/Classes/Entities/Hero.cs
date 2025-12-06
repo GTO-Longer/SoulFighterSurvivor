@@ -722,16 +722,23 @@ namespace Classes.Entities
         public void PurchaseEquipment(Equipment equipment)
         {
             if (equipment == null) return;
+            var uniqueCheck = equipmentList.Find(equip =>
+                equip.Value != null && equip.Value._uniqueEffect == equipment._uniqueEffect);
             if (equipment.owner == null && coins.Value > equipment._cost)
             {
-                foreach (var property in equipmentList)
+                // 装备独一性检测
+                if ((equipment._uniqueEffect != EquipmentUniqueEffect.None && uniqueCheck == null) ||
+                    equipment._uniqueEffect == EquipmentUniqueEffect.None)
                 {
-                    if (property.Value == null)
+                    foreach (var property in equipmentList)
                     {
-                        coins.Value -= equipment._cost;
-                        property.Value = equipment;
-                        equipment.OnEquipmentGet(this);
-                        return;
+                        if (property.Value == null)
+                        {
+                            coins.Value -= equipment._cost;
+                            property.Value = equipment;
+                            equipment.OnEquipmentGet(this);
+                            return;
+                        }
                     }
                 }
             }

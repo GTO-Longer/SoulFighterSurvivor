@@ -44,7 +44,7 @@ namespace Classes
         protected bool _activeSkillActive => _activeSkillCDTimer >= _activeSkillCD;
         public bool haveActiveSkillCD => _activeSkillCD > 0; 
         
-        protected EquipmentUniqueEffect _uniqueEffect;
+        public EquipmentUniqueEffect _uniqueEffect;
         protected Action<Entity> equipmentTimerUpdate;
 
         public Equipment(string name)

@@ -47,28 +47,39 @@ namespace MVVM.ViewModels
                 if (purchaseButton != null)
                 {
                     purchaseButton.onClick.RemoveAllListeners();
+                    
+                    var uniqueCheck = HeroManager.hero.equipmentList.Find(equip =>
+                        equip.Value != null && equip.Value._uniqueEffect == equipment._uniqueEffect);
 
-                    if (HeroManager.hero.equipmentList.Find(equip => equip.Value == equipment) == null)
+                    if ((equipment._uniqueEffect != EquipmentUniqueEffect.None && uniqueCheck == null) ||
+                        equipment._uniqueEffect == EquipmentUniqueEffect.None || uniqueCheck.Value == equipment)
                     {
-                        purchaseButton.transform.Find("PurchaseContent").GetComponent<TMP_Text>().text =
-                            $"以{equipment._cost:D}金币购买 " + equipment.equipmentName;
-                        purchaseButton.onClick.AddListener(() =>
+                        if (HeroManager.hero.equipmentList.Find(equip => equip.Value == equipment) == null)
                         {
-                            HeroManager.hero.PurchaseEquipment(equipment);
-                            HideEquipmentInfo();
-                            ShowEquipmentInfo(equipment);
-                        });
+                            purchaseButton.transform.Find("PurchaseContent").GetComponent<TMP_Text>().text =
+                                $"以{equipment._cost:D}金币购买 " + equipment.equipmentName;
+                            purchaseButton.onClick.AddListener(() =>
+                            {
+                                HeroManager.hero.PurchaseEquipment(equipment);
+                                HideEquipmentInfo();
+                                ShowEquipmentInfo(equipment);
+                            });
+                        }
+                        else
+                        {
+                            purchaseButton.transform.Find("PurchaseContent").GetComponent<TMP_Text>().text =
+                                $"以{(int)(equipment._cost * 0.7f):D}金币售出 " + equipment.equipmentName;
+                            purchaseButton.onClick.AddListener(() =>
+                            {
+                                HeroManager.hero.SellEquipment(equipment);
+                                HideEquipmentInfo();
+                                ShowEquipmentInfo(equipment);
+                            });
+                        }
                     }
                     else
-                    {
-                        purchaseButton.transform.Find("PurchaseContent").GetComponent<TMP_Text>().text =
-                            $"以{(int)(equipment._cost * 0.7f):D}金币售出 " + equipment.equipmentName;
-                        purchaseButton.onClick.AddListener(() =>
-                        {
-                            HeroManager.hero.SellEquipment(equipment);
-                            HideEquipmentInfo();
-                            ShowEquipmentInfo(equipment);
-                        });
+                    {purchaseButton.transform.Find("PurchaseContent").GetComponent<TMP_Text>().text =
+                        $"与装备{uniqueCheck.Value.equipmentName}独一性冲突";
                     }
                 }
 

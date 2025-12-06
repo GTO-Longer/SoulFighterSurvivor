@@ -722,6 +722,8 @@ namespace Classes.Entities
         public void PurchaseEquipment(Equipment equipment)
         {
             if (equipment == null) return;
+            if (!equipment.canPurchase) return;
+            
             var uniqueCheck = equipmentList.Find(equip =>
                 equip.Value != null && equip.Value._uniqueEffect == equipment._uniqueEffect);
             if (equipment.owner == null && coins.Value > equipment._cost)

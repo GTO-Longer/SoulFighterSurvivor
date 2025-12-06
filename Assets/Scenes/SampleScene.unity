@@ -16360,7 +16360,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 60.934998, y: -25}
-  m_SizeDelta: {x: 51.87, y: 25}
+  m_SizeDelta: {x: 0, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1177166087
 MonoBehaviour:
@@ -30685,7 +30685,7 @@ GameObject:
   - component: {fileID: 1727707076}
   - component: {fileID: 1727707077}
   m_Layer: 0
-  m_Name: Bullets
+  m_Name: BulletFactory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36318,7 +36318,6 @@ SceneRoots:
   - {fileID: 619394802}
   - {fileID: 1497744821}
   - {fileID: 2109299670}
-  - {fileID: 1727707076}
   - {fileID: 1413223537}
   - {fileID: 1964836829}
   - {fileID: 1459870231}
@@ -36334,3 +36333,4 @@ SceneRoots:
   - {fileID: 1203464777}
   - {fileID: 708540235}
   - {fileID: 529480619}
+  - {fileID: 1727707076}

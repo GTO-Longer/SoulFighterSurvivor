@@ -18,6 +18,7 @@ namespace Classes.Equipments
         
         public Manamune() : base("Manamune")
         {
+            canPurchase = false;
             baseAttackBonus = equipmentAttributes[EquipmentAttributeType.attackDamage];
             equipmentEffect = (hero) =>
             {

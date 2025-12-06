@@ -51,7 +51,12 @@ namespace MVVM.ViewModels
                     var uniqueCheck = HeroManager.hero.equipmentList.Find(equip =>
                         equip.Value != null && equip.Value._uniqueEffect == equipment._uniqueEffect);
 
-                    if ((equipment._uniqueEffect != EquipmentUniqueEffect.None && uniqueCheck == null) ||
+                    if (!equipment.canPurchase)
+                    {
+                        purchaseButton.transform.Find("PurchaseContent").GetComponent<TMP_Text>().text =
+                            "该装备不可购买";
+                        purchaseButton.interactable = false;
+                    }else if ((equipment._uniqueEffect != EquipmentUniqueEffect.None && uniqueCheck == null) ||
                         equipment._uniqueEffect == EquipmentUniqueEffect.None || uniqueCheck.Value == equipment)
                     {
                         if (HeroManager.hero.equipmentList.Find(equip => equip.Value == equipment) == null)
@@ -64,6 +69,7 @@ namespace MVVM.ViewModels
                                 HideEquipmentInfo();
                                 ShowEquipmentInfo(equipment);
                             });
+                            purchaseButton.interactable = true;
                         }
                         else
                         {
@@ -75,11 +81,14 @@ namespace MVVM.ViewModels
                                 HideEquipmentInfo();
                                 ShowEquipmentInfo(equipment);
                             });
+                            purchaseButton.interactable = true;
                         }
                     }
                     else
-                    {purchaseButton.transform.Find("PurchaseContent").GetComponent<TMP_Text>().text =
+                    {
+                        purchaseButton.transform.Find("PurchaseContent").GetComponent<TMP_Text>().text =
                         $"与装备{uniqueCheck.Value.equipmentName}独一性冲突";
+                        purchaseButton.interactable = false;
                     }
                 }
 

@@ -21,6 +21,7 @@ namespace Classes
         public EquipmentType _equipmentType;
         public int _cost;
         public Sprite equipmentIcon;
+        public bool canPurchase;
 
         // 技能主动效果
         protected string _passiveSkillDescription;

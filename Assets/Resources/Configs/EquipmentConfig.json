@@ -237,7 +237,7 @@
                 "maxMagicPoint": 600,
                 "abilityHaste": 15
             },
-            "_passiveSkillDescription": "获得相当于<color=#FF6161>13%额外法力值</color>的攻击力。\n\n在击杀50个敌人后，这件装备会转变为魔切",
+            "_passiveSkillDescription": "获得{0:F0}=（<color=#FF6161>5%额外法力值</color>）攻击力。\n\n在击杀50个敌人后，这件装备会转变为魔切",
             "_passiveSkillName": "敬畏",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,

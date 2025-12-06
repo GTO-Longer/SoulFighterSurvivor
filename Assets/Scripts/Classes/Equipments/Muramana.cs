@@ -11,24 +11,12 @@ namespace Classes.Equipments
     public class Muramana : Equipment
     {
         private int killCount;
-        private float baseAttackBonus;
         private float addCount => 0.05f * HeroManager.hero.maxMagicPoint.Value;
-        private Action<Entity> equipmentEffect;
         private Action<Entity, Entity> OnKill;
         public Muramana() : base("Muramana")
         {
             canPurchase = true;
             killCount = 0;
-            baseAttackBonus = equipmentAttributes[EquipmentAttributeType.attackDamage];
-            equipmentEffect = (hero) =>
-            {
-                var formerValue = equipmentAttributes[EquipmentAttributeType.attackDamage];
-                if (Mathf.Abs(baseAttackBonus + addCount - formerValue) > 0.1f)
-                {
-                    equipmentAttributes[EquipmentAttributeType.attackDamage] = baseAttackBonus + addCount;
-                    hero._attackDamageBonus.Value += equipmentAttributes[EquipmentAttributeType.attackDamage] - formerValue;
-                }
-            };
             
             OnKill = (_, _) =>
             {
@@ -49,15 +37,14 @@ namespace Classes.Equipments
         public override void OnEquipmentGet(Entity entity)
         {
             base.OnEquipmentGet(entity);
-
-            owner.EntityUpdateEvent += equipmentEffect;
             owner.OnKillEntity += OnKill;
+            owner._MPToAD_ConversionEfficiency.Value = new Vector2(owner._MPToAD_ConversionEfficiency.Value.x, owner._MPToAD_ConversionEfficiency.Value.y + 0.05f);
         }
 
         public override void OnEquipmentRemove()
         {
-            owner.EntityUpdateEvent -= equipmentEffect;
             owner.OnKillEntity -= OnKill;
+            owner._MPToAD_ConversionEfficiency.Value = new Vector2(owner._MPToAD_ConversionEfficiency.Value.x, owner._MPToAD_ConversionEfficiency.Value.y - 0.05f);
             base.OnEquipmentRemove();
         }
 

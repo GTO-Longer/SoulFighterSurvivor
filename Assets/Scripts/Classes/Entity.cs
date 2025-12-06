@@ -364,61 +364,61 @@ namespace Classes
         /// - <c>Value.x</c>: 剩余的溢出暴击率要乘的系数  
         /// - <c>Value.y</c>: 增加的攻击力加成要乘的系数
         /// </summary>
-        protected Property<Vector2> _CRToAD_ConversionEfficiency;
+        public Property<Vector2> _CRToAD_ConversionEfficiency;
         /// <summary>
         /// 攻击力加成-法强加成 转化率
         /// - <c>Value.x</c>: 剩余的攻击力加成要乘的系数  
         /// - <c>Value.y</c>: 增加的法强加成要乘的系数
         /// </summary>
-        protected Property<Vector2> _ADToAP_ConversionEfficiency;
+        public Property<Vector2> _ADToAP_ConversionEfficiency;
         /// <summary>
         /// 法强加成-攻击力加成 转化率
         /// - <c>Value.x</c>: 剩余的法强加成要乘的系数  
         /// - <c>Value.y</c>: 增加的攻击力加成要乘的系数
         /// </summary>
-        protected Property<Vector2> _APToAD_ConversionEfficiency;
+        public Property<Vector2> _APToAD_ConversionEfficiency;
         /// <summary>
         /// 生命值加成-攻击力加成 转化率
         /// - <c>Value.x</c>: 剩余的生命值加成要乘的系数  
         /// - <c>Value.y</c>: 增加的攻击力加成要乘的系数
         /// </summary>
-        protected Property<Vector2> _HPToAD_ConversionEfficiency;
+        public Property<Vector2> _HPToAD_ConversionEfficiency;
         /// <summary>
         /// 生命值加成-法强加成 转化率
         /// - <c>Value.x</c>: 剩余的生命值加成要乘的系数  
         /// - <c>Value.y</c>: 增加的法强加成要乘的系数
         /// </summary>
-        protected Property<Vector2> _HPToAP_ConversionEfficiency;
+        public Property<Vector2> _HPToAP_ConversionEfficiency;
         /// <summary>
         /// 法力值加成-生命值加成 转化率
         /// - <c>Value.x</c>: 剩余的法力值加成要乘的系数  
         /// - <c>Value.y</c>: 增加的生命值加成要乘的系数
         /// </summary>
-        protected Property<Vector2> _MPToHP_ConversionEfficiency;
+        public Property<Vector2> _MPToHP_ConversionEfficiency;
         /// <summary>
         /// 法力值加成-攻击力加成 转化率
         /// - <c>Value.x</c>: 剩余的法力值加成要乘的系数  
         /// - <c>Value.y</c>: 增加的攻击力加成要乘的系数
         /// </summary>
-        protected Property<Vector2> _MPToAD_ConversionEfficiency;
+        public Property<Vector2> _MPToAD_ConversionEfficiency;
         /// <summary>
         /// 法力值加成-法强加成 转化率
         /// - <c>Value.x</c>: 剩余的法力值加成要乘的系数  
         /// - <c>Value.y</c>: 增加的法强加成要乘的系数
         /// </summary>
-        protected Property<Vector2> _MPToAP_ConversionEfficiency;
+        public Property<Vector2> _MPToAP_ConversionEfficiency;
         /// <summary>
         /// 法强加成-法力值加成 转化率
         /// - <c>Value.x</c>: 剩余的法强加成要乘的系数  
         /// - <c>Value.y</c>: 增加的法力值加成要乘的系数
         /// </summary>
-        protected Property<Vector2> _APToMP_ConversionEfficiency;
+        public Property<Vector2> _APToMP_ConversionEfficiency;
         /// <summary>
         /// 双抗加成-攻击力加成 转化率
         /// - <c>Value.x</c>: 剩余的双抗加成要乘的系数  
         /// - <c>Value.y</c>: 增加的攻击力加成要乘的系数
         /// </summary>
-        protected Property<Vector2> _DEFToAD_ConversionEfficiency;
+        public Property<Vector2> _DEFToAD_ConversionEfficiency;
 
         #endregion
 
@@ -925,9 +925,9 @@ namespace Classes
             maxMagicPoint = new Property<float>(() => (_baseMaxMagicPoint + _maxMagicPointGrowth * level + _maxMagicPointBonus) * (1 + _percentageMaxMagicPointBonus),
                 DataType.Int,
                 level, _maxMagicPointBonus, _percentageMaxMagicPointBonus);
-            attackDamage = new Property<float>(() => (_baseAttackDamage + _attackDamageGrowth * level + _attackDamageBonus) * (1 + _percentageAttackDamageBonus),
+            attackDamage = new Property<float>(() => (_baseAttackDamage + _attackDamageGrowth * level + _attackDamageBonus + maxMagicPoint * _MPToAD_ConversionEfficiency.Value.y) * (1 + _percentageAttackDamageBonus),
                 DataType.Int,
-                level, _attackDamageBonus, _percentageAttackDamageBonus);
+                level, _attackDamageBonus, _percentageAttackDamageBonus, maxMagicPoint, _MPToAD_ConversionEfficiency);
             abilityPower = new Property<float>(() => _abilityPowerBonus * (1 + _percentageAbilityPowerBonus),
                 DataType.Int,
                 _abilityPowerBonus, _percentageAbilityPowerBonus);

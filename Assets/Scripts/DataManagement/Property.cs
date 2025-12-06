@@ -25,7 +25,7 @@ namespace DataManagement
         }
 
         // 依赖属性
-        public Property(Func<T> computeFunc,DataType type = DataType.Float,  params Property<float>[] dependencies)
+        public Property(Func<T> computeFunc,DataType type = DataType.Float,  params INotifyPropertyChanged[] dependencies)
         {
             _computeFunc = computeFunc;
             _isComputed = true;
@@ -33,7 +33,7 @@ namespace DataManagement
             _dataType = type;
         }
 
-        private void SetupDependencies(Property<float>[] dependencies)
+        private void SetupDependencies(INotifyPropertyChanged[] dependencies)
         {
             foreach (var dep in dependencies)
             {

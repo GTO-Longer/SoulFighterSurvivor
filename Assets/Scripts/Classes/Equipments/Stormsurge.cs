@@ -55,7 +55,7 @@ namespace Classes.Equipments
                                     // 若目标已死亡则恢复技能可用
                                     if (!target.isAlive)
                                     {
-                                        _passiveSkillCDTimer = _passiveSkillCD;
+                                        _passiveSkillCDTimer = _passiveSkillCD - 0.1f;
                                         KillCore();
                                     }
                                 },

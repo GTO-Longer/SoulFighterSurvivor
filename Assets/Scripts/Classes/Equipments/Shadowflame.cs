@@ -10,9 +10,12 @@ namespace Classes.Equipments
         
         public Shadowflame() : base("Shadowflame")
         {
-            equipmentEffect = (attacker, target, damageCount, _) =>
+            equipmentEffect = (attacker, target, damageCount, skill) =>
             {
-                target.TakeDamage(damageCount * 0.15f, DamageType.Real, attacker);
+                if (target.healthPointProportion <= 0.4f)
+                {
+                    target.TakeDamage(damageCount * 0.15f, DamageType.Real, attacker);
+                }
             };
         }
 

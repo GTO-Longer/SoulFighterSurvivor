@@ -23,6 +23,7 @@ namespace MVVM.ViewModels
             Instance = this;
             equipmentSlotList = new List<Transform>();
 
+            // 绑定装备CD显示
             for (var index = 0; index < 6; index++)
             {
                 var slotIndex = index;

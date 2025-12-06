@@ -1,5 +1,6 @@
 using System;
 using Classes;
+using Components.UI;
 using DataManagement;
 using TMPro;
 using UnityEngine;
@@ -53,6 +54,7 @@ namespace MVVM.ViewModels
                 {
                     if (buffData.buff == buff)
                     {
+                        buffBar.GetChild(index).GetComponent<BuffButton>().OnPointerExit(null);
                         Destroy(buffBar.GetChild(index).gameObject);
                     }
                 }

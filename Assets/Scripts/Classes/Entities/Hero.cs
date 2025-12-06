@@ -581,6 +581,7 @@ namespace Classes.Entities
         /// </summary>
         public void TargetCheck()
         {
+            var checkTarget = TargetAttributeViewModel.Instance.checkTarget;
             if (!PanelUIRoot.Instance.playerCanInteractGame)
             {
                 return;
@@ -589,14 +590,24 @@ namespace Classes.Entities
             // 当玩家点击左键
             if (Input.GetMouseButton(0))
             {
+                TargetAttributeViewModel.Instance.checkTarget.Value = null;
                 if (ToolFunctions.IsObjectAtMousePoint(out var results, gameObject.tag))
                 {
                     foreach (var result in results.Where(result => result.GetComponent<EntityData>()))
                     {
-                        target.Value = result.GetComponent<EntityData>().entity;
+                        TargetAttributeViewModel.Instance.checkTarget.Value = result.GetComponent<EntityData>().entity;
                         break;
                     }
                 }
+            }
+
+            if (checkTarget.Value == null)
+            {
+                TargetAttributeViewModel.Instance.checkTarget.Value = target.Value;
+            }
+            else if (!checkTarget.Value.isAlive)
+            {
+                TargetAttributeViewModel.Instance.checkTarget.Value = null;
             }
         }
         

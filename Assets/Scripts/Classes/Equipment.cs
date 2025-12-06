@@ -15,13 +15,15 @@ namespace Classes
 
         public Entity owner;
 
+        // 装备基础变量
         public string id;
         public string equipmentName;
         public string _usageDescription;
         public EquipmentType _equipmentType;
         public int _cost;
         public Sprite equipmentIcon;
-        public bool canPurchase;
+        public bool canPurchase = true;
+        public EquipmentUniqueEffect _uniqueEffect;
 
         // 技能主动效果
         protected string _passiveSkillDescription;
@@ -39,13 +41,12 @@ namespace Classes
         public float _activeSkillCD;
         public float _activeSkillCDTimer;
         public Property<float> _activeSkillCDProportion;
-        
         public Property<string> _activeSkillCDDif;
         protected Action ActiveSkillEffective;
         protected bool _activeSkillActive => _activeSkillCDTimer >= _activeSkillCD;
         public bool haveActiveSkillCD => _activeSkillCD > 0; 
         
-        public EquipmentUniqueEffect _uniqueEffect;
+        // 其他装备事件
         protected Action<Entity> equipmentTimerUpdate;
 
         public Equipment(string name)

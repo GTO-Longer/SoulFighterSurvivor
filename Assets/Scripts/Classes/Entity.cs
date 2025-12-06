@@ -313,7 +313,7 @@ namespace Classes
         /// <summary>
         /// 基础暴击伤害
         /// </summary>
-        public Property<float> _baseCriticalDamage;
+        public float _baseCriticalDamage;
         /// <summary>
         /// 暴击伤害加成
         /// </summary>
@@ -618,19 +618,38 @@ namespace Classes
         /// <summary>
         /// 受到伤害
         /// </summary>
-        public void TakeDamage(float damageCount, DamageType damageType, Entity damageSource)
+        public void TakeDamage(float damageCount, DamageType damageType, Entity damageSource, bool isCritical = false)
         {
-            var color = damageType switch
-            { 
-                DamageType.AD => new Color(1, 0.6f, 0, 1),
-                DamageType.Real => Color.white,
-                DamageType.AP => new Color(0, 0.6f, 1, 1),
-                DamageType.None => Color.black,
-                _ => throw new ArgumentOutOfRangeException(nameof(damageType), damageType, null)
-            };
-            ScreenTextFactory.Instance.Spawn(_gameObject.transform.position, $"-{damageCount:F0}", 0.5f,
-                150 * Mathf.Max(0.5f, damageCount / (damageCount + 100)), Mathf.Clamp(damageCount / 3f, 30, 100),
-                color);
+            if (isCritical)
+            {
+                Debug.Log(criticalDamage.Value);
+                damageCount *= 1 + criticalDamage;
+
+                var color = damageType switch
+                {
+                    DamageType.AD => Color.red,
+                    DamageType.Real => Color.white,
+                    _ => Color.blue
+                };
+                
+                ScreenTextFactory.Instance.Spawn(_gameObject.transform.position, $"-{damageCount:F0}", 0.5f,
+                    200 * Mathf.Max(0.5f, damageCount / (damageCount + 100)), Mathf.Clamp(damageCount / 3f, 30, 100), color);
+            }
+            else
+            {
+                var color = damageType switch
+                { 
+                    DamageType.AD => new Color(1, 0.6f, 0, 1),
+                    DamageType.Real => Color.white,
+                    DamageType.AP => new Color(0, 0.6f, 1, 1),
+                    DamageType.None => Color.black,
+                    _ => throw new ArgumentOutOfRangeException(nameof(damageType), damageType, null)
+                };
+                
+                ScreenTextFactory.Instance.Spawn(_gameObject.transform.position, $"-{damageCount:F0}", 0.5f,
+                    150 * Mathf.Max(0.5f, damageCount / (damageCount + 100)), Mathf.Clamp(damageCount / 3f, 30, 100),
+                    color);
+            }
            
             healthPoint.Value -= damageCount * damageBoost;
             if (healthPoint.Value < 1)
@@ -869,7 +888,6 @@ namespace Classes
             _criticalRateBonus = new Property<float>();
             _percentageCriticalRateBonus = new Property<float>();
             _actualCriticalRate = new Property<float>();
-            _baseCriticalDamage = new Property<float>();
             _criticalDamageBonus = new Property<float>();
             _movementSpeedBonus = new Property<float>();
             _percentageMovementSpeedBonus = new Property<float>();
@@ -878,6 +896,7 @@ namespace Classes
             _percentageScaleBonus = new Property<float>();
             _percentageHealthRegenerationBonus = new Property<float>();
             _percentageMagicRegenerationBonus = new Property<float>();
+            _baseCriticalDamage = 0.75f;
             
             #endregion
 
@@ -958,6 +977,9 @@ namespace Classes
             experienceProportion = new Property<float>(() => maxExperience == 0 ? 0 : experience / maxExperience,
                 DataType.Percentage,
                 experience, level);
+            criticalDamage = new Property<float>(() => _baseCriticalDamage + _criticalDamageBonus.Value,
+                DataType.Percentage,
+                _criticalDamageBonus);
 
             #endregion
 

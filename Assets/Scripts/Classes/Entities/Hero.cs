@@ -12,6 +12,7 @@ using Systems;
 using UnityEngine;
 using UnityEngine.AI;
 using Utilities;
+using Random = UnityEngine.Random;
 using Vector2 = UnityEngine.Vector2;
 
 namespace Classes.Entities
@@ -297,7 +298,7 @@ namespace Classes.Entities
             {
                 // 计算平A伤害
                 var damageCount = targetEntity.CalculateADDamage(self, self.attackDamage);
-                targetEntity.TakeDamage(damageCount, DamageType.AD, this);
+                targetEntity.TakeDamage(damageCount, DamageType.AD, this, Random.Range(0f, 1f) < criticalRate.Value);
 
                 // 造成攻击特效
                 if (targetEntity.isAlive)

@@ -161,7 +161,7 @@
                 "maxMagicPoint": 600,
                 "abilityHaste": 20
             },
-            "_passiveSkillDescription": "你的终极技能获得10%额外伤害\n终极技能命中时，在脚下生成灼烧区域，造成<color=#00D8FF>{0:F0}=（115+5%法术强度）魔法伤害</color>，并削减敌人<color=#C97BFF>25魔法抗性</color>。",
+            "_passiveSkillDescription": "你的终极技能额外10%魔法伤害\n终极技能命中时，在脚下生成灼烧区域，持续3秒，每秒造成<color=#00D8FF>{0:F0}=（15+5%法术强度）魔法伤害</color>，并削减敌人<color=#C97BFF>25魔法抗性</color>。",
             "_passiveSkillName": "蔑视与憎恶",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
@@ -180,7 +180,7 @@
                 "maxMagicPoint": 600,
                 "abilityHaste": 20
             },
-            "_passiveSkillDescription": "造成技能伤害时会灼烧敌人，每秒造成<color=#00D8FF>{0:F0}=（20+4%法术强度）魔法伤害</color>，持续3秒。",
+            "_passiveSkillDescription": "造成技能伤害时会灼烧敌人，每秒造成<color=#00D8FF>{0:F0}=（20+4%法术强度）魔法伤害</color>，最多可叠加至3层，持续3秒。",
             "_passiveSkillName": "邪焰",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
@@ -199,7 +199,7 @@
                 "maxMagicPoint": 600,
                 "abilityHaste": 25
             },
-            "_passiveSkillDescription": "获得{0:F0}=（<color=#C97BFF>3%最大法力值</color>）法术强度。\n\n在击杀50个敌人后，这件装备会转变为炽天使之拥",
+            "_passiveSkillDescription": "获得{0:F0}=（<color=#C97BFF>3%最大法力值</color>）法术强度。\n在击杀50个敌人后，这件装备会转变为炽天使之拥",
             "_passiveSkillName": "敬畏",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
@@ -218,7 +218,7 @@
                 "maxMagicPoint": 1200,
                 "abilityHaste": 25
             },
-            "_passiveSkillDescription": "获得{0:F0}=（<color=#C97BFF>6%最大法力值</color>）法术强度。\n\n生命值低于30%时，回复{0:F0} =（300+ <color=#1DA1FF>20%最大法力值</color>）生命值，持续3秒。",
+            "_passiveSkillDescription": "获得{0:F0}=（<color=#C97BFF>6%最大法力值</color>）法术强度。\n生命值低于30%时，回复{1:F0} =（300+ <color=#1DA1FF>20%最大法力值</color>）生命值，持续3秒。",
             "_passiveSkillName": "救主灵刃",
             "_passiveSkillCD": 45,
             "_activeSkillDescription": null,
@@ -237,7 +237,7 @@
                 "maxMagicPoint": 600,
                 "abilityHaste": 15
             },
-            "_passiveSkillDescription": "获得{0:F0}=（<color=#FF6161>5%额外法力值</color>）攻击力。\n\n在击杀50个敌人后，这件装备会转变为魔切",
+            "_passiveSkillDescription": "获得{0:F0}=（<color=#FF6161>5%额外法力值</color>）攻击力。\n在击杀50个敌人后，这件装备会转变为魔切",
             "_passiveSkillName": "敬畏",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,

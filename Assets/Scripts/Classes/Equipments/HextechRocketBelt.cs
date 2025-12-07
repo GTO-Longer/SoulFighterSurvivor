@@ -96,14 +96,12 @@ namespace Classes.Equipments
         public override void OnEquipmentGet(Entity entity)
         {
             base.OnEquipmentGet(entity);
-
             owner.EntityUpdateEvent += equipmentTimerUpdate;
         }
 
         public override void OnEquipmentRemove()
         {
             owner.EntityUpdateEvent -= equipmentTimerUpdate;
-            
             base.OnEquipmentRemove();
         }
 

@@ -595,7 +595,7 @@
                 "abilityHaste": 15,
                 "criticalRate": 0.25
             },
-            "_passiveSkillDescription": "在施放技能时，获得持续6秒的2.5%暴击率，最多可叠至25%暴击率。\n根据你的暴击率会有概率使你的技能额外造成<color=#00D8FF>{0:F0}=（70+15%法术强度）额外伤害</color>。",
+            "_passiveSkillDescription": "在施放技能时，获得持续6秒的2.5%暴击率，最多可叠至25%暴击率，持续6秒。\n根据你的暴击率会有概率使你的技能额外造成<color=#00D8FF>{0:F0}=（70+15%法术强度）额外伤害</color>。",
             "_passiveSkillName": "怒火与破坏",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,

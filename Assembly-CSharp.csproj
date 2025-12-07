@@ -115,6 +115,7 @@
     <Compile Include="Assets\Scripts\Classes\Equipments\Rabadon_sAgony.cs" />
     <Compile Include="Assets\Scripts\DataManagement\EntiyData.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Nashors_Tooth.cs" />
+    <Compile Include="Assets\Scripts\Classes\Buffs\Anger.cs" />
     <Compile Include="Assets\RVO2\Line.cs" />
     <Compile Include="Assets\Scripts\Managers\EntityManagers\HeroManager.cs" />
     <Compile Include="Assets\Scripts\Managers\EntityManagers\EnemyManager.cs" />
@@ -130,6 +131,7 @@
     <Compile Include="Assets\Scripts\Classes\Equipments\CursedBlood.cs" />
     <Compile Include="Assets\Scripts\MVVM\ViewModels\EquipmentInfoViewModel.cs" />
     <Compile Include="Assets\Scripts\Utilities\Enums.cs" />
+    <Compile Include="Assets\Scripts\Classes\Equipments\Ruinous_Ritual.cs" />
     <Compile Include="Assets\Scripts\Factories\BulletFactory.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Rylai_Crystal_Scepter.cs" />
     <Compile Include="Assets\Scripts\MVVM\ViewModels\EquipmentListViewModel.cs" />

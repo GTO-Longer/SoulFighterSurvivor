@@ -51,6 +51,7 @@
     <Compile Include="Assets\Scripts\Classes\Equipments\Guardian_sHorn.cs" />
     <Compile Include="Assets\Scripts\Classes\Buff.cs" />
     <Compile Include="Assets\RVO2\JobHandleExtensions.cs" />
+    <Compile Include="Assets\Scripts\Classes\Equipments\Void_Staff.cs" />
     <Compile Include="Assets\RVO2\RVOMath.cs" />
     <Compile Include="Assets\Scripts\MVVM\ViewModels\HeroAttributeViewModel.cs" />
     <Compile Include="Assets\Scripts\RVO\RVOObstacle.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="Assets\Scripts\MVVM\ViewModels\BuffViewModel.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\InfinityEdge.cs" />
     <Compile Include="Assets\Scripts\RVO\RVOManager.cs" />
+    <Compile Include="Assets\Scripts\Classes\Equipments\Rabadons_Deathcap.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Seraph_sEmbrace.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Guardian_sClothes.cs" />
     <Compile Include="Assets\Scripts\Utilities\Async.cs" />

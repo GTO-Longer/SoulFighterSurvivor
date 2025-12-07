@@ -128,6 +128,7 @@ namespace Utilities
         None = 0,
         Guardian,
         CursedBlade,
-        MPBoost
+        MPBoost,
+        MagicPenetration
     }
 }

@@ -74,15 +74,19 @@ namespace Classes
             };
         }
 
-        public Buff GetBuff()
+        public Buff GetBuff(bool repeat = false)
         {
-            if (owner.team == Team.Hero)
+            if (!repeat)
             {
-                var buffUI = BuffViewModel.Instance.CreateBuffUI(this);
-                buffUI.GetComponent<Image>().sprite = buffIcon;
+                if (owner.team == Team.Hero)
+                {
+                    var buffUI = BuffViewModel.Instance.CreateBuffUI(this);
+                    buffUI.GetComponent<Image>().sprite = buffIcon;
+                }
+
+                owner.EntityUpdateEvent += buffTimer;
             }
 
-            owner.EntityUpdateEvent += buffTimer;
             OnBuffGet?.Invoke();
             return this;
         }

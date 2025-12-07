@@ -289,7 +289,7 @@ namespace Classes.Entities
             LevelUp();
 
             // 定义基础攻击命中事件
-            AttackEffect += (self, targetEntity, adDamage) =>
+            AttackEffect += (self, _, adDamage, _) =>
             {
                 self.TakeHeal(adDamage * lifeSteal);
             };
@@ -303,7 +303,7 @@ namespace Classes.Entities
                 // 造成攻击特效
                 if (targetEntity.isAlive)
                 {
-                    AttackEffectActivate(targetEntity, damageCount);
+                    AttackEffectActivate(targetEntity, damageCount, attackEffectRatio);
                 }
 
                 // 清空咒刃计时器

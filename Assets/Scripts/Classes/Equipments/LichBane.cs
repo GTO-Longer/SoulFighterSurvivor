@@ -7,15 +7,15 @@ namespace Classes.Equipments
     public class LichBane : Equipment
     {
         private float damageCount => 0.75f * HeroManager.hero.baseAttackDamage + 0.66f * HeroManager.hero.abilityPower;
-        private Action<Entity, Entity, float> equipmentEffect;
+        private Action<Entity, Entity, float, float> equipmentEffect;
         
         public LichBane() : base("LichBane")
         {
-            equipmentEffect = (attacker, target, _) =>
+            equipmentEffect = (attacker, target, _, ratio) =>
             {
                 if (HeroManager.hero.isCuredBladeEffective && _passiveSkillActive)
                 {
-                    target.TakeDamage(target.CalculateAPDamage(attacker, damageCount), DamageType.AP, attacker);
+                    target.TakeDamage(target.CalculateAPDamage(attacker, damageCount * ratio), DamageType.AP, attacker);
                     _passiveSkillCDTimer = 0;
                 }
             };

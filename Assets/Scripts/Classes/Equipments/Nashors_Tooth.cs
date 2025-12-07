@@ -8,13 +8,13 @@ namespace Classes.Equipments
     {
         private float damageCount => 15 + 0.2f * HeroManager.hero.abilityPower;
 
-        private Action<Entity, Entity, float> equipmentEffect;
+        private Action<Entity, Entity, float, float> equipmentEffect;
         
         public Nashors_Tooth() : base("Nashors_Tooth")
         {
-            equipmentEffect = (attacker, target, _) =>
+            equipmentEffect = (attacker, target, _, ratio) =>
             {
-                target.TakeDamage(target.CalculateAPDamage(attacker, damageCount), DamageType.AP, attacker);
+                target.TakeDamage(target.CalculateAPDamage(attacker, damageCount * ratio), DamageType.AP, attacker);
             };
         }
 

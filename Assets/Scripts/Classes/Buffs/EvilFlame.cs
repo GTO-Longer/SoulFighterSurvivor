@@ -13,26 +13,33 @@ namespace Classes.Buffs
         /// buff效果
         /// </summary>
         public Action<Entity> BuffEffect;
-        public EvilFlame(Entity ownerEntity, Entity sourceEntity) : base(ownerEntity, sourceEntity, "邪焰", "", 0, 3)
+        public EvilFlame(Entity ownerEntity, Entity sourceEntity) : base(ownerEntity, sourceEntity, "邪焰", "", 3, 3)
         {
-            buffMaxCount = 3;
-
             BuffEffect = (_) =>
             {
                 timer += Time.deltaTime;
                 buffDescription = $"每秒造成{damageCount:F0}伤害";
                 if (timer >= 0.5f)
                 {
-                    owner.TakeDamage(damageCount * buffCount / 2f, DamageType.AP, sourceEntity);
+                    var damage = owner.CalculateAPDamage(sourceEntity, damageCount * buffCount / 2f);
+                    owner.TakeDamage(damage, DamageType.AP, sourceEntity);
                     timer = 0;
                 }
             };
             
             OnBuffGet = () =>
             {
-                buffCount = 1;
+                if (buffCount == 0)
+                {
+                    owner.EntityUpdateEvent += BuffEffect;
+                }
+                
+                if (buffCount < buffMaxCount)
+                {
+                    buffCount += 1;
+                }
+
                 timer = 0;
-                owner.EntityUpdateEvent += BuffEffect;
             };
             
             OnBuffRunOut = () =>

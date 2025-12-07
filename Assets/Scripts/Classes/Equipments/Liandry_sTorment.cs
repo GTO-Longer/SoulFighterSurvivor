@@ -13,8 +13,8 @@ namespace Classes.Equipments
         {
             equipmentEffect = (attacker, target, _, _) =>
             {
-                var frozenHeart = new Buffs.EvilFlame(target, attacker);
-                target.GetBuff(frozenHeart);
+                var evilFlame = new Buffs.EvilFlame(target, attacker);
+                target.GetBuff(evilFlame);
             };
         }
 

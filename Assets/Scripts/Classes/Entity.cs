@@ -31,6 +31,8 @@ namespace Classes
         public int _skillPoint;
         protected Vector2 forcedDirection;
         protected float damageBoost;
+        // 攻击特效倍率
+        public float attackEffectRatio;
         public List<Buff> buffList;
         
         #region 最终属性
@@ -596,10 +598,10 @@ namespace Classes
         /// <summary>
         /// 攻击特效
         /// </summary>
-        public event Action<Entity, Entity, float> AttackEffect;
-        public void AttackEffectActivate(Entity target, float damageCount)
+        public event Action<Entity, Entity, float, float> AttackEffect;
+        public void AttackEffectActivate(Entity target, float damageCount, float ratio)
         {
-            AttackEffect?.Invoke(this, target, damageCount);
+            AttackEffect?.Invoke(this, target, damageCount, ratio);
         }
         
         /// <summary>
@@ -801,7 +803,7 @@ namespace Classes
                 // 叠层
                 if (buffInList.buffCount < buffInList.buffMaxCount)
                 {
-                    buffInList.buffCount += 1;
+                    buffInList.GetBuff(true);
                 }
             }
         }
@@ -1009,6 +1011,7 @@ namespace Classes
             forcedDirection = Vector2.zero;
             damageBoost = 1;
             buffList = new List<Buff>();
+            attackEffectRatio = 1;
 
             #endregion
         }

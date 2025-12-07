@@ -11,16 +11,16 @@ namespace Classes.Equipments
         private float damageCount1 => 5 + 0.02f * HeroManager.hero.maxMagicPoint.Value;
         private float damageCount2 => 20 + 0.1f * HeroManager.hero.maxMagicPoint.Value;
 
-        private Action<Entity, Entity, float> equipmentEffect1;
+        private Action<Entity, Entity, float, float> equipmentEffect1;
         private Action<Entity, Entity, float, Skill> equipmentEffect2;
         
         public Manamune() : base("Manamune")
         {
             canPurchase = false;
             
-            equipmentEffect1 = (attacker, target, _) =>
+            equipmentEffect1 = (attacker, target, _, ratio) =>
             {
-                target.TakeDamage(target.CalculateAPDamage(attacker, damageCount1), DamageType.AD, attacker);
+                target.TakeDamage(target.CalculateAPDamage(attacker, damageCount1 * ratio), DamageType.AD, attacker);
             };
             
             equipmentEffect2 = (attacker, target, _, _) =>

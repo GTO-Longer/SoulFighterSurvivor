@@ -114,6 +114,7 @@
     <Compile Include="Assets\Scripts\Classes\Skills\Charm.cs" />
     <Compile Include="Assets\Scripts\Factories\StateBarFactory.cs" />
     <Compile Include="Assets\Scripts\MVVM\ViewModels\SkillViewModel.cs" />
+    <Compile Include="Assets\Scripts\Classes\Buffs\Rage.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Guardian_sDagger.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Guardian_sOrb.cs" />
     <Compile Include="Assets\Scripts\Classes\Skill.cs" />
@@ -131,6 +132,7 @@
     <Compile Include="Assets\Scripts\Classes\Equipments\LichBane.cs" />
     <Compile Include="Assets\Scripts\DataManagement\ResourceReader.cs" />
     <Compile Include="Assets\Scripts\Classes\Skills\FoxFire.cs" />
+    <Compile Include="Assets\Scripts\Classes\Equipments\Guinsoos_Rageblade.cs" />
     <Compile Include="Assets\RVO2\NativeArrayExtensions.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />

@@ -433,6 +433,212 @@
             "_activeSkillName": null,
             "_activeSkillCD": 0,
             "_uniqueEffect": null
+        },
+        {
+            "id": "Starsprint",
+            "equipmentName": "星界驱驰",
+            "_usageDescription": "移动速度提升与技能触发加速",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "abilityPower": 65,
+                "maxHealthPoint": 350,
+                "abilityHaste": 35,
+                "percentageMovementSpeed": 0.04
+            },
+            "_passiveSkillDescription": "对敌人释放技能造成魔法伤害或真实伤害时会提供60移动速度，持续4秒。",
+            "_passiveSkillName": "咒舞",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null
+        },
+        {
+            "id": " Void_Staff",
+            "equipmentName": "虚空之杖",
+            "_usageDescription": "提供高额法术穿透",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "abilityPower": 65,
+                "percentageMagicPenetration": 0.4
+            },
+            "_passiveSkillDescription": null,
+            "_passiveSkillName": null,
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": "MagicPenetration"
+        },
+        {
+            "id": "Rabadons_Deathcap",
+            "equipmentName": "灭世者的死亡之帽",
+            "_usageDescription": "大幅提高法术强度",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "abilityPower": 100
+            },
+            "_passiveSkillDescription": "使你的总法术强度提升30%。",
+            "_passiveSkillName": "魔法乐章",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null
+        },
+        {
+            "id": "CursedBlood",
+            "equipmentName": "放血者的诅咒",
+            "_usageDescription": "法术穿透与叠层削抗效果",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "abilityPower": 60,
+                "maxHealthPoint": 350,
+                "abilityHaste": 15
+            },
+            "_passiveSkillDescription": "用技能对敌人造成魔法伤害时，会对其造成持续6秒的7.5%魔法抗性削减，至多叠至30%。",
+            "_passiveSkillName": "恶劣暴行",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": "MagicPenetration"
+        },
+        {
+            "id": "Riftmaker",
+            "equipmentName": "裂隙制造者",
+            "_usageDescription": "提供全能吸血并强化持续作战能力",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "abilityPower": 60,
+                "maxHealthPoint": 350,
+                "abilityHaste": 15
+            },
+            "_passiveSkillDescription": "获得相当于你2%最大生命值的法术强度。\n在使用技能对敌人造成伤害时，每次都能叠加额外造成2%真实伤害，最多叠加至8%，持续6秒。在最大强度时，获得15%全能吸血。",
+            "_passiveSkillName": "虚空腐蚀",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null
+        },
+        {
+            "id": "Cryptbloom",
+            "equipmentName": "蜕生",
+            "_usageDescription": "高法穿并提供团队治疗效果",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "abilityPower": 60,
+                "percentageMagicPenetration": 0.3,
+                "abilityHaste": 15
+            },
+            "_passiveSkillDescription": "每当一个敌人被你杀死时，为你治疗{0:F0}=（450+50%法术强度）生命值。",
+            "_passiveSkillName": "死中焕生",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": "MagicPenetration"
+        },
+        {
+            "id": "Rylai_Crystal_Scepter",
+            "equipmentName": "瑞莱的冰晶节杖",
+            "_usageDescription": "提供稳定的技能减速",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "abilityPower": 60,
+                "maxHealthPoint": 350
+            },
+            "_passiveSkillDescription": "使用技能造成伤害会使敌人减速30%，持续1秒。",
+            "_passiveSkillName": "凝霜",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null
+        },
+        {
+            "id": "Cryptic",
+            "equipmentName": "困惑",
+            "_usageDescription": "混合穿透与巨人克制效果",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "abilityPower": 60,
+                "percentageMovementSpeed": 0.05,
+                "percentageAttackPenetration": 0.22,
+                "percentageMagicPenetration": 0.3
+            },
+            "_passiveSkillDescription": "对最大生命值高于你的敌方英雄额外造成至多15%真实伤害。当最大生命差异大于2500时，即可达到最大伤害值提升。",
+            "_passiveSkillName": "巨人杀手",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null
+        },
+        {
+            "id": "Ruinous_Ritual",
+            "equipmentName": "毁坏仪式",
+            "_usageDescription": "魔法暴击",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "abilityPower": 50,
+                "abilityHaste": 15,
+                "criticalRate": 0.25
+            },
+            "_passiveSkillDescription": "在施放技能时，获得持续6秒的2.5%暴击率，最多可叠至25%暴击率。\n根据你的暴击率会有概率使你的技能额外造成{0:F0}=（70+15%法术强度）额外伤害",
+            "_passiveSkillName": "怒火与破坏",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null
+        },
+        {
+            "id": "Liandrys_Torment",
+            "equipmentName": "兰德里的苦楚",
+            "_usageDescription": "坦克克星",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "abilityPower": 50,
+                "maxHealthPoint": 250
+            },
+            "_passiveSkillDescription": "使用技能伤害敌人会灼烧敌人，每秒造成其0.5%最大生命值的魔法伤害，最多叠加至6%最大生命值的魔法伤害，持续3秒。",
+            "_passiveSkillName": "苦难",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null
+        },
+        {
+            "id": "Guinsoos_Rageblade",
+            "equipmentName": "鬼索的狂暴之刃",
+            "_usageDescription": "附伤增幅器",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "attackDamage": 20,
+                "abilityPower": 25,
+                "attackSpeed": 0.25
+            },
+            "_passiveSkillDescription": "攻击附带{0:F0} =（10+3%法术强度 + 6%攻击力）魔法伤害的攻击特效。\n普攻提供8%攻击速度，最多叠加至32%攻击速度，持续4秒。满层时每次攻击额外附带33%的攻击特效。",
+            "_passiveSkillName": "附魔打击",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null
         }
     ]
 }

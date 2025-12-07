@@ -1,3 +1,4 @@
+using Components.UI;
 using UnityEngine;
 
 namespace Systems
@@ -11,7 +12,7 @@ namespace Systems
         private const float edgeBuffer = 50f;
 
         [Header("摄像机缩放设置")]
-        private const float zoomSensitivity = 250f;
+        private const float zoomSensitivity = 300f;
         private const float minOrthographicSize = 500f;
         private const float maxOrthographicSize = 1000f;
 
@@ -85,7 +86,7 @@ namespace Systems
         private void HandleZoom()
         {
             float scroll = Input.GetAxis("Mouse ScrollWheel");
-            if (scroll != 0f)
+            if (scroll != 0f && !PanelUIRoot.Instance.isShopOpen)
             {
                 float newSize = _mainCamera.orthographicSize - scroll * zoomSensitivity;
                 newSize = Mathf.Clamp(newSize, minOrthographicSize, maxOrthographicSize);

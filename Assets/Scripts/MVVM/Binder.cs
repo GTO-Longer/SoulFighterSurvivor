@@ -365,85 +365,26 @@ namespace MVVM
             };
         }
         
-        #endregion
-
-        #region Boolean-GameObject显隐绑定
-
-        public static Action BindActive(GameObject target, Property<bool> source)
+        /// <summary>
+        /// 绑定装备UI
+        /// </summary>
+        public static Action BindEquipment(Image icon, Image CDMask, TMP_Text CDText, TMP_Text chargeCount, Property<Equipment> source)
         {
-            if (target == null || source == null)
-                return () => { };
-
-            void OnChanged(object sender, EventArgs e)
-            {
-                if (target == null) return;
-                target.SetActive(source.Value);
-            }
-
-            target.SetActive(source.Value);
-            source.PropertyChanged += OnChanged;
-            return () => source.PropertyChanged -= OnChanged;
-        }
-
-        public static Action BindActive<T>(GameObject target, Property<T> source)
-        {
-            if (target == null || source == null)
-                return () => { };
-
-            void OnChanged(object sender, EventArgs e)
-            {
-                if (target == null) return;
-                target.SetActive(!source.Value.IsUnityNull());
-            }
-
-            target.SetActive(!source.Value.IsUnityNull());
-            source.PropertyChanged += OnChanged;
-            return () => source.PropertyChanged -= OnChanged;
-        }
-
-        public static Action BindActive(Component target, Property<bool> source)
-        {
-            if (target == null || source == null)
-                return () => { };
-
-            return BindActive(target.gameObject, source);
-        }
-
-        #endregion
-
-        #region 事件-Button绑定
-
-        public static Action BindButton(Button button, Action action)
-        {
-            if (button == null || action == null)
-                return () => { };
-
-            void OnClick() => action.Invoke();
-
-            button.onClick.AddListener(OnClick);
-            return () => button.onClick.RemoveListener(OnClick);
-        }
-        
-        #endregion
-
-        #region Image-自定义类绑定
-        
-        public static Action BindEquipment(Image image, Image CDMask, TMP_Text CDText, Property<Equipment> source)
-        {
-            if (image == null)
+            if (icon == null)
                 return () => { };
 
             void OnChanged(object sender, EventArgs e)
             {
                 if (source.Value == null)
                 {
-                    image.sprite = null;
+                    icon.sprite = null;
                     CDMask.enabled = false;
                     CDText.enabled = false;
+                    chargeCount.enabled = false;
                 }
                 else
                 {
-                    image.sprite = source.Value.equipmentIcon;
+                    icon.sprite = source.Value.equipmentIcon;
                     if (source.Value.haveActiveSkillCD || source.Value.havePassiveSkillCD)
                     {
                         CDMask.enabled = true;
@@ -463,6 +404,16 @@ namespace MVVM
                             BindText(CDText, source.Value._passiveSkillCDDif);
                         }
                     }
+
+                    if (source.Value.chargeCount > 0 && source.Value.maxChargeCount > 0)
+                    {
+                        chargeCount.enabled = true;
+                        BindText(chargeCount, source.Value.chargeCount);
+                    }
+                    else
+                    {
+                        chargeCount.enabled = false;
+                    }
                 }
             }
 
@@ -471,7 +422,80 @@ namespace MVVM
             source.PropertyChanged += OnChanged;
             return () => source.PropertyChanged -= OnChanged;
         }
+        
+        #endregion
 
+        #region Boolean-UI显隐绑定
+
+        public static Action BindActive(GameObject target, Vector2 originPosition, Property<bool> source)
+        {
+            if (target == null || source == null)
+                return () => { };
+
+            void OnChanged(object sender, EventArgs e)
+            {
+                if (target == null) return;
+                if (source.Value)
+                {
+                    target.transform.position = originPosition;
+                }
+                else
+                {
+                    target.transform.position = new Vector2(9999, 9999);
+                }
+            }
+
+            OnChanged(null, null);
+            source.PropertyChanged += OnChanged;
+            return () => source.PropertyChanged -= OnChanged;
+        }
+
+        public static Action BindActive<T>(GameObject target, Vector2 originPosition, Property<T> source)
+        {
+            if (target == null || source == null)
+                return () => { };
+
+            void OnChanged(object sender, EventArgs e)
+            {
+                if (target == null) return;
+                if (source.Value.IsUnityNull())
+                {
+                    target.transform.position = new Vector2(9999, 9999);
+                }
+                else
+                {
+                    target.transform.position = originPosition;
+                }
+            }
+
+            OnChanged(null, null);
+            source.PropertyChanged += OnChanged;
+            return () => source.PropertyChanged -= OnChanged;
+        }
+
+        public static Action BindActive(Component target, Vector2 originPosition, Property<bool> source)
+        {
+            if (target == null || source == null)
+                return () => { };
+
+            return BindActive(target.gameObject, originPosition, source);
+        }
+
+        #endregion
+
+        #region 事件-Button绑定
+
+        public static Action BindButton(Button button, Action action)
+        {
+            if (button == null || action == null)
+                return () => { };
+
+            void OnClick() => action.Invoke();
+
+            button.onClick.AddListener(OnClick);
+            return () => button.onClick.RemoveListener(OnClick);
+        }
+        
         #endregion
 
         #region 普通UI显示

@@ -28,7 +28,7 @@ namespace MVVM.ViewModels
                 textGroup[_attribute.gameObject.name] = _attribute;
             }
             
-            UnBindEvent += Binder.BindActive(gameObject, checkTarget);
+            UnBindEvent += Binder.BindActive(gameObject, gameObject.transform.position, checkTarget);
             UnBindEvent += Binder.BindTextGroup(textGroup, checkTarget);
             UnBindEvent += Binder.BindHPGroup(HPContent, HPBar, checkTarget, "{0:F0} / {1:F0}");
         }

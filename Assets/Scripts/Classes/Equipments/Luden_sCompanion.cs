@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Classes.Entities;
 using Factories;
 using Managers.EntityManagers;
@@ -12,11 +11,11 @@ namespace Classes.Equipments
     {
         private float damageCount => 80 + 0.05f * HeroManager.hero.abilityPower + 0.06f * (HeroManager.hero.attackDamage - HeroManager.hero.baseAttackDamage);
         private Action<Entity, Entity, float, Skill> equipmentEffect;
-        private int chargeCount;
         private float baseCD;
         public Luden_sCompanion() : base("Luden_sCompanion")
         {
-            chargeCount = 6;
+            maxChargeCount.Value = 6;
+            chargeCount.Value = 6;
             baseCD = _passiveSkillCD;
             equipmentEffect = (_, target, _, _) =>
             {
@@ -25,8 +24,8 @@ namespace Classes.Equipments
 
                 var hero = owner as Hero;
 
-                var bulletNum = chargeCount;
-                chargeCount = 0;
+                var bulletNum = chargeCount.Value;
+                chargeCount.Value = 0;
 
                 const float radius = 150f;
                 const float bulletSpeed = 2000f;
@@ -50,7 +49,7 @@ namespace Classes.Equipments
                             angle = (bulletIndex * 2f * Mathf.PI) / bulletNum;
 
                         // 设置初始位置
-                        var ownerPos = hero.gameObject.transform.position;
+                        var ownerPos = self.owner.gameObject.transform.position;
                         var offset = new Vector3(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius, 0f);
                         self.gameObject.transform.position = ownerPos + offset;
                         
@@ -84,9 +83,9 @@ namespace Classes.Equipments
                             else if (self.bulletStateID == 2)
                             {
                                 var curPos = self.gameObject.transform.position;
-                                var targetPos = self.target.gameObject.transform.position;
+                                targetPos = self.target.gameObject.transform.position;
 
-                                var dir = (targetPos - curPos).normalized;
+                                dir = (targetPos - curPos).normalized;
                                 self.gameObject.transform.position = curPos + dir * (bulletSpeed * Time.deltaTime);
                                 self.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, dir);
 
@@ -119,15 +118,15 @@ namespace Classes.Equipments
             {
                 if (_passiveSkillActive)
                 {
-                    if (chargeCount < 6)
+                    if (chargeCount.Value < maxChargeCount.Value)
                     {
-                        chargeCount += 1;
+                        chargeCount.Value += 1;
                     }
 
                     _passiveSkillCDTimer = 0;
                 }
                 
-                if (chargeCount >= 6)
+                if (chargeCount.Value >= maxChargeCount.Value)
                 {
                     _passiveSkillCD = 0;
                 }

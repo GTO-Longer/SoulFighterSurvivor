@@ -19,9 +19,11 @@ namespace MVVM.ViewModels
         private Button purchaseButton;
         public GameObject entryPrefab;
         public List<GameObject> entryList;
+        private CanvasGroup canvasGroup;
 
         private void Start()
         {
+            canvasGroup = GetComponent<CanvasGroup>();
             equipmentIcon = transform.Find("EquipmentTitle/EquipmentIcon").GetComponent<Image>();
             equipmentName = transform.Find("EquipmentTitle/NameAndDescription/EquipmentName").GetComponent<TMP_Text>();
             usageDescription = transform.Find("EquipmentTitle/NameAndDescription/UsageDescription").GetComponent<TMP_Text>();
@@ -36,7 +38,8 @@ namespace MVVM.ViewModels
         {
             if (equipment != null)
             {
-                gameObject.SetActive(true);
+                canvasGroup.alpha = 1;
+                canvasGroup.interactable = true;
                 ClearEntryList();
 
                 equipmentName.text = equipment.equipmentName;
@@ -278,12 +281,8 @@ namespace MVVM.ViewModels
 
         public void HideEquipmentInfo()
         {
-            equipmentIcon.gameObject.SetActive(false);
-            equipmentName.gameObject.SetActive(false);
-            usageDescription.gameObject.SetActive(false);
-            equipmentCost.transform.parent.gameObject.SetActive(false);
-            purchaseButton?.gameObject.SetActive(false);
-            gameObject.SetActive(false);
+            canvasGroup.alpha = 0;
+            canvasGroup.interactable = false;
             ClearEntryList();
         }
 

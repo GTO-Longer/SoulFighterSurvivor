@@ -40,7 +40,8 @@ namespace MVVM.ViewModels
 
                 var equipmentCDMask = slotTransform.Find("CDMask").GetComponent<Image>();
                 var equipmentCDText = slotTransform.Find("EquipmentCD").GetComponent<TMP_Text>();
-                UnBindEvent += Binder.BindEquipment(slotTransform.GetComponent<Image>(), equipmentCDMask, equipmentCDText, equipmentProp);
+                var chargeCount = slotTransform.Find("ChargeCount").GetComponent<TMP_Text>();
+                UnBindEvent += Binder.BindEquipment(slotTransform.GetComponent<Image>(), equipmentCDMask, equipmentCDText, chargeCount, equipmentProp);
 
                 var button = slotTransform.GetComponent<EquipmentSlotButton>();
                 if (button != null)

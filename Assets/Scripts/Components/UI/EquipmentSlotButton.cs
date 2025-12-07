@@ -69,6 +69,7 @@ namespace Components.UI
             tempIcon.GetComponent<Image>().sprite = null;
             tempIcon.transform.Find("CDMask").GetComponent<Image>().enabled = false;
             tempIcon.transform.Find("EquipmentCD").GetComponent<TMP_Text>().enabled = false;
+            tempIcon.transform.Find("ChargeCount").GetComponent<TMP_Text>().enabled = false;
             tempIcon.transform.SetSiblingIndex(originalSiblingIndex);
             originalSiblingIndex = transform.GetSiblingIndex();
             transform.SetAsLastSibling();

@@ -24,6 +24,8 @@ namespace Classes
         public Sprite equipmentIcon;
         public bool canPurchase = true;
         public EquipmentUniqueEffect _uniqueEffect;
+        public Property<int> chargeCount;
+        public Property<int> maxChargeCount;
 
         // 技能主动效果
         protected string _passiveSkillDescription;
@@ -73,6 +75,8 @@ namespace Classes
             _activeSkillCDProportion = new Property<float>();
             _passiveSkillCDDif =  new Property<string>();
             _activeSkillCDDif =  new Property<string>();
+            chargeCount = new Property<int>();
+            maxChargeCount = new Property<int>();
             
             equipmentIcon = ResourceReader.ReadIcon(id);
             

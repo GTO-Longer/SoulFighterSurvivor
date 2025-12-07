@@ -97,6 +97,7 @@
     <Compile Include="Assets\Scripts\Systems\CameraSystem.cs" />
     <Compile Include="Assets\Scripts\Classes\Entities\Enemy.cs" />
     <Compile Include="Assets\Scripts\Systems\EventSystem.cs" />
+    <Compile Include="Assets\Scripts\Classes\Buffs\Frozen.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Shadowflame.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\FrozenHeart.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Liandrys_Torment.cs" />
@@ -127,6 +128,7 @@
     <Compile Include="Assets\Scripts\MVVM\ViewModels\EquipmentInfoViewModel.cs" />
     <Compile Include="Assets\Scripts\Utilities\Enums.cs" />
     <Compile Include="Assets\Scripts\Factories\BulletFactory.cs" />
+    <Compile Include="Assets\Scripts\Classes\Equipments\Rylai_Crystal_Scepter.cs" />
     <Compile Include="Assets\Scripts\MVVM\ViewModels\EquipmentListViewModel.cs" />
     <Compile Include="Assets\Scripts\Managers\EquipmentManager.cs" />
     <Compile Include="Assets\Scripts\MVVM\Binder.cs" />

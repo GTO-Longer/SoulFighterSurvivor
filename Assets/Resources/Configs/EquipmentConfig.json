@@ -511,7 +511,7 @@
         {
             "id": "Riftmaker",
             "equipmentName": "裂隙制造者",
-            "_usageDescription": "提供全能吸血并强化持续作战能力",
+            "_usageDescription": "全能吸血和法术强化",
             "_equipmentType": "Legend",
             "_cost": 2500,
             "_attributeList": {
@@ -530,7 +530,7 @@
         {
             "id": "Cryptbloom",
             "equipmentName": "蜕生",
-            "_usageDescription": "高法穿并提供团队治疗效果",
+            "_usageDescription": "法术穿透和杀敌治疗",
             "_equipmentType": "Legend",
             "_cost": 2500,
             "_attributeList": {
@@ -549,7 +549,7 @@
         {
             "id": "Rylai_Crystal_Scepter",
             "equipmentName": "瑞莱的冰晶节杖",
-            "_usageDescription": "提供稳定的技能减速",
+            "_usageDescription": "提供技能减速",
             "_equipmentType": "Legend",
             "_cost": 2500,
             "_attributeList": {

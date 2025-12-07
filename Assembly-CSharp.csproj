@@ -48,6 +48,7 @@
     <Compile Include="Assets\Scripts\Classes\Equipments\Guardian_sHammer.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Cryptbloom.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Archangel_sStaff.cs" />
+    <Compile Include="Assets\Scripts\Classes\Buffs\VoidInfection.cs" />
     <Compile Include="Assets\Scripts\RVO\RVOAgent.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Guardian_sHorn.cs" />
     <Compile Include="Assets\Scripts\Classes\Buff.cs" />
@@ -103,11 +104,12 @@
     <Compile Include="Assets\Scripts\Classes\Equipments\Shadowflame.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\FrozenHeart.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Liandrys_Torment.cs" />
-    <Compile Include="Assets\Scripts\Components\UI\AttributeButton.cs" />
     <Compile Include="Assets\Scripts\Classes\Buffs\SpellDance.cs" />
+    <Compile Include="Assets\Scripts\Components\UI\AttributeButton.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Guardian_sBlade.cs" />
     <Compile Include="Assets\RVO2\Obstacle.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\HextechRocketBelt.cs" />
+    <Compile Include="Assets\Scripts\Classes\Equipments\Riftmaker.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\HextechGunblade.cs" />
     <Compile Include="Assets\Scripts\Factories\ScreenTextFactory.cs" />
     <Compile Include="Assets\RVO2\Simulator.cs" />

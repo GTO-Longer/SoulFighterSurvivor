@@ -97,15 +97,15 @@
         {
             "id": "Guardian_sHorn",
             "equipmentName": "守护者号角",
-            "_usageDescription": "血量与回复",
+            "_usageDescription": "血量和巨额回复",
             "_equipmentType": "Starter",
             "_cost": 500,
             "_attributeList": {
-                "maxHealthPoint": 300,
-                "percentageHealthRegeneration": 1
+                "maxHealthPoint": 500,
+                "percentageHealthRegeneration": 10
             },
-            "_passiveSkillDescription": "固定格挡来自英雄的攻击和技能的12点伤害",
-            "_passiveSkillName": "不屈不挠",
+            "_passiveSkillDescription": null,
+            "_passiveSkillName": null,
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
             "_activeSkillName": null,
@@ -519,7 +519,7 @@
                 "maxHealthPoint": 350,
                 "abilityHaste": 15
             },
-            "_passiveSkillDescription": "获得<color=#C97BFF>相当于你2%最大生命值的法术强度</color>。\n在使用技能对敌人造成伤害时，每次都能叠加提升<color=#C97BFF>2%总法术强度</color>，最多叠加至<color=#C97BFF>10%总法术强度</color>，持续6秒。在最大强度时，获得<color=#D14BFF>15%全能吸血</color>。",
+            "_passiveSkillDescription": "获得<color=#C97BFF>{0:F0}=（2%最大生命值）法术强度</color>。\n使用技能造成伤害时，提升<color=#C97BFF>2%法术强度</color>，最多叠加5层，持续6秒。在最大层数时，获得<color=#D14BFF>15%全能吸血</color>。",
             "_passiveSkillName": "虚空腐蚀",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,

@@ -54,6 +54,18 @@ namespace Classes
         /// </summary>
         public Property<float> maxHealthPoint;
         /// <summary>
+        /// 原始最大生命值
+        /// </summary>
+        public Property<float> originMaxHealthPoint;
+        /// <summary>
+        /// 最大法力值
+        /// </summary>
+        public Property<float> maxMagicPoint;
+        /// <summary>
+        /// 原始最大法力值
+        /// </summary>
+        public Property<float> originMaxMagicPoint;
+        /// <summary>
         /// 当前生命值
         /// </summary>
         public Property<float> healthPoint;
@@ -61,10 +73,6 @@ namespace Classes
         /// 当前法力值
         /// </summary>
         public Property<float> magicPoint;
-        /// <summary>
-        /// 最大法力值
-        /// </summary>
-        public Property<float> maxMagicPoint;
         /// <summary>
         /// 攻击速度
         /// </summary>
@@ -74,9 +82,17 @@ namespace Classes
         /// </summary>
         public Property<float> attackDamage;
         /// <summary>
+        /// 原始攻击力
+        /// </summary>
+        public Property<float> originAttackDamage;
+        /// <summary>
         /// 法术强度
         /// </summary>
         public Property<float> abilityPower;
+        /// <summary>
+        /// 原始法术强度
+        /// </summary>
+        public Property<float> originAbilityPower;
         /// <summary>
         /// 技能急速
         /// </summary>
@@ -927,18 +943,30 @@ namespace Classes
             maxExperience = new Property<float>(() => 5f * level * level + 80f * level + 195,
                 DataType.Int,
                 level);
-            maxHealthPoint = new Property<float>(() => (_baseMaxHealthPoint + _maxHealthPointGrowth * level + _maxHealthPointBonus) * (1 + _percentageMaxHealthPointBonus),
+            originMaxHealthPoint = new Property<float>(() => (_baseMaxHealthPoint + _maxHealthPointGrowth * level + _maxHealthPointBonus) * (1 + _percentageMaxHealthPointBonus),
                 DataType.Int,
                 level, _maxHealthPointBonus, _percentageMaxHealthPointBonus);
-            maxMagicPoint = new Property<float>(() => (_baseMaxMagicPoint + _maxMagicPointGrowth * level + _maxMagicPointBonus) * (1 + _percentageMaxMagicPointBonus),
+            maxHealthPoint = new Property<float>(() => originMaxHealthPoint,
+                DataType.Int,
+                originMaxHealthPoint);
+            originMaxMagicPoint = new Property<float>(() => (_baseMaxMagicPoint + _maxMagicPointGrowth * level + _maxMagicPointBonus) * (1 + _percentageMaxMagicPointBonus),
                 DataType.Int,
                 level, _maxMagicPointBonus, _percentageMaxMagicPointBonus);
-            attackDamage = new Property<float>(() => (_baseAttackDamage + _attackDamageGrowth * level + _attackDamageBonus + maxMagicPoint * _MPToAD_ConversionEfficiency.Value.y) * (1 + _percentageAttackDamageBonus),
+            maxMagicPoint = new Property<float>(() => originMaxMagicPoint,
                 DataType.Int,
-                level, _attackDamageBonus, _percentageAttackDamageBonus, maxMagicPoint, _MPToAD_ConversionEfficiency);
-            abilityPower = new Property<float>(() => (_abilityPowerBonus + maxMagicPoint * _MPToAP_ConversionEfficiency.Value.y) * (1 + _percentageAbilityPowerBonus),
+                originMaxMagicPoint);
+            originAttackDamage = new Property<float>(() => (_baseAttackDamage + _attackDamageGrowth * level + _attackDamageBonus) * (1 + _percentageAttackDamageBonus),
                 DataType.Int,
-                _abilityPowerBonus, _percentageAbilityPowerBonus, maxMagicPoint, _MPToAP_ConversionEfficiency);
+                level, _attackDamageBonus, _percentageAttackDamageBonus);
+            attackDamage = new Property<float>(() => originAttackDamage + originMaxMagicPoint * _MPToAD_ConversionEfficiency.Value.y,
+                DataType.Int,
+                originAttackDamage, originMaxMagicPoint, _MPToAD_ConversionEfficiency);
+            originAbilityPower = new Property<float>(() => _abilityPowerBonus * (1 + _percentageAbilityPowerBonus),
+                DataType.Int,
+                _abilityPowerBonus, _percentageAbilityPowerBonus);
+            abilityPower = new Property<float>(() => originAbilityPower + originMaxMagicPoint * _MPToAP_ConversionEfficiency.Value.y + originMaxHealthPoint * _HPToAP_ConversionEfficiency.Value.y,
+                DataType.Int,
+                originAbilityPower, originMaxMagicPoint, _MPToAP_ConversionEfficiency, originMaxHealthPoint, _HPToAP_ConversionEfficiency);
             attackSpeed = new Property<float>(() => (_baseAttackSpeed + _attackSpeedGrowth * level + _attackSpeedBonus * _attackSpeedYield) * (1 + _percentageAttackSpeedBonus),
                 DataType.Float,
                 level, _attackSpeedBonus, _percentageAttackSpeedBonus);

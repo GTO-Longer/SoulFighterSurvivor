@@ -797,6 +797,12 @@ namespace Classes
             {
                 // 刷新持续时间
                 buffInList.buffDurationTimer = 0;
+                
+                // 叠层
+                if (buffInList.buffCount < buffInList.buffMaxCount)
+                {
+                    buffInList.buffCount += 1;
+                }
             }
         }
         

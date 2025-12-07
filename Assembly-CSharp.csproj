@@ -82,6 +82,7 @@
     <Compile Include="Assets\Scripts\Components\UI\EquipmentSlotButton.cs" />
     <Compile Include="Assets\Scripts\DataManagement\EquipmentData.cs" />
     <Compile Include="Assets\Scripts\Components\UI\PanelUIRoot.cs" />
+    <Compile Include="Assets\Scripts\Classes\Buffs\EvilFlame.cs" />
     <Compile Include="Assets\Scripts\Systems\TestSystem.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Muramana.cs" />
     <Compile Include="Assets\Scripts\Classes\Bullet.cs" />

@@ -15,11 +15,11 @@ namespace Classes
         /// <summary>
         /// buff层数
         /// </summary>
-        protected int buffCount;
+        public int buffCount;
         /// <summary>
         /// buff最大层数
         /// </summary>
-        protected int buffMaxCount;
+        public int buffMaxCount;
         /// <summary>
         /// buff持续时间
         /// </summary>
@@ -33,10 +33,6 @@ namespace Classes
         /// 获取buff
         /// </summary>
         public Action OnBuffGet;
-        /// <summary>
-        /// buff生效
-        /// </summary>
-        public Action OnBuffEffect;
         /// <summary>
         /// buff失效
         /// </summary>

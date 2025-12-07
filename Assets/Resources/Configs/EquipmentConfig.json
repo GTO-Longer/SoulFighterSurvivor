@@ -142,7 +142,7 @@
                 "maxMagicPoint": 600,
                 "abilityHaste": 25
             },
-            "_passiveSkillDescription": "伤害型技能会消耗6层弹丸充能来对目标造成额外{0:F0}=（80+5%法术强度+6%额外攻击力）的伤害。每多一层弹丸，就会对主要目标重复造成一次<color=#00D8FF>35%</color>效果的伤害。",
+            "_passiveSkillDescription": "每6秒获得1层充能，技能会消耗最多6层充能来对目标造成{0:F0}=（80+5%法术强度+6%额外攻击力）魔法伤害。每多一层弹丸，就会对主要目标重复造成一次<color=#00D8FF>35%</color>效果的伤害。",
             "_passiveSkillName": "开火",
             "_passiveSkillCD": 6,
             "_activeSkillDescription": null,
@@ -256,7 +256,7 @@
                 "maxMagicPoint": 1000,
                 "abilityHaste": 15
             },
-            "_passiveSkillDescription": "获得{0:F0}=（<color=#FF6161>10%最大法力值</color>）攻击力。\n\n普攻造成额外<color=#FF6A6A>{1:F0}=（5+2%最大法力值）物理伤害</color>\n技能造成额外<color=#FF6A6A>{2:F0}=（20+10%最大法力值）物理伤害</color>。",
+            "_passiveSkillDescription": "获得{0:F0}=（<color=#FF6161>10%最大法力值</color>）攻击力。\n普攻造成额外<color=#FF6A6A>{1:F0}=（5+2%最大法力值）物理伤害</color>\n技能造成额外<color=#FF6A6A>{2:F0}=（20+10%最大法力值）物理伤害</color>。",
             "_passiveSkillName": "冲击",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,

@@ -31,6 +31,7 @@ namespace Managers.EntityManagers
                 enemy.Move();
                 enemy.Attack();
                 enemy.GainExperience();
+                enemy.EntityUpdate();
             }
         }
 

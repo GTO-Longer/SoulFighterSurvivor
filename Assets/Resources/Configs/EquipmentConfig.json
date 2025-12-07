@@ -582,7 +582,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null
+            "_uniqueEffect": "MagicPenetration"
         },
         {
             "id": "Ruinous_Ritual",

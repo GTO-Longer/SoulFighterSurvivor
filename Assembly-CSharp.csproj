@@ -96,6 +96,7 @@
     <Compile Include="Assets\RVO2\NativeParallelMultiHashMapExtensions.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Luden_sCompanion.cs" />
     <Compile Include="Assets\Scripts\Systems\CameraSystem.cs" />
+    <Compile Include="Assets\Scripts\Classes\Equipments\Cryptic.cs" />
     <Compile Include="Assets\Scripts\Classes\Entities\Enemy.cs" />
     <Compile Include="Assets\Scripts\Systems\EventSystem.cs" />
     <Compile Include="Assets\Scripts\Classes\Buffs\Frozen.cs" />

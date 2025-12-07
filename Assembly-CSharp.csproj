@@ -127,6 +127,7 @@
     <Compile Include="Assets\Scripts\Classes\Equipments\Guardian_sOrb.cs" />
     <Compile Include="Assets\Scripts\Classes\Skill.cs" />
     <Compile Include="Assets\Scripts\Classes\Buffs\FrozenHeart.cs" />
+    <Compile Include="Assets\Scripts\Classes\Equipments\CursedBlood.cs" />
     <Compile Include="Assets\Scripts\MVVM\ViewModels\EquipmentInfoViewModel.cs" />
     <Compile Include="Assets\Scripts\Utilities\Enums.cs" />
     <Compile Include="Assets\Scripts\Factories\BulletFactory.cs" />
@@ -134,6 +135,7 @@
     <Compile Include="Assets\Scripts\MVVM\ViewModels\EquipmentListViewModel.cs" />
     <Compile Include="Assets\Scripts\Managers\EquipmentManager.cs" />
     <Compile Include="Assets\Scripts\MVVM\Binder.cs" />
+    <Compile Include="Assets\Scripts\Classes\Buffs\Tyrant.cs" />
     <Compile Include="Assets\Scripts\Components\UI\SkillButton.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipment.cs" />
     <Compile Include="Assets\Scripts\Factories\EnemyFactory.cs" />

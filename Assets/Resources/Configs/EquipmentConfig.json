@@ -500,7 +500,7 @@
                 "maxHealthPoint": 350,
                 "abilityHaste": 15
             },
-            "_passiveSkillDescription": "用技能对敌人造成魔法伤害时，会对其造成持续6秒的7.5%魔法抗性削减，至多叠至30%。",
+            "_passiveSkillDescription": "用技能对敌人造成伤害时，会对其造成持续6秒的7.5%魔法抗性削减，至多叠至30%，持续5秒。",
             "_passiveSkillName": "恶劣暴行",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,

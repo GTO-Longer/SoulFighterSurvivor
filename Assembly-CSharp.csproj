@@ -52,7 +52,6 @@
     <Compile Include="Assets\Scripts\Classes\Buff.cs" />
     <Compile Include="Assets\RVO2\JobHandleExtensions.cs" />
     <Compile Include="Assets\RVO2\RVOMath.cs" />
-    <Compile Include="Assets\Scripts\Classes\Equipments\Liandry_sTorment.cs" />
     <Compile Include="Assets\Scripts\MVVM\ViewModels\HeroAttributeViewModel.cs" />
     <Compile Include="Assets\Scripts\RVO\RVOObstacle.cs" />
     <Compile Include="Assets\Scripts\Components\UI\BuffButton.cs" />
@@ -97,6 +96,7 @@
     <Compile Include="Assets\Scripts\Systems\EventSystem.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Shadowflame.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\FrozenHeart.cs" />
+    <Compile Include="Assets\Scripts\Classes\Equipments\Liandrys_Torment.cs" />
     <Compile Include="Assets\Scripts\Components\UI\AttributeButton.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Guardian_sBlade.cs" />
     <Compile Include="Assets\RVO2\Obstacle.cs" />
@@ -104,6 +104,7 @@
     <Compile Include="Assets\Scripts\Classes\Equipments\HextechGunblade.cs" />
     <Compile Include="Assets\Scripts\Factories\ScreenTextFactory.cs" />
     <Compile Include="Assets\RVO2\Simulator.cs" />
+    <Compile Include="Assets\Scripts\Classes\Buffs\Torment.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Rabadon_sAgony.cs" />
     <Compile Include="Assets\Scripts\DataManagement\EntiyData.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Nashors_Tooth.cs" />
@@ -132,6 +133,7 @@
     <Compile Include="Assets\Scripts\Classes\Equipments\LichBane.cs" />
     <Compile Include="Assets\Scripts\DataManagement\ResourceReader.cs" />
     <Compile Include="Assets\Scripts\Classes\Skills\FoxFire.cs" />
+    <Compile Include="Assets\Scripts\Classes\Equipments\BlackFireTorch.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Guinsoos_Rageblade.cs" />
     <Compile Include="Assets\RVO2\NativeArrayExtensions.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

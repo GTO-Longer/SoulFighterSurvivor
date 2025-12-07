@@ -170,7 +170,7 @@
             "_uniqueEffect": null
         },
         {
-            "id": "Liandry_sTorment",
+            "id": "BlackFireTorch",
             "equipmentName": "黯炎火炬",
             "_usageDescription": "持续伤害",
             "_equipmentType": "Legend",
@@ -481,7 +481,7 @@
             "_attributeList": {
                 "abilityPower": 100
             },
-            "_passiveSkillDescription": "使你的总法术强度提升30%。",
+            "_passiveSkillDescription": "使你的<color=#C97BFF>总法术强度提升30%</color>。",
             "_passiveSkillName": "魔法乐章",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
@@ -519,7 +519,7 @@
                 "maxHealthPoint": 350,
                 "abilityHaste": 15
             },
-            "_passiveSkillDescription": "获得相当于你2%最大生命值的法术强度。\n在使用技能对敌人造成伤害时，每次都能叠加额外造成2%真实伤害，最多叠加至8%，持续6秒。在最大强度时，获得15%全能吸血。",
+            "_passiveSkillDescription": "获得<color=#C97BFF>相当于你2%最大生命值的法术强度</color>。\n在使用技能对敌人造成伤害时，每次都能叠加额外造成2%真实伤害，最多叠加至8%，持续6秒。在最大强度时，获得<color=#D14BFF>15%全能吸血</color>。",
             "_passiveSkillName": "虚空腐蚀",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
@@ -538,7 +538,7 @@
                 "percentageMagicPenetration": 0.3,
                 "abilityHaste": 15
             },
-            "_passiveSkillDescription": "每当一个敌人被你杀死时，为你治疗{0:F0}=（450+50%法术强度）生命值。",
+            "_passiveSkillDescription": "每当一个敌人被你杀死时，为你治疗<color=#20FF20>{0:F0}=（450+50%法术强度）生命值</color>。",
             "_passiveSkillName": "死中焕生",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
@@ -595,7 +595,7 @@
                 "abilityHaste": 15,
                 "criticalRate": 0.25
             },
-            "_passiveSkillDescription": "在施放技能时，获得持续6秒的2.5%暴击率，最多可叠至25%暴击率。\n根据你的暴击率会有概率使你的技能额外造成{0:F0}=（70+15%法术强度）额外伤害",
+            "_passiveSkillDescription": "在施放技能时，获得持续6秒的2.5%暴击率，最多可叠至25%暴击率。\n根据你的暴击率会有概率使你的技能额外造成<color=#00D8FF>{0:F0}=（70+15%法术强度）额外伤害</color>。",
             "_passiveSkillName": "怒火与破坏",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
@@ -613,7 +613,7 @@
                 "abilityPower": 50,
                 "maxHealthPoint": 250
             },
-            "_passiveSkillDescription": "使用技能伤害敌人会灼烧敌人，每秒造成其0.5%最大生命值的魔法伤害，最多叠加至6%最大生命值的魔法伤害，持续3秒。",
+            "_passiveSkillDescription": "使用技能伤害敌人会灼烧敌人，每秒造成其<color=#00D8FF>1%最大生命值的魔法伤害</color>，最多叠加至<color=#00D8FF>8%最大生命值的魔法伤害</color>，持续6秒。",
             "_passiveSkillName": "苦难",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
@@ -632,7 +632,7 @@
                 "abilityPower": 25,
                 "attackSpeed": 0.25
             },
-            "_passiveSkillDescription": "攻击附带{0:F0} =（10+3%法术强度 + 6%攻击力）魔法伤害的攻击特效。\n普攻提供8%攻击速度，最多叠加至32%攻击速度，持续4秒。满层时每次攻击额外附带33%的攻击特效。",
+            "_passiveSkillDescription": "攻击附带<color=#00D8FF>{0:F0} =（10+3%法术强度+6%攻击力）魔法伤害</color>的攻击特效。\n普攻提供<color=#E0C300>8%攻击速度</color>，最多叠加至<color=#E0C300>32%攻击速度</color>，持续4秒。满层时每次攻击额外附带33%的攻击特效。",
             "_passiveSkillName": "附魔打击",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,

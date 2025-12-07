@@ -1,20 +1,17 @@
 using System;
-using Managers.EntityManagers;
-using Utilities;
 
 namespace Classes.Equipments
 {
-    public class Liandry_sTorment : Equipment
+    public class Liandrys_Torment : Equipment
     {
         private Action<Entity, Entity, float, Skill> equipmentEffect;
-        public float damageCount => 20 + 0.04f * HeroManager.hero.abilityPower;
         
-        public Liandry_sTorment() : base("Liandry_sTorment")
+        public Liandrys_Torment() : base("Liandrys_Torment")
         {
             equipmentEffect = (attacker, target, _, _) =>
             {
-                var evilFlame = new Buffs.EvilFlame(target, attacker);
-                target.GetBuff(evilFlame);
+                var torment = new Buffs.Torment(target, attacker);
+                target.GetBuff(torment);
             };
         }
 
@@ -32,7 +29,7 @@ namespace Classes.Equipments
 
         public override bool GetPassiveSkillDescription(out string description)
         {
-            description = string.Format(_passiveSkillName + "\n" + _passiveSkillDescription, damageCount);
+            description = string.Format(_passiveSkillName + "\n" + _passiveSkillDescription);
             return true;
         }
     }

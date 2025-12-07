@@ -1,20 +1,19 @@
 using System;
-using Utilities;
+using Managers.EntityManagers;
 
 namespace Classes.Equipments
 {
-    public class Shadowflame : Equipment
+    public class BlackFireTorch : Equipment
     {
         private Action<Entity, Entity, float, Skill> equipmentEffect;
+        private float damageCount => 20 + 0.04f * HeroManager.hero.abilityPower;
         
-        public Shadowflame() : base("Shadowflame")
+        public BlackFireTorch() : base("BlackFireTorch")
         {
-            equipmentEffect = (attacker, target, damageCount, _) =>
+            equipmentEffect = (attacker, target, _, _) =>
             {
-                if (target.healthPointProportion <= 0.4f)
-                {
-                    target.TakeDamage(damageCount * 0.15f, DamageType.Real, attacker);
-                }
+                var evilFlame = new Buffs.EvilFlame(target, attacker);
+                target.GetBuff(evilFlame);
             };
         }
 
@@ -32,7 +31,7 @@ namespace Classes.Equipments
 
         public override bool GetPassiveSkillDescription(out string description)
         {
-            description = string.Format(_passiveSkillName + "\n" + _passiveSkillDescription);
+            description = string.Format(_passiveSkillName + "\n" + _passiveSkillDescription, damageCount);
             return true;
         }
     }

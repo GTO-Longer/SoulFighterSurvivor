@@ -1,24 +1,23 @@
 using System;
-using Managers.EntityManagers;
 using UnityEngine;
 using Utilities;
 
 namespace Classes.Buffs
 {
-    public class EvilFlame : Buff
+    public class Torment : Buff
     {
-        private float damageCount => 20 + 0.04f * HeroManager.hero.abilityPower;
+        private float damageCount => owner.maxHealthPoint * 0.01f;
         private float timer;
         /// <summary>
         /// buff效果
         /// </summary>
-        public Action<Entity> BuffEffect;
-        public EvilFlame(Entity ownerEntity, Entity sourceEntity) : base(ownerEntity, sourceEntity, "邪焰", "", 3, 3)
+        private Action<Entity> BuffEffect;
+        public Torment(Entity ownerEntity, Entity sourceEntity) : base(ownerEntity, sourceEntity, "折磨", "", 8, 6)
         {
             BuffEffect = (_) =>
             {
                 timer += Time.deltaTime;
-                buffDescription = $"每秒造成{damageCount:F0}魔法伤害";
+                buffDescription = $"每秒造成{1 * buffCount:0.#}%最大生命值魔法伤害";
                 if (timer >= 0.5f)
                 {
                     var damage = owner.CalculateAPDamage(sourceEntity, damageCount * buffCount / 2f);

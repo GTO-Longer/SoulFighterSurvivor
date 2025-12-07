@@ -51,6 +51,7 @@
     <Compile Include="Assets\Scripts\Classes\Equipments\Guardian_sHorn.cs" />
     <Compile Include="Assets\Scripts\Classes\Buff.cs" />
     <Compile Include="Assets\RVO2\JobHandleExtensions.cs" />
+    <Compile Include="Assets\Scripts\Classes\Equipments\Starsprint.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Void_Staff.cs" />
     <Compile Include="Assets\RVO2\RVOMath.cs" />
     <Compile Include="Assets\Scripts\MVVM\ViewModels\HeroAttributeViewModel.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="Assets\Scripts\Classes\Equipments\FrozenHeart.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Liandrys_Torment.cs" />
     <Compile Include="Assets\Scripts\Components\UI\AttributeButton.cs" />
+    <Compile Include="Assets\Scripts\Classes\Buffs\SpellDance.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Guardian_sBlade.cs" />
     <Compile Include="Assets\RVO2\Obstacle.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\HextechRocketBelt.cs" />

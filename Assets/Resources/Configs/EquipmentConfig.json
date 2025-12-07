@@ -437,7 +437,7 @@
         {
             "id": "Starsprint",
             "equipmentName": "星界驱驰",
-            "_usageDescription": "移动速度提升与技能触发加速",
+            "_usageDescription": "移动速度提升",
             "_equipmentType": "Legend",
             "_cost": 2500,
             "_attributeList": {
@@ -446,7 +446,7 @@
                 "abilityHaste": 35,
                 "percentageMovementSpeed": 0.04
             },
-            "_passiveSkillDescription": "对敌人释放技能造成魔法伤害或真实伤害时会提供60移动速度，持续4秒。",
+            "_passiveSkillDescription": "对敌人释放技能造成伤害会提供60移动速度，持续4秒。",
             "_passiveSkillName": "咒舞",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
@@ -492,7 +492,7 @@
         {
             "id": "CursedBlood",
             "equipmentName": "放血者的诅咒",
-            "_usageDescription": "法术穿透与叠层削抗效果",
+            "_usageDescription": "叠层削减法术抗性",
             "_equipmentType": "Legend",
             "_cost": 2500,
             "_attributeList": {
@@ -519,7 +519,7 @@
                 "maxHealthPoint": 350,
                 "abilityHaste": 15
             },
-            "_passiveSkillDescription": "获得<color=#C97BFF>相当于你2%最大生命值的法术强度</color>。\n在使用技能对敌人造成伤害时，每次都能叠加额外造成2%真实伤害，最多叠加至8%，持续6秒。在最大强度时，获得<color=#D14BFF>15%全能吸血</color>。",
+            "_passiveSkillDescription": "获得<color=#C97BFF>相当于你2%最大生命值的法术强度</color>。\n在使用技能对敌人造成伤害时，每次都能叠加提升<color=#C97BFF>2%总法术强度</color>，最多叠加至<color=#C97BFF>10%总法术强度</color>，持续6秒。在最大强度时，获得<color=#D14BFF>15%全能吸血</color>。",
             "_passiveSkillName": "虚空腐蚀",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
@@ -540,7 +540,7 @@
             },
             "_passiveSkillDescription": "每当一个敌人被你杀死时，为你治疗<color=#20FF20>{0:F0}=（450+50%法术强度）生命值</color>。",
             "_passiveSkillName": "死中焕生",
-            "_passiveSkillCD": 0,
+            "_passiveSkillCD": 45,
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
@@ -567,7 +567,7 @@
         {
             "id": "Cryptic",
             "equipmentName": "困惑",
-            "_usageDescription": "混合穿透与巨人克制效果",
+            "_usageDescription": "混合穿透与巨人杀手",
             "_equipmentType": "Legend",
             "_cost": 2500,
             "_attributeList": {

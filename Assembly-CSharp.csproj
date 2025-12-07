@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Classes\Equipments\Guardian_sHammer.cs" />
+    <Compile Include="Assets\Scripts\Classes\Equipments\Cryptbloom.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Archangel_sStaff.cs" />
     <Compile Include="Assets\Scripts\RVO\RVOAgent.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Guardian_sHorn.cs" />

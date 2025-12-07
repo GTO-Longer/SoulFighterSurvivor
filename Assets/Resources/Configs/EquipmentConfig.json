@@ -538,9 +538,9 @@
                 "percentageMagicPenetration": 0.3,
                 "abilityHaste": 15
             },
-            "_passiveSkillDescription": "每当一个敌人被你杀死时，为你治疗<color=#20FF20>{0:F0}=（450+50%法术强度）生命值</color>。",
+            "_passiveSkillDescription": "每当一个敌人被你杀死时，为你治疗<color=#20FF20>{0:F0}=（45+5%法术强度）生命值</color>。",
             "_passiveSkillName": "死中焕生",
-            "_passiveSkillCD": 45,
+            "_passiveSkillCD": 5,
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,

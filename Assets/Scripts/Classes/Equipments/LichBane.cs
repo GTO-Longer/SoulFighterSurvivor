@@ -24,7 +24,6 @@ namespace Classes.Equipments
         public override void OnEquipmentGet(Entity entity)
         {
             base.OnEquipmentGet(entity);
-
             owner.AttackEffect += equipmentEffect;
             owner.EntityUpdateEvent += equipmentTimerUpdate;
         }

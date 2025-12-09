@@ -27,7 +27,7 @@ namespace MVVM.ViewModels
             equipmentIcon = transform.Find("EquipmentTitle/EquipmentIcon").GetComponent<Image>();
             equipmentName = transform.Find("EquipmentTitle/NameAndDescription/EquipmentName").GetComponent<TMP_Text>();
             usageDescription = transform.Find("EquipmentTitle/NameAndDescription/UsageDescription").GetComponent<TMP_Text>();
-            equipmentCost = transform.Find("EquipmentTitle/EquipmentPrice/EquipmentCost").GetComponent<TMP_Text>();
+            equipmentCost = transform.Find("EquipmentTitle/EquipmentCost").GetComponent<TMP_Text>();
             purchaseButton = transform.Find("PurchaseButton")?.GetComponent<Button>();
 
             entryPrefab.SetActive(false);
@@ -44,7 +44,7 @@ namespace MVVM.ViewModels
 
                 equipmentName.text = equipment.equipmentName;
                 usageDescription.text = equipment._usageDescription;
-                equipmentCost.text = $"{equipment._cost}</color>";
+                equipmentCost.text = $"<sprite=0>{equipment._cost}";
                 equipmentIcon.sprite = equipment.equipmentIcon;
 
                 if (purchaseButton != null)
@@ -267,12 +267,6 @@ namespace MVVM.ViewModels
                     entryList[^1].transform.Find("EntryContent").GetComponent<TMP_Text>().text = activeContent;
                     entryList[^1].SetActive(true);
                 }
-
-                equipmentIcon.gameObject.SetActive(true);
-                equipmentName.gameObject.SetActive(true);
-                usageDescription.gameObject.SetActive(true);
-                equipmentCost.transform.parent.gameObject.SetActive(true);
-                purchaseButton?.gameObject.SetActive(true);
 
                 // 更新UI布局
                 LayoutRebuilder.ForceRebuildLayoutImmediate(entryPrefab.transform.parent.GetComponent<RectTransform>());

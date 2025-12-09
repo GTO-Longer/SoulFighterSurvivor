@@ -10,7 +10,7 @@
                 "abilityPower": 55,
                 "AbilityHaste": 25
             },
-            "_passiveSkillDescription": "回复<color=#0066FF>35法力值</color>",
+            "_passiveSkillDescription": "回复<color=#0066FF>35<sprite=\"Attributes\" name=\"MaxMagicPointIcon\"></color>",
             "_passiveSkillName": "复原力",
             "_passiveSkillCD": 5,
             "_activeSkillDescription": null,
@@ -142,7 +142,7 @@
                 "maxMagicPoint": 600,
                 "abilityHaste": 25
             },
-            "_passiveSkillDescription": "每6秒获得1层充能，技能会消耗最多6层充能来对目标造成{0:F0}=（80+5%法术强度+6%额外攻击力）魔法伤害。每多一层弹丸，就会对主要目标重复造成一次<color=#00D8FF>35%</color>效果的伤害。",
+            "_passiveSkillDescription": "每6秒获得1层充能，技能会消耗最多6层充能来对目标造成<color=#C97BFF>{0:F0}</color>=（80+<color=#C97BFF>5%</color><sprite=\"Attributes\" name=\"AbilityPowerIcon\">+<color=#FF8A00>6%额外</color><sprite=\"Attributes\" name=\"AttackDamageIcon\">）魔法伤害。每多一层弹丸，就会对主要目标重复造成一次<color=#00D8FF>35%</color>效果的伤害。",
             "_passiveSkillName": "开火",
             "_passiveSkillCD": 6,
             "_activeSkillDescription": null,
@@ -161,7 +161,7 @@
                 "maxMagicPoint": 600,
                 "abilityHaste": 20
             },
-            "_passiveSkillDescription": "你的终极技能额外10%魔法伤害\n终极技能命中时，在脚下生成灼烧区域，持续3秒，每秒造成<color=#00D8FF>{0:F0}=（15+5%法术强度）魔法伤害</color>，并削减敌人<color=#C97BFF>25魔法抗性</color>。",
+            "_passiveSkillDescription": "你的终极技能造成<color=#C97BFF>额外10%魔法伤害</color>\n终极技能命中时，在脚下生成灼烧区域，持续3秒，每秒造成<color=#00D8FF>{0:F0}=（15+5%<sprite=\"Attributes\" name=\"AbilityPowerIcon\">）魔法伤害</color>，并削减敌人<color=#C97BFF>25魔法抗性</color>。",
             "_passiveSkillName": "蔑视与憎恶",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
@@ -180,7 +180,7 @@
                 "maxMagicPoint": 600,
                 "abilityHaste": 20
             },
-            "_passiveSkillDescription": "造成技能伤害时会灼烧敌人，每秒造成<color=#00D8FF>{0:F0}=（20+4%法术强度）魔法伤害</color>，最多可叠加至3层，持续3秒。",
+            "_passiveSkillDescription": "造成技能伤害时会灼烧敌人，每秒造成<color=#00D8FF>{0:F0}=（20+4%<sprite=\"Attributes\" name=\"AbilityPowerIcon\">）魔法伤害</color>，最多可叠加至3层，持续3秒。",
             "_passiveSkillName": "邪焰",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
@@ -199,7 +199,7 @@
                 "maxMagicPoint": 600,
                 "abilityHaste": 25
             },
-            "_passiveSkillDescription": "获得{0:F0}=（<color=#C97BFF>3%最大法力值</color>）法术强度。\n在击杀50个敌人后，这件装备会转变为炽天使之拥",
+            "_passiveSkillDescription": "获得{0:F0}=（<color=#C97BFF>3%最大<sprite=\"Attributes\" name=\"MaxMagicPointIcon\"></color>）<sprite=\"Attributes\" name=\"AbilityPowerIcon\">。\n在击杀50个敌人后，这件装备会转变为炽天使之拥",
             "_passiveSkillName": "敬畏",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
@@ -218,7 +218,7 @@
                 "maxMagicPoint": 1200,
                 "abilityHaste": 25
             },
-            "_passiveSkillDescription": "获得{0:F0}=（<color=#C97BFF>6%最大法力值</color>）法术强度。\n生命值低于30%时，回复{1:F0} =（300+ <color=#1DA1FF>20%最大法力值</color>）生命值，持续3秒。",
+            "_passiveSkillDescription": "获得{0:F0}=（<color=#C97BFF>6%最大<sprite=\"Attributes\" name=\"MaxMagicPointIcon\"></color>）<sprite=\"Attributes\" name=\"AbilityPowerIcon\">。\n<sprite=\"Attributes\" name=\"MaxHealthPointIcon\">低于30%时，回复{1:F0} =（300+ <color=#1DA1FF>20%最大<sprite=\"Attributes\" name=\"MaxMagicPointIcon\"></color>）<sprite=\"Attributes\" name=\"MaxHealthPointIcon\">，持续3秒。",
             "_passiveSkillName": "救主灵刃",
             "_passiveSkillCD": 45,
             "_activeSkillDescription": null,
@@ -237,7 +237,7 @@
                 "maxMagicPoint": 600,
                 "abilityHaste": 15
             },
-            "_passiveSkillDescription": "获得{0:F0}=（<color=#FF6161>5%额外法力值</color>）攻击力。\n在击杀50个敌人后，这件装备会转变为魔切",
+            "_passiveSkillDescription": "获得{0:F0}=（<color=#FF6161>5%额外<sprite=\"Attributes\" name=\"MaxMagicPointIcon\"></color>）<sprite=\"Attributes\" name=\"AttackDamageIcon\">。\n在击杀50个敌人后，这件装备会转变为魔切",
             "_passiveSkillName": "敬畏",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
@@ -256,7 +256,7 @@
                 "maxMagicPoint": 1000,
                 "abilityHaste": 15
             },
-            "_passiveSkillDescription": "获得{0:F0}=（<color=#FF6161>10%最大法力值</color>）攻击力。\n普攻造成额外<color=#FF6A6A>{1:F0}=（5+2%最大法力值）物理伤害</color>\n技能造成额外<color=#FF6A6A>{2:F0}=（20+10%最大法力值）物理伤害</color>。",
+            "_passiveSkillDescription": "获得{0:F0}=（<color=#FF6161>10%最大<sprite=\"Attributes\" name=\"MaxMagicPointIcon\"></color>）<sprite=\"Attributes\" name=\"AttackDamageIcon\">。\n普攻造成额外<color=#FF6A6A>{1:F0}=（5+2%最大<sprite=\"Attributes\" name=\"MaxMagicPointIcon\">）物理伤害</color>\n技能造成额外<color=#FF6A6A>{2:F0}=（20+10%最大<sprite=\"Attributes\" name=\"MaxMagicPointIcon\">）物理伤害</color>。",
             "_passiveSkillName": "冲击",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
@@ -294,7 +294,7 @@
                 "maxHealthPoint": 350,
                 "maxMagicPoint": 300
             },
-            "_passiveSkillDescription": "在击杀50个敌人后，这个装备获得额外的<color=#C97BFF>50法术强度</color>、<color=#0ACD02>300生命值</color>、<color=#1DA1FF>400法力值</color>，并且你的等级提升1级。\n承受伤害时，你会回复相当于<color=#1DA1FF>伤害值15%的法力值</color>；施放一个技能时，你会根据消耗的法力值回复自身相当于<color=#0ACD02>消耗法力值25%的生命值</color>",
+            "_passiveSkillDescription": "在击杀50个敌人后，这个装备获得额外的<color=#C97BFF>50<sprite=\"Attributes\" name=\"AbilityPowerIcon\"></color>、<color=#0ACD02>300<sprite=\"Attributes\" name=\"MaxHealthPointIcon\"></color>、<color=#1DA1FF>400<sprite=\"Attributes\" name=\"MaxMagicPointIcon\"></color>，并且你的等级提升1级。\n承受伤害时，你会回复相当于<color=#1DA1FF>伤害值15%的<sprite=\"Attributes\" name=\"MaxMagicPointIcon\"></color>；施放一个技能时，你会根据消耗的<sprite=\"Attributes\" name=\"MaxMagicPointIcon\">回复自身相当于<color=#0ACD02>消耗<sprite=\"Attributes\" name=\"MaxMagicPointIcon\">25%的<sprite=\"Attributes\" name=\"MaxHealthPointIcon\"></color>",
             "_passiveSkillName": "时光永恒",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
@@ -316,7 +316,7 @@
             "_passiveSkillDescription": null,
             "_passiveSkillName": null,
             "_passiveSkillCD": 0,
-            "_activeSkillDescription": "向目标方向冲刺并释放一道魔法弹影，造成<color=#00D8FF>{0:F0}=（<color=#C97BFF>100+10%法术强度</color>）魔法伤害</color>。\n该装备的位移可以越过墙体。",
+            "_activeSkillDescription": "向目标方向冲刺并释放一道魔法弹影，造成<color=#00D8FF>{0:F0}=（<color=#C97BFF>100+10%<sprite=\"Attributes\" name=\"AbilityPowerIcon\"></color>）魔法伤害</color>。\n该装备的位移可以越过墙体。",
             "_activeSkillName": "超音速",
             "_activeSkillCD": 25,
             "_uniqueEffect": null
@@ -369,7 +369,7 @@
                 "maxHealthPoint": 250,
                 "abilityHaste": 15
             },
-            "_passiveSkillDescription": "技能伤害会对生命值低于<color=#0ACD02>40%</color>的敌人造成额外<color=#FFA347>15%</color>的真实伤害",
+            "_passiveSkillDescription": "技能伤害会对<sprite=\"Attributes\" name=\"MaxHealthPointIcon\">低于<color=#0ACD02>40%</color>的敌人造成额外<color=#FFA347>15%</color>的真实伤害",
             "_passiveSkillName": "余烬绽放",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
@@ -388,7 +388,7 @@
                 "magicPenetration": 15,
                 "percentageMovementSpeed": 0.04
             },
-            "_passiveSkillDescription": "在2.5秒内使用技能对敌人造成相当于其<color=#0ACD02>25%最大生命值</color>的伤害，则在2秒后对其造成<color=#00D8FF>{0:F0}=（180+50% 法术强度）魔法伤害</color>。",
+            "_passiveSkillDescription": "在2.5秒内使用技能对敌人造成相当于其<color=#0ACD02>25%最大<sprite=\"Attributes\" name=\"MaxHealthPointIcon\"></color>的伤害，则在2秒后对其造成<color=#00D8FF>{0:F0}=（180+50% <sprite=\"Attributes\" name=\"AbilityPowerIcon\">）魔法伤害</color>。",
             "_passiveSkillName": "风暴掠袭",
             "_passiveSkillCD": 10,
             "_activeSkillDescription": null,
@@ -407,7 +407,7 @@
                 "percentageMovementSpeed": 0.1,
                 "abilityHaste": 20
             },
-            "_passiveSkillDescription": "施放技能后5秒内，下次攻击会附带额外的<color=#00D8FF>{0:F0}</color>=（<color=#FF6161>75%基础攻击</color>+<color=#C97BFF>66%法术强度</color>）魔法伤害的攻击特效",
+            "_passiveSkillDescription": "施放技能后5秒内，下次<sprite=\"Attributes\" name=\"AttackDamageIcon\">会附带额外的<color=#00D8FF>{0:F0}</color>=（<color=#FF6161>75%基础<sprite=\"Attributes\" name=\"AttackDamageIcon\"></color>+<color=#C97BFF>66%<sprite=\"Attributes\" name=\"AbilityPowerIcon\"></color>）魔法伤害的<sprite=\"Attributes\" name=\"AttackDamageIcon\">特效",
             "_passiveSkillName": "咒刃",
             "_passiveSkillCD": 3,
             "_activeSkillDescription": null,
@@ -426,7 +426,7 @@
                 "attackSpeed": 0.45,
                 "abilityHaste": 10
             },
-            "_passiveSkillDescription": "攻击附带<color=#C97BFF>{0:F0}=（15+20%法强）魔法伤害</color>的攻击特效。",
+            "_passiveSkillDescription": "攻击附带<color=#C97BFF>{0:F0}=（15+20%<sprite=\"Attributes\" name=\"AbilityPowerIcon\">）魔法伤害</color>的攻击特效。",
             "_passiveSkillName": "艾卡西亚之咬",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
@@ -481,7 +481,7 @@
             "_attributeList": {
                 "abilityPower": 100
             },
-            "_passiveSkillDescription": "使你的<color=#C97BFF>总法术强度提升30%</color>。",
+            "_passiveSkillDescription": "使你的<color=#C97BFF>总<sprite=\"Attributes\" name=\"AbilityPowerIcon\">提升30%</color>。",
             "_passiveSkillName": "魔法乐章",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
@@ -519,7 +519,7 @@
                 "maxHealthPoint": 350,
                 "abilityHaste": 15
             },
-            "_passiveSkillDescription": "获得<color=#C97BFF>{0:F0}=（2%最大生命值）法术强度</color>。\n使用技能造成伤害时，提升<color=#C97BFF>2%法术强度</color>，最多叠加5层，持续6秒。在最大层数时，获得<color=#D14BFF>15%全能吸血</color>。",
+            "_passiveSkillDescription": "获得<color=#C97BFF>{0:F0}</color>=（2%<sprite=\"Attributes\" name=\"MaxHealthPointIcon\">）<sprite=\"Attributes\" name=\"AbilityPowerIcon\">。\n使用技能造成伤害时，提升<color=#C97BFF>2%<sprite=\"Attributes\" name=\"AbilityPowerIcon\"></color>，最多叠加5层，持续6秒。在最大层数时，获得<color=#D14BFF>15%<sprite=\"Attributes\" name=\"OmniVampIcon\"></color>。",
             "_passiveSkillName": "虚空腐蚀",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
@@ -538,7 +538,7 @@
                 "percentageMagicPenetration": 0.3,
                 "abilityHaste": 15
             },
-            "_passiveSkillDescription": "每当一个敌人被你杀死时，为你治疗<color=#20FF20>{0:F0}=（45+5%法术强度）生命值</color>。",
+            "_passiveSkillDescription": "每当一个敌人被你杀死时，为你治疗<color=#20FF20>{0:F0}=（45+5%<sprite=\"Attributes\" name=\"AbilityPowerIcon\">）<sprite=\"Attributes\" name=\"MaxHealthPointIcon\"></color>。",
             "_passiveSkillName": "死中焕生",
             "_passiveSkillCD": 5,
             "_activeSkillDescription": null,
@@ -576,7 +576,7 @@
                 "percentageAttackPenetration": 0.22,
                 "percentageMagicPenetration": 0.3
             },
-            "_passiveSkillDescription": "对最大生命值高于你的敌方英雄额外造成至多15%真实伤害。当最大生命差异大于2500时，即可达到最大伤害值提升。",
+            "_passiveSkillDescription": "对最大<sprite=\"Attributes\" name=\"MaxHealthPointIcon\">高于你的敌方英雄额外造成至多15%真实伤害。当最大<sprite=\"Attributes\" name=\"MaxHealthPointIcon\">差异大于2500时，即可达到最大伤害值提升。",
             "_passiveSkillName": "巨人杀手",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
@@ -595,7 +595,7 @@
                 "abilityHaste": 15,
                 "criticalRate": 0.25
             },
-            "_passiveSkillDescription": "在施放技能时，获得持续6秒的2.5%暴击率，最多可叠至25%暴击率，持续6秒。\n根据你的暴击率会有概率使你的技能额外造成<color=#00D8FF>{0:F0}=（70+15%法术强度）额外伤害</color>。",
+            "_passiveSkillDescription": "在施放技能时，获得持续6秒的2.5%暴击率，最多可叠至25%暴击率，持续6秒。\n根据你的暴击率会有概率使你的技能额外造成<color=#00D8FF>{0:F0}=（70+15%<sprite=\"Attributes\" name=\"AbilityPowerIcon\">）额外伤害</color>。",
             "_passiveSkillName": "怒火与破坏",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
@@ -613,7 +613,7 @@
                 "abilityPower": 50,
                 "maxHealthPoint": 250
             },
-            "_passiveSkillDescription": "使用技能伤害敌人会灼烧敌人，每秒造成其<color=#00D8FF>1%最大生命值的魔法伤害</color>，最多叠加至<color=#00D8FF>8%最大生命值的魔法伤害</color>，持续6秒。",
+            "_passiveSkillDescription": "使用技能伤害敌人会灼烧敌人，每秒造成其<color=#00D8FF>1%最大<sprite=\"Attributes\" name=\"MaxHealthPointIcon\">的魔法伤害</color>，最多叠加至<color=#00D8FF>8%最大<sprite=\"Attributes\" name=\"MaxHealthPointIcon\">的魔法伤害</color>，持续6秒。",
             "_passiveSkillName": "苦难",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
@@ -632,7 +632,7 @@
                 "abilityPower": 25,
                 "attackSpeed": 0.25
             },
-            "_passiveSkillDescription": "攻击附带<color=#00D8FF>{0:F0} =（10+3%法术强度+6%攻击力）魔法伤害</color>的攻击特效。\n普攻提供<color=#E0C300>8%攻击速度</color>，最多叠加至<color=#E0C300>32%攻击速度</color>，持续4秒。满层时每次攻击额外附带33%的攻击特效。",
+            "_passiveSkillDescription": "攻击附带<color=#00D8FF>{0:F0} =（10+3%<sprite=\"Attributes\" name=\"AbilityPowerIcon\">+6%<sprite=\"Attributes\" name=\"AttackDamageIcon\">）魔法伤害</color>的攻击特效。\n普攻提供<color=#E0C300>8%攻击速度</color>，最多叠加至<color=#E0C300>32%攻击速度</color>，持续4秒。满层时每次攻击额外附带33%的攻击特效。",
             "_passiveSkillName": "附魔打击",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,

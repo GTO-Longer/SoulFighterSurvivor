@@ -649,7 +649,7 @@ namespace Classes
                     _ => Color.blue
                 };
                 
-                ScreenTextFactory.Instance.Spawn(_gameObject.transform.position, $"-{damageCount:F0}", 0.5f,
+                ScreenTextFactory.Instance.Spawn(_gameObject.transform.position, $"-<sprite=\"Attributes\" name=\"CriticalRateIcon\" tint=1> {damageCount:F0}", 0.8f,
                     200 * Mathf.Max(0.5f, damageCount / (damageCount + 100)), Mathf.Clamp(damageCount / 3f, 30, 100), color);
             }
             else

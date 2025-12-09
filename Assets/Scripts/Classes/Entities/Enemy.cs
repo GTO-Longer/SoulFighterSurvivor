@@ -159,9 +159,9 @@ namespace Classes.Entities
         {
             gainExpTimer += Time.deltaTime;
             
-            if (gainExpTimer > 10)
+            if (gainExpTimer > 2)
             {
-                GetExperience(500 / (500 + maxExperience.Value) * maxExperience.Value);
+                GetExperience(100 / (500 + maxExperience.Value) * maxExperience.Value);
                 gainExpTimer = 0;
             }
         }
@@ -175,6 +175,8 @@ namespace Classes.Entities
                 var totalExp = experience.Value + 5f * (level - 1) * (level - 1) + 80f * (level - 1) + 195;
                 hero?.GetExperience(100 + totalExp * 3.4f / (level.Value + 16));
                 hero.coins.Value += (int)level.Value * 5 + 45;
+                ScreenTextFactory.Instance.Spawn(_gameObject.transform.position, $"+  <sprite=\"Coin\" index=0>{(int)level.Value * 5 + 45:D}", 1f,
+                    250, 75, Color.yellow);
                 isAlive = false;
                 EnemyFactory.Instance.Despawn(gameObject.GetComponent<EnemyManager>());
             }

@@ -44,7 +44,7 @@ namespace MVVM.ViewModels
 
                 equipmentName.text = equipment.equipmentName;
                 usageDescription.text = equipment._usageDescription;
-                equipmentCost.text = $"<sprite=0>{equipment._cost}";
+                equipmentCost.text = $"<sprite=\"Coin\" index=0>{equipment._cost}";
                 equipmentIcon.sprite = equipment.equipmentIcon;
 
                 if (purchaseButton != null)

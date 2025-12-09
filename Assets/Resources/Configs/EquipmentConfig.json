@@ -275,7 +275,7 @@
                 "maxMagicPoint": 450,
                 "abilityHaste": 15
             },
-            "_passiveSkillDescription": "使附近敌人的<color=#FFE761>总攻击速度</color>降低30%。",
+            "_passiveSkillDescription": "使附近敌人的<color=#FFE761>总<sprite=\"Attributes\" name=\"AttackSpeedIcon\"></color>降低30%。",
             "_passiveSkillName": "凛冬之扰",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
@@ -437,7 +437,7 @@
         {
             "id": "Starsprint",
             "equipmentName": "星界驱驰",
-            "_usageDescription": "移动速度提升",
+            "_usageDescription": "<sprite=\"Attributes\" name=\"MovementSpeedIcon\">提升",
             "_equipmentType": "Legend",
             "_cost": 2500,
             "_attributeList": {
@@ -446,7 +446,7 @@
                 "abilityHaste": 35,
                 "percentageMovementSpeed": 0.04
             },
-            "_passiveSkillDescription": "对敌人释放技能造成伤害会提供60移动速度，持续4秒。",
+            "_passiveSkillDescription": "对敌人释放技能造成伤害会提供60<sprite=\"Attributes\" name=\"MovementSpeedIcon\">，持续4秒。",
             "_passiveSkillName": "咒舞",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
@@ -632,7 +632,7 @@
                 "abilityPower": 25,
                 "attackSpeed": 0.25
             },
-            "_passiveSkillDescription": "攻击附带<color=#00D8FF>{0:F0} =（10+3%<sprite=\"Attributes\" name=\"AbilityPowerIcon\">+6%<sprite=\"Attributes\" name=\"AttackDamageIcon\">）魔法伤害</color>的攻击特效。\n普攻提供<color=#E0C300>8%攻击速度</color>，最多叠加至<color=#E0C300>32%攻击速度</color>，持续4秒。满层时每次攻击额外附带33%的攻击特效。",
+            "_passiveSkillDescription": "攻击附带<color=#00D8FF>{0:F0} =（10+3%<sprite=\"Attributes\" name=\"AbilityPowerIcon\">+6%<sprite=\"Attributes\" name=\"AttackDamageIcon\">）魔法伤害</color>的攻击特效。\n普攻提供<color=#E0C300>8%<sprite=\"Attributes\" name=\"AttackSpeedIcon\"></color>，最多叠加至<color=#E0C300>32%<sprite=\"Attributes\" name=\"AttackSpeedIcon\"></color>，持续4秒。满层时每次攻击额外附带33%的攻击特效。",
             "_passiveSkillName": "附魔打击",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,

@@ -47,7 +47,7 @@ namespace MVVM.ViewModels
             if (buff.buffMaxCount > 0)
             {
                 buffCount.enabled = true;
-                BuffUnbindEvent.Add(buff.buffName, Binder.BindText(buffCount, buff.buffCount));
+                BuffUnbindEvent.TryAdd(buff.buffName, Binder.BindText(buffCount, buff.buffCount));
             }
             else
             {

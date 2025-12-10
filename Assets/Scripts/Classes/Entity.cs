@@ -802,24 +802,27 @@ namespace Classes
         /// </summary>
         public void GetBuff(Buff buff)
         {
-            var buffInList = buffList.Find(buffInList => buffInList.buffName == buff.buffName);
-            if (buffInList == null)
+            if (isAlive)
             {
-                buffList.Add(buff.GetBuff());
-            }
-            else if(!buffInList.isUnique)
-            {
-                buffList.Add(buff.GetBuff());
-            }
-            else
-            {
-                // 刷新持续时间
-                buffInList.buffDurationTimer = 0;
-                
-                // 叠层
-                if (buffInList.buffCount < buffInList.buffMaxCount)
+                var buffInList = buffList.Find(buffInList => buffInList.buffName == buff.buffName);
+                if (buffInList == null)
                 {
-                    buffInList.GetBuff(true);
+                    buffList.Add(buff.GetBuff());
+                }
+                else if (!buff.isUnique)
+                {
+                    buffList.Add(buff.GetBuff());
+                }
+                else
+                {
+                    // 刷新持续时间
+                    buffInList.buffDurationTimer = 0;
+
+                    // 叠层
+                    if (buffInList.buffCount < buffInList.buffMaxCount)
+                    {
+                        buffInList.GetBuff(true);
+                    }
                 }
             }
         }

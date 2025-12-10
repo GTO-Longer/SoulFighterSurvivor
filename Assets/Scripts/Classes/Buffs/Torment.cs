@@ -35,7 +35,7 @@ namespace Classes.Buffs
                 
                 if (buffCount < buffMaxCount)
                 {
-                    buffCount += 1;
+                    buffCount.Value += 1;
                 }
 
                 timer = 0;
@@ -43,7 +43,7 @@ namespace Classes.Buffs
             
             OnBuffRunOut = () =>
             {
-                buffCount = 0;
+                buffCount.Value = 0;
                 owner.EntityUpdateEvent -= BuffEffect;
             };
 

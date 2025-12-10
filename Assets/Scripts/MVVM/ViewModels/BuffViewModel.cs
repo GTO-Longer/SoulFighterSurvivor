@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Classes;
 using Components.UI;
 using DataManagement;
@@ -15,6 +16,7 @@ namespace MVVM.ViewModels
         public static Property<Buff> chosenBuff = new Property<Buff>();
         public GameObject buffPrefab;
         private Transform buffBar;
+        private Dictionary<string, Action> BuffUnbindEvent = new();
 
         private void Start()
         {
@@ -41,6 +43,17 @@ namespace MVVM.ViewModels
         {
             var newBuffUI = Instantiate(buffPrefab, buffBar);
             newBuffUI.GetComponent<BuffData>().buff = buff;
+            var buffCount = newBuffUI.transform.Find("BuffCount").GetComponent<TMP_Text>();
+            if (buff.buffMaxCount > 0)
+            {
+                buffCount.enabled = true;
+                BuffUnbindEvent.Add(buff.buffName, Binder.BindText(buffCount, buff.buffCount));
+            }
+            else
+            {
+                buffCount.enabled = false;
+            }
+            
             newBuffUI.SetActive(true);
             return newBuffUI.transform;
         }
@@ -54,6 +67,12 @@ namespace MVVM.ViewModels
                 {
                     if (buffData.buff == buff)
                     {
+                        if (BuffUnbindEvent.ContainsKey(buff.buffName))
+                        {
+                            BuffUnbindEvent[buff.buffName].Invoke();
+                            BuffUnbindEvent.Remove(buff.buffName);
+                        }
+
                         buffBar.GetChild(index).GetComponent<BuffButton>().OnPointerExit(null);
                         Destroy(buffBar.GetChild(index).gameObject);
                     }

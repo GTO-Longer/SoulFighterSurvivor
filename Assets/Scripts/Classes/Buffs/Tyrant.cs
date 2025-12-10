@@ -1,6 +1,3 @@
-using System;
-using UnityEngine;
-
 namespace Classes.Buffs
 {
     public class Tyrant : Buff
@@ -11,7 +8,7 @@ namespace Classes.Buffs
             {
                 if (buffCount < buffMaxCount)
                 {
-                    buffCount += 1;
+                    buffCount.Value += 1;
                     buffDescription = $"降低{0.075f * buffCount:P0}法术抗性";
                 }
 
@@ -21,7 +18,7 @@ namespace Classes.Buffs
             OnBuffRunOut = () => 
             {
                 owner._percentageMagicDefenseBonus.Value += 0.075f * buffCount;
-                buffCount = 0;
+                buffCount.Value = 0;
             };
 
             isUnique = true;

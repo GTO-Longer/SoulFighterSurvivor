@@ -18,7 +18,7 @@ namespace Classes.Buffs
                 if (buffCount < buffMaxCount)
                 {
                     fullCharged = false;
-                    buffCount += 1;
+                    buffCount.Value += 1;
                     buffDescription = $"提升{percentageAPCount * buffCount:P0}法术强度";
                 }
                 
@@ -40,7 +40,7 @@ namespace Classes.Buffs
                     owner.omnivamp.Value -= 0.15f;
                 }
                 fullCharged = false;
-                buffCount = 0;
+                buffCount.Value = 0;
             };
 
             isUnique = true;

@@ -1,4 +1,5 @@
 using System;
+using DataManagement;
 using MVVM.ViewModels;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,7 +16,7 @@ namespace Classes
         /// <summary>
         /// buff层数
         /// </summary>
-        public int buffCount;
+        public Property<int> buffCount = new();
         /// <summary>
         /// buff最大层数
         /// </summary>

@@ -12,7 +12,7 @@ namespace Classes.Buffs
         /// <summary>
         /// buff效果
         /// </summary>
-        public Action<Entity> BuffEffect;
+        private Action<Entity> BuffEffect;
         public EvilFlame(Entity ownerEntity, Entity sourceEntity) : base(ownerEntity, sourceEntity, "邪焰", "", 3, 3)
         {
             BuffEffect = (_) =>
@@ -36,7 +36,7 @@ namespace Classes.Buffs
                 
                 if (buffCount < buffMaxCount)
                 {
-                    buffCount += 1;
+                    buffCount.Value += 1;
                 }
 
                 timer = 0;
@@ -44,7 +44,7 @@ namespace Classes.Buffs
             
             OnBuffRunOut = () =>
             {
-                buffCount = 0;
+                buffCount.Value = 0;
                 owner.EntityUpdateEvent -= BuffEffect;
             };
 

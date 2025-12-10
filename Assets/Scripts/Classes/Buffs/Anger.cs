@@ -1,6 +1,3 @@
-using System;
-using UnityEngine;
-
 namespace Classes.Buffs
 {
     public class Anger : Buff
@@ -11,7 +8,7 @@ namespace Classes.Buffs
             {
                 if (buffCount < buffMaxCount)
                 {
-                    buffCount += 1;
+                    buffCount.Value += 1;
                     buffDescription = $"增加{0.025f * buffCount:P0}暴击率";
                 }
 
@@ -21,7 +18,7 @@ namespace Classes.Buffs
             OnBuffRunOut = () => 
             {
                 owner._criticalRateBonus.Value -= 0.025f * buffCount;
-                buffCount = 0;
+                buffCount.Value = 0;
             };
 
             isUnique = true;

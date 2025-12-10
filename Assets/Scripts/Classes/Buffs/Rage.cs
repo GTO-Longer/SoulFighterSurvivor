@@ -10,7 +10,7 @@ namespace Classes.Buffs
         /// buff效果
         /// </summary>
         public Action<Entity> BuffEffect;
-        public bool fullCharged;
+        private bool fullCharged;
         public Rage(Entity ownerEntity, Entity sourceEntity) : base(ownerEntity, sourceEntity, "狂暴", "提升攻速", 4, 4)
         {
             OnBuffGet = () =>
@@ -18,7 +18,7 @@ namespace Classes.Buffs
                 if (buffCount < buffMaxCount)
                 {
                     fullCharged = false;
-                    buffCount += 1;
+                    buffCount.Value += 1;
                     buffDescription = $"提升{attackSpeedCount * buffCount:P0}攻速";
                 }
                 
@@ -40,7 +40,7 @@ namespace Classes.Buffs
                     owner.attackEffectRatio -= 0.33f;
                 }
                 fullCharged = false;
-                buffCount = 0;
+                buffCount.Value = 0;
             };
 
             isUnique = true;

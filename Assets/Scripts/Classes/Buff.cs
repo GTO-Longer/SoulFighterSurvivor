@@ -83,6 +83,11 @@ namespace Classes
                     var buffUI = BuffViewModel.Instance.CreateBuffUI(this);
                     buffUI.GetComponent<Image>().sprite = buffIcon;
                 }
+                else
+                {
+                    var buffUI = TargetBuffViewModel.Instance.CreateBuffUI(this);
+                    buffUI.GetComponent<Image>().sprite = buffIcon;
+                }
 
                 owner.EntityUpdateEvent += buffTimer;
             }
@@ -93,10 +98,7 @@ namespace Classes
 
         public void RemoveBuff()
         {
-            if (owner.team == Team.Hero)
-            {
-                RemoveBuffUI();
-            }
+            RemoveBuffUI();
             OnBuffRunOut?.Invoke();
             owner.buffList.Remove(this);
             owner.EntityUpdateEvent -= buffTimer;
@@ -105,7 +107,14 @@ namespace Classes
 
         public void RemoveBuffUI()
         {
-            BuffViewModel.Instance.DeleteBuffUI(this);
+            if (owner.team == Team.Hero)
+            {
+                BuffViewModel.Instance.DeleteBuffUI(this);
+            }
+            else
+            {
+                TargetBuffViewModel.Instance.DeleteBuffUI(this);
+            }
         }
     }
 }

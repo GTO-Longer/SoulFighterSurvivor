@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\MVVM\ViewModels\BuffViewModel.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\InfinityEdge.cs" />
     <Compile Include="Assets\Scripts\RVO\RVOManager.cs" />
+    <Compile Include="Assets\Scripts\MVVM\ViewModels\TargetBuffViewModel.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Rabadons_Deathcap.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Seraph_sEmbrace.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Guardian_sClothes.cs" />

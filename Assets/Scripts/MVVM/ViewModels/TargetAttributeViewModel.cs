@@ -31,6 +31,17 @@ namespace MVVM.ViewModels
             UnBindEvent += Binder.BindActive(gameObject, gameObject.transform.position, checkTarget);
             UnBindEvent += Binder.BindTextGroup(textGroup, checkTarget);
             UnBindEvent += Binder.BindHPGroup(HPContent, HPBar, checkTarget, "{0:F0} / {1:F0}");
+            checkTarget.PropertyChanged += (_, _) =>
+            {
+                TargetBuffViewModel.Instance.ClearAllBuffUI();
+                if (checkTarget.Value != null)
+                {
+                    foreach (var buff in checkTarget.Value.buffList)
+                    {
+                        TargetBuffViewModel.Instance.CreateBuffUI(buff);
+                    }
+                }
+            };
         }
         
         // 物体销毁时触发注销对应事件

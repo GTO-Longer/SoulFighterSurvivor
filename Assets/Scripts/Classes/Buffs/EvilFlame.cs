@@ -18,7 +18,7 @@ namespace Classes.Buffs
             BuffEffect = (_) =>
             {
                 timer += Time.deltaTime;
-                buffDescription = $"每秒造成{damageCount:F0}魔法伤害";
+                buffDescription = $"每秒造成{damageCount * buffCount:F0}魔法伤害";
                 if (timer >= 0.5f)
                 {
                     var damage = owner.CalculateAPDamage(sourceEntity, damageCount * buffCount / 2f);

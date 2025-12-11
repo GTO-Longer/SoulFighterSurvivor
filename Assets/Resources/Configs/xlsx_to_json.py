@@ -56,6 +56,7 @@ def convert_xlsx_to_json_in_current_dir():
             is_skill_config = 'skillName' in attr_to_row or '_skillType' in attr_to_row
             is_hero_config = 'heroName' in attr_to_row
             is_equipment_config = 'equipmentName' in attr_to_row
+            is_hex_config = 'hexName' in attr_to_row
 
             if is_skill_config:
                 # === SkillConfig 处理逻辑（保持不变）===
@@ -144,6 +145,18 @@ def convert_xlsx_to_json_in_current_dir():
                         equipment_data[attr] = converted
                     equipments.append(equipment_data)
                 output_json = {"equipments": equipments}
+
+            elif is_hex_config:
+                # === 新增：HexConfig 处理逻辑 ===
+                hexes = []
+                for col in data_cols:
+                    hex_data = {"id": col}
+                    for attr, row in attr_to_row.items():
+                        value = row.get(col)
+                        converted = smart_convert(value)
+                        hex_data[attr] = converted
+                    hexes.append(hex_data)
+                output_json = {"hexes": hexes}
 
             else:
                 print(f"跳过 {filename}：无法识别配置类型（缺少 heroName / skillName / equipmentName）")

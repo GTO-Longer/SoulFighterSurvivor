@@ -131,4 +131,12 @@ namespace Utilities
         MPBoost,
         MagicPenetration
     }
+
+    public enum HexQuality
+    {
+        None = 0,
+        Silver,
+        Gold,
+        Prismatic
+    }
 }

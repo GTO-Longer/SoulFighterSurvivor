@@ -122,12 +122,30 @@ namespace DataManagement
     {
         public EquipmentConfig[] equipments;
     }
+    
+    [Serializable]
+    public class HexConfig
+    {
+        public string id;
+        public string hexName;
+        public string quality;
+        public string description;
+        public string detail;
+    }
+
+    [Serializable]
+    internal class HexConfigCollection
+    {
+        public HexConfig[] hexes;
+    }
+
 
     public static class ResourceReader
     {
         private static Dictionary<string, HeroConfig> _heroConfigMap;
         private static Dictionary<string, SkillConfig> _skillConfigMap;
         private static Dictionary<string, EquipmentConfig> _equipmentConfigMap;
+        private static Dictionary<string, HexConfig> _hexConfigMap;
 
         private static void LoadAllHeroConfigs()
         {
@@ -163,7 +181,6 @@ namespace DataManagement
                 _heroConfigMap = new Dictionary<string, HeroConfig>();
             }
         }
-
 
         public static HeroConfig ReadHeroConfig(string heroName)
         {
@@ -287,6 +304,60 @@ namespace DataManagement
                 return config;
 
             Debug.LogWarning($"Equipment config not found: '{equipmentId}'. Available equipments: {string.Join(", ", _equipmentConfigMap.Keys)}");
+            return null;
+        }
+
+        private static void LoadAllHexConfigs()
+        {
+            if (_hexConfigMap != null) return;
+
+            var jsonFile = Resources.Load<TextAsset>("Configs/HexConfig");
+            if (jsonFile == null)
+            {
+                Debug.LogError("HexConfig.json not found in Resources/Configs/");
+                _hexConfigMap = new Dictionary<string, HexConfig>();
+                return;
+            }
+
+            try
+            {
+                var collection = JsonConvert.DeserializeObject<HexConfigCollection>(jsonFile.text);
+                if (collection?.hexes == null || collection.hexes.Length == 0)
+                {
+                    Debug.LogError("HexConfig.json is empty or missing 'hexes' array.");
+                    _hexConfigMap = new Dictionary<string, HexConfig>();
+                    return;
+                }
+
+                _hexConfigMap = collection.hexes
+                    .Where(h => !string.IsNullOrEmpty(h.id))
+                    .ToDictionary(
+                        h => h.id,
+                        h => h,
+                        StringComparer.OrdinalIgnoreCase
+                    );
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Failed to parse HexConfig.json: {ex}");
+                _hexConfigMap = new Dictionary<string, HexConfig>();
+            }
+        }
+
+        public static HexConfig ReadHexConfig(string hexId)
+        {
+            if (_hexConfigMap == null) LoadAllHexConfigs();
+
+            if (string.IsNullOrEmpty(hexId))
+            {
+                Debug.LogWarning("ReadHexConfig called with null or empty hexId.");
+                return null;
+            }
+
+            if (_hexConfigMap.TryGetValue(hexId, out HexConfig config))
+                return config;
+
+            Debug.LogWarning($"Hex config not found: '{hexId}'. Available hexes: {string.Join(", ", _hexConfigMap.Keys)}");
             return null;
         }
 

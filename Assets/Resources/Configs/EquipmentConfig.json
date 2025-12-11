@@ -437,7 +437,7 @@
         {
             "id": "Starsprint",
             "equipmentName": "星界驱驰",
-            "_usageDescription": "<sprite=\"Attributes\" name=\"MovementSpeedIcon\">提升",
+            "_usageDescription": "移动速度提升",
             "_equipmentType": "Legend",
             "_cost": 2500,
             "_attributeList": {

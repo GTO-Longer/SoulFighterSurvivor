@@ -48,6 +48,7 @@
     <Compile Include="Assets\Scripts\Classes\Equipments\Guardian_sHammer.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Cryptbloom.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Archangel_sStaff.cs" />
+    <Compile Include="Assets\Scripts\Managers\HexManager.cs" />
     <Compile Include="Assets\Scripts\Classes\Buffs\VoidInfection.cs" />
     <Compile Include="Assets\Scripts\RVO\RVOAgent.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Guardian_sHorn.cs" />
@@ -124,7 +125,9 @@
     <Compile Include="Assets\Scripts\Managers\EntityManagers\EnemyManager.cs" />
     <Compile Include="Assets\Scripts\Classes\Entities\Hero.cs" />
     <Compile Include="Assets\Scripts\Classes\Skills\Charm.cs" />
+    <Compile Include="Assets\Scripts\Classes\Hex.cs" />
     <Compile Include="Assets\Scripts\Factories\StateBarFactory.cs" />
+    <Compile Include="Assets\Scripts\Classes\Hexes\FortuneAnvil.cs" />
     <Compile Include="Assets\Scripts\MVVM\ViewModels\SkillViewModel.cs" />
     <Compile Include="Assets\Scripts\Classes\Buffs\Rage.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Guardian_sDagger.cs" />
@@ -164,6 +167,7 @@
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
+    <None Include="Assets\Resources\Configs\HexConfig.json" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />

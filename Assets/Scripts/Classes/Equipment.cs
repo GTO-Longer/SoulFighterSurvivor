@@ -51,7 +51,7 @@ namespace Classes
         // 其他装备事件
         protected Action<Entity> equipmentTimerUpdate;
 
-        public Equipment(string name)
+        protected Equipment(string name)
         {
             var config = ResourceReader.ReadEquipmentConfig(name);
             id = config.id;

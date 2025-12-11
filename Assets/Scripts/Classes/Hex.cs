@@ -9,12 +9,11 @@ namespace Classes
         public string id;
         public string hexName;
         public string hexDescription;
-        public string hexDetail;
+        protected string hexDetail;
         public Entity owner;
         public HexQuality hexQuality;
-        public Action HexEffect;
 
-        public Hex(string name)
+        protected Hex(string name)
         {
             id = name;
             
@@ -34,6 +33,12 @@ namespace Classes
         public virtual void OnHexRemove()
         {
             owner = null;
+        }
+
+        public virtual bool GetHexDetail(out string detail)
+        {
+            detail = "";
+            return false;
         }
     }
 }

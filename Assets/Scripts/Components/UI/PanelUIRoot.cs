@@ -11,14 +11,14 @@ namespace Components.UI
         public bool isShopOpen;
         private ShopSystem shopSystem;
         public bool playerCanInteractGame => !isShopOpen;
+        private float formerTimeScale = 1;
 
         private void Start()
         {
             Instance = this;
             isShopOpen = false;
-            shopSystem = transform.Find("ShopBackground").GetComponent<ShopSystem>();
+            shopSystem = transform.Find("ShopPanel").GetComponent<ShopSystem>();
         }
-
 
         private void Update()
         {
@@ -30,6 +30,16 @@ namespace Components.UI
             if (Input.GetKeyDown(KeyCode.Escape) && isShopOpen)
             {
                 shopSystem.CloseShopPanel();
+            }
+
+            if (isShopOpen)
+            {
+                formerTimeScale = Time.timeScale;
+                Time.timeScale = 0;
+            }
+            else
+            {
+                Time.timeScale = formerTimeScale;
             }
         }
     }

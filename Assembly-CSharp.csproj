@@ -93,6 +93,7 @@
     <Compile Include="Assets\Scripts\Components\UI\PanelUIRoot.cs" />
     <Compile Include="Assets\Scripts\Classes\Buffs\EvilFlame.cs" />
     <Compile Include="Assets\Scripts\Systems\TestSystem.cs" />
+    <Compile Include="Assets\Scripts\Components\UI\HexButton.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Muramana.cs" />
     <Compile Include="Assets\Scripts\Classes\Bullet.cs" />
     <Compile Include="Assets\Scripts\MVVM\ViewModels\StateBarViewModel.cs" />

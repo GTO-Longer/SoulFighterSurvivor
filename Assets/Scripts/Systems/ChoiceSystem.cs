@@ -36,8 +36,11 @@ namespace Systems
                 var newChoice = Instantiate(choicePrefab.gameObject, choicePrefab.parent);
                 newChoice.GetComponent<Button>().onClick.AddListener(() =>
                 {
-                    choice.OnSelected?.Invoke();
-                    ClearChoices();
+                    if (newChoice.transform.localScale.x >= 0.9f)
+                    {
+                        choice.OnSelected?.Invoke();
+                        ClearChoices();
+                    }
                 });
                 newChoice.transform.Find("ChoiceTitle").GetComponent<TMP_Text>().text = choice.choiceTitle;
                 newChoice.transform.Find("ChoiceContent").GetComponent<TMP_Text>().text = choice.choiceContent;
@@ -52,8 +55,12 @@ namespace Systems
                     Quality.Prismatic => ResourceReader.ReadMaterial("Prismatic"),
                     _ => throw new ArgumentOutOfRangeException()
                 };
-                newChoice.transform.Find("ChoiceBorder").GetComponent<Image>().material = material;
-                newChoice.transform.Find("ChoiceIcon").GetComponent<Image>().material = material;
+                if (choice.choiceQuality == Quality.Prismatic)
+                {
+                    newChoice.transform.Find("ChoiceBorder").GetComponent<Image>().material = material;
+                    newChoice.transform.Find("ChoiceIcon").GetComponent<Image>().material = material;
+                }
+
                 if (choice.choiceQuality == Quality.Prismatic)
                 {
                     ShaderManager.Instance.AddMaterial(newChoice.transform.Find("ChoiceBorder").GetComponent<Image>().material);

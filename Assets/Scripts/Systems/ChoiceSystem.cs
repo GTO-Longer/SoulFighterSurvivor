@@ -1,6 +1,7 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using Components.UI;
+using DataManagement;
 using DG.Tweening;
 using Managers;
 using TMPro;
@@ -41,6 +42,18 @@ namespace Systems
                 newChoice.transform.Find("ChoiceTitle").GetComponent<TMP_Text>().text = choice.choiceTitle;
                 newChoice.transform.Find("ChoiceContent").GetComponent<TMP_Text>().text = choice.choiceContent;
                 newChoice.transform.Find("ChoiceIcon").GetComponent<Image>().sprite = choice.choiceIcon;
+                
+                // 设置材质
+                var material = choice.choiceQuality switch
+                {
+                    Quality.None => null,
+                    Quality.Silver => null,
+                    Quality.Gold => ResourceReader.ReadMaterial("Gold"),
+                    Quality.Prismatic => ResourceReader.ReadMaterial("Prismatic"),
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+                newChoice.transform.Find("ChoiceBorder").GetComponent<Image>().material = material;
+                newChoice.transform.Find("ChoiceIcon").GetComponent<Image>().material = material;
                 if (choice.choiceQuality == Quality.Prismatic)
                 {
                     ShaderManager.Instance.AddMaterial(newChoice.transform.Find("ChoiceBorder").GetComponent<Image>().material);

@@ -8,7 +8,6 @@ using Managers.EntityManagers;
 using Newtonsoft.Json;
 using Systems;
 using Utilities;
-using Random = UnityEngine.Random;
 
 namespace Managers
 {
@@ -49,7 +48,7 @@ namespace Managers
                         var result = results[index];
                         choices[index] = new Choice(result.hexName, result.hexDescription, result.hexIcon, () =>
                         {
-                            HeroManager.hero.hexList.Add(new Property<Hex>(result));
+                            HeroManager.hero.GetHex(result);
                         }, result.hexQuality);
                     }
                     ChoiceSystem.Instance.MakeChoice(choices);

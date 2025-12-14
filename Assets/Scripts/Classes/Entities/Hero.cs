@@ -66,7 +66,7 @@ namespace Classes.Entities
         /// <summary>
         /// 角色海克斯列表
         /// </summary>
-        public List<Property<Hex>> hexList = new();
+        public List<Hex> hexList = new();
         /// <summary>
         /// 角色装备列表
         /// </summary>
@@ -766,6 +766,24 @@ namespace Classes.Entities
                     return;
                 }
             }
+        }
+
+        /// <summary>
+        /// 获取海克斯
+        /// </summary>
+        public void GetHex(Hex hex)
+        {
+            hex.OnHexGet(this);
+            hexList.Add(hex);
+        }
+
+        /// <summary>
+        /// 获取海克斯
+        /// </summary>
+        public void RemoveHex(Hex hex)
+        {
+            hexList.Remove(hex);
+            hex.OnHexRemove();
         }
     }
 }

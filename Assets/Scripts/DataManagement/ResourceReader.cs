@@ -409,5 +409,24 @@ namespace DataManagement
 
             return ReadImage(imagePath, subname);
         }
+        
+        public static Material ReadMaterial(string materialName)
+        {
+            if (string.IsNullOrEmpty(materialName))
+            {
+                Debug.LogWarning("ReadMaterial called with null or empty materialName.");
+                return null;
+            }
+
+            var materialPath = $"Materials/{materialName}";
+            var material = Resources.Load<Material>(materialPath);
+
+            if (material == null)
+            {
+                Debug.LogWarning($"Material not found: '{materialName}'. Make sure it exists in Assets/Resources/Materials/");
+            }
+
+            return material;
+        }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using DataManagement;
+using UnityEngine;
 using Utilities;
 
 namespace Classes
@@ -9,9 +10,10 @@ namespace Classes
         public string id;
         public string hexName;
         public string hexDescription;
+        public Sprite hexIcon;
         protected string hexDetail;
         public Entity owner;
-        public HexQuality hexQuality;
+        public Quality hexQuality;
 
         protected Hex(string name)
         {
@@ -21,7 +23,7 @@ namespace Classes
             hexName = config.hexName;
             hexDescription = config.description;
             hexDetail = config.detail;
-            Enum.TryParse(config.quality, true, out HexQuality quality);
+            Enum.TryParse(config.quality, true, out Quality quality);
             hexQuality = quality;
         }
 

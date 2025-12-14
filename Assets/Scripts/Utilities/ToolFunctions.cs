@@ -187,5 +187,28 @@ namespace Utilities
             }
             return objects.Count > 0;
         }
+        
+        /// <summary>
+        /// 从列表中选出n个不同的元素
+        /// </summary>
+        public static bool GetRandomUniqueItems<T>(List<T> list, int count, out List<T> result)
+        {
+            result = new List<T>();
+            if (list == null || list.Count < count) 
+                return false;
+
+            count = Mathf.Min(count, list.Count);
+
+            var tempList = new List<T>(list);
+
+            for (var i = 0; i < count; i++)
+            {
+                var index = Random.Range(0, tempList.Count);
+                result.Add(tempList[index]);
+                tempList.RemoveAt(index);
+            }
+
+            return true;
+        }
     }
 }

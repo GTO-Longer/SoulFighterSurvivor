@@ -1,3 +1,4 @@
+using Components.UI;
 using UnityEngine;
 
 namespace Systems
@@ -50,6 +51,8 @@ namespace Systems
             // 获取鼠标位置
             var mouseWorld = (Vector2)CameraSystem._mainCamera.ScreenToWorldPoint(Input.mousePosition);
             mousePointIndicator.transform.position = mouseWorld;
+            
+            if(PanelUIRoot.Instance.isPanelOpen) return;
 
             if (Input.GetMouseButtonDown(1))
             {

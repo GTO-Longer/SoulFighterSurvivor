@@ -64,6 +64,10 @@ namespace Classes.Entities
         /// </summary>
         public List<Skill> skillList = new();
         /// <summary>
+        /// 角色海克斯列表
+        /// </summary>
+        public List<Property<Hex>> hexList = new();
+        /// <summary>
         /// 角色装备列表
         /// </summary>
         public List<Property<Equipment>> equipmentList = new();
@@ -340,7 +344,7 @@ namespace Classes.Entities
             // 获取鼠标位置
             _mousePosition = CameraSystem._mainCamera.ScreenToWorldPoint(Input.mousePosition);
             
-            if (!PanelUIRoot.Instance.playerCanInteractGame)
+            if (PanelUIRoot.Instance.isPanelOpen)
             {
                 return;
             }
@@ -582,7 +586,7 @@ namespace Classes.Entities
         public void TargetCheck()
         {
             var checkTarget = TargetAttributeViewModel.Instance.checkTarget;
-            if (!PanelUIRoot.Instance.playerCanInteractGame)
+            if (PanelUIRoot.Instance.isPanelOpen)
             {
                 return;
             }

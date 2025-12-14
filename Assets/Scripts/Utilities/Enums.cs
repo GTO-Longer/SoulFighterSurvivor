@@ -132,7 +132,7 @@ namespace Utilities
         MagicPenetration
     }
 
-    public enum HexQuality
+    public enum Quality
     {
         None = 0,
         Silver,

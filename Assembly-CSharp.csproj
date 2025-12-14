@@ -61,6 +61,7 @@
     <Compile Include="Assets\Scripts\RVO\RVOObstacle.cs" />
     <Compile Include="Assets\Scripts\Components\UI\BuffButton.cs" />
     <Compile Include="Assets\Scripts\DataManagement\BuffData.cs" />
+    <Compile Include="Assets\Scripts\Systems\ChoiceSystem.cs" />
     <Compile Include="Assets\Scripts\Systems\ShopSystem.cs" />
     <Compile Include="Assets\Scripts\MVVM\ViewModels\BuffViewModel.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\InfinityEdge.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Assets\Scripts\Classes\Skills\SpiritRush.cs" />
     <Compile Include="Assets\Scripts\Classes\Skills\Flash.cs" />
     <Compile Include="Assets\Scripts\Classes\Skills\GoustPoro.cs" />
+    <Compile Include="Assets\Scripts\Managers\ShaderManager.cs" />
     <Compile Include="Assets\Scripts\Utilities\ToolFunctions.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Stormsurge.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\RodofAges.cs" />
@@ -82,6 +84,7 @@
     <Compile Include="Assets\Scripts\Classes\Skills\EssenceTheft.cs" />
     <Compile Include="Assets\Scripts\DataManagement\Property.cs" />
     <Compile Include="Assets\Scripts\MVVM\ViewModels\TargetAttributeViewModel.cs" />
+    <Compile Include="Assets\Scripts\Utilities\Structs.cs" />
     <Compile Include="Assets\Scripts\MVVM\ViewModels\AttributeViewModel.cs" />
     <Compile Include="Assets\Scripts\Classes\Entity.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Manamune.cs" />
@@ -112,9 +115,12 @@
     <Compile Include="Assets\RVO2\Obstacle.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\HextechRocketBelt.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Riftmaker.cs" />
+    <Compile Include="Assets\Scripts\Classes\Hexes\OmnipotentDragonSoul.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\HextechGunblade.cs" />
     <Compile Include="Assets\Scripts\Factories\ScreenTextFactory.cs" />
     <Compile Include="Assets\RVO2\Simulator.cs" />
+    <Compile Include="Assets\Scripts\Classes\Hexes\HellfireConduit.cs" />
+    <Compile Include="Assets\Scripts\Classes\Hexes\PandorasBox.cs" />
     <Compile Include="Assets\Scripts\Classes\Buffs\Torment.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Rabadon_sAgony.cs" />
     <Compile Include="Assets\Scripts\DataManagement\EntiyData.cs" />
@@ -129,6 +135,7 @@
     <Compile Include="Assets\Scripts\Factories\StateBarFactory.cs" />
     <Compile Include="Assets\Scripts\Classes\Hexes\FortuneAnvil.cs" />
     <Compile Include="Assets\Scripts\MVVM\ViewModels\SkillViewModel.cs" />
+    <Compile Include="Assets\Scripts\Classes\Hexes\RepeatingStrike.cs" />
     <Compile Include="Assets\Scripts\Classes\Buffs\Rage.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Guardian_sDagger.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipments\Guardian_sOrb.cs" />
@@ -145,6 +152,7 @@
     <Compile Include="Assets\Scripts\MVVM\Binder.cs" />
     <Compile Include="Assets\Scripts\Classes\Buffs\Tyrant.cs" />
     <Compile Include="Assets\Scripts\Components\UI\SkillButton.cs" />
+    <Compile Include="Assets\Scripts\Classes\Hexes\WisdomOfTime.cs" />
     <Compile Include="Assets\Scripts\Classes\Equipment.cs" />
     <Compile Include="Assets\Scripts\Factories\EnemyFactory.cs" />
     <Compile Include="Assets\Scripts\Utilities\EditorUtils.cs" />

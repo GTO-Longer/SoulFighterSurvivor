@@ -28,7 +28,7 @@ namespace Managers.EntityManagers
             hero.SkillCoolDown();
 
             // 技能释放
-            if (Input.GetKeyDown(KeyCode.Q) && hero.canUseSkill && PanelUIRoot.Instance.playerCanInteractGame)
+            if (Input.GetKeyDown(KeyCode.Q) && hero.canUseSkill && !PanelUIRoot.Instance.isPanelOpen)
             {
                 // 快捷键升级技能
                 if (Input.GetKey(KeyCode.LeftControl))
@@ -41,7 +41,7 @@ namespace Managers.EntityManagers
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.W) && hero.canUseSkill && PanelUIRoot.Instance.playerCanInteractGame)
+            if (Input.GetKeyDown(KeyCode.W) && hero.canUseSkill && !PanelUIRoot.Instance.isPanelOpen)
             {
                 if (Input.GetKey(KeyCode.LeftControl))
                 {
@@ -53,7 +53,7 @@ namespace Managers.EntityManagers
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.E) && hero.canUseSkill && PanelUIRoot.Instance.playerCanInteractGame)
+            if (Input.GetKeyDown(KeyCode.E) && hero.canUseSkill && !PanelUIRoot.Instance.isPanelOpen)
             {
                 if (Input.GetKey(KeyCode.LeftControl))
                 {
@@ -65,7 +65,7 @@ namespace Managers.EntityManagers
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.R) && hero.canUseSkill && PanelUIRoot.Instance.playerCanInteractGame)
+            if (Input.GetKeyDown(KeyCode.R) && hero.canUseSkill && !PanelUIRoot.Instance.isPanelOpen)
             {
                 if (Input.GetKey(KeyCode.LeftControl))
                 {
@@ -77,19 +77,19 @@ namespace Managers.EntityManagers
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.D) && PanelUIRoot.Instance.playerCanInteractGame)
+            if (Input.GetKeyDown(KeyCode.D) && !PanelUIRoot.Instance.isPanelOpen)
             {
                 hero.DSkillRelease();
             }
 
-            if (Input.GetKeyDown(KeyCode.F) && PanelUIRoot.Instance.playerCanInteractGame)
+            if (Input.GetKeyDown(KeyCode.F) && !PanelUIRoot.Instance.isPanelOpen)
             {
                 hero.FSkillRelease();
             }
 
             for (int index = 0; index < 6; index++)
             {
-                if (Input.GetKeyDown(KeyCode.Alpha1 + index) && PanelUIRoot.Instance.playerCanInteractGame)
+                if (Input.GetKeyDown(KeyCode.Alpha1 + index) && !PanelUIRoot.Instance.isPanelOpen)
                 {
                     hero.EquipmentRelease(index);
                 }

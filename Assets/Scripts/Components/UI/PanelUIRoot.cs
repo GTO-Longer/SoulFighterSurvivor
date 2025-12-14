@@ -9,20 +9,22 @@ namespace Components.UI
     {
         public static PanelUIRoot Instance;
         public bool isShopOpen;
+        public bool isChoiceOpen;
+        public bool isPanelOpen => isShopOpen || isChoiceOpen;
         private ShopSystem shopSystem;
-        public bool playerCanInteractGame => !isShopOpen;
-        private float formerTimeScale = 1;
+        private float formerTimeScale = 0;
 
         private void Start()
         {
             Instance = this;
             isShopOpen = false;
+            isChoiceOpen = false;
             shopSystem = transform.Find("ShopPanel").GetComponent<ShopSystem>();
         }
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.P) && !isShopOpen)
+            if (Input.GetKeyDown(KeyCode.P) && !isPanelOpen)
             {
                 shopSystem.OpenShopPanel();
             }
@@ -32,14 +34,21 @@ namespace Components.UI
                 shopSystem.CloseShopPanel();
             }
 
-            if (isShopOpen)
+            if (isPanelOpen)
             {
-                formerTimeScale = Time.timeScale;
-                Time.timeScale = 0;
+                if (formerTimeScale == 0)
+                {
+                    formerTimeScale = Time.timeScale;
+                    Time.timeScale = 0;
+                }
             }
             else
             {
-                Time.timeScale = formerTimeScale;
+                if (formerTimeScale != 0)
+                {
+                    Time.timeScale = formerTimeScale;
+                    formerTimeScale = 0;
+                }
             }
         }
     }

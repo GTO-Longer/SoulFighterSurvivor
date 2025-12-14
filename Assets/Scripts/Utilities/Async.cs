@@ -28,7 +28,7 @@ namespace Utilities
         public static TweenerCore<Vector3, Vector3, VectorOptions> SetAsync(float duration, Transform target = null, TweenCallback update = null, TweenCallback complete = null)
         {
             var transform = target == null ? Instance.transform : target;
-            return transform.DOMoveX(transform.position.x, duration).OnUpdate(update).OnComplete(complete).SetUpdate(UpdateType.Fixed);
+            return transform.DOMoveX(transform.position.x, duration).OnUpdate(update).OnComplete(complete).SetUpdate(UpdateType.Fixed, true);
         }
         
         public static void SetFillAmountAsync(Image image, float targetValue, float duration, TweenCallback complete = null)

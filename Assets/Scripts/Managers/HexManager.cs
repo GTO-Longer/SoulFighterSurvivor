@@ -4,7 +4,11 @@ using System.Reflection;
 using UnityEngine;
 using Classes;
 using DataManagement;
+using Managers.EntityManagers;
 using Newtonsoft.Json;
+using Systems;
+using Utilities;
+using Random = UnityEngine.Random;
 
 namespace Managers
 {
@@ -13,6 +17,7 @@ namespace Managers
         public static HexManager Instance;
         private Dictionary<string, Hex> hexMap;
         public List<Hex> hexList { get; private set; }
+        private int choiceTime;
 
         private void Awake()
         {
@@ -23,6 +28,7 @@ namespace Managers
                 hexMap = new Dictionary<string, Hex>(StringComparer.OrdinalIgnoreCase);
                 hexList = new List<Hex>();
                 LoadAllHexes();
+                choiceTime = 0;
             }
             else
             {
@@ -30,8 +36,29 @@ namespace Managers
             }
         }
 
+        private void Update()
+        {
+            if ((int)HeroManager.hero.level.Value == 1 && choiceTime == 0)
+            {
+                if (ToolFunctions.GetRandomUniqueItems(hexList, 3, out var results))
+                {
+                    choiceTime += 1;
+                    var choices = new Choice[3];
+                    for (var index = 0; index < results.Count; index++)
+                    {
+                        var result = results[index];
+                        choices[index] = new Choice(result.hexName, result.hexDescription, result.hexIcon, () =>
+                        {
+                            HeroManager.hero.hexList.Add(new Property<Hex>(result));
+                        }, result.hexQuality);
+                    }
+                    ChoiceSystem.Instance.MakeChoice(choices);
+                }
+            }
+        }
+
         /// <summary>
-        /// 获取所有装备配置
+        /// 获取所有海克斯配置
         /// </summary>
         private void LoadAllHexes()
         {
@@ -96,7 +123,7 @@ namespace Managers
         }
 
         /// <summary>
-        /// 根据装备id获取海克斯
+        /// 根据海克斯id获取海克斯
         /// </summary>
         public Hex GetHex(string id)
         {

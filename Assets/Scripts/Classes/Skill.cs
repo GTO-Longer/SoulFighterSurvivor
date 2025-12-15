@@ -34,7 +34,8 @@ namespace Classes{
         /// </summary>
         public float specialCoolDown = 0;
         public event Action OnSpecialTimeOut;
-        public event Action OnSkillEnterCoolDown; 
+        public event Action OnSkillEnterCoolDown;
+        public Action PassiveAbilityEffective;
         
         protected int _skillLevel;
         protected int _maxSkillLevel = 0;
@@ -152,7 +153,7 @@ namespace Classes{
                     
             if (skillType is >= SkillType.QSkill and <= SkillType.RSkill)
             {
-                upgradeButton.gameObject.SetActive(HeroManager.hero._skillPoint > 0);
+                upgradeButton.gameObject.SetActive(HeroManager.hero._skillPoint > 0 && _skillLevel < _maxSkillLevel);
                 upgradeButton.interactable = SkillCanUpgrade();
                 skillIcon.material = skillChargeCount <= 0 && maxSkillChargeCount > 0 || skillLevel == 0 ? Resources.Load<Material>("Materials/ImageGreyTexture") : null;
             }
@@ -162,14 +163,7 @@ namespace Classes{
             {
                 for (var index = 0; index < levelBar.childCount; index++)
                 {
-                    if (index < _skillLevel)
-                    {
-                        levelBar.GetChild(index).GetComponent<Image>().color = new Color(1, 0.6f, 0);
-                    }
-                    else
-                    {
-                        levelBar.GetChild(index).GetComponent<Image>().color = new Color(0.425f, 0.425f, 0.425f);
-                    }
+                    levelBar.GetChild(index).GetComponent<Image>().color = index < _skillLevel ? new Color(1, 0.6f, 0) : new Color(0.425f, 0.425f, 0.425f);
                 }
             }
         }

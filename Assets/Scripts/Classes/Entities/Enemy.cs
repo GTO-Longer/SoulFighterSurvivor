@@ -69,7 +69,7 @@ namespace Classes.Entities
             _attackRangeIndicator.GetComponent<SpriteRenderer>().enabled = false;
             
             // 其他变量初始化
-            level.Value = Mathf.Max(1, HeroManager.hero.level - 4);
+            level.Value = Mathf.Clamp(HeroManager.hero.level - 2, 1, 18);
             gainExpTimer = 0;
             isAlive = true;
             magicPoint.Value = maxMagicPoint.Value;

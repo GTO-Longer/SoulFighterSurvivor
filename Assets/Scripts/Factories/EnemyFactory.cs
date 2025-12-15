@@ -69,13 +69,13 @@ namespace Factories
 
         private void Start()
         {
-            Spawn(new Vector2(500, 0));
+            enemySpawnTimer = 999;
         }
 
         private void Update()
         {
             enemySpawnTimer += Time.deltaTime;
-            if (enemySpawnTimer > 25 / (3 + HeroManager.hero.level) + 3)
+            if (enemySpawnTimer > 25 / (3 + Mathf.Min(HeroManager.hero.level, 18)) + 3)
             {
                 Vector2 heroPosition = HeroManager.hero.gameObject.transform.position;
                 

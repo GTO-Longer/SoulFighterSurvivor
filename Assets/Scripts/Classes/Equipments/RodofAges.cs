@@ -7,7 +7,7 @@ namespace Classes.Equipments
 {
     public class RodofAges : Equipment
     {
-        private Action<Entity, Entity, float, Skill> equipmentEffect;
+        private Action<Skill> equipmentEffect;
         private Action<Entity, Entity> OnKill;
         private Action<Entity, Entity, float> OnHurt;
         private int killCount;
@@ -18,9 +18,9 @@ namespace Classes.Equipments
             killCount = 0;
             completed = false;
             
-            equipmentEffect = (attacker, _, _, skill) =>
+            equipmentEffect = (skill) =>
             {
-                attacker.TakeHeal(skill.actualSkillCost * 0.25f);
+                owner.TakeHeal(skill.actualSkillCost * 0.25f);
             };
 
             OnHurt = (self, _, damageCount) =>
@@ -54,14 +54,14 @@ namespace Classes.Equipments
         public override void OnEquipmentGet(Entity entity)
         {
             base.OnEquipmentGet(entity);
-            owner.AbilityEffect += equipmentEffect;
+            owner.OnSkillUsed += equipmentEffect;
             owner.OnHurt += OnHurt;
             owner.OnKillEntity += OnKill;
         }
 
         public override void OnEquipmentRemove()
         {
-            owner.AbilityEffect -= equipmentEffect;
+            owner.OnSkillUsed -= equipmentEffect;
             owner.OnHurt -= OnHurt;
             owner.OnKillEntity -= OnKill;
             base.OnEquipmentRemove();

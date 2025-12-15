@@ -14,6 +14,10 @@ namespace Classes
         protected string hexDetail;
         public Entity owner;
         public Quality hexQuality;
+        /// <summary>
+        /// 获取事件是否触发过
+        /// </summary>
+        protected bool hexGetEventTriggered;
 
         protected Hex(string name)
         {
@@ -25,6 +29,8 @@ namespace Classes
             hexDetail = config.detail;
             Enum.TryParse(config.quality, true, out Quality quality);
             hexQuality = quality;
+
+            hexGetEventTriggered = false;
         }
 
         public virtual void OnHexGet(Entity entity)

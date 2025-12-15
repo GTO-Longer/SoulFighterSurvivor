@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using Classes;
+using Components.UI;
 using DataManagement;
 using Managers.EntityManagers;
 using Newtonsoft.Json;
@@ -37,9 +38,12 @@ namespace Managers
 
         private void Update()
         {
-            if ((int)HeroManager.hero.level.Value == 1 && choiceTime == 0)
+            if (((int)HeroManager.hero.level.Value >= 3 && choiceTime == 0) ||
+                ((int)HeroManager.hero.level.Value >= 7 && choiceTime == 1) ||
+                ((int)HeroManager.hero.level.Value >= 11 && choiceTime == 2) ||
+                ((int)HeroManager.hero.level.Value >= 15 && choiceTime == 3)) 
             {
-                if (ToolFunctions.GetRandomUniqueItems(hexList, 3, out var results))
+                if (!PanelUIRoot.Instance.isChoiceOpen && ToolFunctions.GetRandomUniqueItems(hexList.FindAll(hex => !HeroManager.hero.hexList.Contains(hex)), 3, out var results))
                 {
                     choiceTime += 1;
                     var choices = new Choice[3];

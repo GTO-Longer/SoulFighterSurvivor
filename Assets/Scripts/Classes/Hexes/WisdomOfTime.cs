@@ -26,16 +26,20 @@ namespace Classes.Hexes
         public override void OnHexGet(Entity entity)
         {
             base.OnHexGet(entity);
+            if (!hexGetEventTriggered)
+            {
+                HeroManager.hero.LevelUp(HeroManager.hero.hexList.Count == 1 ? 1 : 3);
+                hexGetEventTriggered = true;
+            }
             HeroManager.hero.maxLevel = 999;
-            HeroManager.hero.LevelUp(HeroManager.hero.hexList.Count > 0 ? 3 : 1);
             owner.OnKillEntity += HexEffect;
         }
 
         public override void OnHexRemove()
         {
-            base.OnHexRemove();
             HeroManager.hero.maxLevel = 18;
             owner.OnKillEntity -= HexEffect;
+            base.OnHexRemove();
         }
 
         public override bool GetHexDetail(out string detail)

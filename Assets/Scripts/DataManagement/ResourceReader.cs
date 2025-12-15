@@ -373,7 +373,7 @@ namespace DataManagement
             var sprites = Resources.LoadAll<Sprite>(imagePath);
             if (sprites == null || sprites.Length == 0)
             {
-                Debug.LogError($"No sprites found at path: {imagePath}");
+                Debug.LogWarning($"No sprites found at path: {imagePath}");
                 return null;
             }
 

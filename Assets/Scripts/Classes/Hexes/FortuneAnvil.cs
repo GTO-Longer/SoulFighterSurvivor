@@ -1,5 +1,6 @@
 using System;
 using Classes.Entities;
+using Managers.EntityManagers;
 
 namespace Classes.Hexes
 {
@@ -13,10 +14,10 @@ namespace Classes.Hexes
         public override void OnHexGet(Entity entity)
         {
             base.OnHexGet(entity);
-
-            if (owner is Hero hero)
+            if (!hexGetEventTriggered)
             {
-                hero.coins.Value += 1000;
+                HeroManager.hero.coins.Value += 1000;
+                hexGetEventTriggered = true;
             }
         }
 

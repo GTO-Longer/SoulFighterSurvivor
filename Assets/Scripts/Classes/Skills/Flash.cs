@@ -1,7 +1,4 @@
-using MVVM;
-using MVVM.ViewModels;
 using UnityEngine;
-using Utilities;
 
 namespace Classes.Skills
 {
@@ -11,7 +8,6 @@ namespace Classes.Skills
         {
             _skillLevel = 1;
             _maxSkillLevel = 1;
-            base.skillType = skillType;
             
             coolDownTimer = 999;
         }
@@ -23,26 +19,6 @@ namespace Classes.Skills
 
         public override void SkillEffect()
         {
-            Debug.Log(skillName + ": Skill effective");
-            if (skillType == SkillType.DSkill)
-            {
-                owner.OnDSkillRelease += (_, _) => { HeroFlash(); };
-            }
-            else
-            {
-                owner.OnFSkillRelease += (_, _) => { HeroFlash(); };
-            }
-        }
-
-        private void HeroFlash()
-        {
-                
-            if (actualSkillCoolDown > coolDownTimer)
-            {
-                Binder.ShowText(SkillViewModel.Instance.skillTips, "技能正在冷却", 1);
-                return;
-            }
-
             if (owner.canFlash)
             {
                 var direction = (owner._mousePosition - (Vector2)owner.gameObject.transform.position).normalized;

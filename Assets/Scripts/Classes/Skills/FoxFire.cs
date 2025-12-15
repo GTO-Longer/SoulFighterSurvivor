@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using Factories;
-using MVVM;
-using MVVM.ViewModels;
 using UnityEngine;
 using Utilities;
 
@@ -28,181 +26,160 @@ namespace Classes.Skills
 
         public override void SkillEffect()
         {
-            Debug.Log(skillName + ": Skill effective");
-            owner.OnWSkillRelease += (_, _) =>
+            var attackIndex = 0;
+
+            // 获得2s内40%递减的加速
+            owner._percentageMovementSpeedBonus.Value += 0.4f;
+            Async.SetAsync(1, null, null, () =>
             {
-                if (_skillLevel <= 0)
-                {
-                    Binder.ShowText(SkillViewModel.Instance.skillTips, "技能尚未解锁", 1);
-                    return;
-                }
+                // OnComplete时记得反向执行一次OnUpdate内容（因为会多运行1逻辑帧）
+                Async.SetAsync(1, null,
+                    () => { owner._percentageMovementSpeedBonus.Value -= 0.4f * Time.fixedDeltaTime; },
+                    () => owner._percentageMovementSpeedBonus.Value += 0.4f * Time.fixedDeltaTime);
+            });
 
-                if (_baseSkillCost[skillLevelToIndex] > owner.magicPoint)
-                {
-                    Binder.ShowText(SkillViewModel.Instance.skillTips, "施法资源不够，技能无法使用", 1);
-                    return;
-                }
-                
-                if (actualSkillCoolDown > coolDownTimer)
-                {
-                    Binder.ShowText(SkillViewModel.Instance.skillTips, "技能正在冷却", 1);
-                    return;
-                }
+            var foxFire = new List<Bullet>
+            {
+                BulletFactory.Instance.CreateBullet(owner),
+                BulletFactory.Instance.CreateBullet(owner),
+                BulletFactory.Instance.CreateBullet(owner)
+            };
 
-                owner.magicPoint.Value -= _baseSkillCost[skillLevelToIndex];
-                coolDownTimer = 0;
-                var attackIndex = 0;
+            const float rotationSpeed = Mathf.PI;
+            const float r = 150f;
 
-                // 获得2s内40%递减的加速
-                owner._percentageMovementSpeedBonus.Value += 0.4f;
-                Async.SetAsync(1, null, null, () =>
-                {
-                    // OnComplete时记得反向执行一次OnUpdate内容（因为会多运行1逻辑帧）
-                    Async.SetAsync(1, null,
-                        () => { owner._percentageMovementSpeedBonus.Value -= 0.4f * Time.fixedDeltaTime; },
-                        () => owner._percentageMovementSpeedBonus.Value += 0.4f * Time.fixedDeltaTime);
-                });
+            for (var i = 0; i < foxFire.Count; i++)
+            {
+                var fire = foxFire[i];
+                var index = i;
+                var continuousTime = 0f;
 
-                var foxFire = new List<Bullet>
+                fire.OnBulletAwake += (self) =>
                 {
-                    BulletFactory.Instance.CreateBullet(owner),
-                    BulletFactory.Instance.CreateBullet(owner),
-                    BulletFactory.Instance.CreateBullet(owner)
+                    self.target = null;
+                    self.gameObject.SetActive(true);
+                    self.bulletStateID = 1;
+
+                    var angleOffset = index * (2f * Mathf.PI / 3f);
+
+                    var offset = new Vector3(
+                        Mathf.Cos(angleOffset) * r,
+                        Mathf.Sin(angleOffset) * r,
+                        0f
+                    );
+
+                    var ownerPos = owner.gameObject.transform.position;
+                    self.gameObject.transform.position = new Vector3(
+                        ownerPos.x + offset.x,
+                        ownerPos.y + offset.y,
+                        ownerPos.z
+                    );
+
+
+                    self.OnBulletUpdate += (bullet) =>
+                    {
+                        if (self.bulletStateID == 1)
+                        {
+                            continuousTime += Time.deltaTime;
+                            var center = owner.gameObject.transform.position;
+                            var currentAngle = continuousTime * rotationSpeed + angleOffset;
+
+                            var newPos = center + new Vector3(
+                                Mathf.Cos(currentAngle) * r,
+                                Mathf.Sin(currentAngle) * r,
+                                0f
+                            );
+
+                            var directionAngle = (currentAngle) * Mathf.Rad2Deg;
+
+                            bullet.gameObject.transform.position = newPos;
+                            bullet.gameObject.transform.eulerAngles = new Vector3(0, 0, directionAngle);
+
+                            if (continuousTime > 0.4f + index * 0.1f)
+                            {
+                                if (ToolFunctions.IsOverlappingOtherTag(self.gameObject, self.gameObject.tag,
+                                        out var targetEntity, skillRange))
+                                {
+                                    self.target = targetEntity;
+                                    self.bulletStateID = 2;
+                                }
+                            }
+
+                            // 若长时间未检索到敌人则消失
+                            if (continuousTime > 5)
+                            {
+                                self.Destroy();
+                            }
+                        }
+                        else if (self.bulletStateID == 2)
+                        {
+                            // 锁定目标死亡则清除子弹
+                            if (self.target == null || !self.target.isAlive)
+                            {
+                                self.Destroy();
+                                return;
+                            }
+
+                            var currentPosition = self.gameObject.transform.position;
+                            var targetPosition = self.target.gameObject.transform.position;
+
+                            var direction = (targetPosition - currentPosition).normalized;
+                            var nextPosition = currentPosition + direction * (bulletSpeed * Time.deltaTime);
+
+                            self.gameObject.transform.position = nextPosition;
+                            self.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
+
+                            // 子弹的销毁逻辑
+                            if (Vector3.Distance(self.gameObject.transform.position,
+                                    self.target.gameObject.transform.position) <= self.target.scale)
+                            {
+                                self.BulletHit();
+                                self.Destroy();
+                            }
+                        }
+                    };
                 };
 
-                const float rotationSpeed = Mathf.PI;
-                const float r = 150f;
-
-                for (var i = 0; i < foxFire.Count; i++)
+                fire.OnBulletHit += (self) =>
                 {
-                    var fire = foxFire[i];
-                    var index = i;
-                    var continuousTime = 0f;
-
-                    fire.OnBulletAwake += (self) =>
+                    if (self.target != null)
                     {
-                        self.target = null;
-                        self.gameObject.SetActive(true);
-                        self.bulletStateID = 1;
-
-                        var angleOffset = index * (2f * Mathf.PI / 3f);
-
-                        var offset = new Vector3(
-                            Mathf.Cos(angleOffset) * r,
-                            Mathf.Sin(angleOffset) * r,
-                            0f
-                        );
-
-                        var ownerPos = owner.gameObject.transform.position;
-                        self.gameObject.transform.position = new Vector3(
-                            ownerPos.x + offset.x,
-                            ownerPos.y + offset.y,
-                            ownerPos.z
-                        );
-
-
-                        self.OnBulletUpdate += (bullet) =>
+                        float damageCount;
+                        if (attackIndex == 0)
                         {
-                            if(self.bulletStateID == 1){
-                                continuousTime += Time.deltaTime;
-                                var center = owner.gameObject.transform.position;
-                                var currentAngle = continuousTime * rotationSpeed + angleOffset;
-
-                                var newPos = center + new Vector3(
-                                    Mathf.Cos(currentAngle) * r,
-                                    Mathf.Sin(currentAngle) * r,
-                                    0f
-                                );
-                                
-                                var directionAngle = (currentAngle) * Mathf.Rad2Deg;
-
-                                bullet.gameObject.transform.position = newPos;
-                                bullet.gameObject.transform.eulerAngles = new Vector3(0, 0, directionAngle);
-
-                                if (continuousTime > 0.4f + index * 0.1f)
-                                {
-                                    if (ToolFunctions.IsOverlappingOtherTag(self.gameObject, self.gameObject.tag, out var targetEntity, skillRange))
-                                    {
-                                        self.target = targetEntity;
-                                        self.bulletStateID = 2;
-                                    }
-                                }
-
-                                // 若长时间未检索到敌人则消失
-                                if (continuousTime > 5)
-                                {
-                                    self.Destroy();
-                                }
-                            }
-                            else if (self.bulletStateID == 2)
+                            // 对20%生命值以下的敌人造成200%伤害
+                            if (self.target.healthPointProportion.Value <= 0.2f)
                             {
-                                // 锁定目标死亡则清除子弹
-                                if (self.target == null || !self.target.isAlive)
-                                {
-                                    self.Destroy();
-                                    return;
-                                }
-                                
-                                var currentPosition = self.gameObject.transform.position;
-                                var targetPosition = self.target.gameObject.transform.position;
-            
-                                var direction = (targetPosition - currentPosition).normalized;
-                                var nextPosition = currentPosition + direction * (bulletSpeed * Time.deltaTime);
-            
-                                self.gameObject.transform.position = nextPosition;
-                                self.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
-
-                                // 子弹的销毁逻辑
-                                if (Vector3.Distance(self.gameObject.transform.position, self.target.gameObject.transform.position) <= self.target.scale)
-                                {
-                                    self.BulletHit();
-                                    self.Destroy();
-                                }
-                            }
-                        };
-                    };
-
-                    fire.OnBulletHit += (self) =>
-                    {
-                        if (self.target != null)
-                        {
-                            float damageCount;
-                            if (attackIndex == 0)
-                            {
-                                // 对20%生命值以下的敌人造成200%伤害
-                                if (self.target.healthPointProportion.Value <= 0.2f)
-                                {
-                                    damageCount = self.target.CalculateAPDamage(self.owner, _firstDamage * 2);
-                                    self.target.TakeDamage(damageCount, DamageType.AP, owner);
-                                }
-                                else
-                                {
-                                    damageCount = self.target.CalculateAPDamage(self.owner, _firstDamage);
-                                    self.target.TakeDamage(damageCount, DamageType.AP, owner);
-                                }
+                                damageCount = self.target.CalculateAPDamage(self.owner, _firstDamage * 2);
+                                self.target.TakeDamage(damageCount, DamageType.AP, owner);
                             }
                             else
                             {
-                                if (self.target.healthPointProportion.Value <= 0.2f)
-                                {
-                                    damageCount = self.target.CalculateAPDamage(self.owner, _secondDamage * 2);
-                                    self.target.TakeDamage(damageCount, DamageType.AP, owner);
-                                }
-                                else
-                                {
-                                    damageCount = self.target.CalculateAPDamage(self.owner, _secondDamage);
-                                    self.target.TakeDamage(damageCount, DamageType.AP, owner);
-                                }
+                                damageCount = self.target.CalculateAPDamage(self.owner, _firstDamage);
+                                self.target.TakeDamage(damageCount, DamageType.AP, owner);
                             }
-                            
-                            self.owner.AbilityEffectActivate(self.target, damageCount, this);
-                            attackIndex += 1;
                         }
-                    };
+                        else
+                        {
+                            if (self.target.healthPointProportion.Value <= 0.2f)
+                            {
+                                damageCount = self.target.CalculateAPDamage(self.owner, _secondDamage * 2);
+                                self.target.TakeDamage(damageCount, DamageType.AP, owner);
+                            }
+                            else
+                            {
+                                damageCount = self.target.CalculateAPDamage(self.owner, _secondDamage);
+                                self.target.TakeDamage(damageCount, DamageType.AP, owner);
+                            }
+                        }
 
-                    fire.Awake();
-                }
-            };
+                        self.owner.AbilityEffectActivate(self.target, damageCount, this);
+                        attackIndex += 1;
+                    }
+                };
+
+                fire.Awake();
+            }
         }
     }
 }

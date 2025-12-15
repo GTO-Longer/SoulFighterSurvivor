@@ -79,71 +79,13 @@ namespace Classes.Entities
         /// 是否可以使用技能
         /// </summary>
         public bool canUseSkill;
-
-        #region 英雄事件
-        
-        // Q技能释放事件
-        public event Action<Hero, Entity> OnQSkillRelease;
-        public void QSkillRelease(Entity targetEntity = null)
-        {
-            cursedBladeTimer = 5;
-            OnQSkillRelease?.Invoke(this, targetEntity);
-        }
-        
-        // W技能释放事件
-        public event Action<Hero, Entity> OnWSkillRelease;
-        public void WSkillRelease(Entity targetEntity = null)
-        {
-            cursedBladeTimer = 5;
-            OnWSkillRelease?.Invoke(this, targetEntity);
-        }
-        
-        // E技能释放事件
-        public event Action<Hero, Entity> OnESkillRelease;
-        public void ESkillRelease(Entity targetEntity = null)
-        {
-            cursedBladeTimer = 5;
-            OnESkillRelease?.Invoke(this, targetEntity);
-        }
-        
-        // R技能释放事件
-        public event Action<Hero, Entity> OnRSkillRelease;
-        public void RSkillRelease(Entity targetEntity = null)
-        {
-            cursedBladeTimer = 5;
-            OnRSkillRelease?.Invoke(this, targetEntity);
-        }
-        
-        // D技能释放事件
-        public event Action<Hero, Entity> OnDSkillRelease;
-        public void DSkillRelease(Entity targetEntity = null)
-        {
-            OnDSkillRelease?.Invoke(this, targetEntity);
-        }
-        
-        // D技能释放事件
-        public event Action<Hero, Entity> OnFSkillRelease;
-        public void FSkillRelease(Entity targetEntity = null)
-        {
-            OnFSkillRelease?.Invoke(this, targetEntity);
-        }
-        
-        public void EquipmentRelease(int equipmentId)
-        {
-            if (equipmentList[equipmentId].Value != null)
-            {
-                equipmentList[equipmentId].Value.OnActiveSkillEffective();
-            }
-        }
-
-        #endregion
         
         /// <summary>
         /// 创建游戏角色并初始化
         /// </summary>
         public Hero(GameObject obj, Team team, string name) : base(obj, team)
         {
-            #region 读取英雄数据配置初始化数据
+            #region 读取英雄数据和技能配置
 
             var config = ResourceReader.ReadHeroConfig(name);
             if (config != null)
@@ -171,7 +113,7 @@ namespace Classes.Entities
                 _healthRegenerationGrowth = config._healthRegenerationGrowth;
                 _magicRegenerationGrowth = config._magicRegenerationGrowth;
             
-                #region 配置英雄技能
+                #region 读取英雄技能配置
                 
                 var assembly = Assembly.GetExecutingAssembly();
                 var passiveSkillType = assembly.GetType("Classes.Skills." + config._passiveSkill);
@@ -182,52 +124,27 @@ namespace Classes.Entities
 
                 if (passiveSkillType != null)
                 {
-                    var skill = (Skill)Activator.CreateInstance(passiveSkillType);
-                    skill.owner= this;
-                    skill.SkillEffect();
-                    skillList.Add(skill);
-                    Debug.Log("Read skill:" + skillList[(int)SkillType.PassiveSkill].skillName +
-                              "\nSkillDescription:" + skillList[(int)SkillType.PassiveSkill].GetDescription());
+                    skillList.Add((Skill)Activator.CreateInstance(passiveSkillType));
                 }
 
                 if (QSkillType != null)
                 {
-                    var skill = (Skill)Activator.CreateInstance(QSkillType);
-                    skill.owner= this;
-                    skill.SkillEffect();
-                    skillList.Add(skill);
-                    Debug.Log("Read skill:" + skillList[(int)SkillType.QSkill].skillName +
-                              "\nSkillDescription:" + skillList[(int)SkillType.QSkill].GetDescription());
+                    skillList.Add((Skill)Activator.CreateInstance(QSkillType));
                 }
 
                 if (WSkillType != null)
                 {
-                    var skill = (Skill)Activator.CreateInstance(WSkillType);
-                    skill.owner = this;
-                    skill.SkillEffect();
-                    skillList.Add(skill);
-                    Debug.Log("Read skill:" + skillList[(int)SkillType.WSkill].skillName +
-                              "\nSkillDescription:" + skillList[(int)SkillType.WSkill].GetDescription());
+                    skillList.Add((Skill)Activator.CreateInstance(WSkillType));
                 }
 
                 if (ESkillType != null)
                 {
-                    var skill = (Skill)Activator.CreateInstance(ESkillType);
-                    skill.owner = this;
-                    skill.SkillEffect();
-                    skillList.Add(skill);
-                    Debug.Log("Read skill:" + skillList[(int)SkillType.ESkill].skillName +
-                              "\nSkillDescription:" + skillList[(int)SkillType.ESkill].GetDescription());
+                    skillList.Add((Skill)Activator.CreateInstance(ESkillType));
                 }
 
                 if (RSkillType != null)
                 {
-                    var skill = (Skill)Activator.CreateInstance(RSkillType);
-                    skill.owner = this;
-                    skill.SkillEffect();
-                    skillList.Add(skill);
-                    Debug.Log("Read skill:" + skillList[(int)SkillType.RSkill].skillName +
-                              "\nSkillDescription:" + skillList[(int)SkillType.RSkill].GetDescription());
+                    skillList.Add((Skill)Activator.CreateInstance(RSkillType));
                 }
 
                 // 绑定技能升级按钮
@@ -236,7 +153,24 @@ namespace Classes.Entities
                     var skill = skillList[index];
                     MVVM.Binder.BindButton(skill.upgradeButton, () => SkillUpgrade(skill));
                 }
-                
+            
+                // 配置召唤师技能
+                var flash = new Flash();
+                flash.skillType = SkillType.DSkill;
+                skillList.Add(flash);
+            
+                var goustPoro = new GoustPoro();
+                goustPoro.skillType = SkillType.FSkill;
+                skillList.Add(goustPoro);
+
+                foreach (var skill in skillList)
+                {
+                    skill.owner = this;
+                    
+                    // 激活被动技能
+                    skill.PassiveAbilityEffective?.Invoke();
+                }
+
                 #endregion
             }
 
@@ -257,19 +191,6 @@ namespace Classes.Entities
             equipmentList.Add(new Property<Equipment>());
             equipmentList.Add(new Property<Equipment>());
             equipmentList.Add(new Property<Equipment>());
-            
-            // 配置召唤师技能
-            var flash = new Flash();
-            flash.skillType = SkillType.DSkill;
-            flash.owner= this;
-            flash.SkillEffect();
-            skillList.Add(flash);
-            
-            var goustPoro = new GoustPoro();
-            goustPoro.skillType = SkillType.FSkill;
-            goustPoro.owner= this;
-            goustPoro.SkillEffect();
-            skillList.Add(goustPoro);
             
             // 创建状态条
             StateBarFactory.Instance.Spawn(this);
@@ -333,6 +254,12 @@ namespace Classes.Entities
                 {
                     gainCoinTimer += Time.deltaTime;
                 }
+            };
+            
+            // 定义基础使用技能事件
+            OnSkillUsed += (_) =>
+            {
+                cursedBladeTimer = 5;
             };
         }
 
@@ -767,23 +694,46 @@ namespace Classes.Entities
                 }
             }
         }
+        
+        /// <summary>
+        /// 使用装备主动技能
+        /// </summary>
+        public void EquipmentActiveSkillRelease(int equipmentId)
+        {
+            if (equipmentList[equipmentId].Value != null)
+            {
+                equipmentList[equipmentId].Value.OnActiveSkillEffective();
+            }
+        }
 
         /// <summary>
         /// 获取海克斯
         /// </summary>
         public void GetHex(Hex hex)
         {
-            hex.OnHexGet(this);
             hexList.Add(hex);
+            hex.OnHexGet(this);
         }
 
         /// <summary>
-        /// 获取海克斯
+        /// 移除海克斯
         /// </summary>
         public void RemoveHex(Hex hex)
         {
             hexList.Remove(hex);
             hex.OnHexRemove();
+        }
+
+        /// <summary>
+        /// 移除全部海克斯
+        /// </summary>
+        public void RemoveAllHex()
+        {
+            foreach (var hex in hexList)
+            {
+                hex.OnHexRemove();
+            }
+            hexList.Clear();
         }
     }
 }

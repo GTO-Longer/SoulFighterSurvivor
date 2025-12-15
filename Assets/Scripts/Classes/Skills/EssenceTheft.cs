@@ -1,4 +1,3 @@
-using UnityEngine;
 using Utilities;
 
 namespace Classes.Skills
@@ -12,32 +11,32 @@ namespace Classes.Skills
             _skillLevel = 0;
             _maxSkillLevel = 0;
             maxSkillChargeCount = 5;
+
+            PassiveAbilityEffective += () =>
+            {
+                owner.OnKillEntity += (_, _) => skillChargeCount++;
+                owner.EntityUpdateEvent += (_) =>
+                {
+                    if (skillChargeCount >= maxSkillChargeCount)
+                    {
+                        skillChargeCount = 0;
+                        owner.TakeHeal(healCount);
+                        owner.TakeMagicRecover(healCount);
+                        if (owner.skillList[(int)SkillType.RSkill].specialTimer > 0 &&
+                            owner.skillList[(int)SkillType.RSkill].skillChargeCount <
+                            owner.skillList[(int)SkillType.RSkill].maxSkillChargeCount)
+                        {
+                            owner.skillList[(int)SkillType.RSkill].skillChargeCount += 1;
+                        }
+                    }
+                };
+            };
         }
 
         public override string GetDescription()
         {
             return string.Format(_skillDescription,
                 healCount);
-        }
-
-        public override void SkillEffect()
-        {
-            Debug.Log(skillName + ":Skill effective");
-            owner.OnKillEntity += (_, _) => skillChargeCount++;
-            owner.EntityUpdateEvent += (_) =>
-            {
-                if (skillChargeCount >= maxSkillChargeCount)
-                {
-                    skillChargeCount = 0;
-                    owner.TakeHeal(healCount);
-                    owner.TakeMagicRecover(healCount);
-                    if (owner.skillList[(int)SkillType.RSkill].specialTimer > 0 && 
-                        owner.skillList[(int)SkillType.RSkill].skillChargeCount < owner.skillList[(int)SkillType.RSkill].maxSkillChargeCount)
-                    {
-                        owner.skillList[(int)SkillType.RSkill].skillChargeCount += 1;
-                    }
-                }
-            };
         }
     }
 }

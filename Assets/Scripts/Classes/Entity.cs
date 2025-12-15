@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using DataManagement;
 using Factories;
+using MVVM;
+using MVVM.ViewModels;
 using RVO;
 using UnityEngine;
 using Utilities;
@@ -627,6 +629,52 @@ namespace Classes
         public void AbilityEffectActivate(Entity target, float damageCount, Skill skill)
         {
             AbilityEffect?.Invoke(this, target, damageCount, skill);
+        }
+        
+        /// <summary>
+        /// 技能特效
+        /// </summary>
+        public event Action<Skill> OnSkillUsed;
+        public void SkillUsed(Skill skill)
+        {
+            
+            if (skill.skillLevel <= 0)
+            {
+                Binder.ShowText(SkillViewModel.Instance.skillTips, "技能尚未解锁", 1);
+                return;
+            }
+
+            if (skill.actualSkillCost > magicPoint && skill.specialTimer <= 0)
+            {
+                Binder.ShowText(SkillViewModel.Instance.skillTips, "施法资源不够，技能无法使用", 1);
+                return;
+            }
+
+            if (skill.actualSkillCoolDown > skill.coolDownTimer)
+            {
+                Binder.ShowText(SkillViewModel.Instance.skillTips, "技能正在冷却", 1);
+                return;
+            }
+
+            if (skill.skillChargeCount > 0 && skill.maxSkillChargeCount > 0)
+            {
+                skill.skillChargeCount -= 1;
+            }
+            else if(skill.maxSkillChargeCount > 0)
+            {
+                Binder.ShowText(SkillViewModel.Instance.skillTips, "没有充能次数", 1);
+                return;
+            }
+
+            if (skill.maxSkillChargeCount <= 0)
+            {
+                magicPoint.Value -= skill.actualSkillCost;
+            }
+
+            skill.coolDownTimer = 0;
+            
+            skill.SkillEffect();
+            OnSkillUsed?.Invoke(skill);
         }
 
         #endregion

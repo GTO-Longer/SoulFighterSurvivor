@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using Factories;
-using MVVM;
-using MVVM.ViewModels;
 using Systems;
 using UnityEngine;
 using Utilities;
@@ -39,132 +37,99 @@ namespace Classes.Skills
 
         public override void SkillEffect()
         {
-            Debug.Log(skillName + ": Skill effective");
-            owner.OnRSkillRelease += (_, _) =>
+            // 设置充能
+            if (skillChargeCount == 0 && specialTimer == 0)
             {
-                if (_skillLevel <= 0)
-                {
-                    Binder.ShowText(SkillViewModel.Instance.skillTips, "技能尚未解锁", 1);
-                    return;
-                }
-                
-                if (_baseSkillCost[skillLevelToIndex] > owner.magicPoint && specialTimer <= 0)
-                {
-                    Binder.ShowText(SkillViewModel.Instance.skillTips, "施法资源不够，技能无法使用", 1);
-                    return;
-                }
+                maxSkillChargeCount = 3;
+                skillChargeCount = maxSkillChargeCount;
+                specialTimer = 10;
+                specialCoolDown = 1f;
+            }
 
-                if (actualSkillCoolDown > coolDownTimer)
-                {
-                    Binder.ShowText(SkillViewModel.Instance.skillTips, "技能正在冷却", 1);
-                    return;
-                }
-                // 设置充能
-                if (skillChargeCount == 0 && specialTimer == 0)
-                {
-                    maxSkillChargeCount = 3;
-                    owner.magicPoint.Value -= _baseSkillCost[skillLevelToIndex];
-                    skillChargeCount = maxSkillChargeCount;
-                    specialTimer = 10;
-                    specialCoolDown = 1f;
-                }
-                
-                if (skillChargeCount > 0)
-                {
-                    skillChargeCount -= 1;
-                    coolDownTimer = 0;
-                }
-                else
-                {
-                    Binder.ShowText(SkillViewModel.Instance.skillTips, "没有充能次数", 1);
-                    return;
-                }
+            var mouseWorldPos = CameraSystem._mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            mouseWorldPos.z = owner.gameObject.transform.position.z;
+            var direction = (mouseWorldPos - owner.gameObject.transform.position).normalized;
+            const float r = 150f;
 
-                var mouseWorldPos = CameraSystem._mainCamera.ScreenToWorldPoint(Input.mousePosition);
-                mouseWorldPos.z = owner.gameObject.transform.position.z;
-                var direction = (mouseWorldPos - owner.gameObject.transform.position).normalized;
-                const float r = 150f;
-
-                owner.Dash(destinationDistance, dashDuration, direction, () =>
+            owner.Dash(destinationDistance, dashDuration, direction, () =>
+            {
+                // 到目的地检测是否有敌人
+                var targets = ToolFunctions.IsOverlappingOtherTagAll(owner.gameObject, skillRange);
+                if (targets != null)
                 {
-                    // 到目的地检测是否有敌人
-                    var targets = ToolFunctions.IsOverlappingOtherTagAll(owner.gameObject, skillRange);
-                    if (targets != null)
+                    var spiritOrbList = new List<Bullet>
                     {
-                        var spiritOrbList = new List<Bullet>
+                        BulletFactory.Instance.CreateBullet(owner),
+                        BulletFactory.Instance.CreateBullet(owner),
+                        BulletFactory.Instance.CreateBullet(owner)
+                    };
+
+                    for (var index = 0; index < spiritOrbList.Count; index++)
+                    {
+                        var spiritOrb = spiritOrbList[index];
+                        var bulletIndex = index;
+
+                        spiritOrb.OnBulletAwake += (self) =>
                         {
-                            BulletFactory.Instance.CreateBullet(owner),
-                            BulletFactory.Instance.CreateBullet(owner),
-                            BulletFactory.Instance.CreateBullet(owner)
+                            self.target = targets[bulletIndex % targets.Length];
+                            self.gameObject.SetActive(true);
+
+                            var angleOffset = bulletIndex * (2f * Mathf.PI / 3f);
+
+                            var offset = new Vector3(
+                                Mathf.Cos(angleOffset) * r,
+                                Mathf.Sin(angleOffset) * r,
+                                0f
+                            );
+
+                            var ownerPos = owner.gameObject.transform.position;
+                            self.gameObject.transform.position = new Vector3(
+                                ownerPos.x + offset.x,
+                                ownerPos.y + offset.y,
+                                ownerPos.z
+                            );
+
+                            self.OnBulletUpdate += (_) =>
+                            {
+                                // 锁定目标死亡则清除子弹
+                                if (self.target == null || !self.target.isAlive)
+                                {
+                                    self.Destroy();
+                                    return;
+                                }
+
+                                var bulletCurrentPosition = self.gameObject.transform.position;
+                                var bulletTargetPosition = self.target.gameObject.transform.position;
+
+                                var bulletDirection = (bulletTargetPosition - bulletCurrentPosition).normalized;
+                                var nextPosition = bulletCurrentPosition +
+                                                   bulletDirection * (bulletSpeed * Time.deltaTime);
+
+                                self.gameObject.transform.position = nextPosition;
+                                self.gameObject.transform.rotation =
+                                    Quaternion.LookRotation(Vector3.forward, bulletDirection);
+
+                                // 子弹的销毁逻辑
+                                if (Vector3.Distance(self.gameObject.transform.position,
+                                        self.target.gameObject.transform.position) <= self.target.scale)
+                                {
+                                    self.BulletHit();
+                                    self.Destroy();
+                                }
+                            };
                         };
 
-                        for (var index = 0; index < spiritOrbList.Count; index++)
+                        spiritOrb.OnBulletHit += (self) =>
                         {
-                            var spiritOrb = spiritOrbList[index];
-                            var bulletIndex = index;
-                            
-                            spiritOrb.OnBulletAwake += (self) =>
-                            {
-                                self.target = targets[bulletIndex % targets.Length];
-                                self.gameObject.SetActive(true);
+                            var damageCount = self.target.CalculateAPDamage(self.owner, _damage);
+                            self.target.TakeDamage(damageCount, DamageType.AP, owner);
+                            self.owner.AbilityEffectActivate(self.target, damageCount, this);
+                        };
 
-                                var angleOffset = bulletIndex * (2f * Mathf.PI / 3f);
-
-                                var offset = new Vector3(
-                                    Mathf.Cos(angleOffset) * r,
-                                    Mathf.Sin(angleOffset) * r,
-                                    0f
-                                );
-
-                                var ownerPos = owner.gameObject.transform.position;
-                                self.gameObject.transform.position = new Vector3(
-                                    ownerPos.x + offset.x,
-                                    ownerPos.y + offset.y,
-                                    ownerPos.z
-                                );
-
-                                self.OnBulletUpdate += (_) =>
-                                {
-                                    // 锁定目标死亡则清除子弹
-                                    if (self.target == null || !self.target.isAlive)
-                                    {
-                                        self.Destroy();
-                                        return;
-                                    }
-                                    
-                                    var bulletCurrentPosition = self.gameObject.transform.position;
-                                    var bulletTargetPosition = self.target.gameObject.transform.position;
-
-                                    var bulletDirection = (bulletTargetPosition - bulletCurrentPosition).normalized;
-                                    var nextPosition = bulletCurrentPosition +
-                                                       bulletDirection * (bulletSpeed * Time.deltaTime);
-
-                                    self.gameObject.transform.position = nextPosition;
-                                    self.gameObject.transform.rotation =
-                                        Quaternion.LookRotation(Vector3.forward, bulletDirection);
-
-                                    // 子弹的销毁逻辑
-                                    if (Vector3.Distance(self.gameObject.transform.position,
-                                            self.target.gameObject.transform.position) <= self.target.scale)
-                                    {
-                                        self.BulletHit();
-                                        self.Destroy();
-                                    }
-                                };
-                            };
-
-                            spiritOrb.OnBulletHit += (self) =>
-                            {
-                                var damageCount = self.target.CalculateAPDamage(self.owner, _damage);
-                                self.target.TakeDamage(damageCount, DamageType.AP, owner);
-                                self.owner.AbilityEffectActivate(self.target, damageCount, this);
-                            };
-
-                            spiritOrb.Awake();
-                        }
+                        spiritOrb.Awake();
                     }
-                });
-            };
+                }
+            });
         }
     }
 }

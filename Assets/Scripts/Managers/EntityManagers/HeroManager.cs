@@ -37,7 +37,7 @@ namespace Managers.EntityManagers
                 }
                 else
                 {
-                    hero.QSkillRelease();
+                    hero.SkillUsed(hero.skillList[(int)SkillType.QSkill]);
                 }
             }
 
@@ -49,7 +49,7 @@ namespace Managers.EntityManagers
                 }
                 else
                 {
-                    hero.WSkillRelease();
+                    hero.SkillUsed(hero.skillList[(int)SkillType.WSkill]);
                 }
             }
 
@@ -61,7 +61,7 @@ namespace Managers.EntityManagers
                 }
                 else
                 {
-                    hero.ESkillRelease();
+                    hero.SkillUsed(hero.skillList[(int)SkillType.ESkill]);
                 }
             }
 
@@ -73,25 +73,25 @@ namespace Managers.EntityManagers
                 }
                 else
                 {
-                    hero.RSkillRelease();
+                    hero.SkillUsed(hero.skillList[(int)SkillType.RSkill]);
                 }
             }
 
             if (Input.GetKeyDown(KeyCode.D) && !PanelUIRoot.Instance.isPanelOpen)
             {
-                hero.DSkillRelease();
+                hero.SkillUsed(hero.skillList[(int)SkillType.DSkill]);
             }
 
             if (Input.GetKeyDown(KeyCode.F) && !PanelUIRoot.Instance.isPanelOpen)
             {
-                hero.FSkillRelease();
+                hero.SkillUsed(hero.skillList[(int)SkillType.FSkill]);
             }
 
             for (int index = 0; index < 6; index++)
             {
                 if (Input.GetKeyDown(KeyCode.Alpha1 + index) && !PanelUIRoot.Instance.isPanelOpen)
                 {
-                    hero.EquipmentRelease(index);
+                    hero.EquipmentActiveSkillRelease(index);
                 }
             }
         }

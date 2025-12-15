@@ -27,7 +27,7 @@ namespace Classes
         protected RVOAgent _agent;
         public RVOAgent agent => _agent;
         public bool isAlive;
-        private const int maxLevel = 18;
+        public int maxLevel = 18;
         public int _skillPoint;
         protected Vector2 forcedDirection;
         protected float damageBoost;
@@ -728,15 +728,15 @@ namespace Classes
         /// <summary>
         /// 玩家升级
         /// </summary>
-        public void LevelUp()
+        public void LevelUp(int num = 1)
         {
             if (level < maxLevel)
             {
                 var maxHealthPointCache = maxHealthPoint.Value;
                 var maxMagicPointCache = maxMagicPoint.Value;
 
-                level.Value += 1;
-                _skillPoint += 1;
+                level.Value += num;
+                _skillPoint += num;
 
                 healthPoint.Value += maxHealthPoint.Value - maxHealthPointCache;
                 magicPoint.Value += maxMagicPoint.Value - maxMagicPointCache;

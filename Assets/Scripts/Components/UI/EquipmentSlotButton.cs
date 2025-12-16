@@ -34,7 +34,7 @@ namespace Components.UI
         {
             if (tempIcon == null)
             {
-                tempIcon = Instantiate(gameObject, transform.parent);
+                tempIcon = transform.parent.Find("tempIcon").gameObject;
                 tempIcon.SetActive(false);
                 tempIcon.transform.Find("CDMask").GetComponent<Image>().enabled = false;
                 tempIcon.transform.Find("EquipmentCD").GetComponent<TMP_Text>().enabled = false;

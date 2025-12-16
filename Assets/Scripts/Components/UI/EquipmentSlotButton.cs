@@ -22,12 +22,25 @@ namespace Components.UI
         private RectTransform rectTransform;
         private Vector2 originalPosition;
         private int originalSiblingIndex;
-        private GameObject tempIcon;
+        private static GameObject tempIcon;
 
         protected override void Awake()
         {
             base.Awake();
             rectTransform = GetComponent<RectTransform>();
+        }
+
+        protected override void Start()
+        {
+            if (tempIcon == null)
+            {
+                tempIcon = Instantiate(gameObject, transform.parent);
+                tempIcon.SetActive(false);
+                tempIcon.transform.Find("CDMask").GetComponent<Image>().enabled = false;
+                tempIcon.transform.Find("EquipmentCD").GetComponent<TMP_Text>().enabled = false;
+                tempIcon.transform.Find("ChargeCount").GetComponent<TMP_Text>().enabled = false;
+                tempIcon.GetComponent<Image>().sprite = null;
+            }
         }
 
         public override void OnPointerEnter(PointerEventData eventData)
@@ -65,13 +78,10 @@ namespace Components.UI
 
             isDragging = true;
             originalPosition = rectTransform.position;
-            tempIcon = Instantiate(gameObject, transform.parent);
-            tempIcon.GetComponent<Image>().sprite = null;
-            tempIcon.transform.Find("CDMask").GetComponent<Image>().enabled = false;
-            tempIcon.transform.Find("EquipmentCD").GetComponent<TMP_Text>().enabled = false;
-            tempIcon.transform.Find("ChargeCount").GetComponent<TMP_Text>().enabled = false;
-            tempIcon.transform.SetSiblingIndex(originalSiblingIndex);
             originalSiblingIndex = transform.GetSiblingIndex();
+            tempIcon.transform.SetSiblingIndex(originalSiblingIndex);
+            tempIcon.transform.Find("SlotIndex").GetComponent<TMP_Text>().text = transform.Find("SlotIndex").GetComponent<TMP_Text>().text;
+            tempIcon.SetActive(true);
             transform.SetAsLastSibling();
         }
 
@@ -90,7 +100,7 @@ namespace Components.UI
             isDragging = false;
             rectTransform.position = originalPosition;
             transform.SetSiblingIndex(originalSiblingIndex);
-            Destroy(tempIcon);
+            tempIcon.SetActive(false);
         }
     }
 }

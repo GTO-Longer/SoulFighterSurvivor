@@ -37,7 +37,21 @@ namespace Managers
 
         public void RemoveMaterial(Material material)
         {
+            material.SetFloat("_UnscaledTime", 0);
             materialList.Remove(material);
+        }
+
+        public void RemoveAllMaterial()
+        {
+            foreach (var material in materialList)
+            {
+                RemoveMaterial(material);
+            }
+        }
+
+        private void OnDestroy()
+        {
+            RemoveAllMaterial();
         }
     }
 }

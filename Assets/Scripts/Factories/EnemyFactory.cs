@@ -87,7 +87,7 @@ namespace Factories
                 // 极坐标转直角坐标
                 var offset = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
                 var spawnPosition = heroPosition + offset;
-                NavMesh.SamplePosition(spawnPosition, out var hit, 500f, NavMesh.AllAreas);
+                NavMesh.SamplePosition(spawnPosition, out var hit, 20000f, NavMesh.AllAreas);
                 
                 Spawn(hit.position);
                 enemySpawnTimer = 0;

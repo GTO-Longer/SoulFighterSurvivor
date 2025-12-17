@@ -45,8 +45,9 @@ namespace Managers
         {
             foreach (var material in materialList)
             {
-                RemoveMaterial(material);
+                material.SetFloat("_UnscaledTime", 0);
             }
+            materialList.Clear();
         }
 
         private void OnDestroy()

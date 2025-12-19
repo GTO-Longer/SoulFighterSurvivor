@@ -79,7 +79,7 @@ namespace Classes{
             upgradeButton = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{skillType.ToString()}/UpgradeButton")?.GetComponent<Button>();
             levelBar = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{skillType.ToString()}/LevelBar")?.transform;
             
-            skillIcon.sprite = ResourceReader.ReadIcon(name);
+            skillIcon.sprite = ResourceReader.LoadIcon(name);
         }
         
         protected void ReadSkillConfig(string name)

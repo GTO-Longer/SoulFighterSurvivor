@@ -78,7 +78,7 @@ namespace Classes
             chargeCount = new Property<int>();
             maxChargeCount = new Property<int>();
             
-            equipmentIcon = ResourceReader.ReadIcon(id);
+            equipmentIcon = ResourceReader.LoadIcon(id);
             
             equipmentTimerUpdate = (_) =>
             {

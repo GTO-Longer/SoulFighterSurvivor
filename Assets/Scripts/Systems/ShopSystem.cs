@@ -20,12 +20,11 @@ namespace Systems
         private Button purchaseButton;
         private List<GameObject> equipmentSlots = new();
         private EquipmentInfoViewModel equipmentInfoViewModel;
-        
-        private void Start()
+
+        public void Initialize()
         {
             Instance = this;
             equipmentSlotPrefab.SetActive(false);
-            gameObject.SetActive(false);
             equipmentInfoViewModel = transform.Find("EquipmentInfo").GetComponent<EquipmentInfoViewModel>();
             purchaseButton = transform.Find("EquipmentInfo/PurchaseButton").GetComponent<Button>();
             

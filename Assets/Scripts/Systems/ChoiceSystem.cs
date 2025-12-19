@@ -16,8 +16,8 @@ namespace Systems
         private Transform choicePrefab;
         public static ChoiceSystem Instance;
         private Dictionary<Choice, GameObject> choiceDictionary = new();
-        
-        private void Start()
+
+        public void Initialize()
         {
             Instance = this;
             choicePrefab = transform.Find("Choices/ChoicePrefab");
@@ -51,8 +51,8 @@ namespace Systems
                 {
                     Quality.None => null,
                     Quality.Silver => null,
-                    Quality.Gold => ResourceReader.ReadMaterial("Gold"),
-                    Quality.Prismatic => ResourceReader.ReadMaterial("Prismatic"),
+                    Quality.Gold => ResourceReader.LoadMaterial("Gold"),
+                    Quality.Prismatic => ResourceReader.LoadMaterial("Prismatic"),
                     _ => throw new ArgumentOutOfRangeException()
                 };
                 if (choice.choiceQuality == Quality.Prismatic)
@@ -90,9 +90,8 @@ namespace Systems
             }
         }
 
-        private void ClearChoices()
+        public void ClearChoices()
         {
-            gameObject.SetActive(false);
             foreach (var kv in choiceDictionary)
             {
                 if (kv.Key.choiceQuality == Quality.Prismatic)
@@ -104,6 +103,7 @@ namespace Systems
                 Destroy(kv.Value);
             }
             choiceDictionary.Clear();
+            gameObject.SetActive(false);
             PanelUIRoot.Instance.isChoiceOpen = false;
         }
     }

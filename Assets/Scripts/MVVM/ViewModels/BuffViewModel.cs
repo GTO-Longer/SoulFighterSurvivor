@@ -18,9 +18,13 @@ namespace MVVM.ViewModels
         private Transform buffBar;
         private Dictionary<string, Action> BuffUnbindEvent = new();
 
-        private void Start()
+        private void Awake()
         {
             Instance = this;
+        }
+
+        private void Start()
+        {
             buffPrefab.SetActive(false);
             buffBar = buffPrefab.transform.parent;
             

@@ -22,9 +22,13 @@ namespace MVVM.ViewModels
         private GameObject background;
         private Hero hero;
 
-        private void Start()
+        private void Awake()
         {
             Instance = this;
+        }
+
+        private void Start()
+        {
             hero = HeroManager.hero;
             attributeName = transform.Find("Background/AttributeNameContainer/AttributeName").GetComponent<TMP_Text>();
             attributeDescription = transform.Find("Background/AttributeDescription").GetComponent<TMP_Text>();

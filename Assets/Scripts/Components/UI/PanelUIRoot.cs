@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using DataManagement;
 using Systems;
 using UnityEngine;
 
@@ -11,15 +13,26 @@ namespace Components.UI
         public bool isShopOpen;
         public bool isChoiceOpen;
         public bool isPanelOpen => isShopOpen || isChoiceOpen;
-        private ShopSystem shopSystem;
         private float formerTimeScale = 0;
+        
+        private ShopSystem shopSystem;
+        private ChoiceSystem choiceSystem;
+
+        private void Awake()
+        {
+            Instance = this;
+        }
 
         private void Start()
         {
-            Instance = this;
             isShopOpen = false;
             isChoiceOpen = false;
-            shopSystem = transform.Find("ShopPanel").GetComponent<ShopSystem>();
+            
+            shopSystem = ResourceReader.LoadPrefab("UI/ShopPanel", transform).GetComponent<ShopSystem>();
+            choiceSystem = ResourceReader.LoadPrefab("UI/ChoicePanel", transform).GetComponent<ChoiceSystem>();
+
+            shopSystem.Initialize();
+            choiceSystem.Initialize();
         }
 
         private void Update()

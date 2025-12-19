@@ -12,7 +12,7 @@ namespace MVVM.ViewModels
         private event Action UnBindEvent;
         public static SkillViewModel Instance;
         public static Property<Skill> chosenSkill = new Property<Skill>();
-        public TMP_Text skillTips;
+        [HideInInspector]public TMP_Text skillTips;
 
         private void Awake()
         {

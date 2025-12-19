@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using DataManagement;
 using Systems;
 using UnityEngine;
@@ -10,6 +7,7 @@ namespace Components.UI
     public class PanelUIRoot : MonoBehaviour
     {
         public static PanelUIRoot Instance;
+        
         public bool isShopOpen;
         public bool isChoiceOpen;
         public bool isPanelOpen => isShopOpen || isChoiceOpen;

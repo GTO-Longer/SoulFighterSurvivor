@@ -13,8 +13,8 @@ namespace Components.UI
         public bool isPanelOpen => isShopOpen || isChoiceOpen;
         private float formerTimeScale = 0;
         
-        private ShopSystem shopSystem;
-        private ChoiceSystem choiceSystem;
+        [HideInInspector]public ShopSystem shopSystem;
+        [HideInInspector]public ChoiceSystem choiceSystem;
 
         private void Awake()
         {
@@ -31,6 +31,8 @@ namespace Components.UI
 
             shopSystem.Initialize();
             choiceSystem.Initialize();
+            shopSystem.transform.SetSiblingIndex(0);
+            choiceSystem.transform.SetSiblingIndex(0);
         }
 
         private void Update()

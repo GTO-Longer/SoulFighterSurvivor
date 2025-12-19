@@ -712,6 +712,7 @@ namespace Classes.Entities
         public void GetHex(Hex hex)
         {
             hexList.Add(hex);
+            HexListViewModel.Instance.SetHex(hexList.IndexOf(hex), hex);
             hex.OnHexGet(this);
         }
 
@@ -720,6 +721,7 @@ namespace Classes.Entities
         /// </summary>
         public void RemoveHex(Hex hex)
         {
+            HexListViewModel.Instance.SetHex(hexList.IndexOf(hex), null);
             hexList.Remove(hex);
             hex.OnHexRemove();
         }

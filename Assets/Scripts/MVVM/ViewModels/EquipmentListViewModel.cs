@@ -15,13 +15,15 @@ namespace MVVM.ViewModels
         public static EquipmentListViewModel Instance;
         private List<Transform> equipmentSlotList;
         private Action UnBindEvent;
-        public EquipmentInfoViewModel equipmentInfoViewModel;
-        public EquipmentInfoViewModel localEquipmentInfoShow;
+        private EquipmentInfoViewModel equipmentInfoViewModel;
+        private EquipmentInfoViewModel playerEquipmentInfoShow;
 
         private void Start()
         {
             Instance = this;
             equipmentSlotList = new List<Transform>();
+            equipmentInfoViewModel = PanelUIRoot.Instance.shopSystem.transform.Find("EquipmentInfo").GetComponent<EquipmentInfoViewModel>();
+            playerEquipmentInfoShow = transform.parent.Find("EquipmentInfo").GetComponent<EquipmentInfoViewModel>();
 
             // 绑定装备CD显示
             for (var index = 0; index < 6; index++)
@@ -81,14 +83,14 @@ namespace MVVM.ViewModels
                         var current = equipmentProp.Value;
                         if (current != null && !PanelUIRoot.Instance.isShopOpen)
                         {
-                            localEquipmentInfoShow.gameObject.SetActive(true);
-                            localEquipmentInfoShow.ShowEquipmentInfo(current);
+                            playerEquipmentInfoShow.gameObject.SetActive(true);
+                            playerEquipmentInfoShow.ShowEquipmentInfo(current);
                         }
                     };
 
                     button.onPointerExit = () =>
                     {
-                        localEquipmentInfoShow.gameObject.SetActive(false);
+                        playerEquipmentInfoShow.gameObject.SetActive(false);
                     };
                 }
             }
@@ -125,10 +127,9 @@ namespace MVVM.ViewModels
             (list[from].Value, list[to].Value) = (list[to].Value, list[from].Value);
 
             // 更新 UI 数据
-            equipmentSlotList[from].GetComponent<DataManagement.EquipmentData>().equipment = list[from].Value;
-            equipmentSlotList[to].GetComponent<DataManagement.EquipmentData>().equipment = list[to].Value;
+            equipmentSlotList[from].GetComponent<EquipmentData>().equipment = list[from].Value;
+            equipmentSlotList[to].GetComponent<EquipmentData>().equipment = list[to].Value;
         }
-
 
         private void OnDestroy()
         {

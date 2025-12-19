@@ -1,6 +1,5 @@
 using System;
 using DataManagement;
-using MVVM.ViewModels;
 using Systems;
 using TMPro;
 using UnityEngine;

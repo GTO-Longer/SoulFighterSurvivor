@@ -14,7 +14,7 @@
             "hexName": "连拔击锤",
             "quality": "Prismatic",
             "description": "在你攻击时，发射5个额外箭矢，每个箭矢\n基于移动的距离造成<color=#FF6A6A>物理伤害</color>。每个方向都\n有单独的冷却时间。",
-            "detail": "你在750范围内的每个基本方向的下一次普通攻击额外在攻击时向每次造成的目标发射 5 发箭矢，\n造成[10–50](基于等级)+(15% <color=#FF8A00>额外 AD</color>)<color=#FF6A6A>物理伤害</color>，总计[50–250](基于等级)+(75%<color=#FF8A00>额外攻击力</color>)<color=#FF6A6A>物理伤害</color>(每个方向 5 秒冷却时间)。\n箭矢的伤害提高 0%–50%(基于飞行距离)，每个箭矢都可以触发施加20%攻击特效。",
+            "detail": "你的四个方向上的下一次普通攻击额外在攻击时向每次造成的目标发射5发箭矢，\n造成{0:F0}=25+(15%<color=#FF8A00>攻击力</color>)<color=#FF6A6A>物理伤害</color>，总计{0:F0}=125+(75%<color=#FF8A00>攻击力</color>)<color=#FF6A6A>物理伤害</color>(每个方向 5 秒冷却时间)。\n箭矢的伤害提高 0%–50%(基于飞行距离，500码达到最大增伤)，每个箭矢都可以触发施加20%攻击特效。",
             "iconName": "Hex_Attack",
             "iconBorderName": "Hex_Damage_Border"
         },

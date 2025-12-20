@@ -51,16 +51,36 @@ namespace MVVM.ViewModels
         /// </summary>
         public void SetHex(int index, Hex hex)
         {
-            hexSlotList[index].GetComponent<HexData>().hex = hex;
-            hexSlotList[index].GetComponent<Image>().sprite = hex.hexIcon;
-            hexSlotList[index].GetComponent<Image>().material = hex.hexQuality switch
+            if (hex == null)
             {
-                Quality.None => null,
-                Quality.Silver => null,
-                Quality.Gold => ResourceReader.LoadMaterial("Gold"),
-                Quality.Prismatic => ResourceReader.LoadMaterial("Prismatic"),
-                _ => throw new ArgumentOutOfRangeException()
-            };
+                hexSlotList[index].GetComponent<HexData>().hex = null;
+                hexSlotList[index].GetComponent<Image>().sprite = null;
+                hexSlotList[index].GetComponent<Image>().color = Color.black;
+                hexSlotList[index].Find("HexIcon").GetComponent<Image>().sprite = null;
+                hexSlotList[index].Find("HexIcon").GetComponent<Image>().material = null;
+            }
+            else
+            {
+                hexSlotList[index].GetComponent<HexData>().hex = hex;
+                hexSlotList[index].GetComponent<Image>().sprite = hex.hexIconBorder;
+                hexSlotList[index].GetComponent<Image>().color = hex.hexQuality switch
+                {
+                    Quality.None => Color.black,
+                    Quality.Silver => Colors.GetColor(Colors.SilverBorder),
+                    Quality.Gold => Colors.GetColor(Colors.GoldBorder),
+                    Quality.Prismatic => Colors.GetColor(Colors.PrismaticBorder),
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+                hexSlotList[index].Find("HexIcon").GetComponent<Image>().sprite = hex.hexIcon;
+                hexSlotList[index].Find("HexIcon").GetComponent<Image>().material = hex.hexQuality switch
+                {
+                    Quality.None => null,
+                    Quality.Silver => null,
+                    Quality.Gold => ResourceReader.LoadMaterial("Gold"),
+                    Quality.Prismatic => ResourceReader.LoadMaterial("Prismatic"),
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+            }
         }
     }
 }

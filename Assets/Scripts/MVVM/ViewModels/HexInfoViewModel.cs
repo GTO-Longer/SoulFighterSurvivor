@@ -40,7 +40,9 @@ namespace MVVM.ViewModels
                 Quality.Prismatic => ResourceReader.LoadMaterial("Prismatic"),
                 _ => throw new ArgumentOutOfRangeException()
             };
-            GetComponent<RectTransform>().ForceUpdateRectTransforms();
+            
+            // UI重新布局
+            LayoutRebuilder.ForceRebuildLayoutImmediate(transform.Find("Background").GetComponent<RectTransform>());
         }
 
         public void HideHexInfo()

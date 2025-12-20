@@ -18,7 +18,7 @@ namespace Classes
         /// <summary>
         /// 获取事件是否触发过
         /// </summary>
-        protected bool hexGetEventTriggered;
+        protected bool hexGetEventTriggered = false;
 
         protected Hex(string name)
         {
@@ -32,8 +32,6 @@ namespace Classes
             hexQuality = quality;
             hexIcon = ResourceReader.LoadIcon(config.iconName);
             hexIconBorder = ResourceReader.LoadIcon(config.iconBorderName);
-
-            hexGetEventTriggered = false;
         }
 
         public virtual void OnHexGet(Entity entity)

@@ -81,7 +81,7 @@ namespace Classes.Hexes
 
                 if (isUp && isRight)
                 {
-                    if (rightUpTimer <= directionCD)
+                    if (rightUpTimer < directionCD)
                     {
                         return;
                     }
@@ -91,7 +91,7 @@ namespace Classes.Hexes
                 }
                 else if (isUp && !isRight)
                 {
-                    if (leftUpTimer <= directionCD)
+                    if (leftUpTimer < directionCD)
                     {
                         return;
                     }
@@ -101,7 +101,7 @@ namespace Classes.Hexes
                 }
                 else if (!isUp && isRight)
                 {
-                    if (rightDownTimer <= directionCD)
+                    if (rightDownTimer < directionCD)
                     {
                         return;
                     }
@@ -111,7 +111,7 @@ namespace Classes.Hexes
                 }
                 else
                 {
-                    if (leftDownTimer <= directionCD)
+                    if (leftDownTimer < directionCD)
                     {
                         return;
                     }

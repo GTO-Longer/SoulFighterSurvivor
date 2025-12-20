@@ -31,9 +31,14 @@ namespace Systems
             
             gameObject.SetActive(true);
             PanelUIRoot.Instance.isChoiceOpen = true;
+            
+            // 遍历选项并创建UI
             foreach (var choice in choices)
             {
                 var newChoice = Instantiate(choicePrefab.gameObject, choicePrefab.parent);
+                var choiceIcon = newChoice.transform.Find("ChoiceIcon").GetComponent<Image>();
+                var choiceBorder = newChoice.transform.Find("ChoiceBorder").GetComponent<Image>();
+                
                 newChoice.GetComponent<Button>().onClick.AddListener(() =>
                 {
                     if (newChoice.transform.localScale.x >= 0.9f)
@@ -44,7 +49,7 @@ namespace Systems
                 });
                 newChoice.transform.Find("ChoiceTitle").GetComponent<TMP_Text>().text = choice.choiceTitle;
                 newChoice.transform.Find("ChoiceContent").GetComponent<TMP_Text>().text = choice.choiceContent;
-                newChoice.transform.Find("ChoiceIcon").GetComponent<Image>().sprite = choice.choiceIcon;
+                choiceIcon.sprite = choice.choiceIcon;
                 
                 // 设置材质
                 var material = choice.choiceQuality switch
@@ -55,16 +60,26 @@ namespace Systems
                     Quality.Prismatic => ResourceReader.LoadMaterial("Prismatic"),
                     _ => throw new ArgumentOutOfRangeException()
                 };
-                if (choice.choiceQuality == Quality.Prismatic)
+                choiceIcon.material = material;
+                choiceBorder.material = material;
+                
+                // 设置图标边框颜色
+                var choiceIconBorder = newChoice.transform.Find("ChoiceIconBorder").GetComponent<Image>();
+                switch (choice.choiceQuality)
                 {
-                    newChoice.transform.Find("ChoiceBorder").GetComponent<Image>().material = material;
-                    newChoice.transform.Find("ChoiceIcon").GetComponent<Image>().material = material;
+                    case Quality.None: choiceIconBorder.gameObject.SetActive(false); break;
+                    case Quality.Silver: choiceIconBorder.color = Colors.GetColor(Colors.SilverBorder); break;
+                    case Quality.Gold: choiceIconBorder.color = Colors.GetColor(Colors.GoldBorder); break;
+                    case Quality.Prismatic: choiceIconBorder.color = Colors.GetColor(Colors.PrismaticBorder); break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
 
-                if (choice.choiceQuality == Quality.Prismatic)
+                // 将有材质的素材加入材质更新
+                if (material != null)
                 {
-                    ShaderManager.Instance.AddMaterial(newChoice.transform.Find("ChoiceBorder").GetComponent<Image>().material);
-                    ShaderManager.Instance.AddMaterial(newChoice.transform.Find("ChoiceIcon").GetComponent<Image>().material);
+                    ShaderManager.Instance.AddMaterial(choiceIcon.material);
+                    ShaderManager.Instance.AddMaterial(choiceBorder.material);
                 }
 
                 choiceDictionary.Add(choice, newChoice);
@@ -76,6 +91,8 @@ namespace Systems
                 kv.Value.transform.localScale = new Vector3(0, 0, 0);
                 kv.Value.SetActive(true);
                 var choiceIndex = index;
+                
+                // 设置选项依次显示
                 Async.SetAsync(0f, null, null, 
                     () =>
                     {
@@ -94,9 +111,8 @@ namespace Systems
         {
             foreach (var kv in choiceDictionary)
             {
-                if (kv.Key.choiceQuality == Quality.Prismatic)
+                if (kv.Key.choiceQuality is Quality.Prismatic or Quality.Gold)
                 {
-                    ShaderManager.Instance.RemoveMaterial(kv.Value.transform.Find("ChoiceBorder").GetComponent<Image>().material);
                     ShaderManager.Instance.RemoveMaterial(kv.Value.transform.Find("ChoiceIcon").GetComponent<Image>().material);
                 }
 

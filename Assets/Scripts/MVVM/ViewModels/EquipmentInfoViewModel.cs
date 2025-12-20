@@ -107,12 +107,12 @@ namespace MVVM.ViewModels
                             Debug.LogError("未找到对应属性！");
                             break;
                         case EquipmentAttributeType.maxHealthPoint:
-                            entryContent = $"<color=#0ACD02>+{kv.Value:F0}最大生命值</color>";
+                            entryContent = $"<color={Colors.Health}>+{kv.Value:F0}最大生命值</color>";
                             entryList[^1].transform.Find("EntryIcon").GetComponent<Image>().sprite =
                                 ResourceReader.LoadIcon("Attributes", "MaxHealthPointIcon");
                             break;
                         case EquipmentAttributeType.percentageMaxHealthPoint:
-                            entryContent = $"<color=#0ACD02>+{kv.Value:P0}最大生命值</color>";
+                            entryContent = $"<color={Colors.Health}>+{kv.Value:P0}最大生命值</color>";
                             entryList[^1].transform.Find("EntryIcon").GetComponent<Image>().sprite =
                                 ResourceReader.LoadIcon("Attributes", "MaxHealthPointIcon");
                             break;
@@ -127,12 +127,12 @@ namespace MVVM.ViewModels
                                 ResourceReader.LoadIcon("Attributes", "MaxMagicPointIcon");
                             break;
                         case EquipmentAttributeType.attackSpeed:
-                            entryContent = $"<color=#E0C300>+{kv.Value:P0}攻击速度</color>";
+                            entryContent = $"<color={Colors.AttackSpeed}>+{kv.Value:P0}攻击速度</color>";
                             entryList[^1].transform.Find("EntryIcon").GetComponent<Image>().sprite =
                                 ResourceReader.LoadIcon("Attributes", "AttackSpeedIcon");
                             break;
                         case EquipmentAttributeType.percentageAttackSpeed:
-                            entryContent = $"<color=#E0C300>+{kv.Value:P0}总攻击速度加成</color>";
+                            entryContent = $"<color={Colors.AttackSpeed}>+{kv.Value:P0}总攻击速度加成</color>";
                             entryList[^1].transform.Find("EntryIcon").GetComponent<Image>().sprite =
                                 ResourceReader.LoadIcon("Attributes", "AttackSpeedIcon");
                             break;
@@ -147,12 +147,12 @@ namespace MVVM.ViewModels
                                 ResourceReader.LoadIcon("Attributes", "AttackDamageIcon");
                             break;
                         case EquipmentAttributeType.abilityPower:
-                            entryContent = $"<color=#C97BFF>+{kv.Value:F0}法术强度</color>";
+                            entryContent = $"<color={Colors.AbilityPower}>+{kv.Value:F0}法术强度</color>";
                             entryList[^1].transform.Find("EntryIcon").GetComponent<Image>().sprite =
                                 ResourceReader.LoadIcon("Attributes", "AbilityPowerIcon");
                             break;
                         case EquipmentAttributeType.percentageAbilityPower:
-                            entryContent = $"<color=#C97BFF>+{kv.Value:P0}法术强度</color>";
+                            entryContent = $"<color={Colors.AbilityPower}>+{kv.Value:P0}法术强度</color>";
                             entryList[^1].transform.Find("EntryIcon").GetComponent<Image>().sprite =
                                 ResourceReader.LoadIcon("Attributes", "AbilityPowerIcon");
                             break;
@@ -167,42 +167,42 @@ namespace MVVM.ViewModels
                                 ResourceReader.LoadIcon("Attributes", "AbilityHasteIcon");
                             break;
                         case EquipmentAttributeType.attackDefense:
-                            entryContent = $"<color=#FFD700>+{kv.Value:F0}物理防御</color>";
+                            entryContent = $"<color={Colors.AttackDefense}>+{kv.Value:F0}物理防御</color>";
                             entryList[^1].transform.Find("EntryIcon").GetComponent<Image>().sprite =
                                 ResourceReader.LoadIcon("Attributes", "AttackDefenseIcon");
                             break;
                         case EquipmentAttributeType.percentageAttackDefense:
-                            entryContent = $"<color=#FFD700>+{kv.Value:P0}物理防御</color>";
+                            entryContent = $"<color={Colors.AttackDefense}>+{kv.Value:P0}物理防御</color>";
                             entryList[^1].transform.Find("EntryIcon").GetComponent<Image>().sprite =
                                 ResourceReader.LoadIcon("Attributes", "AttackDefenseIcon");
                             break;
                         case EquipmentAttributeType.magicDefense:
-                            entryContent = $"<color=#6AA2FF>+{kv.Value:F0}法术防御</color>";
+                            entryContent = $"<color={Colors.MagicDefense}>+{kv.Value:F0}法术防御</color>";
                             entryList[^1].transform.Find("EntryIcon").GetComponent<Image>().sprite =
                                 ResourceReader.LoadIcon("Attributes", "MagicDefenseIcon");
                             break;
                         case EquipmentAttributeType.percentageMagicDefense:
-                            entryContent = $"<color=#6AA2FF>+{kv.Value:P0}法术防御</color>";
+                            entryContent = $"<color={Colors.MagicDefense}>+{kv.Value:P0}法术防御</color>";
                             entryList[^1].transform.Find("EntryIcon").GetComponent<Image>().sprite =
                                 ResourceReader.LoadIcon("Attributes", "MagicDefenseIcon");
                             break;
                         case EquipmentAttributeType.attackPenetration:
-                            entryContent = $"<color=#FF6A6A>+{kv.Value:F0}物理穿透</color>";
+                            entryContent = $"<color={Colors.AttackPenetration}>+{kv.Value:F0}物理穿透</color>";
                             entryList[^1].transform.Find("EntryIcon").GetComponent<Image>().sprite =
                                 ResourceReader.LoadIcon("Attributes", "AttackPenetrationIcon");
                             break;
                         case EquipmentAttributeType.percentageAttackPenetration:
-                            entryContent = $"<color=#FF6A6A>+{kv.Value:P0}物理穿透</color>";
+                            entryContent = $"<color={Colors.AttackPenetration}>+{kv.Value:P0}物理穿透</color>";
                             entryList[^1].transform.Find("EntryIcon").GetComponent<Image>().sprite =
                                 ResourceReader.LoadIcon("Attributes", "AttackPenetrationIcon");
                             break;
                         case EquipmentAttributeType.magicPenetration:
-                            entryContent = $"<color=#9E4EFF>+{kv.Value:F0}法术穿透</color>";
+                            entryContent = $"<color={Colors.MagicPenetration}>+{kv.Value:F0}法术穿透</color>";
                             entryList[^1].transform.Find("EntryIcon").GetComponent<Image>().sprite =
                                 ResourceReader.LoadIcon("Attributes", "MagicPenetrationIcon");
                             break;
                         case EquipmentAttributeType.percentageMagicPenetration:
-                            entryContent = $"<color=#9E4EFF>+{kv.Value:P0}法术穿透</color>";
+                            entryContent = $"<color={Colors.MagicPenetration}>+{kv.Value:P0}法术穿透</color>";
                             entryList[^1].transform.Find("EntryIcon").GetComponent<Image>().sprite =
                                 ResourceReader.LoadIcon("Attributes", "MagicPenetrationIcon");
                             break;
@@ -217,22 +217,22 @@ namespace MVVM.ViewModels
                                 ResourceReader.LoadIcon("Attributes", "CriticalDamageIcon");
                             break;
                         case EquipmentAttributeType.movementSpeed:
-                            entryContent = $"<color=#FFFFFF>+{kv.Value:F0}移动速度</color>";
+                            entryContent = $"<color={Colors.MoveSpeed}>+{kv.Value:F0}移动速度</color>";
                             entryList[^1].transform.Find("EntryIcon").GetComponent<Image>().sprite =
                                 ResourceReader.LoadIcon("Attributes", "MovementSpeedIcon");
                             break;
                         case EquipmentAttributeType.percentageMovementSpeed:
-                            entryContent = $"<color=#FFFFFF>+{kv.Value:P0}移动速度</color>";
+                            entryContent = $"<color={Colors.MoveSpeed}>+{kv.Value:P0}移动速度</color>";
                             entryList[^1].transform.Find("EntryIcon").GetComponent<Image>().sprite =
                                 ResourceReader.LoadIcon("Attributes", "MovementSpeedIcon");
                             break;
                         case EquipmentAttributeType.percentageHealthRegeneration:
-                            entryContent = $"<color=#20FF20>+{kv.Value:P0}生命值回复</color>";
+                            entryContent = $"<color={Colors.HealthGeneration}>+{kv.Value:P0}生命值回复</color>";
                             entryList[^1].transform.Find("EntryIcon").GetComponent<Image>().sprite =
                                 ResourceReader.LoadIcon("Attributes", "MaxHealthPointIcon");
                             break;
                         case EquipmentAttributeType.percentageMagicRegeneration:
-                            entryContent = $"<color=#80D8FF>+{kv.Value:P0}法力值回复</color>";
+                            entryContent = $"<color={Colors.MagicRegeneration}>+{kv.Value:P0}法力值回复</color>";
                             entryList[^1].transform.Find("EntryIcon").GetComponent<Image>().sprite =
                                 ResourceReader.LoadIcon("Attributes", "MaxMagicPointIcon");
                             break;
@@ -242,7 +242,7 @@ namespace MVVM.ViewModels
                                 ResourceReader.LoadIcon("Attributes", "OmniVampIcon");
                             break;
                         case EquipmentAttributeType.lifeSteal:
-                            entryContent = $"<color=#FF6666>+{kv.Value:P0}生命偷取</color>";
+                            entryContent = $"<color=#{Colors.LifeSteal}>+{kv.Value:P0}生命偷取</color>";
                             entryList[^1].transform.Find("EntryIcon").GetComponent<Image>().sprite =
                                 ResourceReader.LoadIcon("Attributes", "LifeStealIcon");
                             break;

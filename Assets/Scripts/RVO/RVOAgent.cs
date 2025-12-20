@@ -144,7 +144,6 @@ namespace RVO
             var rayLen = entity.scale.Value * 2f;
             var results = new RaycastHit2D[10];
             Physics2D.CircleCastNonAlloc(origin, entity.scale.Value * 0.9f, dir, results, rayLen, unitsLayer | navObstacleLayer);
-            Debug.DrawLine(origin, origin + dir * rayLen, Color.red);
             
             foreach (var h in results)
             {
@@ -213,9 +212,6 @@ namespace RVO
 
             bool hitLeftWall  = Physics2D.Raycast(origin, left, sideRayLen, navObstacleLayer);
             bool hitRightWall = Physics2D.Raycast(origin, right, sideRayLen, navObstacleLayer);
-
-            Debug.DrawLine(origin, origin + left * sideRayLen, hitLeftWall  ? Color.red : Color.green);
-            Debug.DrawLine(origin, origin + right * sideRayLen, hitRightWall ? Color.red : Color.green);
 
             if (!hitLeftWall && !hitRightWall)
             {

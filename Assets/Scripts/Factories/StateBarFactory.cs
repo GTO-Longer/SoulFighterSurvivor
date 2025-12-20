@@ -111,10 +111,5 @@ namespace Factories
                 bar.Find("HPBarBackground/HPBar").GetComponent<Image>().color = entity.team == Team.Hero ? Color.green : Color.red;
             }
         }
-
-        private void OnDestroy()
-        {
-            _stateBarPool?.Dispose();
-        }
     }
 }

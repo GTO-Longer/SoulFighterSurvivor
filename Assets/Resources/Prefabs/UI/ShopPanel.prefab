@@ -278,9 +278,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e5a8284de606c342a16cf7515287b44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  starterEquipmentArea: {fileID: 8692597263113201521}
-  legendEquipmentArea: {fileID: 2489290391126806642}
-  equipmentSlotPrefab: {fileID: 5676131621215306902}
 --- !u!1 &1553484530015417945
 GameObject:
   m_ObjectHideFlags: 0
@@ -1891,7 +1888,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
-  m_VerticalFit: 2
+  m_VerticalFit: 1
 --- !u!114 &4276896094411605499
 MonoBehaviour:
   m_ObjectHideFlags: 0

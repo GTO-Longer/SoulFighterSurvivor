@@ -23,9 +23,6 @@ namespace Components.UI
 
         private void Start()
         {
-            isShopOpen = false;
-            isChoiceOpen = false;
-            
             shopSystem = ResourceReader.LoadPrefab("UI/ShopPanel", transform).GetComponent<ShopSystem>();
             choiceSystem = ResourceReader.LoadPrefab("UI/ChoicePanel", transform).GetComponent<ChoiceSystem>();
 

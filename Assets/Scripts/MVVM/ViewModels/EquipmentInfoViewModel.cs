@@ -21,7 +21,7 @@ namespace MVVM.ViewModels
         public List<GameObject> entryList;
         private CanvasGroup canvasGroup;
 
-        private void Start()
+        public void Initialize()
         {
             canvasGroup = GetComponent<CanvasGroup>();
             equipmentIcon = transform.Find("EquipmentTitle/EquipmentIcon").GetComponent<Image>();

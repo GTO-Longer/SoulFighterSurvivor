@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using Components.UI;
 using DataManagement;
 using Managers.EntityManagers;
+using Systems;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using EventSystem = UnityEngine.EventSystems.EventSystem;
 
 namespace MVVM.ViewModels
 {
@@ -17,6 +19,7 @@ namespace MVVM.ViewModels
         private Action UnBindEvent;
         private EquipmentInfoViewModel equipmentInfoViewModel;
         private EquipmentInfoViewModel playerEquipmentInfoShow;
+        private Button shopButton;
 
         private void Start()
         {
@@ -24,6 +27,9 @@ namespace MVVM.ViewModels
             equipmentSlotList = new List<Transform>();
             equipmentInfoViewModel = PanelUIRoot.Instance.shopSystem.transform.Find("EquipmentInfo").GetComponent<EquipmentInfoViewModel>();
             playerEquipmentInfoShow = transform.parent.Find("EquipmentInfo").GetComponent<EquipmentInfoViewModel>();
+            shopButton = transform.parent.Find("ShopButton").GetComponent<Button>();
+            
+            playerEquipmentInfoShow.Initialize();
 
             // 绑定装备CD显示
             for (var index = 0; index < 6; index++)
@@ -94,6 +100,9 @@ namespace MVVM.ViewModels
                     };
                 }
             }
+            
+            // 绑定商店按钮功能
+            shopButton.onClick.AddListener(() => ShopSystem.Instance.OpenShopPanel());
         }
 
         // 拖拽槽位交换

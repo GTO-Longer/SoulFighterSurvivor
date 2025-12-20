@@ -485,6 +485,7 @@ namespace DataManagement
             }
             
             var go = GameObject.Instantiate(prefab, parent);
+            go.SetActive(true);
 
             return go;
         }

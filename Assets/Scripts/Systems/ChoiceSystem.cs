@@ -22,7 +22,8 @@ namespace Systems
             Instance = this;
             choicePrefab = transform.Find("Choices/ChoicePrefab");
             choicePrefab.gameObject.SetActive(false);
-            gameObject.SetActive(false);
+            
+            ClearChoices();
         }
 
         public void MakeChoice(params Choice[] choices)

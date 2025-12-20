@@ -14,9 +14,10 @@ namespace Systems
     public class ShopSystem : MonoBehaviour
     {
         public static ShopSystem Instance;
-        public Transform starterEquipmentArea;
-        public Transform legendEquipmentArea;
-        public GameObject equipmentSlotPrefab;
+        private Transform itemView;
+        private Transform starterEquipmentArea;
+        private Transform legendEquipmentArea;
+        private GameObject equipmentSlotPrefab;
         private Button purchaseButton;
         private List<GameObject> equipmentSlots = new();
         private EquipmentInfoViewModel equipmentInfoViewModel;
@@ -24,9 +25,17 @@ namespace Systems
         public void Initialize()
         {
             Instance = this;
-            equipmentSlotPrefab.SetActive(false);
+            
             equipmentInfoViewModel = transform.Find("EquipmentInfo").GetComponent<EquipmentInfoViewModel>();
             purchaseButton = transform.Find("EquipmentInfo/PurchaseButton").GetComponent<Button>();
+            itemView = transform.Find("ItemView/Viewport/Content");
+            starterEquipmentArea = itemView.Find("Starter");
+            legendEquipmentArea = itemView.Find("Legend");
+            equipmentSlotPrefab = starterEquipmentArea.Find("EquipmentSlotPrefab").gameObject;
+            
+            equipmentInfoViewModel.Initialize();
+            
+            equipmentSlotPrefab.SetActive(false);
             
             foreach (var equipment in EquipmentManager.Instance.equipmentList)
             {
@@ -60,6 +69,11 @@ namespace Systems
                 };
                 equipmentSlot.SetActive(true);
             }
+            
+            
+            // 更新UI布局
+            LayoutRebuilder.ForceRebuildLayoutImmediate(itemView.GetComponent<RectTransform>());
+            CloseShopPanel();
         }
 
         /// <summary>

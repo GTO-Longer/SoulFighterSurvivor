@@ -9,7 +9,7 @@ namespace Classes.Equipments
 {
     public class Luden_sCompanion : Equipment
     {
-        private float damageCount => 80 + 0.05f * HeroManager.hero.abilityPower + 0.06f * (HeroManager.hero.attackDamage - HeroManager.hero.baseAttackDamage);
+        private float damageCount => (80 + 0.05f * HeroManager.hero.abilityPower + 0.06f * (HeroManager.hero.attackDamage - HeroManager.hero.baseAttackDamage)) * (0.65f + 0.35f * chargeCount);
         private Action<Entity, Entity, float, Skill> equipmentEffect;
         private float baseCD;
         public Luden_sCompanion() : base("Luden_sCompanion")

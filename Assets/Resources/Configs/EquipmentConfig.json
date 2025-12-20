@@ -142,7 +142,7 @@
                 "maxMagicPoint": 600,
                 "abilityHaste": 25
             },
-            "_passiveSkillDescription": "每6秒获得1层充能，技能会消耗最多6层充能来对目标造成<color=#C97BFF>{0:F0}</color>=（80+<color=#C97BFF>5%</color><sprite=\"Attributes\" name=\"AbilityPowerIcon\">+<color=#FF8A00>6%额外</color><sprite=\"Attributes\" name=\"AttackDamageIcon\">）魔法伤害。每多一层弹丸，就会对主要目标重复造成一次<color=#00D8FF>35%</color>效果的伤害。",
+            "_passiveSkillDescription": "每6秒获得1层充能，至多6层，技能命中会消耗所有充能来对目标造成<color=#C97BFF>{0:F0}</color>=（80+<color=#C97BFF>5%</color><sprite=\"Attributes\" name=\"AbilityPowerIcon\">+<color=#FF8A00>6%额外</color><sprite=\"Attributes\" name=\"AttackDamageIcon\">）×（0.65+0.35×充能层数）的魔法伤害。",
             "_passiveSkillName": "开火",
             "_passiveSkillCD": 6,
             "_activeSkillDescription": null,
@@ -294,7 +294,7 @@
                 "maxHealthPoint": 350,
                 "maxMagicPoint": 300
             },
-            "_passiveSkillDescription": "在击杀50个敌人后，这个装备获得额外的<color=#C97BFF>50<sprite=\"Attributes\" name=\"AbilityPowerIcon\"></color>、<color=#0ACD02>300<sprite=\"Attributes\" name=\"MaxHealthPointIcon\"></color>、<color=#1DA1FF>400<sprite=\"Attributes\" name=\"MaxMagicPointIcon\"></color>，并且你的等级提升1级。\n承受伤害时，你会回复相当于<color=#1DA1FF>伤害值15%的<sprite=\"Attributes\" name=\"MaxMagicPointIcon\"></color>；施放一个技能时，你会根据消耗的<sprite=\"Attributes\" name=\"MaxMagicPointIcon\">回复自身相当于<color=#0ACD02>消耗<sprite=\"Attributes\" name=\"MaxMagicPointIcon\">25%的<sprite=\"Attributes\" name=\"MaxHealthPointIcon\"></color>",
+            "_passiveSkillDescription": "在击杀50个敌人后，这个装备获得额外的<color=#C97BFF>50<sprite=\"Attributes\" name=\"AbilityPowerIcon\"></color>、<color=#0ACD02>300<sprite=\"Attributes\" name=\"MaxHealthPointIcon\"></color>、<color=#1DA1FF>400<sprite=\"Attributes\" name=\"MaxMagicPointIcon\"></color>，并且使你升1级。\n承受伤害时，你会回复<color=#1DA1FF>伤害值15%的<sprite=\"Attributes\" name=\"MaxMagicPointIcon\"></color>；施放一个技能时，你会根据消耗的<sprite=\"Attributes\" name=\"MaxMagicPointIcon\">回复<color=#0ACD02>消耗<sprite=\"Attributes\" name=\"MaxMagicPointIcon\">25%的<sprite=\"Attributes\" name=\"MaxHealthPointIcon\"></color>",
             "_passiveSkillName": "时光永恒",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,

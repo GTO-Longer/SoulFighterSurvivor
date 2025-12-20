@@ -11,6 +11,7 @@ namespace Classes
         public string hexName;
         public string hexDescription;
         public Sprite hexIcon;
+        public Sprite hexIconBorder;
         protected string hexDetail;
         public Entity owner;
         public Quality hexQuality;
@@ -29,6 +30,8 @@ namespace Classes
             hexDetail = config.detail;
             Enum.TryParse(config.quality, true, out Quality quality);
             hexQuality = quality;
+            hexIcon = ResourceReader.LoadIcon(config.iconName);
+            hexIconBorder = ResourceReader.LoadIcon(config.iconBorderName);
 
             hexGetEventTriggered = false;
         }

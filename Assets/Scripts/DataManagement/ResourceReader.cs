@@ -131,6 +131,8 @@ namespace DataManagement
         public string quality;
         public string description;
         public string detail;
+        public string iconName;
+        public string iconBorderName;
     }
 
     [Serializable]

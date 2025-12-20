@@ -50,7 +50,7 @@ namespace Managers
                     for (var index = 0; index < results.Count; index++)
                     {
                         var result = results[index];
-                        choices[index] = new Choice(result.hexName, result.hexDescription, result.hexIcon, () =>
+                        choices[index] = new Choice(result.hexName, result.hexDescription, result.hexIcon, result.hexIconBorder, () =>
                         {
                             HeroManager.hero.GetHex(result);
                         }, result.hexQuality);

@@ -5,42 +5,63 @@
             "hexName": "财运锻造器",
             "quality": "Prismatic",
             "description": "获得1000金币并降低所有锻造器的价格。\n棱彩锻造器数量：-1500\n传说锻造器数量：-500\n属性锻造器数量：-100\n从锻造器中获得的装备的售价降低500金币。",
-            "detail": "获得1000金币并降低所有锻造器的价格。\n棱彩锻造器数量：-1500\n传说锻造器数量：-500\n属性锻造器数量：-100\n从锻造器中获得的装备的售价降低500金币。"
+            "detail": "获得1000金币并降低所有锻造器的价格。\n棱彩锻造器数量：-1500\n传说锻造器数量：-500\n属性锻造器数量：-100\n从锻造器中获得的装备的售价降低500金币。",
+            "iconName": "Hex_Pocket",
+            "iconBorderName": "Hex_Function_Border"
         },
         {
             "id": "RepeatingStrike",
             "hexName": "连拔击锤",
             "quality": "Prismatic",
             "description": "在你攻击时，发射5个额外箭矢，每个箭矢\n基于移动的距离造成<color=#FF6A6A>物理伤害</color>。每个方向都\n有单独的冷却时间。",
-            "detail": "你在750范围内的每个基本方向的下一次普通攻击额外在攻击时向每次造成的目标发射 5 发箭矢，\n造成[10–50](基于等级)+(15% <color=#FF8A00>额外 AD</color>)<color=#FF6A6A>物理伤害</color>，总计[50–250](基于等级)+(75%<color=#FF8A00>额外攻击力</color>)<color=#FF6A6A>物理伤害</color>(每个方向 5 秒冷却时间)。\n箭矢的伤害提高 0%–50%(基于飞行距离)，每个箭矢都可以触发施加20%攻击特效。"
+            "detail": "你在750范围内的每个基本方向的下一次普通攻击额外在攻击时向每次造成的目标发射 5 发箭矢，\n造成[10–50](基于等级)+(15% <color=#FF8A00>额外 AD</color>)<color=#FF6A6A>物理伤害</color>，总计[50–250](基于等级)+(75%<color=#FF8A00>额外攻击力</color>)<color=#FF6A6A>物理伤害</color>(每个方向 5 秒冷却时间)。\n箭矢的伤害提高 0%–50%(基于飞行距离)，每个箭矢都可以触发施加20%攻击特效。",
+            "iconName": "Hex_Attack",
+            "iconBorderName": "Hex_Damage_Border"
         },
         {
             "id": "HellfireConduit",
             "hexName": "炼狱导管",
             "quality": "Prismatic",
             "description": "你的技能会施加一层可无限叠加的灼烧，持续造成魔法伤害。\n你的灼烧效果会降低你各基础技能的冷却时间。",
-            "detail": "你的技能命中会施加燃烧效果，持续 5 秒，造成\n[1.2–12]+(1.2%<color=#C97BFF>法术强度</color>)+(2.8%<color=#FF8A00>攻击力</color>)的每秒 <color=#C97BFF>魔法伤害</color>。\n此灼烧效果可无限叠加，并在重新施加时刷新持续时间。\n此外，你的所有灼烧效果会使你的所有基础技能的 <color=#7DFFFF>冷却时间</color>减少0.3秒。\n每次对目标造成伤害时，它们会额外受到一次伤害判定。"
+            "detail": "你的技能命中会施加燃烧效果，持续 5 秒，造成\n[1.2–12]+(1.2%<color=#C97BFF>法术强度</color>)+(2.8%<color=#FF8A00>攻击力</color>)的每秒 <color=#C97BFF>魔法伤害</color>。\n此灼烧效果可无限叠加，并在重新施加时刷新持续时间。\n此外，你的所有灼烧效果会使你的所有基础技能的 <color=#7DFFFF>冷却时间</color>减少0.3秒。\n每次对目标造成伤害时，它们会额外受到一次伤害判定。",
+            "iconName": "Hex_Burn",
+            "iconBorderName": "Hex_Refresh_Border"
         },
         {
             "id": "PandorasBox",
             "hexName": "潘朵拉的盒子",
             "quality": "Prismatic",
             "description": "将你所有强化符文变为随机的棱彩阶强化符文（包括此符文）",
-            "detail": "将你所有强化符文变为随机的棱彩阶强化符文。"
+            "detail": "无",
+            "iconName": "Hex_Function",
+            "iconBorderName": "Hex_Function_Border"
         },
         {
             "id": "OmnipotentDragonSoul",
             "hexName": "全能龙魂",
             "quality": "Prismatic",
             "description": "获得3个随机龙魂。",
-            "detail": "获得3个随机龙魂。"
+            "detail": "获得3个随机龙魂。",
+            "iconName": "Hex_Dice",
+            "iconBorderName": "Hex_Damage_Border"
         },
         {
             "id": "WisdomOfTime",
             "hexName": "时光之智慧",
             "quality": "Prismatic",
-            "description": "立刻提升1级，并且每击杀50个敌人额外提升1级。你的等级上限已被移除。\n如果是作为你的第二个强化符文，则转而立刻提升3级。",
-            "detail": "立刻提升1级，并且每击杀50个敌人额外提升1级。你的等级上限已被移除。\n如果不是你的第一个强化符文，则转而立刻提升3级。"
+            "description": "立刻提升1级，并且每击杀50个敌人额外提升1级。你的等级上限已被移除。\n如果不是你的第一个强化符文，则转而立刻提升3级。",
+            "detail": "立刻提升1级，并且每击杀50个敌人额外提升1级。你的等级上限已被移除。\n如果不是你的第一个强化符文，则转而立刻提升3级。",
+            "iconName": "Hex_LevelUp",
+            "iconBorderName": "Hex_Frame_Border"
+        },
+        {
+            "id": "DualBlade",
+            "hexName": "双刀流",
+            "quality": "Prismatic",
+            "description": "在你攻击时发射一根次级弩箭，造成40%伤害和40%效能的攻击特效。获得25%总攻击速度。",
+            "detail": "在你攻击时发射一根次级弩箭，造成40%伤害和40%效能的攻击特效。获得25%总攻击速度。",
+            "iconName": "Hex_Attack",
+            "iconBorderName": "Hex_Universal_Border"
         }
     ]
 }

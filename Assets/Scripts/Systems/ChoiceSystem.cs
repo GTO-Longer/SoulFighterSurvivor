@@ -37,6 +37,7 @@ namespace Systems
             {
                 var newChoice = Instantiate(choicePrefab.gameObject, choicePrefab.parent);
                 var choiceIcon = newChoice.transform.Find("ChoiceIcon").GetComponent<Image>();
+                var choiceIconBorder = newChoice.transform.Find("ChoiceIconBorder").GetComponent<Image>();
                 var choiceBorder = newChoice.transform.Find("ChoiceBorder").GetComponent<Image>();
                 
                 newChoice.GetComponent<Button>().onClick.AddListener(() =>
@@ -50,6 +51,7 @@ namespace Systems
                 newChoice.transform.Find("ChoiceTitle").GetComponent<TMP_Text>().text = choice.choiceTitle;
                 newChoice.transform.Find("ChoiceContent").GetComponent<TMP_Text>().text = choice.choiceContent;
                 choiceIcon.sprite = choice.choiceIcon;
+                choiceIconBorder.sprite = choice.choiceIconBorder;
                 
                 // 设置材质
                 var material = choice.choiceQuality switch
@@ -64,7 +66,6 @@ namespace Systems
                 choiceBorder.material = material;
                 
                 // 设置图标边框颜色
-                var choiceIconBorder = newChoice.transform.Find("ChoiceIconBorder").GetComponent<Image>();
                 switch (choice.choiceQuality)
                 {
                     case Quality.None: choiceIconBorder.gameObject.SetActive(false); break;

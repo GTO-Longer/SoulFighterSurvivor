@@ -242,7 +242,7 @@ namespace MVVM.ViewModels
                                 ResourceReader.LoadIcon("Attributes", "OmniVampIcon");
                             break;
                         case EquipmentAttributeType.lifeSteal:
-                            entryContent = $"<color=#{Colors.LifeSteal}>+{kv.Value:P0}生命偷取</color>";
+                            entryContent = $"<color={Colors.LifeSteal}>+{kv.Value:P0}生命偷取</color>";
                             entryList[^1].transform.Find("EntryIcon").GetComponent<Image>().sprite =
                                 ResourceReader.LoadIcon("Attributes", "LifeStealIcon");
                             break;

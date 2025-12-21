@@ -54,6 +54,12 @@ namespace Managers.EntityManagers
             // 删除物体状态条
             StateBarFactory.Instance.Despawn(enemy);
             
+            // 清空buffList
+            for (var index = enemy.buffList.Count - 1; index >= 0; index--)
+            {
+                enemy.buffList[index].RemoveBuff();
+            }
+            
             enemy = null;
         }
     }

@@ -40,6 +40,14 @@ namespace Classes
         public Action OnBuffRunOut;
 
         public bool isUnique;
+        /// <summary>
+        /// 是否为灼烧类buff
+        /// </summary>
+        public bool isBurn;
+        /// <summary>
+        /// 灼烧类buff的通用效果
+        /// </summary>
+        public Action<Entity> Burn;
 
         private Action<Entity> buffTimer;
 
@@ -84,7 +92,7 @@ namespace Classes
                     var buffUI = BuffViewModel.Instance.CreateBuffUI(this);
                     buffUI.GetComponent<Image>().sprite = buffIcon;
                 }
-                else
+                else if(Equals(owner, TargetAttributeViewModel.Instance.checkTarget.Value))
                 {
                     var buffUI = TargetBuffViewModel.Instance.CreateBuffUI(this);
                     buffUI.GetComponent<Image>().sprite = buffIcon;

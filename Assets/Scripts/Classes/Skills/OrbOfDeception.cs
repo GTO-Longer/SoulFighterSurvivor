@@ -140,15 +140,18 @@ namespace Classes.Skills
                         // 第一段造成魔法伤害
                         damageCount = self.target.CalculateAPDamage(self.owner, _APDamage);
                         self.target.TakeDamage(damageCount, DamageType.AP, owner);
+                        
+                        // 造成技能特效
                     }
                     else
                     {
                         // 第二段造成真实伤害
                         damageCount = _realDamage;
                         self.target.TakeDamage(damageCount, DamageType.Real, owner);
+                        
+                        // 造成技能特效
                     }
 
-                    // 造成技能特效
                     self.owner.AbilityEffectActivate(self.target, damageCount, this);
                 };
 

@@ -1,20 +1,25 @@
 using System;
 using Classes.Hexes;
+using Managers.EntityManagers;
 using UnityEngine;
 using Utilities;
 
 namespace Classes.Buffs
 {
-    public class Torment : Buff
+    public class HellFire : Buff
     {
-        private float damageCount => owner?.maxHealthPoint * 0.01f;
+        private float damageCount => 6 + 0.012f * HeroManager.hero.abilityPower + 0.028f * HeroManager.hero.attackDamage;
         private float timer;
         /// <summary>
         /// buff效果
         /// </summary>
         private Action<Entity> BuffEffect;
+        /// <summary>
+        /// 恢复玩家CD
+        /// </summary>
+        public static Action CDRecover;
         
-        public Torment(Entity ownerEntity, Entity sourceEntity) : base(ownerEntity, sourceEntity, "折磨", "", 8, 6)
+        public HellFire(Entity ownerEntity, Entity sourceEntity) : base(ownerEntity, sourceEntity, "地狱之火", "", 9999, 5)
         {
             isBurn = true;
             isUnique = true;
@@ -22,7 +27,7 @@ namespace Classes.Buffs
             BuffEffect = (_) =>
             {
                 timer += Time.deltaTime;
-                buffDescription = $"每秒造成{1 * buffCount:0.#}%最大生命值魔法伤害";
+                buffDescription = $"每秒造成{damageCount * buffCount:F0}魔法伤害";
                 if (timer >= 1f)
                 {
                     Burn?.Invoke(owner);
@@ -39,8 +44,15 @@ namespace Classes.Buffs
 
                 if (HellfireConduit.HellfireConduitEffective)
                 {
-                    HellFire.CDRecover?.Invoke();
+                    CDRecover?.Invoke();
                 }
+            };
+
+            CDRecover = () =>
+            {
+                HeroManager.hero.skillList[(int)SkillType.QSkill].coolDownTimer += 0.5f;
+                HeroManager.hero.skillList[(int)SkillType.WSkill].coolDownTimer += 0.5f;
+                HeroManager.hero.skillList[(int)SkillType.ESkill].coolDownTimer += 0.5f;
             };
             
             OnBuffGet = () =>

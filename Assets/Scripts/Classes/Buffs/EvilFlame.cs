@@ -1,4 +1,5 @@
 using System;
+using Classes.Hexes;
 using Managers.EntityManagers;
 using UnityEngine;
 using Utilities;
@@ -13,17 +14,33 @@ namespace Classes.Buffs
         /// buff效果
         /// </summary>
         private Action<Entity> BuffEffect;
+        
         public EvilFlame(Entity ownerEntity, Entity sourceEntity) : base(ownerEntity, sourceEntity, "邪焰", "", 3, 3)
         {
+            isBurn = true;
+            isUnique = true;
+            
             BuffEffect = (_) =>
             {
                 timer += Time.deltaTime;
                 buffDescription = $"每秒造成{damageCount * buffCount:F0}魔法伤害";
-                if (timer >= 0.5f)
+                if (timer >= 1f)
                 {
-                    var damage = owner.CalculateAPDamage(sourceEntity, damageCount * buffCount / 2f);
-                    owner.TakeDamage(damage, DamageType.AP, sourceEntity);
+                    Burn?.Invoke(owner);
                     timer = 0;
+                }
+            };
+
+            Burn = (_) =>
+            {
+                if (owner is not { isAlive: true }) return;
+                
+                var damage = owner.CalculateAPDamage(sourceEntity, damageCount * buffCount);
+                owner.TakeDamage(damage, DamageType.AP, sourceEntity);
+
+                if (HellfireConduit.HellfireConduitEffective)
+                {
+                    HellFire.CDRecover?.Invoke();
                 }
             };
             
@@ -47,8 +64,6 @@ namespace Classes.Buffs
                 buffCount.Value = 0;
                 owner.EntityUpdateEvent -= BuffEffect;
             };
-
-            isUnique = true;
         }
     }
 }

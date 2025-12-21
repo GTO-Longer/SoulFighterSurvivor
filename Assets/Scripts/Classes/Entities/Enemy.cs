@@ -167,21 +167,20 @@ namespace Classes.Entities
         }
 
         // 敌人死亡产生金币和经验
-        public override void Die(Entity entity)
+        public override void Die(Entity killer)
         {
-            if (isAlive)
-            {
-                var hero = entity as Hero;
-
-                var totalExp = experience.Value + 5f * (level - 1) * (level - 1) + 80f * (level - 1) + 195;
-                hero?.GetExperience(100 + totalExp * 3.4f / (level.Value + 16));
-                var coins = (int)level.Value * 5 + 75;
-                hero.coins.Value += coins;
-                ScreenTextFactory.Instance.Spawn(_gameObject.transform.position, $"+  <sprite=\"Coin\" index=0>{coins:D}", 1f,
-                    250, 75, Color.yellow);
-                isAlive = false;
-                EnemyFactory.Instance.Despawn(gameObject.GetComponent<EnemyManager>());
-            }
+            base.Die(killer);
+            
+            var hero = killer as Hero;
+            var totalExp = experience.Value + 5f * (level - 1) * (level - 1) + 80f * (level - 1) + 195;
+            hero?.GetExperience(100 + totalExp * 3.4f / (level.Value + 16));
+            var coins = (int)level.Value * 5 + 75;
+            hero.coins.Value += coins;
+            ScreenTextFactory.Instance.Spawn(_gameObject.transform.position, $"+  <sprite=\"Coin\" index=0>{coins:D}", 1f,
+                250, 75, Color.yellow);
+            
+            // 销毁实例
+            EnemyFactory.Instance.Despawn(gameObject.GetComponent<EnemyManager>());
         }
     }
 }

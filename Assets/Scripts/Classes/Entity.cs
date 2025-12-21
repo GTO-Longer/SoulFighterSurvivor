@@ -723,7 +723,6 @@ namespace Classes
                 damageSource.KillEntity(this);
                 Die(damageSource);
             }
-            
             Hurt(damageSource, damageCount);
         }
 
@@ -839,11 +838,14 @@ namespace Classes
                 );
             }
         }
-        
+
         /// <summary>
         /// 死亡
         /// </summary>
-        public virtual void Die(Entity killer){}
+        public virtual void Die(Entity killer)
+        {
+            isAlive = false;
+        }
         
         /// <summary>
         /// 获取buff

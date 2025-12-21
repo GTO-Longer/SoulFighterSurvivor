@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Classes;
 using DataManagement;
@@ -22,9 +23,11 @@ namespace Managers
 
         private void Update()
         {
-            foreach (var effect in effectList)
+            for (var index = effectList.Count - 1; index >= 0; index--)
             {
+                var effect = effectList[index];
                 effect.EffectUpdate();
+                DestroyAfterAnimation(effect);
                 if (effect.owner != null)
                 {
                     effect.effect.transform.position = effect.owner.transform.position;
@@ -34,7 +37,7 @@ namespace Managers
 
         public Effect CreateEffect(string effectName, GameObject owner)
         {
-            var effect = new Effect(owner, ResourceReader.LoadPrefab(effectName));
+            var effect = new Effect(owner, ResourceReader.LoadPrefab($"Effects/{effectName}", transform));
             effectList.Add(effect);
             return effect;
         }
@@ -43,6 +46,18 @@ namespace Managers
         {
             effectList.Remove(effect);
             Destroy(effect.effect.gameObject);
+        }
+
+        private void DestroyAfterAnimation(Effect effect)
+        {
+            var animator = effect.effect.GetComponent<Animator>();
+            if (animator == null) return;
+            
+            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Finish"))
+            {
+                // 销毁对象
+                DestroyEffect(effect);
+            }
         }
     }
 }

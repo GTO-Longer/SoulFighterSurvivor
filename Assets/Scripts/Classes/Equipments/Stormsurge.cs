@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
+using Managers;
 using Managers.EntityManagers;
 using UnityEngine;
 using Utilities;
@@ -11,10 +12,12 @@ namespace Classes.Equipments
 {
     public class Stormsurge : Equipment
     {
+        private readonly int Lightning = Animator.StringToHash("Lightning");
         private float damageCount => 180 + 0.5f * HeroManager.hero.abilityPower;
         private Action<Entity, Entity, float, Skill> equipmentEffect;
         private Dictionary<Entity, float> damageSum = new();
         private TweenerCore<Vector3, Vector3, VectorOptions> storm;
+        private Effect effect;
         
         public Stormsurge() : base("Stormsurge")
         {
@@ -50,6 +53,8 @@ namespace Classes.Equipments
                             {
                                 // 创建风暴
                                 _passiveSkillCDTimer = 0;
+                                effect = EffectManager.Instance.CreateEffect("Stormsurge", kv.Key.gameObject);
+                                
                                 storm = Async.SetAsync(2, null, () =>
                                 {
                                     // 若目标已死亡则恢复技能可用
@@ -61,6 +66,8 @@ namespace Classes.Equipments
                                 },
                                 () =>
                                 {
+                                    effect.effect.GetComponent<Animator>().SetTrigger(Lightning);
+                                    
                                     // 风暴劈下
                                     kv.Key.TakeDamage(kv.Key.CalculateAPDamage(attacker, damageCount),
                                         DamageType.AP,
@@ -77,7 +84,7 @@ namespace Classes.Equipments
             {
                 if (storm == null && !_passiveSkillActive)
                 {
-                    damageSum = new Dictionary<Entity, float>();
+                    damageSum.Clear();
                 }
             };
         }

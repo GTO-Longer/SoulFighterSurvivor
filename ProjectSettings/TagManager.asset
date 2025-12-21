@@ -44,11 +44,11 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Entity
-    uniqueID: 857903767
-    locked: 0
   - name: Effect
     uniqueID: 3206324289
+    locked: 0
+  - name: Entity
+    uniqueID: 857903767
     locked: 0
   - name: UI
     uniqueID: 2131371723

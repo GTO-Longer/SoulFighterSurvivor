@@ -12,7 +12,9 @@ namespace Classes.Equipments
 {
     public class Stormsurge : Equipment
     {
+        private readonly int Explode = Animator.StringToHash("Explode");
         private readonly int Lightning = Animator.StringToHash("Lightning");
+        
         private float damageCount => 180 + 0.5f * HeroManager.hero.abilityPower;
         private Action<Entity, Entity, float, Skill> equipmentEffect;
         private Dictionary<Entity, float> damageSum = new();
@@ -57,10 +59,24 @@ namespace Classes.Equipments
                                 
                                 storm = Async.SetAsync(2, null, () =>
                                 {
-                                    // 若目标已死亡则恢复技能可用
+                                    // 若目标已死亡则发生大范围雷暴
                                     if (!target.isAlive)
                                     {
-                                        _passiveSkillCDTimer = _passiveSkillCD - 0.1f;
+                                        effect.effect.GetComponent<Animator>().SetTrigger(Explode);
+
+                                        effect.effect.transform.DOScale(1200, 0.2f);
+                                        Async.SetAsync(0.2f, null, null, () =>
+                                        {
+                                            var enemies =
+                                                ToolFunctions.IsOverlappingWithTagAll(target.gameObject, "Enemy", 350);
+                                            foreach (var enemy in enemies)
+                                            {
+                                                enemy.TakeDamage(enemy.CalculateAPDamage(attacker, damageCount),
+                                                    DamageType.AP,
+                                                    attacker);
+                                            }
+                                        });
+                                        
                                         KillCore();
                                     }
                                 },

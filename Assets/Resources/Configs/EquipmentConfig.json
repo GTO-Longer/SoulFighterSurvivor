@@ -388,7 +388,7 @@
                 "magicPenetration": 15,
                 "percentageMovementSpeed": 0.04
             },
-            "_passiveSkillDescription": "在2.5秒内使用技能对敌人造成相当于其<color=#0ACD02>25%最大<sprite=\"Attributes\" name=\"MaxHealthPointIcon\"></color>的伤害，则在2秒后对其造成<color=#00D8FF>{0:F0}=（180+50% <sprite=\"Attributes\" name=\"AbilityPowerIcon\">）魔法伤害</color>。",
+            "_passiveSkillDescription": "在2.5秒内使用技能对敌人造成相当于其<color=#0ACD02>25%最大<sprite=\"Attributes\" name=\"MaxHealthPointIcon\"></color>的伤害，则在2秒后对其造成<color=#00D8FF>{0:F0}=（180+50% <sprite=\"Attributes\" name=\"AbilityPowerIcon\">）魔法伤害</color>。若期间目标死亡则转而发生一次雷暴对范围敌人造成同等伤害。",
             "_passiveSkillName": "风暴掠袭",
             "_passiveSkillCD": 10,
             "_activeSkillDescription": null,

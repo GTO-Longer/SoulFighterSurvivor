@@ -155,6 +155,61 @@ namespace Utilities
         }
 
         /// <summary>
+        /// 获取tag相同的所有Entity
+        /// </summary>
+        public static Entity[] IsOverlappingWithTagAll(GameObject obj, string tag, float radius = 0)
+        {
+            var overlappingEntities = new List<(Entity entity, float distanceSqr)>();
+            var excludeTag = tag;
+            var collider = obj.GetComponent<CircleCollider2D>();
+            if (collider == null) return null;
+
+            var _overlapColliders = new Collider2D[20];
+
+            Vector2 center = collider.bounds.center;
+
+            if (radius == 0)
+            {
+                radius = collider.radius * collider.transform.lossyScale.x;
+            }
+
+            // 获取所有重叠的碰撞箱
+            var count = Physics2D.OverlapCircleNonAlloc(center, radius, _overlapColliders);
+
+            for (var i = 0; i < count; i++)
+            {
+                var col = _overlapColliders[i];
+                if (col == null) continue;
+
+                var otherGo = col.gameObject;
+
+                // 跳过没有Tag的对象
+                if (otherGo.CompareTag("Untagged")) continue;
+
+                // 跳过不同Tag的对象
+                if (!otherGo.CompareTag(excludeTag)) continue;
+
+                // 获取EntityData，没有则跳过
+                var entityData = otherGo.GetComponent<EntityData>();
+                if (entityData == null) continue;
+                
+                var distSqr = (otherGo.transform.position - (Vector3)center).sqrMagnitude;
+                overlappingEntities.Add((entityData.entity, distSqr));
+            }
+
+            if (overlappingEntities.Count == 0)
+            {
+                return null;
+            }
+            
+            // 按距离平方升序排序
+            overlappingEntities.Sort((a, b) => a.distanceSqr.CompareTo(b.distanceSqr));
+
+            // 提取 Entity 数组并返回
+            return overlappingEntities.Select(item => item.entity).ToArray();
+        }
+
+        /// <summary>
         /// 鼠标处是否有物体
         /// </summary>
         public static bool IsObjectAtMousePoint(out List<GameObject> objects, string tag = null, bool sameTag = false)

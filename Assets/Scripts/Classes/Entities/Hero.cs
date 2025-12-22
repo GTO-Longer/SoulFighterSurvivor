@@ -250,7 +250,6 @@ namespace Classes.Entities
                 
                 // 配置攻击距离指示器
                 _attackRangeIndicator.localScale = new Vector2(attackRange / scale, attackRange / scale);
-                _attackRangeIndicator.GetComponent<SpriteRenderer>().enabled = false;
                 
                 // 持续获取金币
                 if (gainCoinTimer > 0.5f)

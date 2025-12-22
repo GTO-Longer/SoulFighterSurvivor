@@ -85,13 +85,16 @@ namespace Utilities
         percentageHealthRegeneration,
         percentageMagicRegeneration,
         omnivamp,
-        lifeSteal
+        lifeSteal,
+        percentageScaleBonus,
+        fortune
     }
 
     public enum EquipmentType
     {
         None = 0,
         Starter,
+        Anvil,
         Legend
     }
 

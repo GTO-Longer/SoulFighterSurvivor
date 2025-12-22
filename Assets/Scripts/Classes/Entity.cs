@@ -36,6 +36,8 @@ namespace Classes
         // 攻击特效倍率
         public float attackEffectRatio;
         public List<Buff> buffList;
+        // 获取金币增加量
+        public float fortune;
         
         #region 最终属性
 
@@ -844,7 +846,6 @@ namespace Classes
         /// </summary>
         public virtual void Die(Entity killer)
         {
-            isAlive = false;
         }
         
         /// <summary>

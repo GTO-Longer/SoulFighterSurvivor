@@ -209,8 +209,8 @@ namespace Classes.Entities
             cursedBladeTimer = 0;
             magicPoint.Value = maxMagicPoint.Value;
             healthPoint.Value = maxHealthPoint.Value;
-            coins.Value = 750;
             canFlash = true;
+            coins.Value = 1000;
             LevelUp();
 
             // 定义基础攻击命中事件
@@ -245,6 +245,14 @@ namespace Classes.Entities
             // 定义基础Update事件
             EntityUpdateEvent += (_) =>
             {
+                // 配置角色体型
+                _gameObject.transform.localScale = new Vector2(scale * 2, scale * 2);
+                
+                // 配置攻击距离指示器
+                _attackRangeIndicator.localScale = new Vector2(attackRange / scale, attackRange / scale);
+                _attackRangeIndicator.GetComponent<SpriteRenderer>().enabled = false;
+                
+                // 持续获取金币
                 if (gainCoinTimer > 0.5f)
                 {
                     gainCoinTimer = 0;
@@ -648,6 +656,17 @@ namespace Classes.Entities
         }
 
         /// <summary>
+        /// 获取金币
+        /// </summary>
+        public void GainCoin(int amount)
+        {
+            var value = (int)(amount * (1 + fortune));
+            coins.Value += value;
+            ScreenTextFactory.Instance.Spawn(_gameObject.transform.position, $"+  <sprite=\"Coin\" index=0>{value:D}", 1f,
+                250, 75, Color.yellow);
+        }
+
+        /// <summary>
         /// 穿上装备
         /// </summary>
         public void PurchaseEquipment(Equipment equipment)
@@ -655,13 +674,20 @@ namespace Classes.Entities
             if (equipment == null) return;
             if (!equipment.canPurchase) return;
             
-            var uniqueCheck = equipmentList.Find(equip =>
-                equip.Value != null && equip.Value._uniqueEffect == equipment._uniqueEffect);
+            var uniqueCheck = equipmentList.Find(equip => equip.Value != null && equip.Value._uniqueEffect == equipment._uniqueEffect);
             if (equipment.owner == null && coins.Value > equipment._cost)
             {
+                // 若是锻造器则直接使用，不进入装备槽
+                if (equipment._equipmentType == EquipmentType.Anvil)
+                {
+                    coins.Value -= equipment._cost;
+                    equipment.OnActiveSkillEffective();
+                    ShopSystem.Instance.CloseShopPanel();
+                    return;
+                }
+                
                 // 装备独一性检测
-                if ((equipment._uniqueEffect != EquipmentUniqueEffect.None && uniqueCheck == null) ||
-                    equipment._uniqueEffect == EquipmentUniqueEffect.None)
+                if ((equipment._uniqueEffect != EquipmentUniqueEffect.None && uniqueCheck == null) || equipment._uniqueEffect == EquipmentUniqueEffect.None)
                 {
                     foreach (var property in equipmentList)
                     {

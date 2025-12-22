@@ -265,5 +265,34 @@ namespace Utilities
 
             return true;
         }
+
+        /// <summary>
+        /// 从字典中选出n个不同的键值对
+        /// </summary>
+        public static bool GetRandomUniqueItems<TKey, TValue>(Dictionary<TKey, TValue> source, int count, out Dictionary<TKey, TValue> result)
+        {
+            result = new Dictionary<TKey, TValue>();
+            if (source == null)
+                return false;
+
+            if (count <= 0)
+                return false;
+
+            if (count > source.Count)
+                return false;
+
+            var rng = new System.Random();
+
+            // 随机打乱键并取前count个
+            var selectedKeys = source.Keys.OrderBy(_ => rng.Next()).Take(count);
+
+            result = new Dictionary<TKey, TValue>();
+            foreach (var key in selectedKeys)
+            {
+                result.Add(key, source[key]);
+            }
+
+            return true;
+        }
     }
 }

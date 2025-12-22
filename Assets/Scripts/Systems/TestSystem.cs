@@ -34,7 +34,7 @@ namespace Systems
             
             if (InfinityHealthPoint)
             {
-                HeroManager.hero.TakeHeal(999);
+                HeroManager.hero.healthPoint.Value = HeroManager.hero.maxHealthPoint.Value;
             }
             
             if (SkillNoCoolDown)

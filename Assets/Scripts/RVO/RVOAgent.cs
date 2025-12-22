@@ -66,6 +66,8 @@ namespace RVO
         /// </summary>
         public void AgentUpdate()
         {
+            
+            manager.simulator.SetAgentRadius(agentId, entity.scale);
             if (!isStopped)
             {
                 CheckReachTarget();

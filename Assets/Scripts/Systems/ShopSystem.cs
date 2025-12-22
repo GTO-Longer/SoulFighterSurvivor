@@ -16,6 +16,7 @@ namespace Systems
         public static ShopSystem Instance;
         private Transform itemView;
         private Transform starterEquipmentArea;
+        private Transform anvilEquipmentArea;
         private Transform legendEquipmentArea;
         private GameObject equipmentSlotPrefab;
         private Button purchaseButton;
@@ -30,6 +31,7 @@ namespace Systems
             purchaseButton = transform.Find("EquipmentInfo/PurchaseButton").GetComponent<Button>();
             itemView = transform.Find("ItemView/Viewport/Content");
             starterEquipmentArea = itemView.Find("Starter");
+            anvilEquipmentArea = itemView.Find("Anvil");
             legendEquipmentArea = itemView.Find("Legend");
             equipmentSlotPrefab = starterEquipmentArea.Find("EquipmentSlotPrefab").gameObject;
             
@@ -46,6 +48,9 @@ namespace Systems
                         break;
                     case EquipmentType.Starter:
                         equipmentSlots.Add(Instantiate(equipmentSlotPrefab, starterEquipmentArea));
+                        break;
+                    case EquipmentType.Anvil:
+                        equipmentSlots.Add(Instantiate(equipmentSlotPrefab, anvilEquipmentArea));
                         break;
                     case EquipmentType.Legend:
                         equipmentSlots.Add(Instantiate(equipmentSlotPrefab, legendEquipmentArea));

@@ -1042,7 +1042,7 @@ namespace Classes
             criticalRate = new Property<float>(() => Mathf.Min(_criticalRateBonus * (1 + _percentageCriticalRateBonus), 1),
                 DataType.Percentage,
                 _criticalRateBonus, _percentageCriticalRateBonus);
-            movementSpeed = new Property<float>(() => (_baseMovementSpeed + _movementSpeedBonus) * (1 + _percentageMovementSpeedBonus),
+            movementSpeed = new Property<float>(() => Mathf.Max(100, (_baseMovementSpeed + _movementSpeedBonus) * (1 + _percentageMovementSpeedBonus)),
                 DataType.Int,
                 _movementSpeedBonus, _percentageMovementSpeedBonus);
             attackRange = new Property<float>(() => (_baseAttackRange + _attackRangeBonus) * (1 + _percentageAttackRangeBonus),

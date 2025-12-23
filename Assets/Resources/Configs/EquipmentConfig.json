@@ -892,12 +892,12 @@
             "_attributeList": {
                 "attackDamage": 55,
                 "attackPenetration": 22,
-                "movementSpeed": 0.04
+                "percentageMovementSpeed": 0.04
             },
             "_passiveSkillDescription": "提供60<sprite=\"Attributes\" name=\"MovementSpeedIcon\">",
             "_passiveSkillName": "鬼影萦绕",
             "_passiveSkillCD": 0,
-            "_activeSkillDescription": "提供30%<sprite=\"Attributes\" name=\"MovementSpeedIcon\">和幽灵状态，持续6秒",
+            "_activeSkillDescription": "提供30%<sprite=\"Attributes\" name=\"MovementSpeedIcon\">和幽灵状态，持续6秒。",
             "_activeSkillName": "鬼步化身",
             "_activeSkillCD": 20,
             "_uniqueEffect": null,
@@ -907,7 +907,7 @@
         },
         {
             "id": "VoltaicCyclosword",
-            "equipmentName": "电震涌流剑",
+            "equipmentName": "电震涡流剑",
             "_usageDescription": "爆发减速",
             "_equipmentType": "Legend",
             "_cost": 2500,
@@ -938,10 +938,10 @@
                 "attackPenetration": 18,
                 "abilityHaste": 15
             },
-            "_passiveSkillDescription": "攻击会对附近的敌人造成<color=#FF6A6A>{0:F0}=(40%<sprite=\"Attributes\" name=\"AttackDamageIcon\">)物理伤害</color>",
+            "_passiveSkillDescription": "攻击会对附近的敌人造成<color=#FF6A6A>{0:F0}=(40%<sprite=\"Attributes\" name=\"AttackDamageIcon\">)物理伤害</color>。",
             "_passiveSkillName": "顺劈",
             "_passiveSkillCD": 0,
-            "_activeSkillDescription": "对附近的敌人造成{0:F0}=(80%<sprite=\"Attributes\" name=\"AttackDamageIcon\">)物理伤害",
+            "_activeSkillDescription": "对附近的敌人造成{0:F0}=(80%<sprite=\"Attributes\" name=\"AttackDamageIcon\">)物理伤害。",
             "_activeSkillName": "邪斩",
             "_activeSkillCD": 10,
             "_uniqueEffect": null,

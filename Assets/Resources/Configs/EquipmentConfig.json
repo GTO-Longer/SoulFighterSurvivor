@@ -639,7 +639,8 @@
             "_activeSkillCD": 0,
             "_uniqueEffect": null,
             "_usageType": [
-                "Wizard"
+                "Wizard",
+                "Shooter"
             ]
         },
         {
@@ -893,33 +894,16 @@
                 "attackPenetration": 22,
                 "movementSpeed": 0.04
             },
-            "_passiveSkillDescription": "提供非战斗状态下的60移动速度",
+            "_passiveSkillDescription": "提供60<sprite=\"Attributes\" name=\"MovementSpeedIcon\">",
             "_passiveSkillName": "鬼影萦绕",
             "_passiveSkillCD": 0,
-            "_activeSkillDescription": "提供30%移动速度和幽灵状态，持续6秒",
+            "_activeSkillDescription": "提供30%<sprite=\"Attributes\" name=\"MovementSpeedIcon\">和幽灵状态，持续6秒",
             "_activeSkillName": "鬼步化身",
             "_activeSkillCD": 20,
             "_uniqueEffect": null,
-            "_usageType": []
-        },
-        {
-            "id": "Serpent_sFang",
-            "equipmentName": "巨蛇之牙",
-            "_usageDescription": "护盾克星",
-            "_equipmentType": "Legend",
-            "_cost": 2500,
-            "_attributeList": {
-                "attackDamage": 55,
-                "attackPenetration": 19
-            },
-            "_passiveSkillDescription": "对一名敌方英雄造成伤害时，会使其获得的任何护盾降低50%，持续3秒。当你对一名未被掠盾者影响的敌人造成伤害时，会使其身上的护盾降低50%",
-            "_passiveSkillName": "掠盾者",
-            "_passiveSkillCD": 0,
-            "_activeSkillDescription": null,
-            "_activeSkillName": null,
-            "_activeSkillCD": 0,
-            "_uniqueEffect": null,
-            "_usageType": []
+            "_usageType": [
+                "Assassin"
+            ]
         },
         {
             "id": "VoltaicCyclosword",
@@ -932,14 +916,16 @@
                 "attackPenetration": 18,
                 "abilityHaste": 20
             },
-            "_passiveSkillDescription": "冲刺和跳跃会使技能的蓄力加快75%\n你的普能攻击会造成100%额外物理伤害，并且持续0.75秒的99%减速",
+            "_passiveSkillDescription": "你的盈能攻击会造成100<color=#FF6A6A>物理伤害</color>，并且持续0.75秒的99%减速",
             "_passiveSkillName": "激电与苍穹",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
             "_uniqueEffect": null,
-            "_usageType": []
+            "_usageType": [
+                "Assassin"
+            ]
         },
         {
             "id": "ProfaneHydra",
@@ -952,14 +938,16 @@
                 "attackPenetration": 18,
                 "abilityHaste": 15
             },
-            "_passiveSkillDescription": "攻击会对附近的敌人造成115(40%)物理伤害",
+            "_passiveSkillDescription": "攻击会对附近的敌人造成<color=#FF6A6A>{0:F0}=(40%<sprite=\"Attributes\" name=\"AttackDamageIcon\">)物理伤害</color>",
             "_passiveSkillName": "顺劈",
             "_passiveSkillCD": 0,
-            "_activeSkillDescription": "对你附近的敌人造成229(80%)物理伤害，持续10秒",
+            "_activeSkillDescription": "对附近的敌人造成{0:F0}=(80%<sprite=\"Attributes\" name=\"AttackDamageIcon\">)物理伤害",
             "_activeSkillName": "邪斩",
             "_activeSkillCD": 10,
             "_uniqueEffect": null,
-            "_usageType": []
+            "_usageType": [
+                "Assassin"
+            ]
         },
         {
             "id": "Hubris",
@@ -972,14 +960,60 @@
                 "attackPenetration": 18,
                 "abilityHaste": 10
             },
-            "_passiveSkillDescription": "如果一名在过去3秒内曾被你造成过伤害的英雄阵亡，则获得15攻击力，持续到回合结束，或被击杀为止。每当这个效果触发时，收集击杀的攻击力永久提升2",
+            "_passiveSkillDescription": "杀死一名敌人获得15攻击力。每当这个效果触发时，使击杀获得的攻击力永久提升0.2",
             "_passiveSkillName": "盛名",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
             "_uniqueEffect": null,
-            "_usageType": []
+            "_usageType": [
+                "Assassin"
+            ]
+        },
+        {
+            "id": "DanceOfShadow",
+            "equipmentName": "幻影之舞",
+            "_usageDescription": "攻击速度",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "attackSpeed": 0.6,
+                "percentageMovementSpeed": 0.08,
+                "criticalRate": 0.25
+            },
+            "_passiveSkillDescription": "变为幽灵状态",
+            "_passiveSkillName": "幽灵华尔兹",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Shooter"
+            ]
+        },
+        {
+            "id": "Runaans_Hurricane",
+            "equipmentName": "卢安娜的飓风",
+            "_usageDescription": "群体攻击",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "attackSpeed": 0.45,
+                "criticalRate": 0.25,
+                "percentageMovementSpeed": 0.04
+            },
+            "_passiveSkillDescription": "你的普通攻击会朝目标附近的至多2个敌人发射弩箭，每支弩箭造成<color=#FF6A6A>{0:F0} =（70%<sprite=\"Attributes\" name=\"AttackDamageIcon\"> + 42%<sprite=\"Attributes\" name=\"AbilityPowerIcon\">）物理伤害</color>。这些弩箭能够附带攻击特效，且可以触发暴击。",
+            "_passiveSkillName": "风怒",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Shooter"
+            ]
         }
     ]
 }

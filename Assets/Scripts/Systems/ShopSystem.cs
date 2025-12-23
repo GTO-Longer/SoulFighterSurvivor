@@ -22,11 +22,16 @@ namespace Systems
         private Button purchaseButton;
         private List<GameObject> equipmentSlots = new();
         private EquipmentInfoViewModel equipmentInfoViewModel;
+        private CanvasGroup canvasGroup;
+        private UsageType selectedUsage;
+        private Transform selectors;
 
         public void Initialize()
         {
             Instance = this;
+            selectedUsage = UsageType.None;
             
+            selectors = transform.Find("UsageSelector");
             equipmentInfoViewModel = transform.Find("EquipmentInfo").GetComponent<EquipmentInfoViewModel>();
             purchaseButton = transform.Find("EquipmentInfo/PurchaseButton").GetComponent<Button>();
             itemView = transform.Find("ItemView/Viewport/Content");
@@ -34,10 +39,9 @@ namespace Systems
             anvilEquipmentArea = itemView.Find("Anvil");
             legendEquipmentArea = itemView.Find("Legend");
             equipmentSlotPrefab = starterEquipmentArea.Find("EquipmentSlotPrefab").gameObject;
+            canvasGroup = GetComponent<CanvasGroup>();
             
             equipmentInfoViewModel.Initialize();
-            
-            equipmentSlotPrefab.SetActive(false);
             
             foreach (var equipment in EquipmentManager.Instance.equipmentList)
             {
@@ -72,9 +76,16 @@ namespace Systems
                     HeroManager.hero.PurchaseEquipment(equipment);
                     equipmentInfoViewModel.ShowEquipmentInfo(equipment);
                 };
-                equipmentSlot.SetActive(true);
             }
             
+            equipmentSlotPrefab.SetActive(false);
+                
+            selectors.Find("AllButton").GetComponent<Button>().onClick.AddListener(() => UsageSelect(UsageType.None));
+            selectors.Find("FighterButton").GetComponent<Button>().onClick.AddListener(() => UsageSelect(UsageType.Fighter));
+            selectors.Find("WizardButton").GetComponent<Button>().onClick.AddListener(() => UsageSelect(UsageType.Wizard));
+            selectors.Find("ShooterButton").GetComponent<Button>().onClick.AddListener(() => UsageSelect(UsageType.Shooter));
+            selectors.Find("TankButton").GetComponent<Button>().onClick.AddListener(() => UsageSelect(UsageType.Tank));
+            selectors.Find("AssassinButton").GetComponent<Button>().onClick.AddListener(() => UsageSelect(UsageType.Assassin));
             
             // 更新UI布局
             LayoutRebuilder.ForceRebuildLayoutImmediate(itemView.GetComponent<RectTransform>());
@@ -86,7 +97,9 @@ namespace Systems
         /// </summary>
         public void CloseShopPanel()
         {
-            gameObject.SetActive(false);
+            itemView.parent.parent.GetComponent<ScrollRect>().verticalScrollbar.value = 1f;
+            selectedUsage = UsageType.None;
+            canvasGroup.alpha = 0;
             equipmentInfoViewModel.HideEquipmentInfo();
             PanelUIRoot.Instance.isShopOpen = false;
         }
@@ -96,8 +109,27 @@ namespace Systems
         /// </summary>
         public void OpenShopPanel()
         {
-            gameObject.SetActive(true);
+            canvasGroup.alpha = 1;
             PanelUIRoot.Instance.isShopOpen = true;
+        }
+
+        public void UsageSelect(UsageType usageType)
+        {
+            selectedUsage = usageType;
+
+            foreach (var equipmentSlot in equipmentSlots)
+            {
+                if (selectedUsage == UsageType.None)
+                {
+                    equipmentSlot.SetActive(true);
+                    continue;
+                }
+                
+                equipmentSlot.SetActive(equipmentSlot.GetComponent<EquipmentData>().equipment.usageTypes.Contains(selectedUsage));
+            }
+            
+            // 更新UI布局
+            LayoutRebuilder.ForceRebuildLayoutImmediate(itemView.GetComponent<RectTransform>());
         }
     }
 }

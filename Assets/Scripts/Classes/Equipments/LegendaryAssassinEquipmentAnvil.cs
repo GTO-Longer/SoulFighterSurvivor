@@ -132,12 +132,14 @@ namespace Classes.Equipments
                         if (equipment.GetPassiveSkillDescription(out var passiveContent))
                         {
                             choices[index].choiceContent += "\n";
+                            passiveContent = passiveContent.Replace("\n", ":");
                             choices[index].choiceContent += passiveContent;
                         }
 
                         if (equipment.GetActiveSkillDescription(out var activeContent))
                         {
                             choices[index].choiceContent += "\n";
+                            activeContent = activeContent.Replace("\n", ":");
                             choices[index].choiceContent += activeContent;
                         }
 

@@ -916,7 +916,7 @@
                 "attackPenetration": 18,
                 "abilityHaste": 20
             },
-            "_passiveSkillDescription": "你的盈能攻击会造成100<color=#FF6A6A>物理伤害</color>，并且持续0.75秒的99%减速",
+            "_passiveSkillDescription": "你的盈能攻击会造成100<color=#FF6A6A>物理伤害</color>，并且给予敌人持续0.75秒的99%减速",
             "_passiveSkillName": "激电与苍穹",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,

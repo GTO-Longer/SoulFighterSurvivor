@@ -31,6 +31,7 @@ namespace Classes.Entities
 
         private float cursedBladeTimer;
         private float gainCoinTimer;
+        private bool AkeyState;
         public bool canFlash;
         public bool isCuredBladeEffective => cursedBladeTimer > 0f;
         public bool hasBoughtEquipment;
@@ -290,16 +291,26 @@ namespace Classes.Entities
                 return;
             }
             
-            // 当玩家点击左键
-            if (Input.GetMouseButtonDown(0))
+            // 当玩家按下A键
+            if (Input.GetKeyDown(KeyCode.A))
             {
-                // 若提前点击A键，则开启自动攻击
-                if (_attackRangeIndicator.GetComponent<SpriteRenderer>().enabled && !Input.GetKey(KeyCode.C))
-                {
-                    target.Value = null;
-                    _agent.SetDestination(_mousePosition);
-                    _autoAttack = true;
-                }
+                AkeyState = true;
+            }
+            else if (Input.anyKeyDown && !Input.GetMouseButton(0))
+            {
+                AkeyState = false;
+            }
+            
+            // 当玩家点击左键
+            if (Input.GetMouseButton(0) && AkeyState)
+            {
+                target.Value = null;
+                _agent.SetStop(false);
+                _agent.SetDestination(_mousePosition);
+                _autoAttack = true;
+                AkeyState = false;
+                
+                return;
             }
             
             // 当玩家按下S键

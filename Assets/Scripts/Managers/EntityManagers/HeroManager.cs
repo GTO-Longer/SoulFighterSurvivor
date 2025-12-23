@@ -20,6 +20,7 @@ namespace Managers.EntityManagers
 
         private void Update()
         {
+            hero.ShowAttribute();
             hero.Move();
             hero.TargetCheck();
             hero.Attack();

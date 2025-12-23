@@ -331,30 +331,13 @@ namespace Classes.Entities
                         if (result.GetComponent<EntityData>())
                         {
                             target.Value = result.GetComponent<EntityData>().entity;
+                            TargetAttributeViewModel.Instance.checkTarget.Value = target.Value;
                             break;
                         }
                     }
                 }
                 
                 _agent.SetDestination(_mousePosition);
-            }
-            
-            // 当玩家点击A键
-            if (Input.GetKeyDown(KeyCode.A) || Input.GetKey(KeyCode.C))
-            {
-                // 若按下C键则显示属性
-                if (Input.GetKey(KeyCode.C))
-                {
-                    showAttributes.Value = true;
-                }
-
-                // 显示攻击范围指示器
-                _attackRangeIndicator.GetComponent<SpriteRenderer>().enabled = true;
-            }
-            else if (Input.anyKeyDown || Input.GetKeyUp(KeyCode.C))
-            {
-                showAttributes.Value = false;
-                _attackRangeIndicator.GetComponent<SpriteRenderer>().enabled = false;
             }
             
             if (_autoAttack)
@@ -365,6 +348,7 @@ namespace Classes.Entities
                     if (ToolFunctions.IsOverlappingOtherTag(_attackRangeIndicator.gameObject, _gameObject.tag, out var entity))
                     {
                         target.Value = entity;
+                        TargetAttributeViewModel.Instance.checkTarget.Value = entity;
                         _agent.SetStop(true);
                     }
                 }
@@ -376,6 +360,27 @@ namespace Classes.Entities
                     _agent.SetStop (Vector2.Distance(gameObject.transform.position, target.Value.gameObject.transform.position)
                                      <= scale + attackRange);
                 }
+            }
+        }
+
+        public void ShowAttribute()
+        {
+            // 当玩家点击A键
+            if (Input.GetKeyDown(KeyCode.A) || Input.GetKey(KeyCode.C))
+            {
+                // 若按下C键则显示属性
+                if (Input.GetKey(KeyCode.C))
+                {
+                    showAttributes.Value = true;
+                }
+                
+                // 显示攻击范围指示器
+                _attackRangeIndicator.GetComponent<SpriteRenderer>().enabled = true;
+            }
+            else if (Input.anyKeyDown || Input.GetKeyUp(KeyCode.C))
+            {
+                showAttributes.Value = false;
+                _attackRangeIndicator.GetComponent<SpriteRenderer>().enabled = false;
             }
         }
 

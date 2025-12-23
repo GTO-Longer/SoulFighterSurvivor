@@ -11,8 +11,9 @@ namespace Utilities
         public Sprite choiceIconBorder;
         public Action OnSelected;
         public Quality choiceQuality;
+        public bool rawColor;
 
-        public Choice(string title, string content, Sprite icon, Sprite iconBorder, Action onSelected, Quality quality)
+        public Choice(string title, string content, Sprite icon, Sprite iconBorder, Action onSelected, Quality quality, bool rawColor = false)
         {
             choiceTitle = title;
             choiceContent = content;
@@ -20,6 +21,7 @@ namespace Utilities
             choiceIconBorder = iconBorder;
             OnSelected = onSelected;
             choiceQuality = quality;
+            this.rawColor = rawColor;
         }
     }
 }

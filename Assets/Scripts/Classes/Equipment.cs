@@ -204,13 +204,13 @@ namespace Classes
                         owner._attackPenetrationBonus.Value += kv.Value;
                         break;
                     case EquipmentAttributeType.percentageAttackPenetration:
-                        owner._percentageAttackPenetrationBonus.Value += kv.Value;
+                        owner.percentageAttackPenetration.Value += kv.Value;
                         break;
                     case EquipmentAttributeType.magicPenetration:
                         owner._magicPenetrationBonus.Value += kv.Value;
                         break;
                     case EquipmentAttributeType.percentageMagicPenetration:
-                        owner._percentageMagicPenetrationBonus.Value += kv.Value;
+                        owner.percentageMagicPenetration.Value += kv.Value;
                         break;
                     case EquipmentAttributeType.criticalRate:
                         owner._criticalRateBonus.Value += kv.Value;
@@ -309,13 +309,13 @@ namespace Classes
                         owner._attackPenetrationBonus.Value -= kv.Value;
                         break;
                     case EquipmentAttributeType.percentageAttackPenetration:
-                        owner._percentageAttackPenetrationBonus.Value -= kv.Value;
+                        owner.percentageAttackPenetration.Value -= kv.Value;
                         break;
                     case EquipmentAttributeType.magicPenetration:
                         owner._magicPenetrationBonus.Value -= kv.Value;
                         break;
                     case EquipmentAttributeType.percentageMagicPenetration:
-                        owner._percentageMagicPenetrationBonus.Value -= kv.Value;
+                        owner.percentageMagicPenetration.Value -= kv.Value;
                         break;
                     case EquipmentAttributeType.criticalRate:
                         owner._criticalRateBonus.Value -= kv.Value;

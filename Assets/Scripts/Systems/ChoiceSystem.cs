@@ -63,9 +63,10 @@ namespace Systems
                     Quality.Prismatic => ResourceReader.LoadMaterial("Prismatic"),
                     _ => throw new ArgumentOutOfRangeException()
                 };
-                choiceIcon.material = material;
+
+                choiceIcon.material = !choice.rawColor ? material : null;
                 choiceBorder.material = material;
-                
+
                 // 设置图标边框颜色
                 switch (choice.choiceQuality)
                 {
@@ -80,7 +81,11 @@ namespace Systems
                 // 将有材质的素材加入材质更新
                 if (material != null)
                 {
-                    ShaderManager.Instance.AddMaterial(choiceIcon.material);
+                    if (!choice.rawColor)
+                    {
+                        ShaderManager.Instance.AddMaterial(choiceIcon.material);
+                    }
+
                     ShaderManager.Instance.AddMaterial(choiceBorder.material);
                 }
 
@@ -109,17 +114,23 @@ namespace Systems
             }
         }
 
-        public void ClearChoices()
+        private void ClearChoices()
         {
             foreach (var kv in choiceDictionary)
             {
                 if (kv.Key.choiceQuality is Quality.Prismatic or Quality.Gold)
                 {
-                    ShaderManager.Instance.RemoveMaterial(kv.Value.transform.Find("ChoiceIcon").GetComponent<Image>().material);
+                    if (!kv.Key.rawColor)
+                    {
+                        ShaderManager.Instance.RemoveMaterial(kv.Value.transform.Find("ChoiceIcon").GetComponent<Image>().material);
+                    }
+
+                    ShaderManager.Instance.RemoveMaterial(kv.Value.transform.Find("ChoiceBorder").GetComponent<Image>().material);
                 }
 
                 Destroy(kv.Value);
             }
+            
             choiceDictionary.Clear();
             gameObject.SetActive(false);
             PanelUIRoot.Instance.isChoiceOpen = false;

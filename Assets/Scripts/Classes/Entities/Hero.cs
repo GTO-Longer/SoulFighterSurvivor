@@ -73,6 +73,7 @@ namespace Classes.Entities
         /// 角色装备列表
         /// </summary>
         public List<Property<Equipment>> equipmentList = new();
+        public List<Equipment> tempEquipmentList = new();
         /// <summary>
         /// 是否可以移动
         /// </summary>
@@ -726,6 +727,7 @@ namespace Classes.Entities
         public void SellEquipment(Equipment equipment)
         {
             if (equipment == null) return;
+            
             foreach (var property in equipmentList)
             {
                 if (property.Value == equipment)
@@ -733,6 +735,15 @@ namespace Classes.Entities
                     coins.Value += (int)(property.Value._cost * 0.7f);
                     property.Value.OnEquipmentRemove();
                     property.Value = null;
+
+                    if (tempEquipmentList.Count > 0)
+                    {
+                        property.Value = tempEquipmentList[0];
+                        tempEquipmentList[0].OnEquipmentGet(this);
+                        tempEquipmentList.RemoveAt(0);
+                        return;
+                    }
+                    
                     return;
                 }
             }

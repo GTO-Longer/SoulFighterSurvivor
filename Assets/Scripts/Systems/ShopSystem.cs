@@ -97,9 +97,9 @@ namespace Systems
         /// </summary>
         public void CloseShopPanel()
         {
-            itemView.parent.parent.GetComponent<ScrollRect>().verticalScrollbar.value = 1f;
             selectedUsage = UsageType.None;
             canvasGroup.alpha = 0;
+            canvasGroup.blocksRaycasts = false;
             equipmentInfoViewModel.HideEquipmentInfo();
             PanelUIRoot.Instance.isShopOpen = false;
         }
@@ -109,7 +109,9 @@ namespace Systems
         /// </summary>
         public void OpenShopPanel()
         {
+            itemView.parent.parent.GetComponent<ScrollRect>().verticalScrollbar.value = 1f;
             canvasGroup.alpha = 1;
+            canvasGroup.blocksRaycasts = true;
             PanelUIRoot.Instance.isShopOpen = true;
         }
 

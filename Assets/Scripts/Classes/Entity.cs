@@ -760,7 +760,7 @@ namespace Classes
 
         public float CalculateADDamage(Entity damageSource, float damageCount)
         {
-            var damageAttackDefense = (attackDefense - damageSource.attackPenetration)
+            var damageAttackDefense = Mathf.Max(0, (attackDefense - damageSource.attackPenetration))
                                       * (1 - damageSource.percentageAttackPenetration);
             return  damageCount * 
                     (1 - damageAttackDefense / (damageAttackDefense + 100f));
@@ -768,8 +768,8 @@ namespace Classes
 
         public float CalculateAPDamage(Entity damageSource, float damageCount)
         {
-            var damageMagicDefense = (magicDefense - damageSource.magicPenetration)
-                                     * (1 - damageSource.percentageMagicPenetration);
+            var damageMagicDefense = Mathf.Max(0, (magicDefense - damageSource.magicPenetration))
+                                                  * (1 - damageSource.percentageMagicPenetration);
             return  damageCount * 
                     (1 - damageMagicDefense / (damageMagicDefense + 100f));
         }
@@ -777,7 +777,7 @@ namespace Classes
         /// <summary>
         /// 玩家升级
         /// </summary>
-        public void LevelUp(int num = 1)
+        public virtual void LevelUp(int num = 1)
         {
             if (level < maxLevel)
             {

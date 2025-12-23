@@ -33,7 +33,7 @@ namespace Classes.Entities
         {
             #region 读取敌人数据配置初始化数据（目前测试采用固定数据）
             
-            _baseMaxHealthPoint = 200;
+            _baseMaxHealthPoint = 150;
             _baseMaxMagicPoint = 100;
             _baseAttackDamage = 50;
             _baseAttackSpeed = 0.5f;
@@ -46,12 +46,12 @@ namespace Classes.Entities
             _baseScale = 100;
             _attackWindUp = 0.1f;
 
-            _maxHealthPointGrowth = 50f;
+            _maxHealthPointGrowth = 100f;
             _maxMagicPointGrowth = 0;
             _attackDamageGrowth = 5f;
             _attackSpeedGrowth = 0.04f;
-            _attackDefenseGrowth = 5f;
-            _magicDefenseGrowth = 5f;
+            _attackDefenseGrowth = 7.5f;
+            _magicDefenseGrowth = 7.5f;
             _healthRegenerationGrowth = 0;
             _magicRegenerationGrowth = 0;
 
@@ -69,7 +69,7 @@ namespace Classes.Entities
             _attackRangeIndicator.GetComponent<SpriteRenderer>().enabled = false;
             
             // 其他变量初始化
-            level.Value = Mathf.Clamp(HeroManager.hero.level - 2, 1, 18);
+            LevelUp((int)Mathf.Clamp(HeroManager.hero.level - 2, 1, 18));
             gainExpTimer = 0;
             isAlive = true;
             magicPoint.Value = maxMagicPoint.Value;
@@ -181,6 +181,15 @@ namespace Classes.Entities
 
                 // 销毁实例
                 EnemyFactory.Instance.Despawn(gameObject.GetComponent<EnemyManager>());
+            }
+        }
+
+        public sealed override void LevelUp(int num = 1)
+        {
+            for (var i = 0; i < num; i++)
+            {
+                _maxHealthPointGrowth *= 1.08f;
+                base.LevelUp();
             }
         }
     }

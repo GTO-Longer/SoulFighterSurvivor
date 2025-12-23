@@ -1021,7 +1021,7 @@ namespace Classes
             abilityPower = new Property<float>(() => originAbilityPower + originMaxMagicPoint * _MPToAP_ConversionEfficiency.Value.y + originMaxHealthPoint * _HPToAP_ConversionEfficiency.Value.y,
                 DataType.Int,
                 originAbilityPower, originMaxMagicPoint, _MPToAP_ConversionEfficiency, originMaxHealthPoint, _HPToAP_ConversionEfficiency);
-            attackSpeed = new Property<float>(() => (_baseAttackSpeed + _attackSpeedGrowth * level + _attackSpeedBonus * _attackSpeedYield) * (1 + _percentageAttackSpeedBonus),
+            attackSpeed = new Property<float>(() => Mathf.Min((_baseAttackSpeed + _attackSpeedGrowth * level + _attackSpeedBonus * _attackSpeedYield) * (1 + _percentageAttackSpeedBonus), 10),
                 DataType.Float,
                 level, _attackSpeedBonus, _percentageAttackSpeedBonus);
             abilityHaste = new Property<float>(() => _abilityHasteBonus * (1 + _percentageAbilityHasteBonus),
@@ -1039,7 +1039,7 @@ namespace Classes
             magicPenetration = new Property<float>(() => _magicPenetrationBonus * (1 + _percentageMagicPenetrationBonus),
                 DataType.Int,
                 _magicPenetrationBonus, _percentageMagicPenetrationBonus);
-            criticalRate = new Property<float>(() => _criticalRateBonus * (1 + _percentageCriticalRateBonus),
+            criticalRate = new Property<float>(() => Mathf.Min(_criticalRateBonus * (1 + _percentageCriticalRateBonus), 1),
                 DataType.Percentage,
                 _criticalRateBonus, _percentageCriticalRateBonus);
             movementSpeed = new Property<float>(() => (_baseMovementSpeed + _movementSpeedBonus) * (1 + _percentageMovementSpeedBonus),

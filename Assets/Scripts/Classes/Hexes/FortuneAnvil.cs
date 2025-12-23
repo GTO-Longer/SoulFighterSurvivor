@@ -1,5 +1,4 @@
-using System;
-using Classes.Entities;
+using Managers;
 using Managers.EntityManagers;
 
 namespace Classes.Hexes
@@ -19,10 +18,13 @@ namespace Classes.Hexes
                 HeroManager.hero.coins.Value += 1000;
                 hexGetEventTriggered = true;
             }
+
+            EquipmentManager.Instance.GetEquipment("AttributeAnvil")._cost -= 100;
         }
 
         public override void OnHexRemove()
         {
+            EquipmentManager.Instance.GetEquipment("AttributeAnvil")._cost += 100;
             base.OnHexRemove();
         }
 

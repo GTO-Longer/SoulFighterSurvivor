@@ -564,7 +564,7 @@ namespace Classes
         /// <summary>
         /// 基础移动速度
         /// </summary>
-        public float baseMovementSpeed => _baseMovementSpeed + _movementSpeedBonus;
+        public float baseMovementSpeed => _baseMovementSpeed;
         
         #endregion
 

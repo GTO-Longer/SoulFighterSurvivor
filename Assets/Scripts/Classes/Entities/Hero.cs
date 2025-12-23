@@ -162,9 +162,9 @@ namespace Classes.Entities
                 flash.skillType = SkillType.DSkill;
                 skillList.Add(flash);
             
-                var goustPoro = new GoustPoro();
-                goustPoro.skillType = SkillType.FSkill;
-                skillList.Add(goustPoro);
+                var ghostPoro = new GhostPoro();
+                ghostPoro.skillType = SkillType.FSkill;
+                skillList.Add(ghostPoro);
 
                 foreach (var skill in skillList)
                 {

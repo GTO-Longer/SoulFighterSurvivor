@@ -263,10 +263,10 @@ namespace Classes.Equipments
                 // 增幅碎片
                 if (AttributeAnvilBonus.Instance.buffCount.Value > 10 && AttributeAnvilBonus.Instance.attributeBonus <= 1.01f && !HeroManager.hero.hasBoughtEquipment)
                 {
-                    if (Random.Range((int)(AttributeAnvilBonus.Instance.buffCount.Value / 4), 10) >= 8)
+                    if (Random.Range(AttributeAnvilBonus.Instance.buffCount.Value / 4, 10) >= 8)
                     {
                         var target = Random.Range(0, 3);
-                        var bonus = (Random.Range((int)((AttributeAnvilBonus.Instance.buffCount.Value - 10) / 3), 16) * 4 + 20) / 100f;
+                        var bonus = (Random.Range((AttributeAnvilBonus.Instance.buffCount.Value - 10) / 3, 16) * 4 + 20) / 100f;
                         choices[target].choiceContent = $"+{bonus:P0}效能给所有其他属性碎片（20%-80%）";
                         choices[target].choiceIcon = null;
                         choices[target].choiceTitle = "碎片增幅碎片";
@@ -279,6 +279,12 @@ namespace Classes.Equipments
                 
                 ChoiceSystem.Instance.MakeChoice(choices);
             };
+        }
+
+        public override bool GetPassiveSkillDescription(out string description)
+        {
+            description = string.Format(_passiveSkillName + "\n" + _passiveSkillDescription);
+            return true;
         }
     }
 }

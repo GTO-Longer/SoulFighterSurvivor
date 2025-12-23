@@ -26,6 +26,7 @@ namespace Classes
         public EquipmentUniqueEffect _uniqueEffect;
         public Property<int> chargeCount;
         public Property<int> maxChargeCount;
+        public List<UsageType> usageTypes;
 
         // 技能主动效果
         protected string _passiveSkillDescription;
@@ -79,6 +80,13 @@ namespace Classes
             maxChargeCount = new Property<int>();
             
             equipmentIcon = ResourceReader.LoadIcon(id);
+
+            usageTypes = new List<UsageType>();
+            foreach (var str in config._usageType)
+            {
+                Enum.TryParse(str, true, out UsageType usageType);
+                usageTypes.Add(usageType);
+            }
             
             equipmentTimerUpdate = (_) =>
             {

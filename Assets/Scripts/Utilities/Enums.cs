@@ -143,14 +143,13 @@ namespace Utilities
         Prismatic
     }
 
-    public enum usageType
+    public enum UsageType
     {
         None = 0,
         Fighter,
         Wizard,
         Tank,
         Assassin,
-        Shooter,
-        All
+        Shooter
     }
 }

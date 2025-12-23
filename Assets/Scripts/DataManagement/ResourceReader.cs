@@ -95,6 +95,7 @@ namespace DataManagement
 
         public string _activeSkillDescription;
         public string _activeSkillName;
+        public string[] _usageType;
 
         // JSON 字段（字符串）
         [JsonProperty("_uniqueEffect")]

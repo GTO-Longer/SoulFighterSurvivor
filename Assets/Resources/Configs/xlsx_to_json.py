@@ -135,19 +135,31 @@ def convert_xlsx_to_json_in_current_dir():
                 output_json = {"heroes": heroes}
 
             elif is_equipment_config:
-                # === 新增：EquipmentConfig 处理逻辑 ===
+                # === EquipmentConfig 处理逻辑 ===
                 equipments = []
                 for col in data_cols:
                     equipment_data = {"id": col}  # 以列名（英文ID）作为 id
                     for attr, row in attr_to_row.items():
                         value = row.get(col)
-                        converted = smart_convert(value)
-                        equipment_data[attr] = converted
+                        
+                        # --- 修改开始：针对 _usageType 进行特殊处理 ---
+                        if attr == '_usageType':
+                            if value is None or str(value).strip() == '':
+                                equipment_data[attr] = []
+                            else:
+                                # 按逗号分割字符串，去除空格，生成列表
+                                equipment_data[attr] = [x.strip() for x in str(value).split(',') if x.strip()]
+                        # --- 修改结束 ---
+                        
+                        else:
+                            converted = smart_convert(value)
+                            equipment_data[attr] = converted
+                            
                     equipments.append(equipment_data)
                 output_json = {"equipments": equipments}
 
             elif is_hex_config:
-                # === 新增：HexConfig 处理逻辑 ===
+                # === HexConfig 处理逻辑 ===
                 hexes = []
                 for col in data_cols:
                     hex_data = {"id": col}

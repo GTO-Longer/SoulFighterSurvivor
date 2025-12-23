@@ -63,7 +63,7 @@ namespace Managers
                 }
                 catch (Exception ex)
                 {
-                    Debug.LogError($"[EquipmentManager] 装备实例创建失败：{config.id} → {className}\n{ex}");
+                    Debug.LogWarning($"[EquipmentManager] 装备实例创建失败：{config.id} → {className}\n{ex}");
                 }
             }
         }
@@ -75,7 +75,7 @@ namespace Managers
             var jsonText = Resources.Load<TextAsset>("Configs/EquipmentConfig");
             if (jsonText == null)
             {
-                Debug.LogError("[EquipmentManager] 找不到 EquipmentConfig.json 文件");
+                Debug.LogWarning("[EquipmentManager] 找不到 EquipmentConfig.json 文件");
                 return list;
             }
 
@@ -89,7 +89,7 @@ namespace Managers
             }
             catch (Exception e)
             {
-                Debug.LogError($"[EquipmentManager] 解析 EquipmentConfig.json 失败：{e}");
+                Debug.LogWarning($"[EquipmentManager] 解析 EquipmentConfig.json 失败：{e}");
             }
 
             return list;

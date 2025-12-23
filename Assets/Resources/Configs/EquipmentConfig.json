@@ -16,7 +16,10 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": "Guardian"
+            "_uniqueEffect": "Guardian",
+            "_usageType": [
+                "Wizard"
+            ]
         },
         {
             "id": "Guardian_sBlade",
@@ -35,7 +38,10 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": "Guardian"
+            "_uniqueEffect": "Guardian",
+            "_usageType": [
+                "Fighter"
+            ]
         },
         {
             "id": "Guardian_sClothes",
@@ -54,7 +60,11 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": "Guardian"
+            "_uniqueEffect": "Guardian",
+            "_usageType": [
+                "Wizard",
+                "Fighter"
+            ]
         },
         {
             "id": "Guardian_sDagger",
@@ -73,7 +83,10 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": "Guardian"
+            "_uniqueEffect": "Guardian",
+            "_usageType": [
+                "Assasin"
+            ]
         },
         {
             "id": "Guardian_sHammer",
@@ -92,7 +105,10 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": "Guardian"
+            "_uniqueEffect": "Guardian",
+            "_usageType": [
+                "Shooter"
+            ]
         },
         {
             "id": "Guardian_sHorn",
@@ -110,7 +126,10 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": "Guardian"
+            "_uniqueEffect": "Guardian",
+            "_usageType": [
+                "Tank"
+            ]
         },
         {
             "id": "AttributeAnvil",
@@ -122,10 +141,17 @@
             "_passiveSkillDescription": "自动开启一次半随机的选择，用来获得一个永久属性加成。",
             "_passiveSkillName": "主动-消耗",
             "_passiveSkillCD": 0,
-            "_activeSkillDescription": null,
-            "_activeSkillName": null,
+            "_activeSkillDescription": "若在未购买装备的情况下购买10次及以上属性锻造器，则有机会获得碎片增幅碎片以百分比提升所有属性碎片属性。购买的越多，越容易获得更高质量的增幅碎片。",
+            "_activeSkillName": "被动-锻体",
             "_activeSkillCD": 0,
-            "_uniqueEffect": null
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Fighter",
+                "Wizard",
+                "Tank",
+                "Assassin",
+                "Shooter"
+            ]
         },
         {
             "id": "LegendaryFighterEquipmentAnvil",
@@ -140,7 +166,10 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Fighter"
+            ]
         },
         {
             "id": "LegendaryShooterEquipmentAnvil",
@@ -155,7 +184,10 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Shooter"
+            ]
         },
         {
             "id": "LegendaryAssassinEquipmentAnvil",
@@ -170,7 +202,10 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Assassin"
+            ]
         },
         {
             "id": "LegendaryWizardEquipmentAnvil",
@@ -185,7 +220,10 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Wizard"
+            ]
         },
         {
             "id": "LegendaryTankEquipmentAnvil",
@@ -200,7 +238,10 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Tank"
+            ]
         },
         {
             "id": "PrismaticEquipmentAnvil",
@@ -215,7 +256,14 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Fighter",
+                "Wizard",
+                "Tank",
+                "Assassin",
+                "Shooter"
+            ]
         },
         {
             "id": "InfinityEdge",
@@ -234,7 +282,10 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Shooter"
+            ]
         },
         {
             "id": "Luden_sCompanion",
@@ -253,7 +304,10 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Wizard"
+            ]
         },
         {
             "id": "Rabadon_sAgony",
@@ -272,7 +326,10 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Wizard"
+            ]
         },
         {
             "id": "BlackFireTorch",
@@ -291,7 +348,10 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Wizard"
+            ]
         },
         {
             "id": "Archangel_sStaff",
@@ -310,7 +370,10 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": "MPBoost"
+            "_uniqueEffect": "MPBoost",
+            "_usageType": [
+                "Wizard"
+            ]
         },
         {
             "id": "Seraph_sEmbrace",
@@ -329,7 +392,10 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": "MPBoost"
+            "_uniqueEffect": "MPBoost",
+            "_usageType": [
+                "Wizard"
+            ]
         },
         {
             "id": "Muramana",
@@ -348,7 +414,12 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": "MPBoost"
+            "_uniqueEffect": "MPBoost",
+            "_usageType": [
+                "Fighter",
+                "Assassin",
+                "Shooter"
+            ]
         },
         {
             "id": "Manamune",
@@ -367,7 +438,12 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": "MPBoost"
+            "_uniqueEffect": "MPBoost",
+            "_usageType": [
+                "Fighter",
+                "Assassin",
+                "Shooter"
+            ]
         },
         {
             "id": "FrozenHeart",
@@ -386,7 +462,10 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Tank"
+            ]
         },
         {
             "id": "RodofAges",
@@ -405,7 +484,10 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Wizard"
+            ]
         },
         {
             "id": "HextechRocketBelt",
@@ -424,7 +506,10 @@
             "_activeSkillDescription": "向目标方向冲刺并释放一道魔法弹影，造成<color=#00D8FF>{0:F0}=（<color=#C97BFF>100+10%<sprite=\"Attributes\" name=\"AbilityPowerIcon\"></color>）魔法伤害</color>。\n该装备的位移可以越过墙体。",
             "_activeSkillName": "超音速",
             "_activeSkillCD": 25,
-            "_uniqueEffect": null
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Wizard"
+            ]
         },
         {
             "id": "HorizonFocus",
@@ -442,7 +527,10 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Wizard"
+            ]
         },
         {
             "id": "HextechGunblade",
@@ -461,7 +549,10 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Wizard"
+            ]
         },
         {
             "id": "Shadowflame",
@@ -480,7 +571,10 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Wizard"
+            ]
         },
         {
             "id": "Stormsurge",
@@ -499,7 +593,10 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Wizard"
+            ]
         },
         {
             "id": "LichBane",
@@ -518,7 +615,10 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": "CursedBlade"
+            "_uniqueEffect": "CursedBlade",
+            "_usageType": [
+                "Wizard"
+            ]
         },
         {
             "id": "Nashors_Tooth",
@@ -537,7 +637,10 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Wizard"
+            ]
         },
         {
             "id": "Starsprint",
@@ -557,7 +660,10 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Wizard"
+            ]
         },
         {
             "id": "Void_Staff",
@@ -575,7 +681,10 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": "MagicPenetration"
+            "_uniqueEffect": "MagicPenetration",
+            "_usageType": [
+                "Wizard"
+            ]
         },
         {
             "id": "Rabadons_Deathcap",
@@ -592,7 +701,10 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Wizard"
+            ]
         },
         {
             "id": "CursedBlood",
@@ -611,7 +723,11 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": "MagicPenetration"
+            "_uniqueEffect": "MagicPenetration",
+            "_usageType": [
+                "Wizard",
+                "Tank"
+            ]
         },
         {
             "id": "Riftmaker",
@@ -630,7 +746,10 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Wizard"
+            ]
         },
         {
             "id": "Cryptbloom",
@@ -649,7 +768,10 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": "MagicPenetration"
+            "_uniqueEffect": "MagicPenetration",
+            "_usageType": [
+                "Wizard"
+            ]
         },
         {
             "id": "Rylai_Crystal_Scepter",
@@ -667,7 +789,10 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Wizard"
+            ]
         },
         {
             "id": "Cryptic",
@@ -687,7 +812,10 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": "MagicPenetration"
+            "_uniqueEffect": "MagicPenetration",
+            "_usageType": [
+                "Wizard"
+            ]
         },
         {
             "id": "Ruinous_Ritual",
@@ -706,7 +834,10 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Wizard"
+            ]
         },
         {
             "id": "Liandrys_Torment",
@@ -724,7 +855,10 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Wizard"
+            ]
         },
         {
             "id": "Guinsoos_Rageblade",
@@ -743,7 +877,109 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Shooter"
+            ]
+        },
+        {
+            "id": "Youmuu_sGhostblade",
+            "equipmentName": "幽梦之灵",
+            "_usageDescription": "追击",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "attackDamage": 55,
+                "attackPenetration": 22,
+                "movementSpeed": 0.04
+            },
+            "_passiveSkillDescription": "提供非战斗状态下的60移动速度",
+            "_passiveSkillName": "鬼影萦绕",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": "提供30%移动速度和幽灵状态，持续6秒",
+            "_activeSkillName": "鬼步化身",
+            "_activeSkillCD": 20,
+            "_uniqueEffect": null,
+            "_usageType": []
+        },
+        {
+            "id": "Serpent_sFang",
+            "equipmentName": "巨蛇之牙",
+            "_usageDescription": "护盾克星",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "attackDamage": 55,
+                "attackPenetration": 19
+            },
+            "_passiveSkillDescription": "对一名敌方英雄造成伤害时，会使其获得的任何护盾降低50%，持续3秒。当你对一名未被掠盾者影响的敌人造成伤害时，会使其身上的护盾降低50%",
+            "_passiveSkillName": "掠盾者",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null,
+            "_usageType": []
+        },
+        {
+            "id": "VoltaicCyclosword",
+            "equipmentName": "电震涌流剑",
+            "_usageDescription": "爆发减速",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "attackDamage": 50,
+                "attackPenetration": 18,
+                "abilityHaste": 20
+            },
+            "_passiveSkillDescription": "冲刺和跳跃会使技能的蓄力加快75%\n你的普能攻击会造成100%额外物理伤害，并且持续0.75秒的99%减速",
+            "_passiveSkillName": "激电与苍穹",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null,
+            "_usageType": []
+        },
+        {
+            "id": "ProfaneHydra",
+            "equipmentName": "亵渎九头蛇",
+            "_usageDescription": "范围攻击",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "attackDamage": 50,
+                "attackPenetration": 18,
+                "abilityHaste": 15
+            },
+            "_passiveSkillDescription": "攻击会对附近的敌人造成115(40%)物理伤害",
+            "_passiveSkillName": "顺劈",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": "对你附近的敌人造成229(80%)物理伤害，持续10秒",
+            "_activeSkillName": "邪斩",
+            "_activeSkillCD": 10,
+            "_uniqueEffect": null,
+            "_usageType": []
+        },
+        {
+            "id": "Hubris",
+            "equipmentName": "狂妄",
+            "_usageDescription": "收集击杀",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "attackDamage": 50,
+                "attackPenetration": 18,
+                "abilityHaste": 10
+            },
+            "_passiveSkillDescription": "如果一名在过去3秒内曾被你造成过伤害的英雄阵亡，则获得15攻击力，持续到回合结束，或被击杀为止。每当这个效果触发时，收集击杀的攻击力永久提升2",
+            "_passiveSkillName": "盛名",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null,
+            "_usageType": []
         }
     ]
 }

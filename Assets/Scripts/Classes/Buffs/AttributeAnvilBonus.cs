@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Utilities;
 
@@ -8,6 +9,8 @@ namespace Classes.Buffs
     public class AttributeAnvilBonus : Buff
     {
         public static AttributeAnvilBonus Instance;
+        
+        public float attributeBonus = 1;
 
         private Dictionary<EquipmentAttributeType, float> attributes = new()
         {
@@ -45,10 +48,10 @@ namespace Classes.Buffs
                             str += $"+<sprite=\"Attributes\" name=\"MaxHealthPointIcon\">{kv.Value:0.#}最大生命值\n";
                             break;
                         case EquipmentAttributeType.percentageMaxHealthPoint: 
-                            str += $"+<sprite=\"Attributes\" name=\"MaxHealthPointIcon\">{kv.Value:P1}最大生命值\n";
+                            str += $"+<sprite=\"Attributes\" name=\"MaxHealthPointIcon\">{kv.Value * 100:0.#}%最大生命值\n";
                             break;
                         case EquipmentAttributeType.attackSpeed:
-                            str += $"+<sprite=\"Attributes\" name=\"AttackSpeedIcon\">{kv.Value:P1}攻击速度\n";
+                            str += $"+<sprite=\"Attributes\" name=\"AttackSpeedIcon\">{kv.Value * 100:0.#}%攻击速度\n";
                             break;
                         case EquipmentAttributeType.attackDamage:
                             str += $"+<sprite=\"Attributes\" name=\"AttackDamageIcon\">{kv.Value:0.#}攻击力\n";
@@ -69,25 +72,25 @@ namespace Classes.Buffs
                             str += $"+<sprite=\"Attributes\" name=\"AttackPenetrationIcon\">{kv.Value:0.#}物理穿透\n";
                             break;
                         case EquipmentAttributeType.percentageAttackPenetration:
-                            str += $"+<sprite=\"Attributes\" name=\"AttackPenetrationIcon\">{kv.Value:P1}物理穿透\n";
+                            str += $"+<sprite=\"Attributes\" name=\"AttackPenetrationIcon\">{kv.Value * 100:0.#}%物理穿透\n";
                             break;
                         case EquipmentAttributeType.magicPenetration:
                             str += $"+<sprite=\"Attributes\" name=\"MagicPenetrationIcon\">{kv.Value:0.#}法术穿透\n";
                             break;
                         case EquipmentAttributeType.percentageMagicPenetration:
-                            str += $"+<sprite=\"Attributes\" name=\"MagicPenetrationIcon\">{kv.Value:P1}法术穿透\n";
+                            str += $"+<sprite=\"Attributes\" name=\"MagicPenetrationIcon\">{kv.Value * 100:0.#}%法术穿透\n";
                             break;
                         case EquipmentAttributeType.criticalRate:
-                            str += $"+<sprite=\"Attributes\" name=\"CriticalRateIcon\">{kv.Value:P1}暴击率\n";
+                            str += $"+<sprite=\"Attributes\" name=\"CriticalRateIcon\">{kv.Value * 100:0.#}%暴击率\n";
                             break;
                         case EquipmentAttributeType.criticalDamage:
-                            str += $"+<sprite=\"Attributes\" name=\"CriticalDamageIcon\">{kv.Value:P1}暴击伤害\n";
+                            str += $"+<sprite=\"Attributes\" name=\"CriticalDamageIcon\">{kv.Value * 100:0.#}%暴击伤害\n";
                             break;
                         case EquipmentAttributeType.omnivamp:
-                            str += $"+<sprite=\"Attributes\" name=\"OmniVampIcon\">{kv.Value:P1}全能吸血\n";
+                            str += $"+<sprite=\"Attributes\" name=\"OmniVampIcon\">{kv.Value * 100:0.#}%全能吸血\n";
                             break;
                         case EquipmentAttributeType.percentageMovementSpeed:
-                            str += $"+<sprite=\"Attributes\" name=\"MovementSpeedIcon\">{kv.Value:P1}移动速度\n";
+                            str += $"+<sprite=\"Attributes\" name=\"MovementSpeedIcon\">{kv.Value * 100:0.#}%移动速度\n";
                             break;
                         case EquipmentAttributeType.fortune:
                             str += $"+  <sprite=\"Coin\" index=0>{kv.Value:P0}击杀敌人金币获取量\n";
@@ -122,6 +125,7 @@ namespace Classes.Buffs
 
         public void AddAttribute(EquipmentAttributeType attributeType, float value)
         {
+            value *= attributeBonus;
             attributes[attributeType] += value;
             
             // 获取对应属性
@@ -182,13 +186,100 @@ namespace Classes.Buffs
                     owner._percentageMovementSpeedBonus.Value += value;
                     break;
                 case EquipmentAttributeType.percentageScaleBonus:
-                    owner._percentageScaleBonus.Value += value;
+                    owner._percentageScaleBonus.Value += value / attributeBonus;
                     break;
                 case EquipmentAttributeType.fortune:
                     owner.fortune += value;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        public void AddBonus(float value)
+        {
+            attributeBonus += value;
+
+            foreach (var key in attributes.Keys.ToList())
+            {
+                // 获取对应属性
+                switch (key)
+                {
+                    case EquipmentAttributeType.None:Debug.LogError("未找到对应属性！");
+                        break;
+                    case EquipmentAttributeType.maxHealthPoint:
+                        var healthCache1 = owner.maxHealthPoint.Value;
+                        owner._maxHealthPointBonus.Value += attributes[key] * value;
+                        owner.healthPoint.Value += owner.maxHealthPoint.Value - healthCache1;
+                        attributes[key] *= attributeBonus;
+                        break;
+                    case EquipmentAttributeType.percentageMaxHealthPoint:
+                        var healthCache2 = owner.maxHealthPoint.Value;
+                        owner._percentageMaxHealthPointBonus.Value += attributes[key] * value;
+                        owner.healthPoint.Value += owner.maxHealthPoint.Value - healthCache2;
+                        attributes[key] *= attributeBonus;
+                        break;
+                    case EquipmentAttributeType.attackSpeed:
+                        owner._attackSpeedBonus.Value += attributes[key] * value;
+                        attributes[key] *= attributeBonus;
+                        break;
+                    case EquipmentAttributeType.attackDamage:
+                        owner._attackDamageBonus.Value += attributes[key] * value;
+                        attributes[key] *= attributeBonus;
+                        break;
+                    case EquipmentAttributeType.abilityPower:
+                        owner._abilityPowerBonus.Value += attributes[key] * value;
+                        attributes[key] *= attributeBonus;
+                        break;
+                    case EquipmentAttributeType.abilityHaste:
+                        owner._abilityHasteBonus.Value += attributes[key] * value;
+                        attributes[key] *= attributeBonus;
+                        break;
+                    case EquipmentAttributeType.attackDefense:
+                        owner._attackDefenseBonus.Value += attributes[key] * value;
+                        attributes[key] *= attributeBonus;
+                        break;
+                    case EquipmentAttributeType.magicDefense:
+                        owner._magicDefenseBonus.Value += attributes[key] * value;
+                        attributes[key] *= attributeBonus;
+                        break;
+                    case EquipmentAttributeType.attackPenetration:
+                        owner._attackPenetrationBonus.Value += attributes[key] * value;
+                        attributes[key] *= attributeBonus;
+                        break;
+                    case EquipmentAttributeType.magicPenetration:
+                        owner._magicPenetrationBonus.Value += attributes[key] * value;
+                        attributes[key] *= attributeBonus;
+                        break;
+                    case EquipmentAttributeType.percentageAttackPenetration:
+                        owner._percentageAttackPenetrationBonus.Value += attributes[key] * value;
+                        attributes[key] *= attributeBonus;
+                        break;
+                    case EquipmentAttributeType.percentageMagicPenetration:
+                        owner._percentageMagicPenetrationBonus.Value += attributes[key] * value;
+                        attributes[key] *= attributeBonus;
+                        break;
+                    case EquipmentAttributeType.criticalRate:
+                        owner._criticalRateBonus.Value += attributes[key] * value;
+                        attributes[key] *= attributeBonus;
+                        break;
+                    case EquipmentAttributeType.criticalDamage:
+                        owner._criticalDamageBonus.Value += attributes[key] * value;
+                        attributes[key] *= attributeBonus;
+                        break;
+                    case EquipmentAttributeType.omnivamp:
+                        owner.omnivamp.Value += attributes[key] * value;
+                        attributes[key] *= attributeBonus;
+                        break;
+                    case EquipmentAttributeType.percentageMovementSpeed:
+                        owner._percentageMovementSpeedBonus.Value += attributes[key] * value;
+                        attributes[key] *= attributeBonus;
+                        break;
+                    case EquipmentAttributeType.fortune:
+                        owner.fortune += attributes[key] * value;
+                        attributes[key] *= attributeBonus;
+                        break;
+                }
             }
         }
     }

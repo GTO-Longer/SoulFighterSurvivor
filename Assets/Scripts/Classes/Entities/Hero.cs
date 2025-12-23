@@ -33,6 +33,7 @@ namespace Classes.Entities
         private float gainCoinTimer;
         public bool canFlash;
         public bool isCuredBladeEffective => cursedBladeTimer > 0f;
+        public bool hasBoughtEquipment;
         
         /// <summary>
         /// 是否启用自动攻击模式
@@ -692,6 +693,7 @@ namespace Classes.Entities
                     {
                         if (property.Value == null)
                         {
+                            hasBoughtEquipment = true;
                             coins.Value -= equipment._cost;
                             property.Value = equipment;
                             equipment.OnEquipmentGet(this);

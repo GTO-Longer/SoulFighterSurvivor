@@ -51,7 +51,7 @@ namespace Classes.Equipments
                     if (ToolFunctions.GetRandomUniqueItems(attributeChoices, 3, out var result))
                     {
                         var index = 0;
-                        var randomValue = (Random.Range(0, 9) * 5 + 50) / 100f;
+                        var randomValue = (Random.Range(0, 7) * 5 + 50) / 100f;
                         
                         foreach (var kvp in result)
                         {
@@ -64,34 +64,34 @@ namespace Classes.Equipments
                                 {
                                     case EquipmentAttributeType.None:Debug.LogError("未找到对应属性！");break;
                                     case EquipmentAttributeType.maxHealthPoint: 
-                                        choice.choiceContent += $"+<sprite=\"Attributes\" name=\"MaxHealthPointIcon\">{kv.Value * randomValue:0.#}最大生命值\n";
+                                        choice.choiceContent += $"+<sprite=\"Attributes\" name=\"MaxHealthPointIcon\">{kv.Value * randomValue:0.#}最大生命值（{kv.Value*0.5f:0.#}-{kv.Value*0.8f:0.#}）\n";
                                         break;
                                     case EquipmentAttributeType.attackSpeed:
-                                        choice.choiceContent += $"+<sprite=\"Attributes\" name=\"AttackSpeedIcon\">{kv.Value * randomValue:P1}攻击速度\n";
+                                        choice.choiceContent += $"+<sprite=\"Attributes\" name=\"AttackSpeedIcon\">{kv.Value * randomValue * 100:0.#}%攻击速度（{kv.Value*0.5f * 100:0.#}%-{kv.Value*0.8f * 100:0.#}%）\n";
                                         break;
                                     case EquipmentAttributeType.attackDamage:
-                                        choice.choiceContent += $"+<sprite=\"Attributes\" name=\"AttackDamageIcon\">{kv.Value * randomValue:0.#}攻击力\n";
+                                        choice.choiceContent += $"+<sprite=\"Attributes\" name=\"AttackDamageIcon\">{kv.Value * randomValue:0.#}攻击力（{kv.Value*0.5f:0.#}-{kv.Value*0.8f:0.#}）\n";
                                         break;
                                     case EquipmentAttributeType.abilityPower:
-                                        choice.choiceContent += $"+<sprite=\"Attributes\" name=\"AbilityPowerIcon\">{kv.Value * randomValue:0.#}法术强度\n";
+                                        choice.choiceContent += $"+<sprite=\"Attributes\" name=\"AbilityPowerIcon\">{kv.Value * randomValue:0.#}法术强度（{kv.Value*0.5f:0.#}-{kv.Value*0.8f:0.#}）\n";
                                         break;
                                     case EquipmentAttributeType.abilityHaste:
-                                        choice.choiceContent += $"+<sprite=\"Attributes\" name=\"AbilityHasteIcon\">{kv.Value * randomValue:0.#}技能急速\n";
+                                        choice.choiceContent += $"+<sprite=\"Attributes\" name=\"AbilityHasteIcon\">{kv.Value * randomValue:0.#}技能急速（{kv.Value*0.5f:0.#}-{kv.Value*0.8f:0.#}）\n";
                                         break;
                                     case EquipmentAttributeType.attackDefense:
-                                        choice.choiceContent += $"+<sprite=\"Attributes\" name=\"AttackDefenseIcon\">{kv.Value * randomValue:0.#}物理防御\n";
+                                        choice.choiceContent += $"+<sprite=\"Attributes\" name=\"AttackDefenseIcon\">{kv.Value * randomValue:0.#}物理防御（{kv.Value*0.5f:0.#}-{kv.Value*0.8f:0.#}）\n";
                                         break;
                                     case EquipmentAttributeType.magicDefense:
-                                        choice.choiceContent += $"+<sprite=\"Attributes\" name=\"MagicDefenseIcon\">{kv.Value * randomValue:0.#}法术防御\n";
+                                        choice.choiceContent += $"+<sprite=\"Attributes\" name=\"MagicDefenseIcon\">{kv.Value * randomValue:0.#}法术防御（{kv.Value*0.5f:0.#}-{kv.Value*0.8f:0.#}）\n";
                                         break;
                                     case EquipmentAttributeType.attackPenetration:
-                                        choice.choiceContent += $"+<sprite=\"Attributes\" name=\"AttackPenetrationIcon\">{kv.Value * randomValue:0.#}物理穿透\n";
+                                        choice.choiceContent += $"+<sprite=\"Attributes\" name=\"AttackPenetrationIcon\">{kv.Value * randomValue:0.#}物理穿透（{kv.Value*0.5f:0.#}-{kv.Value*0.8f:0.#}）\n";
                                         break;
                                     case EquipmentAttributeType.magicPenetration:
-                                        choice.choiceContent += $"+<sprite=\"Attributes\" name=\"MagicPenetrationIcon\">{kv.Value * randomValue:0.#}法术穿透\n";
+                                        choice.choiceContent += $"+<sprite=\"Attributes\" name=\"MagicPenetrationIcon\">{kv.Value * randomValue:0.#}法术穿透（{kv.Value*0.5f:0.#}-{kv.Value*0.8f:0.#}）\n";
                                         break;
                                     case EquipmentAttributeType.criticalRate:
-                                        choice.choiceContent += $"+<sprite=\"Attributes\" name=\"CriticalRateIcon\">{kv.Value * randomValue:P1}暴击率\n";
+                                        choice.choiceContent += $"+<sprite=\"Attributes\" name=\"CriticalRateIcon\">{kv.Value * randomValue * 100:0.#}%暴击率（{kv.Value*0.5f * 100:0.#}%-{kv.Value*0.8f * 100:0.#}%）\n";
                                         break;
                                     default:
                                         Debug.LogWarning($"{kv.Key}缺少属性");
@@ -138,7 +138,7 @@ namespace Classes.Equipments
                                         choice.choiceContent += $"+<sprite=\"Attributes\" name=\"MaxHealthPointIcon\">{kv.Value:0.#}最大生命值\n";
                                         break;
                                     case EquipmentAttributeType.attackSpeed:
-                                        choice.choiceContent += $"+<sprite=\"Attributes\" name=\"AttackSpeedIcon\">{kv.Value:P1}攻击速度\n";
+                                        choice.choiceContent += $"+<sprite=\"Attributes\" name=\"AttackSpeedIcon\">{kv.Value * 100:0.#}%攻击速度\n";
                                         break;
                                     case EquipmentAttributeType.attackDamage:
                                         choice.choiceContent += $"+<sprite=\"Attributes\" name=\"AttackDamageIcon\">{kv.Value:0.#}攻击力\n";
@@ -162,7 +162,7 @@ namespace Classes.Equipments
                                         choice.choiceContent += $"+<sprite=\"Attributes\" name=\"MagicPenetrationIcon\">{kv.Value:0.#}法术穿透\n";
                                         break;
                                     case EquipmentAttributeType.criticalRate:
-                                        choice.choiceContent += $"+<sprite=\"Attributes\" name=\"CriticalRateIcon\">{kv.Value:P1}暴击率\n";
+                                        choice.choiceContent += $"+<sprite=\"Attributes\" name=\"CriticalRateIcon\">{kv.Value * 100:0.#}%暴击率\n";
                                         break;
                                     default:
                                         Debug.LogWarning($"{kv.Key}缺少属性");
@@ -255,6 +255,28 @@ namespace Classes.Equipments
                     }
                 }
 
+                if(AttributeAnvilBonus.Instance == null){
+                    ChoiceSystem.Instance.MakeChoice(choices);
+                    return;
+                }
+                
+                // 增幅碎片
+                if (AttributeAnvilBonus.Instance.buffCount.Value > 10 && AttributeAnvilBonus.Instance.attributeBonus <= 1.01f && !HeroManager.hero.hasBoughtEquipment)
+                {
+                    if (Random.Range((int)(AttributeAnvilBonus.Instance.buffCount.Value / 4), 10) >= 8)
+                    {
+                        var target = Random.Range(0, 3);
+                        var bonus = (Random.Range((int)((AttributeAnvilBonus.Instance.buffCount.Value - 10) / 3), 16) * 4 + 20) / 100f;
+                        choices[target].choiceContent = $"+{bonus:P0}效能给所有其他属性碎片（20%-80%）";
+                        choices[target].choiceIcon = null;
+                        choices[target].choiceTitle = "碎片增幅碎片";
+                        choices[target].OnSelected = () =>
+                        {
+                            AttributeAnvilBonus.Instance.AddBonus(bonus);
+                        };
+                    }
+                }
+                
                 ChoiceSystem.Instance.MakeChoice(choices);
             };
         }

@@ -142,4 +142,15 @@ namespace Utilities
         Gold,
         Prismatic
     }
+
+    public enum usageType
+    {
+        None = 0,
+        Fighter,
+        Wizard,
+        Tank,
+        Assassin,
+        Shooter,
+        All
+    }
 }

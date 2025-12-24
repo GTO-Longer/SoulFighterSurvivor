@@ -49,13 +49,13 @@ namespace MVVM.ViewModels
             newBuffUI.GetComponent<BuffData>().buff = buff;
             
             var buffMask = newBuffUI.transform.Find("BuffMask").GetComponent<Image>();
-            BuffUnbindEvent.Add(buff.buffName, Binder.BindFillAmountImmediate(buffMask, buff.buffLeftDuration));
+            BuffUnbindEvent.Add(buff.buffName + "Mask", Binder.BindFillAmountImmediate(buffMask, buff.buffLeftDuration));
             
             var buffCount = newBuffUI.transform.Find("BuffCount").GetComponent<TMP_Text>();
             if (buff.buffMaxCount > 0)
             {
                 buffCount.enabled = true;
-                BuffUnbindEvent.Add(buff.buffName, Binder.BindText(buffCount, buff.buffCount));
+                BuffUnbindEvent.Add(buff.buffName + "Count", Binder.BindText(buffCount, buff.buffCount));
             }
             else
             {
@@ -75,10 +75,16 @@ namespace MVVM.ViewModels
                 {
                     if (buffData.buff == buff)
                     {
-                        if (BuffUnbindEvent.ContainsKey(buff.buffName))
+                        if (BuffUnbindEvent.ContainsKey(buff.buffName + "Mask"))
                         {
-                            BuffUnbindEvent[buff.buffName].Invoke();
-                            BuffUnbindEvent.Remove(buff.buffName);
+                            BuffUnbindEvent[buff.buffName + "Mask"].Invoke();
+                            BuffUnbindEvent.Remove(buff.buffName + "Mask");
+                        }
+                        
+                        if (BuffUnbindEvent.ContainsKey(buff.buffName + "Count"))
+                        {
+                            BuffUnbindEvent[buff.buffName + "Count"].Invoke();
+                            BuffUnbindEvent.Remove(buff.buffName + "Count");
                         }
 
                         buffBar.GetChild(index).GetComponent<BuffButton>().OnPointerExit(null);

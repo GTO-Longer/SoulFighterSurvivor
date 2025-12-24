@@ -405,7 +405,7 @@ namespace MVVM
                         }
                     }
 
-                    if (source.Value.chargeCount > 0 && source.Value.maxChargeCount > 0)
+                    if (source.Value.chargeCount >= 0 && source.Value.maxChargeCount > 0)
                     {
                         chargeCount.enabled = true;
                         BindText(chargeCount, source.Value.chargeCount);

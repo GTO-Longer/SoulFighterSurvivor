@@ -97,7 +97,9 @@ namespace Utilities
         None = 0,
         Starter,
         Anvil,
-        Legend
+        Legend,
+        Prismatic,
+        Task
     }
 
     public enum BulletType

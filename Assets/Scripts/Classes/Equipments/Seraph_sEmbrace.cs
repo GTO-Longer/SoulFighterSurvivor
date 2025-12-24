@@ -29,12 +29,14 @@ namespace Classes.Equipments
             base.OnEquipmentGet(entity);
             owner._MPToAP_ConversionEfficiency.Value = new Vector2(owner._MPToAP_ConversionEfficiency.Value.x, owner._MPToAP_ConversionEfficiency.Value.y + 0.06f);
             owner.OnHurt += equipmentEffect;
+            owner.EntityUpdateEvent += equipmentTimerUpdate;
         }
 
         public override void OnEquipmentRemove()
         {
             owner._MPToAP_ConversionEfficiency.Value = new Vector2(owner._MPToAP_ConversionEfficiency.Value.x, owner._MPToAP_ConversionEfficiency.Value.y - 0.06f);
             owner.OnHurt -= equipmentEffect;
+            owner.EntityUpdateEvent -= equipmentTimerUpdate;
             base.OnEquipmentRemove();
         }
 

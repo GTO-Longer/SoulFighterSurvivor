@@ -29,6 +29,11 @@ namespace Classes.Equipments
             
             OnKill = (_, _) =>
             {
+                if (chargeCount.Value < maxChargeCount.Value)
+                {
+                    chargeCount.Value += 1;
+                }
+                
                 if (chargeCount.Value >= maxChargeCount.Value && !completed)
                 {
                     equipmentAttributes[EquipmentAttributeType.abilityPower] += 50;
@@ -44,10 +49,6 @@ namespace Classes.Equipments
                     
                     HeroManager.hero.LevelUp();
                     completed = true;
-                }
-                else
-                {
-                    chargeCount.Value += 1;
                 }
             };
         }

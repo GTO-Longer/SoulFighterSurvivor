@@ -11928,7 +11928,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   navAgent: {fileID: 0}
-  isGoust: 0
+  isGhost: 0
   goal:
     x: 0
     y: 0
@@ -31996,7 +31996,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   navAgent: {fileID: 0}
-  isGoust: 0
+  isGhost: 0
   goal:
     x: 0
     y: 0

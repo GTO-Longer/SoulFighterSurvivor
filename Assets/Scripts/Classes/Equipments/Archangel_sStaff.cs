@@ -13,10 +13,15 @@ namespace Classes.Equipments
         {
             canPurchase = true;
             chargeCount.Value = 0;
-            maxChargeCount.Value = 50;
+            maxChargeCount.Value = 5;
             
             OnKill = (_, _) =>
             {
+                if (chargeCount.Value < maxChargeCount.Value)
+                {
+                    chargeCount.Value += 1;
+                }
+
                 if (chargeCount.Value >= maxChargeCount.Value)
                 {
                     var selfIndex = HeroManager.hero.equipmentList.FindIndex(equip => equip.Value.equipmentName == equipmentName);
@@ -25,10 +30,6 @@ namespace Classes.Equipments
                     HeroManager.hero.equipmentList[selfIndex].Value.OnEquipmentGet(HeroManager.hero);
                     canPurchase = false;
                     HeroManager.hero.equipmentList[selfIndex].Value.canPurchase = true;
-                }
-                else
-                {
-                    chargeCount.Value += 1;
                 }
             };
         }

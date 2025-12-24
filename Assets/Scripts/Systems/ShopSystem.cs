@@ -18,6 +18,8 @@ namespace Systems
         private Transform starterEquipmentArea;
         private Transform anvilEquipmentArea;
         private Transform legendEquipmentArea;
+        private Transform prismaticEquipmentArea;
+        private Transform taskEquipmentArea;
         private GameObject equipmentSlotPrefab;
         private Button purchaseButton;
         private List<GameObject> equipmentSlots = new();
@@ -38,6 +40,8 @@ namespace Systems
             starterEquipmentArea = itemView.Find("Starter");
             anvilEquipmentArea = itemView.Find("Anvil");
             legendEquipmentArea = itemView.Find("Legend");
+            prismaticEquipmentArea = itemView.Find("Prismatic");
+            taskEquipmentArea = itemView.Find("Task");
             equipmentSlotPrefab = starterEquipmentArea.Find("EquipmentSlotPrefab").gameObject;
             canvasGroup = GetComponent<CanvasGroup>();
             
@@ -58,6 +62,12 @@ namespace Systems
                         break;
                     case EquipmentType.Legend:
                         equipmentSlots.Add(Instantiate(equipmentSlotPrefab, legendEquipmentArea));
+                        break;
+                    case EquipmentType.Prismatic:
+                        equipmentSlots.Add(Instantiate(equipmentSlotPrefab, prismaticEquipmentArea));
+                        break;
+                    case EquipmentType.Task:
+                        equipmentSlots.Add(Instantiate(equipmentSlotPrefab, taskEquipmentArea));
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();

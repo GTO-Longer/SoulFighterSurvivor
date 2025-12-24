@@ -386,7 +386,7 @@
                 "maxMagicPoint": 1200,
                 "abilityHaste": 25
             },
-            "_passiveSkillDescription": "获得{0:F0}=（<color=#C97BFF>6%最大<sprite=\"Attributes\" name=\"MaxMagicPointIcon\"></color>）<sprite=\"Attributes\" name=\"AbilityPowerIcon\">。\n<sprite=\"Attributes\" name=\"MaxHealthPointIcon\">低于30%时，回复{1:F0} =（300+ <color=#1DA1FF>20%最大<sprite=\"Attributes\" name=\"MaxMagicPointIcon\"></color>）<sprite=\"Attributes\" name=\"MaxHealthPointIcon\">。冷却时间45秒。",
+            "_passiveSkillDescription": "获得{0:F0}=（<color=#C97BFF>6%最大<sprite=\"Attributes\" name=\"MaxMagicPointIcon\"></color>）<sprite=\"Attributes\" name=\"AbilityPowerIcon\">。\n<sprite=\"Attributes\" name=\"MaxHealthPointIcon\">低于30%时，回复{1:F0} =（300+<color=#1DA1FF>20%最大<sprite=\"Attributes\" name=\"MaxMagicPointIcon\"></color>）<sprite=\"Attributes\" name=\"MaxHealthPointIcon\">。冷却时间45秒。",
             "_passiveSkillName": "救主灵刃",
             "_passiveSkillCD": 45,
             "_activeSkillDescription": null,
@@ -1101,6 +1101,28 @@
             "_uniqueEffect": null,
             "_usageType": [
                 "Assassin"
+            ]
+        },
+        {
+            "id": "Worglet_sDeathcap",
+            "equipmentName": "沃格勒特的巫师帽",
+            "_usageDescription": "法师神装",
+            "_equipmentType": "Task",
+            "_cost": 0,
+            "_attributeList": {
+                "abilityPower": 300,
+                "maxMagicPoint": 2000,
+                "abilityHaste": 50
+            },
+            "_passiveSkillDescription": "使你的<color=#C97BFF>总<sprite=\"Attributes\" name=\"AbilityPowerIcon\">提升50%</color>。\n获得{0:F0}=（<color=#C97BFF>10%最大<sprite=\"Attributes\" name=\"MaxMagicPointIcon\"></color>）<sprite=\"Attributes\" name=\"AbilityPowerIcon\">。\n<sprite=\"Attributes\" name=\"MaxHealthPointIcon\">低于30%时，回复{1:F0} =（300+<color=#1DA1FF>20%最大<sprite=\"Attributes\" name=\"MaxMagicPointIcon\"></color>）<sprite=\"Attributes\" name=\"MaxHealthPointIcon\">。冷却时间30秒。",
+            "_passiveSkillName": "魔法终章",
+            "_passiveSkillCD": 30,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": "MPBoost",
+            "_usageType": [
+                "Wizard"
             ]
         }
     ]

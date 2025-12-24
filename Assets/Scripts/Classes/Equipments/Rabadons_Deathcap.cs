@@ -10,7 +10,7 @@ namespace Classes.Equipments
         public override void OnEquipmentGet(Entity entity)
         {
             base.OnEquipmentGet(entity);
-            entity._percentageAbilityPowerBonus.Value += 0.3f;
+            owner._percentageAbilityPowerBonus.Value += 0.3f;
         }
 
         public override void OnEquipmentRemove()

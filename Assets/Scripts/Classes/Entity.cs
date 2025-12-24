@@ -577,6 +577,15 @@ namespace Classes
         public void Hurt(Entity attacker, float damageCount)
         {
             OnHurt?.Invoke(this, attacker, damageCount);
+        }
+        
+        /// <summary>
+        /// 造成伤害事件
+        /// </summary>
+        public event Action<Entity, Entity, float> OnDamage;
+        public void DealDamage(Entity target, float damageCount)
+        {
+            OnDamage?.Invoke(this, target, damageCount);
         } 
         
         /// <summary>
@@ -686,11 +695,12 @@ namespace Classes
         /// <summary>
         /// 受到伤害
         /// </summary>
-        public void TakeDamage(float damageCount, DamageType damageType, Entity damageSource, bool isCritical = false)
+        public void TakeDamage(float damageCount, DamageType damageType, Entity damageSource, bool isCritical = false, float criticalBonus = 0)
         {
             if (isCritical)
             {
-                damageCount *= (1 + damageSource.criticalDamage.Value);
+                criticalBonus = criticalBonus == 0 ? 1 + damageSource.criticalDamage.Value : criticalBonus;
+                damageCount *= criticalBonus;
 
                 var color = damageType switch
                 {
@@ -719,13 +729,16 @@ namespace Classes
             }
            
             healthPoint.Value -= damageCount * damageBoost;
-            if (healthPoint.Value < 1)
+            
+            Hurt(damageSource, damageCount);
+            damageSource.DealDamage(this, damageCount);
+            
+            if (healthPoint.Value <= 0 && isAlive)
             {
                 healthPoint.Value = 0;
                 damageSource.KillEntity(this);
                 Die(damageSource);
             }
-            Hurt(damageSource, damageCount);
         }
 
         /// <summary>
@@ -846,6 +859,7 @@ namespace Classes
         /// </summary>
         public virtual void Die(Entity killer)
         {
+            isAlive = false;
         }
         
         /// <summary>

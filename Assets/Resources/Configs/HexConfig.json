@@ -14,7 +14,7 @@
             "hexName": "连拔击锤",
             "quality": "Prismatic",
             "description": "在你攻击时，发射5个额外箭矢，每个箭矢\n基于移动的距离造成<color=#FF6A6A>物理伤害</color>。每个方向都\n有单独的冷却时间。",
-            "detail": "你的四个方向上的下一次普通攻击额外在攻击时向每次造成的目标发射5发箭矢，\n造成{0:F0}=25+(15%<color=#FF8A00>攻击力</color>)<color=#FF6A6A>物理伤害</color>，总计{1:F0}=125+(75%<color=#FF8A00>攻击力</color>)<color=#FF6A6A>物理伤害</color>(每个方向 5 秒冷却时间)。\n箭矢的伤害提高 0%–50%(基于飞行距离，500码达到最大增伤)，每个箭矢都可以触发施加20%攻击特效。",
+            "detail": "你的四个方向上的下一次普通攻击额外在攻击时向每次造成的目标发射5发箭矢，\n造成{0:F0}=25+(15%<color=#FF8A00>攻击力</color>)<color=#FF6A6A>物理伤害</color>，总计{1:F0}=125+(75%<color=#FF8A00>攻击力</color>)<color=#FF6A6A>物理伤害</color>(每个方向 5 秒冷却时间)。\n箭矢的伤害提高 0%–50%(基于飞行距离，500码达到最大增伤)，每个箭矢都可以触发施加20%攻击特效。\n当前已造成额外伤害：{2:F1}",
             "iconName": "Hex_Attack",
             "iconBorderName": "Hex_Damage_Border"
         },
@@ -50,7 +50,7 @@
             "hexName": "时光之智慧",
             "quality": "Prismatic",
             "description": "立刻提升1级，并且每击杀50个敌人额外提升1级。你的等级上限已被移除。\n如果不是你的第一个强化符文，则转而立刻提升3级。",
-            "detail": "立刻提升1级，并且每击杀50个敌人额外提升1级。你的等级上限已被移除。\n如果不是你的第一个强化符文，则转而立刻提升3级。",
+            "detail": "立刻提升1级，并且每击杀50个敌人额外提升1级。你的等级上限已被移除。\n如果不是你的第一个强化符文，则转而立刻提升3级。\n当前击杀数：{0:D}",
             "iconName": "Hex_LevelUp",
             "iconBorderName": "Hex_Frame_Border"
         },
@@ -59,9 +59,108 @@
             "hexName": "双刀流",
             "quality": "Prismatic",
             "description": "在你攻击时发射一根次级弩箭，造成40%伤害和40%效能的攻击特效。获得25%总攻击速度。",
-            "detail": "在你攻击时发射一根次级弩箭，造成40%伤害和40%效能的攻击特效。获得25%总攻击速度。",
+            "detail": "在你攻击时发射一根次级弩箭，造成40%伤害和40%效能的攻击特效。获得25%总攻击速度。\n当前已造成额外伤害：{0:F1}",
             "iconName": "Hex_Attack",
             "iconBorderName": "Hex_Universal_Border"
+        },
+        {
+            "id": "Task_Worglet_sDeathcap",
+            "hexName": "任务：沃格勒特的巫师帽",
+            "quality": "Prismatic",
+            "description": "获得1250金币，若同时持有“灭世者的死亡之帽”和“炽天使之拥”，则将其合成为装备“沃格勒特的巫师帽”，拥有更强的属性和技能效果",
+            "detail": "获得1250金币，若同时持有“灭世者的死亡之帽”和“炽天使之拥”，则将其合成为装备“沃格勒特的巫师帽”，拥有更强的属性和技能效果",
+            "iconName": "Hex_Pocket",
+            "iconBorderName": "Hex_Task_Border"
+        },
+        {
+            "id": "JewelryGloves",
+            "hexName": "珠光护手",
+            "quality": "Prismatic",
+            "description": "你的技能可以暴击，获得25%暴击几率。根据你的法强获得额外暴击几率。",
+            "detail": "你的技能可以暴击，获得{0:P0}=(25%+4.5%<sprite=\"Attributes\" name=\"AbilityPowerIcon\">)暴击几率。\n当前已造成额外伤害：{0:F1}",
+            "iconName": "Hex_Magic",
+            "iconBorderName": "Hex_Skill_Border"
+        },
+        {
+            "id": "PrismaticEgg",
+            "hexName": "棱彩蛋",
+            "quality": "Prismatic",
+            "description": "每击杀200个敌人可以孵化出一个棱彩锻造器和一次刷新机会。",
+            "detail": "每击杀200个敌人可以孵化出一个棱彩锻造器和一次刷新机会。\n当前击杀数：{0:D}",
+            "iconName": "Hex_Dice",
+            "iconBorderName": "Hex_Shop_Border"
+        },
+        {
+            "id": "ChainLightning",
+            "hexName": "连锁闪电",
+            "quality": "Prismatic",
+            "description": "对敌人造成伤害时还会对其附近最近的2个敌人造成相当于这次伤害30%的真实伤害。",
+            "detail": "对敌人造成伤害时还会对其附近500码内最近的2个敌人造成相当于这次伤害30%的真实伤害。\n当前已造成额外伤害：{0:F1}",
+            "iconName": "Hex_Explosion",
+            "iconBorderName": "Hex_Universal_Border"
+        },
+        {
+            "id": "AttributesAttributesAttributes",
+            "hexName": "属性叠属性叠属性！",
+            "quality": "Prismatic",
+            "description": "获得4个属性锻造器！",
+            "detail": "获得4个属性锻造器！",
+            "iconName": "Hex_Dice",
+            "iconBorderName": "Hex_Frame_Border"
+        },
+        {
+            "id": "GiantKiller",
+            "hexName": "巨人杀手",
+            "quality": "Prismatic",
+            "description": "体型变小，获得移动速度，并基于敌人体型大于你的程度造成额外伤害。",
+            "detail": "体型减小75%，获得30%总移动速度加成，敌人的体型每比你大5%，则对其造成2%额外真实伤害。\n当前已造成额外伤害：{0:F1}",
+            "iconName": "Hex_Speed",
+            "iconBorderName": "Hex_Damage_Border"
+        },
+        {
+            "id": "SlowStew",
+            "hexName": "慢炖",
+            "quality": "Prismatic",
+            "description": "每秒对附近的敌人施加一层可无限叠加的灼烧，这个效果受益于你的最大生命值。",
+            "detail": "每秒对附近的敌人施加一层可无限叠加的灼烧，持续5秒，每秒造成你0.35%最大生命值的魔法伤害。\n当前已造成额外伤害：{0:F1}",
+            "iconName": "Hex_Fire",
+            "iconBorderName": "Hex_Damage_Border"
+        },
+        {
+            "id": "TapDance",
+            "hexName": "踢踏舞",
+            "quality": "Prismatic",
+            "description": "你的攻击为你提供10移动速度，可无限叠加。获得相当于你10%移动速度的攻击速度。",
+            "detail": "你的攻击为你提供10移动速度，可无限叠加，持续5秒。获得{0:P1}=(10%<sprite=\"Attributes\" name=\"MovementSpeedIcon\">)的攻击速度。",
+            "iconName": "Hex_LevelUp",
+            "iconBorderName": "Hex_Speed_Border"
+        },
+        {
+            "id": "Yorica",
+            "hexName": "尤里卡",
+            "quality": "Prismatic",
+            "description": "获得相当于30%法术强度的技能急速。",
+            "detail": "获得{0:F0}=(30%<sprite=\"Attributes\" name=\"AbilityPowerIcon\">)技能急速。",
+            "iconName": "Hex_CoolDown",
+            "iconBorderName": "Hex_Damage_Border"
+        },
+        {
+            "id": "QualitativeChange_Chaos",
+            "hexName": "质变：混沌",
+            "quality": "Prismatic",
+            "description": "获得两个完全随机的海克斯。",
+            "detail": "无",
+            "iconName": "Hex_Dice",
+            "iconBorderName": "Hex_Function_Border"
+        },
+        {
+            "id": "MysticPunch",
+            "hexName": "秘术冲拳",
+            "quality": "Prismatic",
+            "description": "攻击时使你的各个技能的冷却时间减少其15%的剩余冷却时间。",
+            "detail": "你获得使你的各个技能的冷却时间减少其15%的剩余冷却时间的攻击特效。",
+            "iconName": "Hex_Attack",
+            "iconBorderName": "Hex_Refresh_Border"
         }
     ]
 }

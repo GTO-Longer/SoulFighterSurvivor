@@ -895,7 +895,7 @@
                 "attackPenetration": 22,
                 "percentageMovementSpeed": 0.04
             },
-            "_passiveSkillDescription": "提供60<sprite=\"Attributes\" name=\"MovementSpeedIcon\">",
+            "_passiveSkillDescription": "提供60<sprite=\"Attributes\" name=\"MovementSpeedIcon\">。",
             "_passiveSkillName": "鬼影萦绕",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": "提供30%<sprite=\"Attributes\" name=\"MovementSpeedIcon\">和幽灵状态，持续6秒。",
@@ -1014,6 +1014,71 @@
             "_uniqueEffect": null,
             "_usageType": [
                 "Shooter"
+            ]
+        },
+        {
+            "id": "Guillotine",
+            "equipmentName": "公理圆弧",
+            "_usageDescription": "终极技能伤害",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "attackDamage": 45,
+                "attackPenetration": 18,
+                "abilityHaste": 20
+            },
+            "_passiveSkillDescription": "你的终极技能额外造成20%真实伤害。",
+            "_passiveSkillName": "格言",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Assassin"
+            ]
+        },
+        {
+            "id": "EdgeOfNight",
+            "equipmentName": "禁忌时机",
+            "_usageDescription": "爆发伤害",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "attackDamage": 50,
+                "attackPenetration": 15
+            },
+            "_passiveSkillDescription": "获得<color=#FF6A6A>15<sprite=\"Attributes\" name=\"AttackPenetrationIcon\"></color>，如果你击杀一个敌人，则你获得逐渐衰减的200<sprite=\"Attributes\" name=\"MovementSpeedIcon\">，持续1.5秒。",
+            "_passiveSkillName": "伺机待发",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Assassin"
+            ]
+        },
+        {
+            "id": "TheCollector",
+            "equipmentName": "收集者",
+            "_usageDescription": "处决敌人",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "attackDamage": 45,
+                "attackPenetration": 12,
+                "criticalRate": 0.25
+            },
+            "_passiveSkillDescription": "你的伤害会处决低于5%生命值的敌人。击杀敌人时提供20额外金币。",
+            "_passiveSkillName": "死与税",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Assassin"
             ]
         }
     ]

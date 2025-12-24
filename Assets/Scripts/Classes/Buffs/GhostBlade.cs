@@ -11,7 +11,7 @@ namespace Classes.Buffs
             {
                 if (owner != null)
                 {
-                    owner.agent.isGoust = true;
+                    owner.agent.isGhost = true;
                 }
             };
             
@@ -25,7 +25,7 @@ namespace Classes.Buffs
             {
                 owner._percentageMovementSpeedBonus.Value -= 0.3f;
                 owner.EntityUpdateEvent -= Ghost;
-                owner.agent.isGoust = false;
+                owner.agent.isGhost = false;
             };
 
             isUnique = true;

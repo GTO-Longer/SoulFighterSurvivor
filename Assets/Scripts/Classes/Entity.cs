@@ -619,7 +619,7 @@ namespace Classes
         /// 攻击特效
         /// </summary>
         public event Action<Entity, Entity, float, float> AttackEffect;
-        public void AttackEffectActivate(Entity target, float damageCount, float ratio)
+        public void AttackEffectActivate(Entity target, float damageCount, float ratio = 1)
         {
             AttackEffect?.Invoke(this, target, damageCount, ratio);
         }

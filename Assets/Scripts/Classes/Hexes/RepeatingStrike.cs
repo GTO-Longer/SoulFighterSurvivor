@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Classes.Entities;
 using Factories;
 using Managers;
 using Managers.EntityManagers;
 using UnityEngine;
 using Utilities;
-using Random = UnityEngine.Random;
 
 namespace Classes.Hexes
 {
@@ -19,6 +17,7 @@ namespace Classes.Hexes
         private const float directionCD = 5;
         private const float attackBulletSpeed = 2000;
         private float damageCount => 25 + HeroManager.hero.attackDamage * 0.15f;
+        private float damageSum = 0;
         
         private Action<Entity> HexCDTimer;
         private Action<Entity, Entity> HexEffect;
@@ -177,12 +176,14 @@ namespace Classes.Hexes
                         bullet.OnBulletHit += (self) =>
                         {
                             // 计算攻击伤害
-                            target.TakeDamage(damageCount, DamageType.AD, owner);
+                            var damage = target.CalculateADDamage(owner, damageCount);
+                            target.TakeDamage(damage, DamageType.AD, owner);
+                            damageSum += damage;
 
                             // 造成攻击特效
                             if (target.isAlive)
                             {
-                                owner.AttackEffectActivate(target, damageCount, 0.2f);
+                                owner.AttackEffectActivate(target, damage, 0.2f);
                             }
                         };
 
@@ -211,7 +212,7 @@ namespace Classes.Hexes
 
         public override bool GetHexDetail(out string detail)
         {
-            detail = string.Format(hexDetail, damageCount, damageCount * 5);
+            detail = string.Format(hexDetail, damageCount, damageCount * 5, damageSum);
             return true;
         }
     }

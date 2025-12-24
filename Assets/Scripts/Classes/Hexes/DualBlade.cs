@@ -11,6 +11,7 @@ namespace Classes.Hexes
     {
         private Action<Entity, Entity> HexEffect;
         private const float attackBulletSpeed = 2500f;
+        private float damageSum = 0;
         
         public DualBlade() : base("DualBlade")
         {
@@ -60,6 +61,7 @@ namespace Classes.Hexes
                     // 计算攻击伤害
                     var damageCount = target.CalculateADDamage(owner, owner.attackDamage) * 0.4f;
                     target.TakeDamage(damageCount, DamageType.AD, owner, Random.Range(0f, 1f) < owner.criticalRate.Value);
+                    damageSum += damageCount;
 
                     // 造成攻击特效
                     if (target.isAlive)
@@ -88,7 +90,7 @@ namespace Classes.Hexes
 
         public override bool GetHexDetail(out string detail)
         {
-            detail = string.Format(hexDetail);
+            detail = string.Format(hexDetail, damageSum);
             return true;
         }
     }

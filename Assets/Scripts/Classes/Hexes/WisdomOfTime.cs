@@ -44,7 +44,7 @@ namespace Classes.Hexes
 
         public override bool GetHexDetail(out string detail)
         {
-            detail = string.Format(hexDetail);
+            detail = string.Format(hexDetail, killCount);
             return true;
         }
     }

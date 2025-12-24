@@ -807,7 +807,7 @@
                 "percentageAttackPenetration": 0.22,
                 "percentageMagicPenetration": 0.3
             },
-            "_passiveSkillDescription": "对最大<sprite=\"Attributes\" name=\"MaxHealthPointIcon\">高于你的敌方英雄额外造成至多15%真实伤害。当最大<sprite=\"Attributes\" name=\"MaxHealthPointIcon\">差异大于2500时，即可达到最大伤害值提升。",
+            "_passiveSkillDescription": "对最大<sprite=\"Attributes\" name=\"MaxHealthPointIcon\">高于你的敌人发动的技能和攻击额外造成至多15%真实伤害。当最大<sprite=\"Attributes\" name=\"MaxHealthPointIcon\">差异大于2500时，即可达到最大伤害值提升。",
             "_passiveSkillName": "巨人杀手",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
@@ -815,7 +815,8 @@
             "_activeSkillCD": 0,
             "_uniqueEffect": "MagicPenetration",
             "_usageType": [
-                "Wizard"
+                "Wizard",
+                "Shooter"
             ]
         },
         {

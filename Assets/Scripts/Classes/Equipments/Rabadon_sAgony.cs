@@ -38,7 +38,7 @@ namespace Classes.Equipments
 
                         self.OnBulletUpdate += (_) =>
                         {
-                            var targets = ToolFunctions.IsOverlappingOtherTagAll(self.gameObject, 200);
+                            var targets = ToolFunctions.IsOverlappingOtherTagAll(self.gameObject, 300);
                             if (targets != null)
                             {
                                 foreach (var entity in targets)

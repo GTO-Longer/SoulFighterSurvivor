@@ -386,7 +386,7 @@
                 "maxMagicPoint": 1200,
                 "abilityHaste": 25
             },
-            "_passiveSkillDescription": "获得{0:F0}=（<color=#C97BFF>6%最大<sprite=\"Attributes\" name=\"MaxMagicPointIcon\"></color>）<sprite=\"Attributes\" name=\"AbilityPowerIcon\">。\n<sprite=\"Attributes\" name=\"MaxHealthPointIcon\">低于30%时，回复{1:F0} =（300+ <color=#1DA1FF>20%最大<sprite=\"Attributes\" name=\"MaxMagicPointIcon\"></color>）<sprite=\"Attributes\" name=\"MaxHealthPointIcon\">，持续3秒。",
+            "_passiveSkillDescription": "获得{0:F0}=（<color=#C97BFF>6%最大<sprite=\"Attributes\" name=\"MaxMagicPointIcon\"></color>）<sprite=\"Attributes\" name=\"AbilityPowerIcon\">。\n<sprite=\"Attributes\" name=\"MaxHealthPointIcon\">低于30%时，回复{1:F0} =（300+ <color=#1DA1FF>20%最大<sprite=\"Attributes\" name=\"MaxMagicPointIcon\"></color>）<sprite=\"Attributes\" name=\"MaxHealthPointIcon\">。冷却时间45秒。",
             "_passiveSkillName": "救主灵刃",
             "_passiveSkillCD": 45,
             "_activeSkillDescription": null,
@@ -587,7 +587,7 @@
                 "magicPenetration": 15,
                 "percentageMovementSpeed": 0.04
             },
-            "_passiveSkillDescription": "在2.5秒内使用技能对敌人造成相当于其<color=#0ACD02>25%最大<sprite=\"Attributes\" name=\"MaxHealthPointIcon\"></color>的伤害，则在2秒后对其造成<color=#00D8FF>{0:F0}=（180+50% <sprite=\"Attributes\" name=\"AbilityPowerIcon\">）魔法伤害</color>。若期间目标死亡则转而发生一次雷暴对范围敌人造成同等伤害。",
+            "_passiveSkillDescription": "在2.5秒内使用技能对敌人造成相当于其<color=#0ACD02>25%最大<sprite=\"Attributes\" name=\"MaxHealthPointIcon\"></color>的伤害，则在2秒后对其造成<color=#00D8FF>{0:F0}=（180+50% <sprite=\"Attributes\" name=\"AbilityPowerIcon\">）魔法伤害</color>。若期间目标死亡则转而发生一次雷暴对范围敌人造成同等伤害。冷却时间10秒。",
             "_passiveSkillName": "风暴掠袭",
             "_passiveSkillCD": 10,
             "_activeSkillDescription": null,
@@ -609,7 +609,7 @@
                 "percentageMovementSpeed": 0.1,
                 "abilityHaste": 20
             },
-            "_passiveSkillDescription": "施放技能后5秒内，下次<sprite=\"Attributes\" name=\"AttackDamageIcon\">会附带额外的<color=#00D8FF>{0:F0}</color>=（<color=#FF6161>75%基础<sprite=\"Attributes\" name=\"AttackDamageIcon\"></color>+<color=#C97BFF>66%<sprite=\"Attributes\" name=\"AbilityPowerIcon\"></color>）魔法伤害的<sprite=\"Attributes\" name=\"AttackDamageIcon\">特效",
+            "_passiveSkillDescription": "施放技能后5秒内，下次<sprite=\"Attributes\" name=\"AttackDamageIcon\">会附带额外的<color=#00D8FF>{0:F0}</color>=（<color=#FF6161>75%基础<sprite=\"Attributes\" name=\"AttackDamageIcon\"></color>+<color=#C97BFF>66%<sprite=\"Attributes\" name=\"AbilityPowerIcon\"></color>）魔法伤害的<sprite=\"Attributes\" name=\"AttackDamageIcon\">特效。冷却时间3秒。",
             "_passiveSkillName": "咒刃",
             "_passiveSkillCD": 3,
             "_activeSkillDescription": null,
@@ -938,10 +938,10 @@
                 "attackPenetration": 18,
                 "abilityHaste": 15
             },
-            "_passiveSkillDescription": "攻击会对附近的敌人造成<color=#FF6A6A>{0:F0}=(40%<sprite=\"Attributes\" name=\"AttackDamageIcon\">)物理伤害</color>。",
+            "_passiveSkillDescription": "攻击会对除目标外的附近的敌人造成<color=#FF6A6A>{0:F0}=(40%<sprite=\"Attributes\" name=\"AttackDamageIcon\">)物理伤害</color>。",
             "_passiveSkillName": "顺劈",
             "_passiveSkillCD": 0,
-            "_activeSkillDescription": "对附近的敌人造成{0:F0}=(80%<sprite=\"Attributes\" name=\"AttackDamageIcon\">)物理伤害。",
+            "_activeSkillDescription": "对身边的敌人造成<color=#FF6A6A>{0:F0}=(80%<sprite=\"Attributes\" name=\"AttackDamageIcon\">)+目标12%已损失<sprite=\"Attributes\" name=\"MaxHealthPointIcon\">的物理伤害</color>。冷却时间10秒。",
             "_activeSkillName": "邪斩",
             "_activeSkillCD": 10,
             "_uniqueEffect": null,

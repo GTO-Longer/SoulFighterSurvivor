@@ -13,8 +13,9 @@ namespace Classes.Equipments
                 if (!_activeSkillActive) return;
                 
                 _activeSkillCDTimer = 0;
-                var goustBlade = new Buffs.GhostBlade(owner, owner);
-                owner.GetBuff(goustBlade);
+                var ghostBlade = new Buffs.GhostBlade(owner, owner);
+                ghostBlade.buffIcon = equipmentIcon;
+                owner.GetBuff(ghostBlade);
             };
         }
 

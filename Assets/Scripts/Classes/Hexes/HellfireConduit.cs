@@ -15,6 +15,7 @@ namespace Classes.Hexes
             HexEffect = (attacker, target, _, _) =>
             {
                 var hellFire = new Buffs.HellFire(target, attacker);
+                hellFire.buffIcon = hexIcon;
                 target.GetBuff(hellFire);
             };
         }

@@ -47,6 +47,10 @@ namespace MVVM.ViewModels
         {
             var newBuffUI = Instantiate(buffPrefab, buffBar);
             newBuffUI.GetComponent<BuffData>().buff = buff;
+            
+            var buffMask = newBuffUI.transform.Find("BuffMask").GetComponent<Image>();
+            BuffUnbindEvent.Add(buff.buffName, Binder.BindFillAmountImmediate(buffMask, buff.buffLeftDuration));
+            
             var buffCount = newBuffUI.transform.Find("BuffCount").GetComponent<TMP_Text>();
             if (buff.buffMaxCount > 0)
             {

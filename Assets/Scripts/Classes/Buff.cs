@@ -29,6 +29,7 @@ namespace Classes
         /// buff持续时间计时器
         /// </summary>
         public float buffDurationTimer;
+        public Property<float> buffLeftDuration;
         public Sprite buffIcon;
         /// <summary>
         /// 获取buff
@@ -69,12 +70,15 @@ namespace Classes
             buffMaxCount = maxCount;
             buffDuration = duration;
             buffDurationTimer = 0;
+            buffLeftDuration = new Property<float>();
             
             buffTimer = (_) =>
             {
                 if (buffDuration > 0)
                 {
                     buffDurationTimer += Time.deltaTime;
+                    buffLeftDuration.Value = buffDurationTimer / buffDuration;
+                    
                     if (buffDurationTimer >= buffDuration)
                     {
                         RemoveBuff();

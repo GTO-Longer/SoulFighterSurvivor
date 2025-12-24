@@ -13,6 +13,7 @@ namespace Classes.Equipments
             equipmentEffect = (attacker, target, _, _) =>
             {
                 var evilFlame = new Buffs.EvilFlame(target, attacker);
+                evilFlame.buffIcon = equipmentIcon;
                 target.GetBuff(evilFlame);
             };
         }

@@ -11,6 +11,7 @@ namespace Classes.Equipments
             equipmentEffect = (attacker, target, _, _) =>
             {
                 var torment = new Buffs.Torment(target, attacker);
+                torment.buffIcon = equipmentIcon;
                 target.GetBuff(torment);
             };
         }

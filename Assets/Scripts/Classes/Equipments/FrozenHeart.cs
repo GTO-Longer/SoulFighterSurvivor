@@ -18,6 +18,7 @@ namespace Classes.Equipments
                     foreach (var enemy in enemies)
                     {
                         var frozenHeart = new Buffs.FrozenHeart(enemy, owner);
+                        frozenHeart.buffIcon = equipmentIcon;
                         enemy.GetBuff(frozenHeart);
                     }
                 }

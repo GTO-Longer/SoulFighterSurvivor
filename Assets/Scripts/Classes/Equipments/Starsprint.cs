@@ -12,6 +12,7 @@ namespace Classes.Equipments
             equipmentEffect = (attacker, _, _, _) =>
             {
                 var spellDance = new Buffs.SpellDance(attacker, attacker);
+                spellDance.buffIcon = equipmentIcon;
                 attacker.GetBuff(spellDance);
             };
         }

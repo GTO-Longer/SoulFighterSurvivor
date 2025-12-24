@@ -11,6 +11,7 @@ namespace Classes.Equipments
             equipmentEffect = (_, target, _, _) =>
             {
                 var frozen = new Buffs.Frozen(target, owner);
+                frozen.buffIcon = equipmentIcon;
                 target.GetBuff(frozen);
             };
         }

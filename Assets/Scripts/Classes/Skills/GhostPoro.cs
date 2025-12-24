@@ -18,6 +18,7 @@ namespace Classes.Skills
         public override void SkillEffect()
         {
             var ghostPoro = new Buffs.GhostPoro(owner, owner);
+            ghostPoro.buffIcon = skillIcon.sprite;
             owner.GetBuff(ghostPoro);
             coolDownTimer = 0;
         }

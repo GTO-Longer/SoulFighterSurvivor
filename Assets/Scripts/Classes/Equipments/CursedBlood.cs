@@ -12,6 +12,7 @@ namespace Classes.Equipments
             equipmentEffect = (attacker, target, _, _) =>
             {
                 var tyrant = new Buffs.Tyrant(target, attacker);
+                tyrant.buffIcon = equipmentIcon;
                 target.GetBuff(tyrant);
             };
         }

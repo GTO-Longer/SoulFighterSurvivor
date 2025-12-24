@@ -118,7 +118,7 @@ namespace MVVM.ViewModels
                 {
                     AttributeType.OmniVamp, new List<AttributeDescriptionDelegate>
                     {
-                        () => "全能吸血", () => "在技能命中时以一定比例吸取敌方的生命值",
+                        () => "全能吸血", () => "在技能和攻击命中时以一定比例吸取敌方的生命值",
                         () => $"全能吸血：<color=#0066FF>{hero.omnivamp.Value:P0}</color>"
                     }
                 },

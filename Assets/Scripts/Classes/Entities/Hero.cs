@@ -220,6 +220,7 @@ namespace Classes.Entities
             AttackEffect += (self, _, adDamage, _) =>
             {
                 self.TakeHeal(adDamage * lifeSteal);
+                self.TakeHeal(adDamage * omnivamp);
             };
             
             OnAttackHit += (self, targetEntity) =>

@@ -1,28 +1,23 @@
 using System;
 using Managers;
 using Managers.EntityManagers;
-using MVVM.ViewModels;
-using Systems;
 using UnityEngine;
-using Utilities;
 
 namespace Classes.Equipments
 {
     public class Muramana : Equipment
     {
-        private int killCount;
         private float addCount => 0.05f * HeroManager.hero.maxMagicPoint.Value;
         private Action<Entity, Entity> OnKill;
         public Muramana() : base("Muramana")
         {
             canPurchase = true;
-            killCount = 0;
+            maxChargeCount.Value = 50;
+            chargeCount.Value = 0;
             
             OnKill = (_, _) =>
             {
-                killCount += 1;
-
-                if (killCount >= 50)
+                if (chargeCount.Value >= maxChargeCount.Value)
                 {
                     var selfIndex = HeroManager.hero.equipmentList.FindIndex(equip => equip.Value.equipmentName == equipmentName);
                     HeroManager.hero.equipmentList[selfIndex].Value.OnEquipmentRemove();
@@ -30,6 +25,10 @@ namespace Classes.Equipments
                     HeroManager.hero.equipmentList[selfIndex].Value.OnEquipmentGet(HeroManager.hero);
                     canPurchase = false;
                     HeroManager.hero.equipmentList[selfIndex].Value.canPurchase = true;
+                }
+                else
+                {
+                    chargeCount.Value += 1;
                 }
             };
         }

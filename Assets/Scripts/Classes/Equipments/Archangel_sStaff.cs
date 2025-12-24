@@ -7,19 +7,17 @@ namespace Classes.Equipments
 {
     public class Archangel_sStaff : Equipment
     {
-        private int killCount;
         private float addCount => 0.03f * HeroManager.hero.maxMagicPoint.Value;
         private Action<Entity, Entity> OnKill;
         public Archangel_sStaff() : base("Archangel_sStaff")
         {
             canPurchase = true;
-            killCount = 0;
+            chargeCount.Value = 0;
+            maxChargeCount.Value = 50;
             
             OnKill = (_, _) =>
             {
-                killCount += 1;
-
-                if (killCount >= 50)
+                if (chargeCount.Value >= maxChargeCount.Value)
                 {
                     var selfIndex = HeroManager.hero.equipmentList.FindIndex(equip => equip.Value.equipmentName == equipmentName);
                     HeroManager.hero.equipmentList[selfIndex].Value.OnEquipmentRemove();
@@ -27,6 +25,10 @@ namespace Classes.Equipments
                     HeroManager.hero.equipmentList[selfIndex].Value.OnEquipmentGet(HeroManager.hero);
                     canPurchase = false;
                     HeroManager.hero.equipmentList[selfIndex].Value.canPurchase = true;
+                }
+                else
+                {
+                    chargeCount.Value += 1;
                 }
             };
         }

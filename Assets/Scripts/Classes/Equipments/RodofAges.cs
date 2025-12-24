@@ -1,6 +1,5 @@
 using System;
 using Managers.EntityManagers;
-using UnityEngine;
 using Utilities;
 
 namespace Classes.Equipments
@@ -10,12 +9,12 @@ namespace Classes.Equipments
         private Action<Skill> equipmentEffect;
         private Action<Entity, Entity> OnKill;
         private Action<Entity, Entity, float> OnHurt;
-        private int killCount;
         private bool completed;
         
         public RodofAges() : base("RodofAges")
         {
-            killCount = 0;
+            maxChargeCount.Value = 50;
+            chargeCount.Value = 0;
             completed = false;
             
             equipmentEffect = (skill) =>
@@ -30,9 +29,7 @@ namespace Classes.Equipments
             
             OnKill = (_, _) =>
             {
-                killCount += 1;
-
-                if (killCount >= 50 && !completed)
+                if (chargeCount.Value >= maxChargeCount.Value && !completed)
                 {
                     equipmentAttributes[EquipmentAttributeType.abilityPower] += 50;
                     equipmentAttributes[EquipmentAttributeType.maxHealthPoint] += 400;
@@ -47,6 +44,10 @@ namespace Classes.Equipments
                     
                     HeroManager.hero.LevelUp();
                     completed = true;
+                }
+                else
+                {
+                    chargeCount.Value += 1;
                 }
             };
         }

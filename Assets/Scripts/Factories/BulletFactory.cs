@@ -27,9 +27,9 @@ namespace Factories
             }
         }
 
-        public Bullet CreateBullet(Entity owner)
+        public Bullet CreateBullet(Entity owner, float bulletContinuousTime = 0, float bulletDamageCD = 0)
         {
-            var bullet = new Bullet(owner, bulletPrefab);
+            var bullet = new Bullet(owner, bulletPrefab, bulletContinuousTime, bulletDamageCD);
             _activeBullets.Add(bullet);
             return bullet;
         }

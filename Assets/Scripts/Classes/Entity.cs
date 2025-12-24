@@ -1027,10 +1027,10 @@ namespace Classes
             abilityHaste = new Property<float>(() => _abilityHasteBonus * (1 + _percentageAbilityHasteBonus),
                 DataType.Int,
                 _abilityHasteBonus, _percentageAbilityHasteBonus);
-            magicDefense = new Property<float>(() => (_baseMagicDefense + _magicDefenseGrowth * level + _magicDefenseBonus) * (1 + _percentageMagicDefenseBonus),
+            magicDefense = new Property<float>(() => Mathf.Max(0, (_baseMagicDefense + _magicDefenseGrowth * level + _magicDefenseBonus) * (1 + _percentageMagicDefenseBonus)),
                 DataType.Int,
                 level, _magicDefenseBonus, _percentageMagicDefenseBonus);
-            attackDefense = new Property<float>(() => (_baseAttackDefense + _attackDefenseGrowth * level + _attackDefenseBonus) * (1 + _percentageAttackDefenseBonus),
+            attackDefense = new Property<float>(() => Mathf.Max(0, (_baseAttackDefense + _attackDefenseGrowth * level + _attackDefenseBonus) * (1 + _percentageAttackDefenseBonus)),
                 DataType.Int,
                 level, _attackDefenseBonus, _percentageAttackDefenseBonus);
             attackPenetration = new Property<float>(() => _attackPenetrationBonus * (1 + _percentageAttackPenetrationBonus),

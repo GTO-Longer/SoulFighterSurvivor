@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Managers;
 using Managers.EntityManagers;
 using Systems;
@@ -8,19 +9,20 @@ namespace Classes.Equipments
 {
     public class LegendaryTankEquipmentAnvil : Equipment
     {
-        
+        private List<Equipment> targetEquipments => EquipmentManager.Instance.equipmentList.FindAll(equipment =>
+            equipment.usageTypes.Contains(UsageType.Tank) &&
+            equipment.owner == null &&
+            equipment._equipmentType == EquipmentType.Legend &&
+            equipment.canPurchase &&
+            !HeroManager.hero.tempEquipmentList.Contains(equipment) &&
+            HeroManager.hero.tempEquipmentList.FindAll(equip => equip != null && equipment._uniqueEffect != EquipmentUniqueEffect.None && equipment._uniqueEffect == equip._uniqueEffect).Count == 0 &&
+            HeroManager.hero.equipmentList.FindAll(equip => equip.Value != null && equipment._uniqueEffect != EquipmentUniqueEffect.None && equipment._uniqueEffect == equip.Value._uniqueEffect).Count == 0);
+
         public LegendaryTankEquipmentAnvil() : base("LegendaryTankEquipmentAnvil")
         {
             ActiveSkillEffective += () =>
             {
                 var choices = new Choice[3];
-
-                var targetEquipments = EquipmentManager.Instance.equipmentList.FindAll(equipment =>
-                    equipment.usageTypes.Contains(UsageType.Tank) &&
-                    equipment.owner == null &&
-                    equipment._equipmentType == EquipmentType.Legend &&
-                    equipment.canPurchase &&
-                    HeroManager.hero.equipmentList.FindAll(equip => equip.Value != null && equipment._uniqueEffect != EquipmentUniqueEffect.None && equipment._uniqueEffect == equip.Value._uniqueEffect).Count == 0);
                 
                 if (ToolFunctions.GetRandomUniqueItems(targetEquipments, 3, out var result))
                 {
@@ -165,10 +167,11 @@ namespace Classes.Equipments
                 
                     ChoiceSystem.Instance.MakeChoice(choices);
                 }
-                else
-                {
-                    Debug.LogWarning("剩余可选装备不足");
-                }
+            };
+
+            HeroManager.hero.EntityUpdateEvent += (_) =>
+            {
+                canPurchase = targetEquipments.Count >= 3;
             };
         }
 

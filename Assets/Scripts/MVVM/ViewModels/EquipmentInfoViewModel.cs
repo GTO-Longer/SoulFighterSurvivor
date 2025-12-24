@@ -56,16 +56,23 @@ namespace MVVM.ViewModels
 
                     if (!equipment.canPurchase)
                     {
-                        purchaseButton.transform.Find("PurchaseContent").GetComponent<TMP_Text>().text =
-                            "该装备不可购买";
+                        if (equipment._equipmentType != EquipmentType.Anvil)
+                        {
+                            purchaseButton.transform.Find("PurchaseContent").GetComponent<TMP_Text>().text = "该装备不可购买";
+                        }
+                        else
+                        {
+                            purchaseButton.transform.Find("PurchaseContent").GetComponent<TMP_Text>().text = "剩余可购买装备不足3件";
+                        }
+                        
                         purchaseButton.interactable = false;
-                    }else if ((equipment._uniqueEffect != EquipmentUniqueEffect.None && uniqueCheck == null) ||
+                    }
+                    else if ((equipment._uniqueEffect != EquipmentUniqueEffect.None && uniqueCheck == null) ||
                         equipment._uniqueEffect == EquipmentUniqueEffect.None || uniqueCheck.Value == equipment)
                     {
                         if (HeroManager.hero.equipmentList.Find(equip => equip.Value == equipment) == null)
                         {
-                            purchaseButton.transform.Find("PurchaseContent").GetComponent<TMP_Text>().text =
-                                $"以{equipment._cost:D}金币购买 " + equipment.equipmentName;
+                            purchaseButton.transform.Find("PurchaseContent").GetComponent<TMP_Text>().text = $"以{equipment._cost:D}金币购买 " + equipment.equipmentName;
                             purchaseButton.onClick.AddListener(() =>
                             {
                                 HeroManager.hero.PurchaseEquipment(equipment);
@@ -76,8 +83,7 @@ namespace MVVM.ViewModels
                         }
                         else
                         {
-                            purchaseButton.transform.Find("PurchaseContent").GetComponent<TMP_Text>().text =
-                                $"以{(int)(equipment._cost * 0.7f):D}金币售出 " + equipment.equipmentName;
+                            purchaseButton.transform.Find("PurchaseContent").GetComponent<TMP_Text>().text = $"以{(int)(equipment._cost * 0.7f):D}金币售出 " + equipment.equipmentName;
                             purchaseButton.onClick.AddListener(() =>
                             {
                                 HeroManager.hero.SellEquipment(equipment);

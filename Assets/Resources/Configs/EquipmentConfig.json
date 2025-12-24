@@ -85,7 +85,7 @@
             "_activeSkillCD": 0,
             "_uniqueEffect": "Guardian",
             "_usageType": [
-                "Assasin"
+                "Assassin"
             ]
         },
         {
@@ -960,7 +960,7 @@
                 "attackPenetration": 18,
                 "abilityHaste": 10
             },
-            "_passiveSkillDescription": "杀死一名敌人获得15攻击力，持续10秒。每当这个效果触发时，使击杀获得的攻击力永久提升0.2。",
+            "_passiveSkillDescription": "杀死一名敌人获得15<sprite=\"Attributes\" name=\"AttackDamageIcon\">，持续20秒。每当这个效果触发时，使击杀获得的<sprite=\"Attributes\" name=\"AttackDamageIcon\">永久提升0.2。",
             "_passiveSkillName": "盛名",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,

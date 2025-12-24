@@ -1041,16 +1041,16 @@
         {
             "id": "EdgeOfNight",
             "equipmentName": "禁忌时机",
-            "_usageDescription": "爆发伤害",
+            "_usageDescription": "爆发移速",
             "_equipmentType": "Legend",
             "_cost": 2500,
             "_attributeList": {
                 "attackDamage": 50,
                 "attackPenetration": 15
             },
-            "_passiveSkillDescription": "获得<color=#FF6A6A>15<sprite=\"Attributes\" name=\"AttackPenetrationIcon\"></color>，如果你击杀一个敌人，则你获得逐渐衰减的200<sprite=\"Attributes\" name=\"MovementSpeedIcon\">，持续1.5秒。",
+            "_passiveSkillDescription": "获得<color=#FF6A6A>15<sprite=\"Attributes\" name=\"AttackPenetrationIcon\"></color>，如果你击杀一个敌人，则你获得200<sprite=\"Attributes\" name=\"MovementSpeedIcon\">，持续1.5秒。冷却时间5秒。",
             "_passiveSkillName": "伺机待发",
-            "_passiveSkillCD": 0,
+            "_passiveSkillCD": 5,
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,

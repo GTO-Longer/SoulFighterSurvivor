@@ -1078,6 +1078,28 @@
             "_activeSkillCD": 0,
             "_uniqueEffect": null,
             "_usageType": [
+                "Assassin",
+                "Shooter"
+            ]
+        },
+        {
+            "id": "EvilCleaver",
+            "equipmentName": "恶火小斧",
+            "_usageDescription": "坦克克星",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "attackDamage": 35,
+                "attackPenetration": 12
+            },
+            "_passiveSkillDescription": "技能在命中时会灼烧敌人，在4秒里持续造成<color=#FF6A6A>{0:P0}=（5%+0.2%<sprite=\"Attributes\" name=\"AttackPenetrationIcon\">）至{1:P0}=（10%+0.4%<sprite=\"Attributes\" name=\"AttackPenetrationIcon\">）当前<sprite=\"Attributes\" name=\"MaxHealthPointIcon\">的物理伤害</color>。基于目标超过你的<sprite=\"Attributes\" name=\"MaxHealthPointIcon\">（最多2000）提升该伤害。冷却时间10秒。",
+            "_passiveSkillName": "烧焦",
+            "_passiveSkillCD": 10,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null,
+            "_usageType": [
                 "Assassin"
             ]
         }

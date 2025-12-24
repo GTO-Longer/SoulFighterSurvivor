@@ -41,7 +41,7 @@ namespace Classes.Skills
             if (skillChargeCount == 0 && specialTimer == 0)
             {
                 maxSkillChargeCount = 3;
-                skillChargeCount = maxSkillChargeCount;
+                skillChargeCount = maxSkillChargeCount - 1;
                 specialTimer = 10;
                 specialCoolDown = 1f;
             }

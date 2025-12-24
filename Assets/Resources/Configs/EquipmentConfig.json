@@ -562,8 +562,7 @@
             "_cost": 2500,
             "_attributeList": {
                 "abilityPower": 90,
-                "maxHealthPoint": 250,
-                "abilityHaste": 15
+                "magicPenetration": 10
             },
             "_passiveSkillDescription": "技能伤害会对<sprite=\"Attributes\" name=\"MaxHealthPointIcon\">低于<color=#0ACD02>40%</color>的敌人造成额外<color=#FFA347>15%</color>的真实伤害",
             "_passiveSkillName": "余烬绽放",

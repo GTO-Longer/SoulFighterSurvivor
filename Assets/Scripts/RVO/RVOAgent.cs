@@ -19,7 +19,7 @@ namespace RVO
         public bool isStopped => _isStopped;
         
         // 处于幽灵模式
-        public bool isGoust;
+        public bool isGhost;
         
         public float2 goal;
         private int agentId = -1;
@@ -73,7 +73,7 @@ namespace RVO
                 CheckReachTarget();
                 
                 // 幽灵模式下不避障
-                if (isGoust)
+                if (isGhost)
                 {
                     useNavMeshMovement = true;
                     manager.simulator.SetAgentMaxNeighbors(agentId, 0);

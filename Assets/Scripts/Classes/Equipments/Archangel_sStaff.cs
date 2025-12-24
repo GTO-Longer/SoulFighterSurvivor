@@ -13,7 +13,7 @@ namespace Classes.Equipments
         {
             canPurchase = true;
             chargeCount.Value = 0;
-            maxChargeCount.Value = 5;
+            maxChargeCount.Value = 50;
             
             OnKill = (_, _) =>
             {

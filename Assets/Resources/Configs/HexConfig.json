@@ -77,7 +77,7 @@
             "hexName": "珠光护手",
             "quality": "Prismatic",
             "description": "你的技能可以暴击，获得25%暴击几率。根据你的法强获得额外暴击几率。",
-            "detail": "你的技能可以暴击，获得{0:P0}=(25%+4.5%<sprite=\"Attributes\" name=\"AbilityPowerIcon\">)暴击几率。\n当前已造成额外伤害：{0:F1}",
+            "detail": "你的技能可以暴击，获得{0:P0}=(25%+4.5%<sprite=\"Attributes\" name=\"AbilityPowerIcon\">)暴击几率。",
             "iconName": "Hex_Magic",
             "iconBorderName": "Hex_Skill_Border"
         },

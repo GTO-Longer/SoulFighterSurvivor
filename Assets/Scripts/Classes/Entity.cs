@@ -38,6 +38,7 @@ namespace Classes
         public List<Buff> buffList;
         // 获取金币增加量
         public float fortune;
+        public bool canSkillCritical;
         
         #region 最终属性
 
@@ -441,6 +442,12 @@ namespace Classes
         /// - <c>Value.y</c>: 增加的攻击力加成要乘的系数
         /// </summary>
         public Property<Vector2> _DEFToAD_ConversionEfficiency;
+        /// <summary>
+        /// 法术强度加成-暴击率加成 转化率
+        /// - <c>Value.x</c>: 剩余的法术强度加成要乘的系数  
+        /// - <c>Value.y</c>: 增加的暴击率加成要乘的系数
+        /// </summary>
+        public Property<Vector2> _APToCR_ConversionEfficiency;
 
         #endregion
 
@@ -709,7 +716,7 @@ namespace Classes
                     _ => Color.blue
                 };
                 
-                ScreenTextFactory.Instance.Spawn(_gameObject.transform.position, $"-<sprite=\"Attributes\" name=\"CriticalRateIcon\" tint=1> {damageCount:F0}", 0.8f,
+                ScreenTextFactory.Instance.Spawn(_gameObject.transform.position, $"-<sprite=\"Attributes\" name=\"CriticalRateIcon\"> {damageCount:F0}", 0.8f,
                     200 * Mathf.Max(0.5f, damageCount / (damageCount + 100)), Mathf.Clamp(damageCount / 3f, 30, 100), color);
             }
             else
@@ -1003,6 +1010,7 @@ namespace Classes
             _MPToAP_ConversionEfficiency = new Property<Vector2>(new Vector2(1f, 0f));
             _APToMP_ConversionEfficiency = new Property<Vector2>(new Vector2(1f, 0f));
             _DEFToAD_ConversionEfficiency = new Property<Vector2>(new Vector2(1f, 0f));
+            _APToCR_ConversionEfficiency = new Property<Vector2>(new Vector2(1f, 0f));
             
             #endregion
             
@@ -1053,9 +1061,9 @@ namespace Classes
             magicPenetration = new Property<float>(() => _magicPenetrationBonus * (1 + _percentageMagicPenetrationBonus),
                 DataType.Int,
                 _magicPenetrationBonus, _percentageMagicPenetrationBonus);
-            criticalRate = new Property<float>(() => Mathf.Min(_criticalRateBonus * (1 + _percentageCriticalRateBonus), 1),
+            criticalRate = new Property<float>(() => Mathf.Min(_criticalRateBonus * (1 + _percentageCriticalRateBonus) + abilityPower * _APToCR_ConversionEfficiency.Value.y, 1),
                 DataType.Percentage,
-                _criticalRateBonus, _percentageCriticalRateBonus);
+                _criticalRateBonus, _percentageCriticalRateBonus, originAbilityPower, _APToCR_ConversionEfficiency);
             movementSpeed = new Property<float>(() => Mathf.Max(30, (_baseMovementSpeed + _movementSpeedBonus) * (1 + _percentageMovementSpeedBonus)),
                 DataType.Int,
                 _movementSpeedBonus, _percentageMovementSpeedBonus);

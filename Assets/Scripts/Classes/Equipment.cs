@@ -258,16 +258,24 @@ namespace Classes
                     case EquipmentAttributeType.None:Debug.LogError("未找到对应属性！");
                         break;
                     case EquipmentAttributeType.maxHealthPoint:
+                        var healthCache1 = owner.maxHealthPoint.Value;
                         owner._maxHealthPointBonus.Value -= kv.Value;
+                        owner.healthPoint.Value += owner.maxHealthPoint.Value - healthCache1;
                         break;
                     case EquipmentAttributeType.percentageMaxHealthPoint:
+                        var healthCache2 = owner.maxHealthPoint.Value;
                         owner._percentageMaxHealthPointBonus.Value -= kv.Value;
+                        owner.healthPoint.Value += owner.maxHealthPoint.Value - healthCache2;
                         break;
                     case EquipmentAttributeType.maxMagicPoint:
+                        var magicCache1 = owner.maxMagicPoint.Value;
                         owner._maxMagicPointBonus.Value -= kv.Value;
+                        owner.magicPoint.Value += owner.maxMagicPoint.Value - magicCache1;
                         break;
                     case EquipmentAttributeType.percentageMaxMagicPoint:
+                        var magicCache2 = owner.maxMagicPoint.Value;
                         owner._percentageMaxMagicPointBonus.Value -= kv.Value;
+                        owner.magicPoint.Value += owner.maxMagicPoint.Value - magicCache2;
                         break;
                     case EquipmentAttributeType.attackSpeed:
                         owner._attackSpeedBonus.Value -= kv.Value;

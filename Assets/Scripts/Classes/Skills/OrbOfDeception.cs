@@ -139,7 +139,7 @@ namespace Classes.Skills
                     {
                         // 第一段造成魔法伤害
                         damageCount = self.target.CalculateAPDamage(self.owner, _APDamage);
-                        self.target.TakeDamage(damageCount, DamageType.AP, owner);
+                        self.target.TakeDamage(damageCount, DamageType.AP, owner, Random.Range(0f, 1f) < owner.criticalRate.Value && owner.canSkillCritical);
                         
                         // 造成技能特效
                     }
@@ -147,7 +147,7 @@ namespace Classes.Skills
                     {
                         // 第二段造成真实伤害
                         damageCount = _realDamage;
-                        self.target.TakeDamage(damageCount, DamageType.Real, owner);
+                        self.target.TakeDamage(damageCount, DamageType.Real, owner, Random.Range(0f, 1f) < owner.criticalRate.Value && owner.canSkillCritical);
                         
                         // 造成技能特效
                     }

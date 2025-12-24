@@ -151,12 +151,12 @@ namespace Classes.Skills
                             if (self.target.healthPointProportion.Value <= 0.2f)
                             {
                                 damageCount = self.target.CalculateAPDamage(self.owner, _firstDamage * 2);
-                                self.target.TakeDamage(damageCount, DamageType.AP, owner);
+                                self.target.TakeDamage(damageCount, DamageType.AP, owner, Random.Range(0f, 1f) < owner.criticalRate.Value && owner.canSkillCritical);
                             }
                             else
                             {
                                 damageCount = self.target.CalculateAPDamage(self.owner, _firstDamage);
-                                self.target.TakeDamage(damageCount, DamageType.AP, owner);
+                                self.target.TakeDamage(damageCount, DamageType.AP, owner, Random.Range(0f, 1f) < owner.criticalRate.Value && owner.canSkillCritical);
                             }
                         }
                         else
@@ -164,12 +164,12 @@ namespace Classes.Skills
                             if (self.target.healthPointProportion.Value <= 0.2f)
                             {
                                 damageCount = self.target.CalculateAPDamage(self.owner, _secondDamage * 2);
-                                self.target.TakeDamage(damageCount, DamageType.AP, owner);
+                                self.target.TakeDamage(damageCount, DamageType.AP, owner, Random.Range(0f, 1f) < owner.criticalRate.Value && owner.canSkillCritical);
                             }
                             else
                             {
                                 damageCount = self.target.CalculateAPDamage(self.owner, _secondDamage);
-                                self.target.TakeDamage(damageCount, DamageType.AP, owner);
+                                self.target.TakeDamage(damageCount, DamageType.AP, owner, Random.Range(0f, 1f) < owner.criticalRate.Value && owner.canSkillCritical);
                             }
                         }
 

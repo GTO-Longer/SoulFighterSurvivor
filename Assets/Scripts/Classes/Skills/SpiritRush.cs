@@ -122,7 +122,7 @@ namespace Classes.Skills
                         spiritOrb.OnBulletHit += (self) =>
                         {
                             var damageCount = self.target.CalculateAPDamage(self.owner, _damage);
-                            self.target.TakeDamage(damageCount, DamageType.AP, owner);
+                            self.target.TakeDamage(damageCount, DamageType.AP, owner, Random.Range(0f, 1f) < owner.criticalRate.Value && owner.canSkillCritical);
                             self.owner.AbilityEffectActivate(self.target, damageCount, this);
                         };
 

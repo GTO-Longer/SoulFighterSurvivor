@@ -18,7 +18,7 @@ namespace Classes.Hexes
             
             var hexCount = HeroManager.hero.hexList.Count;
             HeroManager.hero.RemoveAllHex();
-            ToolFunctions.GetRandomUniqueItems(HexManager.Instance.hexList.FindAll(hex => hex.hexQuality == Quality.Prismatic && hex.hexName != hexName), hexCount, out var results);
+            ToolFunctions.GetRandomUniqueItems(HexManager.Instance.hexList.FindAll(hex => hex.canChoose && hex.hexQuality == Quality.Prismatic), hexCount, out var results);
             for (var index = 0; index < hexCount; index++)
             {
                 Debug.Log("已质变：" + results[index].hexName);

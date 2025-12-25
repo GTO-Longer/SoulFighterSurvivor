@@ -1057,12 +1057,15 @@ namespace Classes
             abilityPower = new Property<float>(() => originAbilityPower + originMaxMagicPoint * _MPToAP_ConversionEfficiency.Value.y + originMaxHealthPoint * _HPToAP_ConversionEfficiency.Value.y,
                 DataType.Int,
                 originAbilityPower, originMaxMagicPoint, _MPToAP_ConversionEfficiency, originMaxHealthPoint, _HPToAP_ConversionEfficiency);
+            movementSpeed = new Property<float>(() => Mathf.Max(30, (_baseMovementSpeed + _movementSpeedBonus) * (1 + _percentageMovementSpeedBonus)),
+                DataType.Int,
+                _movementSpeedBonus, _percentageMovementSpeedBonus);
             attackSpeed = new Property<float>(() => Mathf.Min((_baseAttackSpeed + _attackSpeedGrowth * level + _attackSpeedBonus * _attackSpeedYield + movementSpeed * _MSToAS_ConversionEfficiency.Value.y) * (1 + _percentageAttackSpeedBonus), 10),
                 DataType.Float,
                 level, _attackSpeedBonus, _percentageAttackSpeedBonus, _MSToAS_ConversionEfficiency, movementSpeed);
             abilityHaste = new Property<float>(() => _abilityHasteBonus * (1 + _percentageAbilityHasteBonus) + abilityPower * _APToAH_ConversionEfficiency.Value.y,
                 DataType.Int,
-                _abilityHasteBonus, _percentageAbilityHasteBonus, originAbilityPower, _APToAH_ConversionEfficiency);
+                _abilityHasteBonus, _percentageAbilityHasteBonus, abilityPower, _APToAH_ConversionEfficiency);
             magicDefense = new Property<float>(() => Mathf.Max(0, (_baseMagicDefense + _magicDefenseGrowth * level + _magicDefenseBonus) * (1 + _percentageMagicDefenseBonus)),
                 DataType.Int,
                 level, _magicDefenseBonus, _percentageMagicDefenseBonus);
@@ -1078,9 +1081,6 @@ namespace Classes
             criticalRate = new Property<float>(() => Mathf.Min(_criticalRateBonus * (1 + _percentageCriticalRateBonus) + abilityPower * _APToCR_ConversionEfficiency.Value.y, 1),
                 DataType.Percentage,
                 _criticalRateBonus, _percentageCriticalRateBonus, originAbilityPower, _APToCR_ConversionEfficiency);
-            movementSpeed = new Property<float>(() => Mathf.Max(30, (_baseMovementSpeed + _movementSpeedBonus) * (1 + _percentageMovementSpeedBonus)),
-                DataType.Int,
-                _movementSpeedBonus, _percentageMovementSpeedBonus);
             attackRange = new Property<float>(() => (_baseAttackRange + _attackRangeBonus) * (1 + _percentageAttackRangeBonus),
                 DataType.Int,
                 _attackRangeBonus, _percentageAttackRangeBonus);

@@ -335,7 +335,6 @@ namespace MVVM
                     AttributeViewModel.Instance.UnBindEvent = null;
                     return;
                 }
-
                 
                 if (!(AttributeViewModel.Instance.attributeDependenciesSettings.TryGetValue(attrType, out dependencies) &&
                       dependencies != null))

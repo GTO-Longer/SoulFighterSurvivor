@@ -122,7 +122,7 @@
             "hexName": "慢炖",
             "quality": "Prismatic",
             "description": "每秒对附近的敌人施加一层可无限叠加的灼烧，这个效果受益于你的最大生命值。",
-            "detail": "每秒对附近的敌人施加一层可无限叠加的灼烧，持续5秒，每秒造成你0.35%最大生命值的魔法伤害。\n当前已造成额外伤害：{0:F1}",
+            "detail": "每秒对附近的敌人施加一层可无限叠加的灼烧，持续5秒，每秒造成你0.35%最大生命值的魔法伤害。",
             "iconName": "Hex_Fire",
             "iconBorderName": "Hex_Damage_Border"
         },
@@ -130,8 +130,8 @@
             "id": "TapDance",
             "hexName": "踢踏舞",
             "quality": "Prismatic",
-            "description": "你的攻击为你提供10移动速度，可无限叠加。获得相当于你10%移动速度的攻击速度。",
-            "detail": "你的攻击为你提供10移动速度，可无限叠加，持续5秒。获得{0:P1}=(10%<sprite=\"Attributes\" name=\"MovementSpeedIcon\">)的攻击速度。",
+            "description": "你的攻击为你提供5移动速度，可无限叠加。获得相当于你10%移动速度的攻击速度。",
+            "detail": "你的攻击为你提供5移动速度，可无限叠加，持续5秒。获得{0:P1}=(10%<sprite=\"Attributes\" name=\"MovementSpeedIcon\">)的攻击速度。",
             "iconName": "Hex_LevelUp",
             "iconBorderName": "Hex_Speed_Border"
         },

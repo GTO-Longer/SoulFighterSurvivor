@@ -1024,6 +1024,7 @@ namespace Classes
             _DEFToAD_ConversionEfficiency = new Property<Vector2>(new Vector2(1f, 0f));
             _APToCR_ConversionEfficiency = new Property<Vector2>(new Vector2(1f, 0f));
             _APToAH_ConversionEfficiency = new Property<Vector2>(new Vector2(1f, 0f));
+            _MSToAS_ConversionEfficiency = new Property<Vector2>(new Vector2(1f, 0f));
             
             #endregion
             
@@ -1056,9 +1057,9 @@ namespace Classes
             abilityPower = new Property<float>(() => originAbilityPower + originMaxMagicPoint * _MPToAP_ConversionEfficiency.Value.y + originMaxHealthPoint * _HPToAP_ConversionEfficiency.Value.y,
                 DataType.Int,
                 originAbilityPower, originMaxMagicPoint, _MPToAP_ConversionEfficiency, originMaxHealthPoint, _HPToAP_ConversionEfficiency);
-            attackSpeed = new Property<float>(() => Mathf.Min((_baseAttackSpeed + _attackSpeedGrowth * level + _attackSpeedBonus * _attackSpeedYield) * (1 + _percentageAttackSpeedBonus), 10),
+            attackSpeed = new Property<float>(() => Mathf.Min((_baseAttackSpeed + _attackSpeedGrowth * level + _attackSpeedBonus * _attackSpeedYield + movementSpeed * _MSToAS_ConversionEfficiency.Value.y) * (1 + _percentageAttackSpeedBonus), 10),
                 DataType.Float,
-                level, _attackSpeedBonus, _percentageAttackSpeedBonus);
+                level, _attackSpeedBonus, _percentageAttackSpeedBonus, _MSToAS_ConversionEfficiency, movementSpeed);
             abilityHaste = new Property<float>(() => _abilityHasteBonus * (1 + _percentageAbilityHasteBonus) + abilityPower * _APToAH_ConversionEfficiency.Value.y,
                 DataType.Int,
                 _abilityHasteBonus, _percentageAbilityHasteBonus, originAbilityPower, _APToAH_ConversionEfficiency);

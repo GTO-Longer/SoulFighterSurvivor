@@ -5,18 +5,18 @@ using Utilities;
 
 namespace Classes.Equipments
 {
-    public class VoltaicCyclosword : Equipment
+    public class Stormrazor : Equipment
     {
         private Action<Entity, Entity, float, float> equipmentEffect;
         
-        public VoltaicCyclosword() : base("VoltaicCyclosword")
+        public Stormrazor() : base("Stormrazor")
         {
             equipmentEffect = (attacker, target, _, ratio) =>
             {
-                target.TakeDamage(target.CalculateADDamage(attacker, 100 * ratio), DamageType.AD, attacker);
+                target.TakeDamage(target.CalculateAPDamage(attacker, 100 * ratio), DamageType.AP, attacker);
                 
-                var speedReduce = new SpeedReduce(target, owner, 0.75f, 0.99f);
-                target.GetBuff(speedReduce);
+                var speedBonus = new PercentageSpeedBonus(owner, owner, 1.5f, 0.45f);
+                owner.GetBuff(speedBonus);
             };
         }
 

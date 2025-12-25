@@ -647,9 +647,22 @@ namespace Classes
         /// 攻击特效
         /// </summary>
         public event Action<Entity, Entity, float, float> AttackEffect;
+        public event Action<Entity, Entity, float, float> EmpoweredEffect;
         public void AttackEffectActivate(Entity target, float damageCount, float ratio = 1)
         {
             AttackEffect?.Invoke(this, target, damageCount, ratio);
+            
+            var empowered = buffList.Find(buff => buff.buffName == "盈能");
+
+            if (empowered != null)
+            {
+                if (empowered.buffCount >= 100)
+                {
+                    EmpoweredEffect?.Invoke(this, target, damageCount, ratio);
+                    
+                    empowered.buffCount.Value = 0;
+                }
+            }
         }
         
         /// <summary>

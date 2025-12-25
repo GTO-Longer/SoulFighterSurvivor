@@ -448,6 +448,12 @@ namespace Classes
         /// - <c>Value.y</c>: 增加的暴击率加成要乘的系数
         /// </summary>
         public Property<Vector2> _APToCR_ConversionEfficiency;
+        /// <summary>
+        /// 法术强度加成-技能急速加成 转化率
+        /// - <c>Value.x</c>: 剩余的法术强度加成要乘的系数  
+        /// - <c>Value.y</c>: 增加的技能急速加成要乘的系数
+        /// </summary>
+        public Property<Vector2> _APToAH_ConversionEfficiency;
 
         #endregion
 
@@ -1011,6 +1017,7 @@ namespace Classes
             _APToMP_ConversionEfficiency = new Property<Vector2>(new Vector2(1f, 0f));
             _DEFToAD_ConversionEfficiency = new Property<Vector2>(new Vector2(1f, 0f));
             _APToCR_ConversionEfficiency = new Property<Vector2>(new Vector2(1f, 0f));
+            _APToAH_ConversionEfficiency = new Property<Vector2>(new Vector2(1f, 0f));
             
             #endregion
             
@@ -1046,9 +1053,9 @@ namespace Classes
             attackSpeed = new Property<float>(() => Mathf.Min((_baseAttackSpeed + _attackSpeedGrowth * level + _attackSpeedBonus * _attackSpeedYield) * (1 + _percentageAttackSpeedBonus), 10),
                 DataType.Float,
                 level, _attackSpeedBonus, _percentageAttackSpeedBonus);
-            abilityHaste = new Property<float>(() => _abilityHasteBonus * (1 + _percentageAbilityHasteBonus),
+            abilityHaste = new Property<float>(() => _abilityHasteBonus * (1 + _percentageAbilityHasteBonus) + abilityPower * _APToAH_ConversionEfficiency.Value.y,
                 DataType.Int,
-                _abilityHasteBonus, _percentageAbilityHasteBonus);
+                _abilityHasteBonus, _percentageAbilityHasteBonus, originAbilityPower, _APToAH_ConversionEfficiency);
             magicDefense = new Property<float>(() => Mathf.Max(0, (_baseMagicDefense + _magicDefenseGrowth * level + _magicDefenseBonus) * (1 + _percentageMagicDefenseBonus)),
                 DataType.Int,
                 level, _magicDefenseBonus, _percentageMagicDefenseBonus);

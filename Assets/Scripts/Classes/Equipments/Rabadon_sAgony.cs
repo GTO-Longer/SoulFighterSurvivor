@@ -49,11 +49,11 @@ namespace Classes.Equipments
                                     {
                                         self.bulletEntityDamageCDTimer[entity] = 0;
                                         
-                                        var magicDefenseReduce = new MagicDefenseReduce(entity, owner, 1f, 25);
+                                        var magicDefenseReduce = new MagicDefenseReduce(entity, self.owner, 1f, 25);
                                         entity.GetBuff(magicDefenseReduce);
 
                                         var damageValue = entity.CalculateAPDamage(self.owner, damageCount);
-                                        entity.TakeDamage(damageValue, DamageType.AP, owner);
+                                        entity.TakeDamage(damageValue, DamageType.AP, self.owner);
                                     }
                                 }
                             }

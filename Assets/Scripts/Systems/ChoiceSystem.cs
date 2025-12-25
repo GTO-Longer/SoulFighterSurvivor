@@ -16,6 +16,7 @@ namespace Systems
         private Transform choicePrefab;
         public static ChoiceSystem Instance;
         private Dictionary<Choice, GameObject> choiceDictionary = new();
+        private List<Choice[]> CacheList = new();
 
         public void Initialize()
         {
@@ -29,6 +30,12 @@ namespace Systems
         public void MakeChoice(params Choice[] choices)
         {
             if(choices.Length <= 0) return;
+            
+            if (PanelUIRoot.Instance.isChoiceOpen)
+            {
+                CacheList.Add(choices);
+                return;
+            }
             
             gameObject.SetActive(true);
             PanelUIRoot.Instance.isChoiceOpen = true;
@@ -134,6 +141,12 @@ namespace Systems
             choiceDictionary.Clear();
             gameObject.SetActive(false);
             PanelUIRoot.Instance.isChoiceOpen = false;
+
+            if (CacheList.Count > 0)
+            {
+                MakeChoice(CacheList[0]);
+                CacheList.RemoveAt(0);
+            }
         }
     }
 }

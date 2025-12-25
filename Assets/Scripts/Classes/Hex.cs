@@ -15,6 +15,7 @@ namespace Classes
         protected string hexDetail;
         public Entity owner;
         public Quality hexQuality;
+        public bool canChoose;
         /// <summary>
         /// 获取事件是否触发过
         /// </summary>
@@ -25,6 +26,7 @@ namespace Classes
             id = name;
             
             var config = ResourceReader.ReadHexConfig(name);
+            canChoose = true;
             hexName = config.hexName;
             hexDescription = config.description;
             hexDetail = config.detail;

@@ -1,5 +1,3 @@
-using System;
-using Classes.Entities;
 using Managers;
 using Managers.EntityManagers;
 using UnityEngine;
@@ -16,6 +14,8 @@ namespace Classes.Hexes
 
         public override void OnHexGet(Entity entity)
         {
+            canChoose = false;
+            
             var hexCount = HeroManager.hero.hexList.Count;
             HeroManager.hero.RemoveAllHex();
             ToolFunctions.GetRandomUniqueItems(HexManager.Instance.hexList.FindAll(hex => hex.hexQuality == Quality.Prismatic && hex.hexName != hexName), hexCount, out var results);

@@ -454,6 +454,12 @@ namespace Classes
         /// - <c>Value.y</c>: 增加的技能急速加成要乘的系数
         /// </summary>
         public Property<Vector2> _APToAH_ConversionEfficiency;
+        /// <summary>
+        /// 移动速度加成-攻击速度加成 转化率
+        /// - <c>Value.x</c>: 剩余的移动速度加成要乘的系数  
+        /// - <c>Value.y</c>: 增加的攻击速度加成要乘的系数
+        /// </summary>
+        public Property<Vector2> _MSToAS_ConversionEfficiency;
 
         #endregion
 

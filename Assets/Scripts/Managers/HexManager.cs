@@ -41,9 +41,14 @@ namespace Managers
             if (((int)HeroManager.hero.level.Value >= 3 && choiceTime == 0) ||
                 ((int)HeroManager.hero.level.Value >= 7 && choiceTime == 1) ||
                 ((int)HeroManager.hero.level.Value >= 11 && choiceTime == 2) ||
-                ((int)HeroManager.hero.level.Value >= 15 && choiceTime == 3)) 
+                ((int)HeroManager.hero.level.Value >= 15 && choiceTime == 3))
             {
-                if (!PanelUIRoot.Instance.isChoiceOpen && ToolFunctions.GetRandomUniqueItems(hexList.FindAll(hex => !HeroManager.hero.hexList.Contains(hex)), 3, out var results))
+                var targetHexList = hexList.FindAll(
+                    hex => !HeroManager.hero.hexList.Contains(hex) && 
+                           hex.hexQuality == Quality.Prismatic &&
+                           hex.canChoose);
+                
+                if (!PanelUIRoot.Instance.isChoiceOpen && ToolFunctions.GetRandomUniqueItems(targetHexList, 3, out var results))
                 {
                     choiceTime += 1;
                     var choices = new Choice[3];

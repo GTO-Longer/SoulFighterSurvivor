@@ -1123,6 +1123,205 @@
             "_usageType": [
                 "Wizard"
             ]
+        },
+        {
+            "id": "NavoriQuickblades",
+            "equipmentName": "纳沃利烁刃",
+            "_usageDescription": "降低冷却时间",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "attackSpeed": 0.35,
+                "criticalRate": 0.25,
+                "percentageMovementSpeed": 0.04
+            },
+            "_passiveSkillDescription": "你的攻击会使你的各个非终极技能的冷却时间缩短15%剩余冷却时间。",
+            "_passiveSkillName": "超凡入圣",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Shooter"
+            ]
+        },
+        {
+            "id": "RapidFirecannon",
+            "equipmentName": "疾射火炮",
+            "_usageDescription": "远程消耗",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "attackSpeed": 0.3,
+                "criticalRate": 0.25,
+                "percentageMovementSpeed": 0.04
+            },
+            "_passiveSkillDescription": "你的盈能攻击造成200额外魔法伤害并获得35%额外攻击距离。攻击距离的提升不能多于150码。",
+            "_passiveSkillName": "神射手",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Shooter"
+            ]
+        },
+        {
+            "id": "Stormrazor",
+            "equipmentName": "岚切",
+            "_usageDescription": "爆裂敌人",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "attackDamage": 45,
+                "attackSpeed": 0.25,
+                "criticalRate": 0.25
+            },
+            "_passiveSkillDescription": "你的盈能攻击附带100额外魔法伤害并提供持续1.5秒的45%移动速度。",
+            "_passiveSkillName": "电冲",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Shooter"
+            ]
+        },
+        {
+            "id": "EssenceReaver",
+            "equipmentName": "夺萃之镰",
+            "_usageDescription": "法力回复",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "attackDamage": 50,
+                "abilityHaste": 20,
+                "criticalRate": 0.25
+            },
+            "_passiveSkillDescription": "获得攻击特效：攻击时恢复{0:F0} =（10%法力值）法力值。",
+            "_passiveSkillName": "精萃汲取",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Shooter"
+            ]
+        },
+        {
+            "id": "MortalReminder",
+            "equipmentName": "多米尼克领主的致意",
+            "_usageDescription": "护甲克星",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "attackDamage": 30,
+                "percentageAttackPenetration": 0.4,
+                "criticalRate": 0.25
+            },
+            "_passiveSkillDescription": null,
+            "_passiveSkillName": null,
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Shooter"
+            ]
+        },
+        {
+            "id": "StatikkShiv",
+            "equipmentName": "斯塔缇克电刃",
+            "_usageDescription": "连锁闪电",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "attackDamage": 45,
+                "attackSpeed": 0.4,
+                "percentageMovementSpeed": 0.04
+            },
+            "_passiveSkillDescription": "你的下5次攻击会在命中时会触发连锁闪电，对最多5个目标造成{0:F0}=（80+45%攻击力+66%法术强度）的魔法伤害。冷却时间5秒。",
+            "_passiveSkillName": "电火花",
+            "_passiveSkillCD": 5,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Shooter"
+            ]
+        },
+        {
+            "id": "Hullbreaker",
+            "equipmentName": "海克斯注力刚壁",
+            "_usageDescription": "增强终极技能",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "attackDamage": 40,
+                "attackSpeed": 0.3,
+                "maxHealthPoint": 450
+            },
+            "_passiveSkillDescription": "在施放你的终极技能后，获得持续8秒的50%总攻击速度和20%总移动速度。冷却时间10秒。",
+            "_passiveSkillName": "过载",
+            "_passiveSkillCD": 10,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Shooter",
+                "Fighter"
+            ]
+        },
+        {
+            "id": "YuentareWildArrow",
+            "equipmentName": "育恩塔尔荒野箭",
+            "_usageDescription": "暴击增幅",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "attackDamage": 45,
+                "attackSpeed": 0.25
+            },
+            "_passiveSkillDescription": "攻击时，永久获得0.5%暴击几率，至多至25%。\n攻击敌人时，获得持续6秒的30%攻击速度。冷却时间30秒。攻击可以使冷却时间缩短1秒，根据暴击率有概率额外缩短1秒。",
+            "_passiveSkillName": "疾风骤雨",
+            "_passiveSkillCD": 30,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Shooter"
+            ]
+        },
+        {
+            "id": "TrinityForce",
+            "equipmentName": "三相之力",
+            "_usageDescription": "单挑能力",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "attackDamage": 33,
+                "attackSpeed": 0.33,
+                "maxHealthPoint": 333,
+                "abilityHaste": 33
+            },
+            "_passiveSkillDescription": "施放技能后，你的下一次普通攻击会强化而附带额外的{0:F0}=（133%基础攻击力）的物理伤害，并提供3秒的33移动速度。冷却时间1.5秒。",
+            "_passiveSkillName": "咒刃",
+            "_passiveSkillCD": 1.5,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": "CursedBlade",
+            "_usageType": [
+                "Fighter"
+            ]
         }
     ]
 }

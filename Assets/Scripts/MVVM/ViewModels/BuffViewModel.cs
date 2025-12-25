@@ -16,7 +16,7 @@ namespace MVVM.ViewModels
         public static Property<Buff> chosenBuff = new Property<Buff>();
         public GameObject buffPrefab;
         private Transform buffBar;
-        private Dictionary<string, Action> BuffUnbindEvent = new();
+        private Dictionary<Buff, Action> BuffUnbindEvent = new();
 
         private void Awake()
         {
@@ -47,15 +47,16 @@ namespace MVVM.ViewModels
         {
             var newBuffUI = Instantiate(buffPrefab, buffBar);
             newBuffUI.GetComponent<BuffData>().buff = buff;
+            BuffUnbindEvent.TryAdd(buff, null);
             
             var buffMask = newBuffUI.transform.Find("BuffMask").GetComponent<Image>();
-            BuffUnbindEvent.Add(buff.buffName + "Mask", Binder.BindFillAmountImmediate(buffMask, buff.buffLeftDuration));
+            BuffUnbindEvent[buff] += Binder.BindFillAmountImmediate(buffMask, buff.buffLeftDuration);
             
             var buffCount = newBuffUI.transform.Find("BuffCount").GetComponent<TMP_Text>();
             if (buff.buffMaxCount > 0)
             {
                 buffCount.enabled = true;
-                BuffUnbindEvent.Add(buff.buffName + "Count", Binder.BindText(buffCount, buff.buffCount));
+                BuffUnbindEvent[buff] += Binder.BindText(buffCount, buff.buffCount);
             }
             else
             {
@@ -75,16 +76,10 @@ namespace MVVM.ViewModels
                 {
                     if (buffData.buff == buff)
                     {
-                        if (BuffUnbindEvent.ContainsKey(buff.buffName + "Mask"))
+                        if (BuffUnbindEvent.ContainsKey(buff))
                         {
-                            BuffUnbindEvent[buff.buffName + "Mask"].Invoke();
-                            BuffUnbindEvent.Remove(buff.buffName + "Mask");
-                        }
-                        
-                        if (BuffUnbindEvent.ContainsKey(buff.buffName + "Count"))
-                        {
-                            BuffUnbindEvent[buff.buffName + "Count"].Invoke();
-                            BuffUnbindEvent.Remove(buff.buffName + "Count");
+                            BuffUnbindEvent[buff].Invoke();
+                            BuffUnbindEvent.Remove(buff);
                         }
 
                         buffBar.GetChild(index).GetComponent<BuffButton>().OnPointerExit(null);

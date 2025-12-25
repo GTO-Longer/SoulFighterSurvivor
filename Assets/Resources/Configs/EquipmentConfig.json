@@ -916,7 +916,7 @@
                 "attackPenetration": 18,
                 "abilityHaste": 20
             },
-            "_passiveSkillDescription": "你的盈能攻击会造成100<color=#FF6A6A>物理伤害</color>，并且给予敌人持续0.75秒的99%减速",
+            "_passiveSkillDescription": "你的盈能攻击会造成<color=#FF6A6A>100物理伤害</color>，并且给予敌人持续0.75秒的99%减速",
             "_passiveSkillName": "激电与苍穹",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
@@ -1157,7 +1157,7 @@
                 "criticalRate": 0.25,
                 "percentageMovementSpeed": 0.04
             },
-            "_passiveSkillDescription": "你的盈能攻击造成200额外魔法伤害并获得35%额外攻击距离。攻击距离的提升不能多于150码。",
+            "_passiveSkillDescription": "你的盈能攻击造成<color=#00D8FF>200魔法伤害</color>并在完全盈能时获得35%攻击距离。",
             "_passiveSkillName": "神射手",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
@@ -1179,7 +1179,7 @@
                 "attackSpeed": 0.25,
                 "criticalRate": 0.25
             },
-            "_passiveSkillDescription": "你的盈能攻击附带100额外魔法伤害并提供持续1.5秒的45%移动速度。",
+            "_passiveSkillDescription": "你的盈能攻击附带<color=#00D8FF>100魔法伤害</color>并提供持续1.5秒的45%<sprite=\"Attributes\" name=\"MovementSpeedIcon\">。",
             "_passiveSkillName": "电冲",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
@@ -1201,7 +1201,7 @@
                 "abilityHaste": 20,
                 "criticalRate": 0.25
             },
-            "_passiveSkillDescription": "获得攻击特效：攻击时恢复{0:F0} =（10%法力值）法力值。",
+            "_passiveSkillDescription": "攻击时恢复<color=#0066FF>{0:F0} =（10%<sprite=\"Attributes\" name=\"MaxMagicPointIcon\">）<sprite=\"Attributes\" name=\"MaxMagicPointIcon\"></color>。",
             "_passiveSkillName": "精萃汲取",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
@@ -1245,7 +1245,7 @@
                 "attackSpeed": 0.4,
                 "percentageMovementSpeed": 0.04
             },
-            "_passiveSkillDescription": "你的下5次攻击会在命中时会触发连锁闪电，对最多5个目标造成{0:F0}=（80+45%攻击力+66%法术强度）的魔法伤害。冷却时间5秒。",
+            "_passiveSkillDescription": "你的下5次攻击会在命中时会触发连锁闪电，对最多5个目标造成<color=#00D8FF>{0:F0}=（80+45%<sprite=\"Attributes\" name=\"AttackDamageIcon\">+66%<sprite=\"Attributes\" name=\"AbilityPowerIcon\">）的魔法伤害</color>。冷却时间5秒。",
             "_passiveSkillName": "电火花",
             "_passiveSkillCD": 5,
             "_activeSkillDescription": null,
@@ -1267,7 +1267,7 @@
                 "attackSpeed": 0.3,
                 "maxHealthPoint": 450
             },
-            "_passiveSkillDescription": "在施放你的终极技能后，获得持续8秒的50%总攻击速度和20%总移动速度。冷却时间10秒。",
+            "_passiveSkillDescription": "在施放你的终极技能后，获得持续8秒的<color=#E0C300>50%总<sprite=\"Attributes\" name=\"AttackSpeedIcon\"></color>和20%总<sprite=\"Attributes\" name=\"MovementSpeedIcon\">。冷却时间10秒。",
             "_passiveSkillName": "过载",
             "_passiveSkillCD": 10,
             "_activeSkillDescription": null,
@@ -1289,7 +1289,7 @@
                 "attackDamage": 45,
                 "attackSpeed": 0.25
             },
-            "_passiveSkillDescription": "攻击时，永久获得0.5%暴击几率，至多至25%。\n攻击敌人时，获得持续6秒的30%攻击速度。冷却时间30秒。攻击可以使冷却时间缩短1秒，根据暴击率有概率额外缩短1秒。",
+            "_passiveSkillDescription": "攻击时，永久获得0.5%暴击几率，至多至25%。\n攻击敌人时，获得持续6秒的<color=#E0C300>30%<sprite=\"Attributes\" name=\"AttackSpeedIcon\"></color>。冷却时间30秒。攻击可以使冷却时间缩短1秒，根据暴击率有概率额外缩短1秒。",
             "_passiveSkillName": "疾风骤雨",
             "_passiveSkillCD": 30,
             "_activeSkillDescription": null,
@@ -1312,7 +1312,7 @@
                 "maxHealthPoint": 333,
                 "abilityHaste": 33
             },
-            "_passiveSkillDescription": "施放技能后，你的下一次普通攻击会强化而附带额外的{0:F0}=（133%基础攻击力）的物理伤害，并提供3秒的33移动速度。冷却时间1.5秒。",
+            "_passiveSkillDescription": "施放技能后，你的下一次普通攻击会强化而附带额外的<color=#FF6A6A>{0:F0}=（200%基础<sprite=\"Attributes\" name=\"AttackDamageIcon\">）的物理伤害</color>，并提供3秒的33<sprite=\"Attributes\" name=\"MovementSpeedIcon\">。冷却时间1.5秒。",
             "_passiveSkillName": "咒刃",
             "_passiveSkillCD": 1.5,
             "_activeSkillDescription": null,

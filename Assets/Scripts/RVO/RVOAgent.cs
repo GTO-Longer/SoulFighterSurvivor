@@ -97,6 +97,13 @@ namespace RVO
         public void SetDestination(Vector2 position)
         {
             if (isStopped) return;
+
+            if (Vector2.Distance(position, entity.gameObject.transform.position) <=
+                entity.scale + entity.movementSpeed * Time.deltaTime * 2f)
+            {
+                SetStop(true);
+                return;
+            }
             
             if (NavMesh.SamplePosition(position, out var hit, 1000f, NavMesh.AllAreas))
             {

@@ -168,10 +168,10 @@ namespace Classes.Buffs
                     owner._magicPenetrationBonus.Value += value;
                     break;
                 case EquipmentAttributeType.percentageAttackPenetration:
-                    owner._percentageAttackPenetrationBonus.Value += value;
+                    owner.percentageAttackPenetration.Value += value;
                     break;
                 case EquipmentAttributeType.percentageMagicPenetration:
-                    owner._percentageMagicPenetrationBonus.Value += value;
+                    owner.percentageMagicPenetration.Value += value;
                     break;
                 case EquipmentAttributeType.criticalRate:
                     owner._criticalRateBonus.Value += value;
@@ -252,11 +252,11 @@ namespace Classes.Buffs
                         attributes[key] *= attributeBonus;
                         break;
                     case EquipmentAttributeType.percentageAttackPenetration:
-                        owner._percentageAttackPenetrationBonus.Value += attributes[key] * value;
+                        owner.percentageAttackPenetration.Value += attributes[key] * value;
                         attributes[key] *= attributeBonus;
                         break;
                     case EquipmentAttributeType.percentageMagicPenetration:
-                        owner._percentageMagicPenetrationBonus.Value += attributes[key] * value;
+                        owner.percentageMagicPenetration.Value += attributes[key] * value;
                         attributes[key] *= attributeBonus;
                         break;
                     case EquipmentAttributeType.criticalRate:

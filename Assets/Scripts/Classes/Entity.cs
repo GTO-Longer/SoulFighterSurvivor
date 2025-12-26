@@ -1070,7 +1070,7 @@ namespace Classes
             abilityPower = new Property<float>(() => originAbilityPower + originMaxMagicPoint * _MPToAP_ConversionEfficiency.Value.y + originMaxHealthPoint * _HPToAP_ConversionEfficiency.Value.y,
                 DataType.Int,
                 originAbilityPower, originMaxMagicPoint, _MPToAP_ConversionEfficiency, originMaxHealthPoint, _HPToAP_ConversionEfficiency);
-            movementSpeed = new Property<float>(() => Mathf.Max(30, (_baseMovementSpeed + _movementSpeedBonus) * (1 + _percentageMovementSpeedBonus)),
+            movementSpeed = new Property<float>(() => Mathf.Max(30, (_baseMovementSpeed * (1 + _percentageMovementSpeedBonus) + _movementSpeedBonus)),
                 DataType.Int,
                 _movementSpeedBonus, _percentageMovementSpeedBonus);
             attackSpeed = new Property<float>(() => Mathf.Min((_baseAttackSpeed + _attackSpeedGrowth * level + _attackSpeedBonus * _attackSpeedYield + movementSpeed * _MSToAS_ConversionEfficiency.Value.y) * (1 + _percentageAttackSpeedBonus), 10),

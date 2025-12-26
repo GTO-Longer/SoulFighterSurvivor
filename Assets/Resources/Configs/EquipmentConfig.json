@@ -872,7 +872,7 @@
                 "abilityPower": 25,
                 "attackSpeed": 0.25
             },
-            "_passiveSkillDescription": "攻击附带<color=#00D8FF>{0:F0} =（10+3%<sprite=\"Attributes\" name=\"AbilityPowerIcon\">+6%<sprite=\"Attributes\" name=\"AttackDamageIcon\">）魔法伤害</color>的攻击特效。\n普攻提供<color=#E0C300>8%<sprite=\"Attributes\" name=\"AttackSpeedIcon\"></color>，最多叠加至<color=#E0C300>32%<sprite=\"Attributes\" name=\"AttackSpeedIcon\"></color>，持续4秒。满层时每次攻击额外附带33%的攻击特效。",
+            "_passiveSkillDescription": "攻击附带<color=#00D8FF>{0:F0} =（10+3%<sprite=\"Attributes\" name=\"AbilityPowerIcon\">+6%<sprite=\"Attributes\" name=\"AttackDamageIcon\">）魔法伤害</color>的攻击特效。\n普攻提供<color=#E0C300>8%<sprite=\"Attributes\" name=\"AttackSpeedIcon\"></color>，最多叠加至<color=#E0C300>32%<sprite=\"Attributes\" name=\"AttackSpeedIcon\"></color>，持续4秒。满层时使你的攻击特效造成额外33%伤害。",
             "_passiveSkillName": "附魔打击",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
@@ -944,7 +944,7 @@
             "_activeSkillDescription": "对身边的敌人造成<color=#FF6A6A>{0:F0}=(80%<sprite=\"Attributes\" name=\"AttackDamageIcon\">)+目标12%已损失<sprite=\"Attributes\" name=\"MaxHealthPointIcon\">的物理伤害</color>。冷却时间10秒。",
             "_activeSkillName": "邪斩",
             "_activeSkillCD": 10,
-            "_uniqueEffect": null,
+            "_uniqueEffect": "Hydra",
             "_usageType": [
                 "Assassin"
             ]
@@ -1321,6 +1321,114 @@
             "_uniqueEffect": "CursedBlade",
             "_usageType": [
                 "Fighter"
+            ]
+        },
+        {
+            "id": "EdgeBow",
+            "equipmentName": "界弓",
+            "_usageDescription": "双重穿透",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "attackDamage": 30,
+                "attackSpeed": 0.25
+            },
+            "_passiveSkillDescription": "攻击造成30额外魔法伤害。\n在持续攻击时，在光明特效和黑暗特效之间切换：附带光明特效的攻击提供持续5秒的8护甲和魔法抗性（至多至32）；附带黑暗特效的攻击提供持续5秒的8%护甲穿透和法术穿透（至多至32%）。",
+            "_passiveSkillName": "光影交相",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Shooter"
+            ]
+        },
+        {
+            "id": "BladeOfTheRuinedKing",
+            "equipmentName": "破败王者之刃",
+            "_usageDescription": "坦克克星",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "attackDamage": 30,
+                "attackSpeed": 0.2,
+                "lifeSteal": 0.1
+            },
+            "_passiveSkillDescription": "攻击附带额外8%敌人当前生命值的物理伤害的攻击特效。",
+            "_passiveSkillName": "雾之锋",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Shooter"
+            ]
+        },
+        {
+            "id": "Stridebreaker",
+            "equipmentName": "挺进破坏者",
+            "_usageDescription": "战斗机动力",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "attackDamage": 40,
+                "attackSpeed": 0.15,
+                "maxHealthPoint": 375
+            },
+            "_passiveSkillDescription": "攻击会对附近的敌人造成{0:F0}=（40%攻击力）的物理伤害。",
+            "_passiveSkillName": "顺劈",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": "对附近的敌人造成{0:F0}=（175%攻击力+105%法术强度）物理伤害并施加40%减速。冷却时间15秒。",
+            "_activeSkillName": "破阵冲击",
+            "_activeSkillCD": 15,
+            "_uniqueEffect": "Hydra",
+            "_usageType": [
+                "Fighter"
+            ]
+        },
+        {
+            "id": "RavenousHydra",
+            "equipmentName": "贪欲九头蛇",
+            "_usageDescription": "群体吸血",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "attackDamage": 70,
+                "abilityHaste": 15,
+                "lifeSteal": 0.15
+            },
+            "_passiveSkillDescription": "攻击会对周围的敌人造成{0:F0}=（40%攻击力）的物理伤害。",
+            "_passiveSkillName": "顺劈",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": "对周围敌人造成{0:F0}=（130%攻击力）的物理伤害。你的生命偷取会作用于此伤害。冷却时间10秒。",
+            "_activeSkillName": "血斩",
+            "_activeSkillCD": 10,
+            "_uniqueEffect": "Hydra",
+            "_usageType": [
+                "Fighter"
+            ]
+        },
+        {
+            "id": "Bloodthirster",
+            "equipmentName": "饮血剑",
+            "_usageDescription": "生命偷取",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "attackDamage": 70,
+                "lifeSteal": 0.18
+            },
+            "_passiveSkillDescription": "当你血量全满时，获得额外10%攻击力。",
+            "_passiveSkillName": "血之力量",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": null,
+            "_usageType": [
+                "Shooter"
             ]
         }
     ]

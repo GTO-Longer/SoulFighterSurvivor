@@ -136,7 +136,8 @@ namespace Utilities
         Guardian,
         CursedBlade,
         MPBoost,
-        MagicPenetration
+        MagicPenetration,
+        Hydra
     }
 
     public enum Quality

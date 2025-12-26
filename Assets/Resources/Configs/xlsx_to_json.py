@@ -59,7 +59,7 @@ def convert_xlsx_to_json_in_current_dir():
             is_hex_config = 'hexName' in attr_to_row
 
             if is_skill_config:
-                # === SkillConfig 处理逻辑（保持不变）===
+                # === SkillConfig 处理逻辑===
                 skills_list = []
                 for col in data_cols:
                     skill_data = {"id": col}
@@ -119,7 +119,7 @@ def convert_xlsx_to_json_in_current_dir():
                 output_json = {"skills": skills_list}
 
             elif is_hero_config:
-                # === HeroConfig 处理逻辑（保持不变）===
+                # === HeroConfig 处理逻辑===
                 heroes = []
                 for col in data_cols:
                     raw_name = attr_to_row['heroName'].get(col)
@@ -142,15 +142,20 @@ def convert_xlsx_to_json_in_current_dir():
                     for attr, row in attr_to_row.items():
                         value = row.get(col)
                         
-                        # --- 修改开始：针对 _usageType 进行特殊处理 ---
-                        if attr == '_usageType':
+                        # --- 修改开始：针对 _uniqueEffect 进行特殊处理 ---
+                        if attr == '_uniqueEffect':
                             if value is None or str(value).strip() == '':
                                 equipment_data[attr] = []
                             else:
                                 # 按逗号分割字符串，去除空格，生成列表
                                 equipment_data[attr] = [x.strip() for x in str(value).split(',') if x.strip()]
-                        # --- 修改结束 ---
-                        
+                        # --- 修改开始：针对 _usageType 进行特殊处理 ---
+                        elif attr == '_usageType':
+                            if value is None or str(value).strip() == '':
+                                equipment_data[attr] = []
+                            else:
+                                # 按逗号分割字符串，去除空格，生成列表
+                                equipment_data[attr] = [x.strip() for x in str(value).split(',') if x.strip()]
                         else:
                             converted = smart_convert(value)
                             equipment_data[attr] = converted

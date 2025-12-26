@@ -692,7 +692,7 @@ namespace Classes.Entities
             if (equipment == null) return;
             if (!equipment.canPurchase) return;
             
-            var uniqueCheck = equipmentList.Find(equip => equip.Value != null && equip.Value._uniqueEffect == equipment._uniqueEffect);
+            var uniqueCheck = equipmentList.Find(equip => equip.Value != null && equip.Value._uniqueEffect.Intersect(equipment._uniqueEffect).Any());
             if (equipment.owner == null && coins.Value > equipment._cost)
             {
                 // 若是锻造器则直接使用，不进入装备槽
@@ -705,7 +705,7 @@ namespace Classes.Entities
                 }
                 
                 // 装备独一性检测
-                if ((equipment._uniqueEffect != EquipmentUniqueEffect.None && uniqueCheck == null) || equipment._uniqueEffect == EquipmentUniqueEffect.None)
+                if ((equipment._uniqueEffect?.Count > 0 && uniqueCheck == null) || equipment._uniqueEffect?.Count <= 0)
                 {
                     foreach (var property in equipmentList)
                     {

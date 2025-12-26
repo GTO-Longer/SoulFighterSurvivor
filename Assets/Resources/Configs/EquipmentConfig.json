@@ -16,7 +16,9 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": "Guardian",
+            "_uniqueEffect": [
+                "Guardian"
+            ],
             "_usageType": [
                 "Wizard"
             ]
@@ -38,7 +40,9 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": "Guardian",
+            "_uniqueEffect": [
+                "Guardian"
+            ],
             "_usageType": [
                 "Fighter"
             ]
@@ -60,7 +64,9 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": "Guardian",
+            "_uniqueEffect": [
+                "Guardian"
+            ],
             "_usageType": [
                 "Wizard",
                 "Fighter"
@@ -83,7 +89,9 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": "Guardian",
+            "_uniqueEffect": [
+                "Guardian"
+            ],
             "_usageType": [
                 "Assassin"
             ]
@@ -105,7 +113,9 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": "Guardian",
+            "_uniqueEffect": [
+                "Guardian"
+            ],
             "_usageType": [
                 "Shooter"
             ]
@@ -126,7 +136,9 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": "Guardian",
+            "_uniqueEffect": [
+                "Guardian"
+            ],
             "_usageType": [
                 "Tank"
             ]
@@ -144,7 +156,7 @@
             "_activeSkillDescription": "若在未购买装备的情况下购买10次及以上属性锻造器，则有机会获得碎片增幅碎片以百分比提升所有属性碎片属性。购买的越多，越容易获得更高质量的增幅碎片。",
             "_activeSkillName": "被动-锻体",
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Fighter",
                 "Wizard",
@@ -166,7 +178,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Fighter"
             ]
@@ -184,7 +196,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Shooter"
             ]
@@ -202,7 +214,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Assassin"
             ]
@@ -220,7 +232,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Wizard"
             ]
@@ -238,7 +250,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Tank"
             ]
@@ -256,7 +268,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Fighter",
                 "Wizard",
@@ -282,7 +294,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Shooter"
             ]
@@ -304,7 +316,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Wizard"
             ]
@@ -326,7 +338,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Wizard"
             ]
@@ -348,7 +360,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Wizard"
             ]
@@ -370,7 +382,9 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": "MPBoost",
+            "_uniqueEffect": [
+                "MPBoost"
+            ],
             "_usageType": [
                 "Wizard"
             ]
@@ -392,7 +406,9 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": "MPBoost",
+            "_uniqueEffect": [
+                "MPBoost"
+            ],
             "_usageType": [
                 "Wizard"
             ]
@@ -414,7 +430,9 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": "MPBoost",
+            "_uniqueEffect": [
+                "MPBoost"
+            ],
             "_usageType": [
                 "Fighter",
                 "Assassin",
@@ -438,7 +456,9 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": "MPBoost",
+            "_uniqueEffect": [
+                "MPBoost"
+            ],
             "_usageType": [
                 "Fighter",
                 "Assassin",
@@ -462,7 +482,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Tank"
             ]
@@ -484,7 +504,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Wizard"
             ]
@@ -506,7 +526,7 @@
             "_activeSkillDescription": "向目标方向冲刺并释放一道魔法弹影，造成<color=#00D8FF>{0:F0}=（<color=#C97BFF>100+10%<sprite=\"Attributes\" name=\"AbilityPowerIcon\"></color>）魔法伤害</color>。\n该装备的位移可以越过墙体。",
             "_activeSkillName": "超音速",
             "_activeSkillCD": 25,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Wizard"
             ]
@@ -527,7 +547,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Wizard"
             ]
@@ -549,7 +569,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Wizard"
             ]
@@ -570,7 +590,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Wizard"
             ]
@@ -592,7 +612,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Wizard"
             ]
@@ -614,7 +634,9 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": "CursedBlade",
+            "_uniqueEffect": [
+                "CursedBlade"
+            ],
             "_usageType": [
                 "Wizard"
             ]
@@ -636,7 +658,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Wizard",
                 "Shooter"
@@ -660,7 +682,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Wizard"
             ]
@@ -681,7 +703,9 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": "MagicPenetration",
+            "_uniqueEffect": [
+                "MagicPenetration"
+            ],
             "_usageType": [
                 "Wizard"
             ]
@@ -701,7 +725,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Wizard"
             ]
@@ -723,7 +747,9 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": "MagicPenetration",
+            "_uniqueEffect": [
+                "MagicPenetration"
+            ],
             "_usageType": [
                 "Wizard",
                 "Tank"
@@ -746,7 +772,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Wizard"
             ]
@@ -768,7 +794,9 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": "MagicPenetration",
+            "_uniqueEffect": [
+                "MagicPenetration"
+            ],
             "_usageType": [
                 "Wizard"
             ]
@@ -789,7 +817,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Wizard"
             ]
@@ -812,7 +840,10 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": "MagicPenetration",
+            "_uniqueEffect": [
+                "MagicPenetration",
+                "AttackPenetration"
+            ],
             "_usageType": [
                 "Wizard",
                 "Shooter"
@@ -835,7 +866,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Wizard"
             ]
@@ -856,7 +887,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Wizard"
             ]
@@ -878,7 +909,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Shooter"
             ]
@@ -900,7 +931,7 @@
             "_activeSkillDescription": "提供30%<sprite=\"Attributes\" name=\"MovementSpeedIcon\">和幽灵状态，持续6秒。",
             "_activeSkillName": "鬼步化身",
             "_activeSkillCD": 20,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Assassin"
             ]
@@ -922,7 +953,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Assassin"
             ]
@@ -944,7 +975,9 @@
             "_activeSkillDescription": "对身边的敌人造成<color=#FF6A6A>{0:F0}=(80%<sprite=\"Attributes\" name=\"AttackDamageIcon\">)+目标12%已损失<sprite=\"Attributes\" name=\"MaxHealthPointIcon\">的物理伤害</color>。冷却时间10秒。",
             "_activeSkillName": "邪斩",
             "_activeSkillCD": 10,
-            "_uniqueEffect": "Hydra",
+            "_uniqueEffect": [
+                "Hydra"
+            ],
             "_usageType": [
                 "Assassin"
             ]
@@ -966,7 +999,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Assassin"
             ]
@@ -988,7 +1021,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Shooter"
             ]
@@ -1010,7 +1043,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Shooter"
             ]
@@ -1032,7 +1065,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Assassin"
             ]
@@ -1053,7 +1086,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Assassin"
             ]
@@ -1075,7 +1108,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Assassin",
                 "Shooter"
@@ -1097,7 +1130,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Assassin"
             ]
@@ -1119,7 +1152,9 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": "MPBoost",
+            "_uniqueEffect": [
+                "MPBoost"
+            ],
             "_usageType": [
                 "Wizard"
             ]
@@ -1141,7 +1176,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Shooter"
             ]
@@ -1163,7 +1198,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Shooter"
             ]
@@ -1185,7 +1220,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Shooter"
             ]
@@ -1207,7 +1242,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Shooter"
             ]
@@ -1229,7 +1264,9 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [
+                "AttackPenetration"
+            ],
             "_usageType": [
                 "Shooter"
             ]
@@ -1251,7 +1288,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Shooter"
             ]
@@ -1273,7 +1310,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Shooter",
                 "Fighter"
@@ -1295,7 +1332,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Shooter"
             ]
@@ -1318,7 +1355,9 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": "CursedBlade",
+            "_uniqueEffect": [
+                "CursedBlade"
+            ],
             "_usageType": [
                 "Fighter"
             ]
@@ -1326,7 +1365,7 @@
         {
             "id": "EdgeBow",
             "equipmentName": "界弓",
-            "_usageDescription": "双重穿透",
+            "_usageDescription": "混合穿透",
             "_equipmentType": "Legend",
             "_cost": 2500,
             "_attributeList": {
@@ -1339,7 +1378,10 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [
+                "MagicPenetration",
+                "AttackPenetration"
+            ],
             "_usageType": [
                 "Shooter"
             ]
@@ -1361,7 +1403,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Shooter"
             ]
@@ -1383,7 +1425,9 @@
             "_activeSkillDescription": "对附近的敌人造成{0:F0}=（175%攻击力+105%法术强度）物理伤害并施加40%减速。冷却时间15秒。",
             "_activeSkillName": "破阵冲击",
             "_activeSkillCD": 15,
-            "_uniqueEffect": "Hydra",
+            "_uniqueEffect": [
+                "Hydra"
+            ],
             "_usageType": [
                 "Fighter"
             ]
@@ -1405,7 +1449,9 @@
             "_activeSkillDescription": "对周围敌人造成{0:F0}=（130%攻击力）的物理伤害。你的生命偷取会作用于此伤害。冷却时间10秒。",
             "_activeSkillName": "血斩",
             "_activeSkillCD": 10,
-            "_uniqueEffect": "Hydra",
+            "_uniqueEffect": [
+                "Hydra"
+            ],
             "_usageType": [
                 "Fighter"
             ]
@@ -1426,7 +1472,7 @@
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": null,
+            "_uniqueEffect": [],
             "_usageType": [
                 "Shooter"
             ]

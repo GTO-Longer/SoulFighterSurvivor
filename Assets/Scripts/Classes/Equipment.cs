@@ -23,7 +23,7 @@ namespace Classes
         public int _cost;
         public Sprite equipmentIcon;
         public bool canPurchase = true;
-        public EquipmentUniqueEffect _uniqueEffect;
+        public List<EquipmentUniqueEffect> _uniqueEffect;
         public Property<int> chargeCount;
         public Property<int> maxChargeCount;
         public List<UsageType> usageTypes;

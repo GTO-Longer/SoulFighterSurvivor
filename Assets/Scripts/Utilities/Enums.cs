@@ -1,5 +1,3 @@
-using System;
-
 namespace Utilities
 {
     public enum EntityType{
@@ -137,6 +135,7 @@ namespace Utilities
         CursedBlade,
         MPBoost,
         MagicPenetration,
+        AttackPenetration,
         Hydra
     }
 

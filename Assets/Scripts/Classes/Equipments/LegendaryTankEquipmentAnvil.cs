@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Managers;
 using Managers.EntityManagers;
 using Systems;
@@ -15,8 +16,8 @@ namespace Classes.Equipments
             equipment._equipmentType == EquipmentType.Legend &&
             equipment.canPurchase &&
             !HeroManager.hero.tempEquipmentList.Contains(equipment) &&
-            HeroManager.hero.tempEquipmentList.FindAll(equip => equip != null && equipment._uniqueEffect != EquipmentUniqueEffect.None && equipment._uniqueEffect == equip._uniqueEffect).Count == 0 &&
-            HeroManager.hero.equipmentList.FindAll(equip => equip.Value != null && equipment._uniqueEffect != EquipmentUniqueEffect.None && equipment._uniqueEffect == equip.Value._uniqueEffect).Count == 0);
+            HeroManager.hero.tempEquipmentList.FindAll(equip => equip != null && equipment._uniqueEffect.Count > 0 && equipment._uniqueEffect.Intersect(equip._uniqueEffect).Any()).Count == 0 &&
+            HeroManager.hero.equipmentList.FindAll(equip => equip.Value != null && equipment._uniqueEffect.Count > 0 && equipment._uniqueEffect.Intersect(equip.Value._uniqueEffect).Any()).Count == 0);
 
         public LegendaryTankEquipmentAnvil() : base("LegendaryTankEquipmentAnvil")
         {

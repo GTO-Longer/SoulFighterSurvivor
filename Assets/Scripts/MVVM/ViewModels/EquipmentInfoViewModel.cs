@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Classes;
 using DataManagement;
 using Managers.EntityManagers;
@@ -52,7 +53,7 @@ namespace MVVM.ViewModels
                     purchaseButton.onClick.RemoveAllListeners();
                     
                     var uniqueCheck = HeroManager.hero.equipmentList.Find(equip =>
-                        equip.Value != null && equip.Value._uniqueEffect == equipment._uniqueEffect);
+                        equip.Value != null && equip.Value._uniqueEffect.Intersect(equipment._uniqueEffect).Any());
 
                     if (!equipment.canPurchase)
                     {
@@ -67,8 +68,7 @@ namespace MVVM.ViewModels
                         
                         purchaseButton.interactable = false;
                     }
-                    else if ((equipment._uniqueEffect != EquipmentUniqueEffect.None && uniqueCheck == null) ||
-                        equipment._uniqueEffect == EquipmentUniqueEffect.None || uniqueCheck.Value == equipment)
+                    else if (uniqueCheck == null || equipment._uniqueEffect.Count <= 0 || uniqueCheck.Value == equipment)
                     {
                         if (HeroManager.hero.equipmentList.Find(equip => equip.Value == equipment) == null)
                         {

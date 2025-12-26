@@ -99,21 +99,26 @@ namespace DataManagement
 
         // JSON 字段（字符串）
         [JsonProperty("_uniqueEffect")]
-        private string _uniqueEffectRaw;
+        private string[] _uniqueEffectRaw;
 
         // 外部使用统一枚举
         [JsonIgnore]
-        public EquipmentUniqueEffect _uniqueEffect
+        public List<EquipmentUniqueEffect> _uniqueEffect
         {
             get
             {
-                if (string.IsNullOrWhiteSpace(_uniqueEffectRaw))
-                    return EquipmentUniqueEffect.None;
+                var results = new List<EquipmentUniqueEffect>();
+                
+                foreach (var str in _uniqueEffectRaw)
+                {
+                    if (string.IsNullOrWhiteSpace(str))
+                        continue;
 
-                if (Enum.TryParse(_uniqueEffectRaw, true, out EquipmentUniqueEffect result))
-                    return result;
+                    if (Enum.TryParse(str, true, out EquipmentUniqueEffect result))
+                        results.Add(result);
+                }
 
-                return EquipmentUniqueEffect.None;
+                return results;
             }
         }
     }

@@ -1282,7 +1282,7 @@
                 "attackSpeed": 0.4,
                 "percentageMovementSpeed": 0.04
             },
-            "_passiveSkillDescription": "你的下5次攻击会在命中时会触发连锁闪电，对最多5个目标造成<color=#00D8FF>{0:F0}=（80+45%<sprite=\"Attributes\" name=\"AttackDamageIcon\">+66%<sprite=\"Attributes\" name=\"AbilityPowerIcon\">）的魔法伤害</color>。冷却时间5秒。",
+            "_passiveSkillDescription": "你的下5次攻击会在命中时会触发连锁闪电，对最多5个目标造成<color=#00D8FF>{0:F0}=（80+45%<sprite=\"Attributes\" name=\"AttackDamageIcon\">+<color=#7700BB>66%</color><sprite=\"Attributes\" name=\"AbilityPowerIcon\">）的魔法伤害</color>。冷却时间5秒。",
             "_passiveSkillName": "电火花",
             "_passiveSkillCD": 5,
             "_activeSkillDescription": null,
@@ -1372,7 +1372,7 @@
                 "attackDamage": 30,
                 "attackSpeed": 0.25
             },
-            "_passiveSkillDescription": "攻击造成30额外魔法伤害。\n在持续攻击时，在光明特效和黑暗特效之间切换：附带光明特效的攻击提供持续5秒的8护甲和魔法抗性（至多至32）；附带黑暗特效的攻击提供持续5秒的8%护甲穿透和法术穿透（至多至32%）。",
+            "_passiveSkillDescription": "攻击造成30额外<color=#00D8FF>魔法伤害</color>。每次攻击切换特效：附带光明的攻击提供8<sprite=\"Attributes\" name=\"AttackDefenseIcon\">和<sprite=\"Attributes\" name=\"MagicDefenseIcon\">；附带黑暗的攻击提供8%<sprite=\"Attributes\" name=\"AttackPenetrationIcon\">和<sprite=\"Attributes\" name=\"MagicPenetrationIcon\">。两种特效均持续5秒，最多叠加4层。",
             "_passiveSkillName": "光影交相",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
@@ -1397,7 +1397,7 @@
                 "attackSpeed": 0.2,
                 "lifeSteal": 0.1
             },
-            "_passiveSkillDescription": "攻击附带额外8%敌人当前生命值的物理伤害的攻击特效。",
+            "_passiveSkillDescription": "攻击附带额外<color=#FF6A6A>8%敌人当前生命值的物理伤害</color>的攻击特效。",
             "_passiveSkillName": "雾之锋",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
@@ -1419,10 +1419,10 @@
                 "attackSpeed": 0.15,
                 "maxHealthPoint": 375
             },
-            "_passiveSkillDescription": "攻击会对附近的敌人造成{0:F0}=（40%攻击力）的物理伤害。",
+            "_passiveSkillDescription": "攻击会对附近的敌人造成<color=#FF6A6A>{0:F0}=（40%<sprite=\"Attributes\" name=\"AttackDamageIcon\">）的物理伤害</color>。",
             "_passiveSkillName": "顺劈",
             "_passiveSkillCD": 0,
-            "_activeSkillDescription": "对附近的敌人造成{0:F0}=（175%攻击力+105%法术强度）物理伤害并施加40%减速。冷却时间15秒。",
+            "_activeSkillDescription": "对附近的敌人造成<color=#FF6A6A>{0:F0}=（175%<sprite=\"Attributes\" name=\"AttackDamageIcon\">+<color=#7700BB>105%</color><sprite=\"Attributes\" name=\"AbilityPowerIcon\">）物理伤害</color>并施加40%减速。冷却时间15秒。",
             "_activeSkillName": "破阵冲击",
             "_activeSkillCD": 15,
             "_uniqueEffect": [
@@ -1443,10 +1443,10 @@
                 "abilityHaste": 15,
                 "lifeSteal": 0.15
             },
-            "_passiveSkillDescription": "攻击会对周围的敌人造成{0:F0}=（40%攻击力）的物理伤害。",
+            "_passiveSkillDescription": "攻击会对周围的敌人造成<color=#FF6A6A>{0:F0}=（40%<sprite=\"Attributes\" name=\"AttackDamageIcon\">）的物理伤害</color>。",
             "_passiveSkillName": "顺劈",
             "_passiveSkillCD": 0,
-            "_activeSkillDescription": "对周围敌人造成{0:F0}=（130%攻击力）的物理伤害。你的生命偷取会作用于此伤害。冷却时间10秒。",
+            "_activeSkillDescription": "对周围敌人造成<color=#FF6A6A>{0:F0}=（130%<sprite=\"Attributes\" name=\"AttackDamageIcon\">）的物理伤害</color>。你的生命偷取会作用于此伤害。冷却时间10秒。",
             "_activeSkillName": "血斩",
             "_activeSkillCD": 10,
             "_uniqueEffect": [
@@ -1466,7 +1466,7 @@
                 "attackDamage": 70,
                 "lifeSteal": 0.18
             },
-            "_passiveSkillDescription": "当你血量全满时，获得额外10%攻击力。",
+            "_passiveSkillDescription": "当你血量全满时，获得额外10%<sprite=\"Attributes\" name=\"AttackDamageIcon\">。",
             "_passiveSkillName": "血之力量",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,

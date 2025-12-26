@@ -275,7 +275,10 @@ namespace MVVM.ViewModels
                 }
 
                 // 更新UI布局
-                LayoutRebuilder.ForceRebuildLayoutImmediate(entryPrefab.transform.parent.GetComponent<RectTransform>());
+                foreach (var entry in entryList)
+                {
+                    LayoutRebuilder.ForceRebuildLayoutImmediate(entry.GetComponent<RectTransform>());
+                }
             }
         }
 

@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using Classes.Buffs;
 using Factories;
 using Managers;
 using Managers.EntityManagers;
@@ -24,6 +22,7 @@ namespace Classes.Equipments
                     var damageArea = BulletFactory.Instance.CreateBullet(owner, 0.3f, 1);
                     damageArea.OnBulletAwake += (self) =>
                     {
+                        self.gameObject.transform.position = target.gameObject.transform.position;
                         self.gameObject.SetActive(true);
                         self.gameObject.GetComponent<SpriteRenderer>().enabled = false;
                         self.effect = EffectManager.Instance.CreateEffect("ProfaneHydra", self.gameObject);
@@ -72,6 +71,7 @@ namespace Classes.Equipments
                 var damageArea = BulletFactory.Instance.CreateBullet(owner, 0.3f, 1);
                 damageArea.OnBulletAwake += (self) =>
                 {
+                    self.gameObject.transform.position = owner.gameObject.transform.position;
                     self.gameObject.SetActive(true);
                     self.gameObject.GetComponent<SpriteRenderer>().enabled = false;
                     self.effect = EffectManager.Instance.CreateEffect("ProfaneHydra", self.gameObject);

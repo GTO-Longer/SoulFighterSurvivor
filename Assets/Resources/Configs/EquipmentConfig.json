@@ -1422,7 +1422,7 @@
             "_passiveSkillDescription": "攻击会对附近的敌人造成<color=#FF6A6A>{0:F0}=（40%<sprite=\"Attributes\" name=\"AttackDamageIcon\">）的物理伤害</color>。",
             "_passiveSkillName": "顺劈",
             "_passiveSkillCD": 0,
-            "_activeSkillDescription": "对附近的敌人造成<color=#FF6A6A>{0:F0}=（175%<sprite=\"Attributes\" name=\"AttackDamageIcon\">+<color=#7700BB>105%</color><sprite=\"Attributes\" name=\"AbilityPowerIcon\">）物理伤害</color>并施加40%减速。冷却时间15秒。",
+            "_activeSkillDescription": "对附近的敌人造成<color=#FF6A6A>{0:F0}=（175%<sprite=\"Attributes\" name=\"AttackDamageIcon\">+<color=#7700BB>105%</color><sprite=\"Attributes\" name=\"AbilityPowerIcon\">）物理伤害</color>并施加3秒40%减速。冷却时间15秒。",
             "_activeSkillName": "破阵冲击",
             "_activeSkillCD": 15,
             "_uniqueEffect": [

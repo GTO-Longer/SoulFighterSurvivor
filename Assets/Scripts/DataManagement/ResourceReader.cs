@@ -473,7 +473,7 @@ namespace DataManagement
         /// <summary>
         /// 加载并创建预制体
         /// </summary>
-        public static GameObject LoadPrefab(string prefabPath, Transform parent = null)
+        public static GameObject LoadPrefab(string prefabPath, Transform parent = null, bool active = true)
         {
             if (string.IsNullOrEmpty(prefabPath))
             {
@@ -491,7 +491,7 @@ namespace DataManagement
             }
             
             var go = GameObject.Instantiate(prefab, parent);
-            go.SetActive(true);
+            go.SetActive(active);
 
             return go;
         }

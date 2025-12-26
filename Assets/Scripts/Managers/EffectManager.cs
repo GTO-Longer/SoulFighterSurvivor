@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using Classes;
 using DataManagement;
@@ -9,7 +8,7 @@ namespace Managers
     public class EffectManager : MonoBehaviour
     {
         public static EffectManager Instance;
-        public List<Effect> effectList;
+        private List<Effect> effectList;
 
         private void Awake()
         {
@@ -28,6 +27,7 @@ namespace Managers
                 var effect = effectList[index];
                 effect.EffectUpdate();
                 DestroyAfterAnimation(effect);
+                
                 if (effect.owner != null)
                 {
                     effect.effect.transform.position = effect.owner.transform.position;
@@ -37,7 +37,11 @@ namespace Managers
 
         public Effect CreateEffect(string effectName, GameObject owner)
         {
-            var effect = new Effect(owner, ResourceReader.LoadPrefab($"Effects/{effectName}", transform));
+            var effect = new Effect(owner, ResourceReader.LoadPrefab($"Effects/{effectName}", transform, false));
+            
+            effect.effect.transform.position = owner.transform.position;
+            effect.effect.SetActive(true);
+            
             effectList.Add(effect);
             return effect;
         }

@@ -66,9 +66,9 @@ namespace MVVM.ViewModels
                 hexSlotList[index].GetComponent<Image>().color = hex.hexQuality switch
                 {
                     Quality.None => Color.black,
-                    Quality.Silver => Colors.GetColor(Colors.SilverBorder),
-                    Quality.Gold => Colors.GetColor(Colors.GoldBorder),
-                    Quality.Prismatic => Colors.GetColor(Colors.PrismaticBorder),
+                    Quality.Silver => Colors.GetColor(Colors.SilverBorder, 0.25f),
+                    Quality.Gold => Colors.GetColor(Colors.GoldBorder, 0.25f),
+                    Quality.Prismatic => Colors.GetColor(Colors.PrismaticBorder, 0.25f),
                     _ => throw new ArgumentOutOfRangeException()
                 };
                 hexSlotList[index].Find("HexIcon").GetComponent<Image>().sprite = hex.hexIcon;

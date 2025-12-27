@@ -78,9 +78,9 @@ namespace Systems
                 switch (choice.choiceQuality)
                 {
                     case Quality.None: choiceIconBorder.gameObject.SetActive(false); break;
-                    case Quality.Silver: choiceIconBorder.color = Colors.GetColor(Colors.SilverBorder); break;
-                    case Quality.Gold: choiceIconBorder.color = Colors.GetColor(Colors.GoldBorder); break;
-                    case Quality.Prismatic: choiceIconBorder.color = Colors.GetColor(Colors.PrismaticBorder); break;
+                    case Quality.Silver: choiceIconBorder.color = Colors.GetColor(Colors.SilverBorder, 0.25f); break;
+                    case Quality.Gold: choiceIconBorder.color = Colors.GetColor(Colors.GoldBorder, 0.25f); break;
+                    case Quality.Prismatic: choiceIconBorder.color = Colors.GetColor(Colors.PrismaticBorder, 0.25f); break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }

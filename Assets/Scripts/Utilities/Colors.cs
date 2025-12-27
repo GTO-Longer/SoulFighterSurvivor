@@ -32,10 +32,10 @@ namespace Utilities
         public const string Prismatic = "#E6B6FF";
         public const string PrismaticBorder = "#DCC3E9";
 
-        public static Color GetColor(string color)
+        public static Color GetColor(string color, float alpha = 1)
         {
             ColorUtility.TryParseHtmlString(color, out var newColor);
-            return newColor;
+            return new Color(newColor.r, newColor.g, newColor.b, alpha);
         }
     }
 }

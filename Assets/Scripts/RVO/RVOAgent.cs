@@ -1,4 +1,6 @@
 using Classes;
+using Managers.EntityManagers;
+using TMPro;
 using UnityEngine;
 using Unity.Mathematics;
 using UnityEngine.AI;
@@ -11,6 +13,8 @@ namespace RVO
         public Entity entity;
         private NavMeshPath navPath;
         public NavMeshAgent navAgent;
+
+        public TMP_Text DebugContent;
 
         /// <summary>
         /// 是否停止寻路
@@ -26,6 +30,14 @@ namespace RVO
 
         private bool changeGoal;
         private int currentCornerIndex;
+
+        private const float keepRVOTime = 0.5f;
+        private float keepRVOTimer = 0f;
+        
+        // 随机扰动控制
+        public float stuckTimer = 0f;
+        public float2 activeNoise = float2.zero;
+        public float noiseDuration = 0f;
 
         public LayerMask unitsLayer;
         public LayerMask navObstacleLayer;
@@ -62,12 +74,12 @@ namespace RVO
         }
         
         /// <summary>
-        /// 更新Agent位置和旋转
+        /// 更新Agent
         /// </summary>
         public void AgentUpdate()
         {
-            
             manager.simulator.SetAgentRadius(agentId, entity.scale);
+            
             if (!isStopped)
             {
                 CheckReachTarget();
@@ -75,19 +87,30 @@ namespace RVO
                 // 幽灵模式下不避障
                 if (isGhost)
                 {
-                    useNavMeshMovement = true;
-                    manager.simulator.SetAgentMaxNeighbors(agentId, 0);
+                    manager.simulator.SetAgentNeighborDist(agentId, 0f);
+                    manager.simulator.SetAgentNeighborDist(agentId, 0);
                 }
                 else
                 {
-                    manager.simulator.SetAgentMaxNeighbors(agentId, 50);
+                    manager.simulator.SetAgentNeighborDist(agentId, 30f);
+                    manager.simulator.SetAgentNeighborDist(agentId, entity.movementSpeed.Value);
                 }
+                
+                manager.simulator.SetAgentTimeHorizonObst(agentId, 0.5f);
+                manager.simulator.SetAgentTimeHorizon(agentId, 0.5f);
+                manager.simulator.SetAgentMaxSpeed(agentId, 10000f);
                 
                 var pos = manager.simulator.GetAgentPosition(agentId);
                 transform.position = new Vector3(pos.x, pos.y, 0f);
                 
                 var velocity = (Vector2)manager.simulator.GetAgentVelocity(agentId);
                 entity.RotateTo(ref velocity);
+            }
+                
+            if (Equals(entity, HeroManager.hero))
+            {
+                DebugContent.text = "当前寻路模式：" + (UsingNavMeshMovement ? "Nav" : "RVO");
+                DebugContent.text += "\n是否停止：" + isStopped;
             }
         }
 
@@ -97,13 +120,6 @@ namespace RVO
         public void SetDestination(Vector2 position)
         {
             if (isStopped) return;
-
-            if (Vector2.Distance(position, entity.gameObject.transform.position) <=
-                entity.scale + entity.movementSpeed * Time.deltaTime * 2f)
-            {
-                SetStop(true);
-                return;
-            }
             
             if (NavMesh.SamplePosition(position, out var hit, 1000f, NavMesh.AllAreas))
             {
@@ -122,23 +138,32 @@ namespace RVO
         /// </summary>
         public void ChangePathFindMethod(float2 pos)
         {
-            // 只有更新目标的时候或者使用RVO寻路时才需要重算路线
-            if (changeGoal || !useNavMeshMovement)
+            // 只有更新目标的时候才需要重算路线
+            if (changeGoal)
             {
                 // 刷新路径
                 RegeneratePath(pos);
-
                 changeGoal = false;
+            }
+            
+            if (isGhost)
+            {
+                useNavMeshMovement = true;
+                keepRVOTimer = 0;
+                return;
+            }
+            
+            if (keepRVOTimer > 0)
+            {
+                keepRVOTimer -= Time.fixedDeltaTime;
+                return;
             }
 
             Vector2 targetPoint;
 
-            if (navPath.corners != null &&
-                navPath.corners.Length > 0 &&
-                currentCornerIndex < navPath.corners.Length)
+            if (navPath.corners != null && navPath.corners.Length > 0 && currentCornerIndex < navPath.corners.Length)
             {
-                targetPoint = new Vector2(navPath.corners[currentCornerIndex].x,
-                                          navPath.corners[currentCornerIndex].y);
+                targetPoint = new Vector2(navPath.corners[currentCornerIndex].x, navPath.corners[currentCornerIndex].y);
             }
             else
             {
@@ -152,7 +177,7 @@ namespace RVO
             
             var rayLen = entity.scale.Value * 2f;
             var results = new RaycastHit2D[10];
-            Physics2D.CircleCastNonAlloc(origin, entity.scale.Value * 0.9f, dir, results, rayLen, unitsLayer | navObstacleLayer);
+            Physics2D.CircleCastNonAlloc(origin, entity.scale.Value * 0.99f, dir, results, rayLen, unitsLayer | navObstacleLayer);
             
             foreach (var h in results)
             {
@@ -168,6 +193,7 @@ namespace RVO
                 if (go.CompareTag("Enemy"))
                 {
                     useNavMeshMovement = false;
+                    keepRVOTimer = keepRVOTime;
                     return;
                 }
 
@@ -261,7 +287,7 @@ namespace RVO
             {
                 // 停止时设置Agent属性
                 manager.simulator.SetAgentTimeHorizon(agentId, 1000f);
-                manager.simulator.SetAgentTimeHorizonObst(agentId, 1000f); 
+                manager.simulator.SetAgentTimeHorizonObst(agentId, 1000f);
                 manager.simulator.SetAgentNeighborDist(agentId, 0f);
                 manager.simulator.SetAgentMaxSpeed(agentId, 0f);
                 
@@ -269,12 +295,7 @@ namespace RVO
             }
             else
             {
-                manager.simulator.SetAgentTimeHorizon(agentId, 3f);
-                manager.simulator.SetAgentTimeHorizonObst(agentId, 60f);
-                manager.simulator.SetAgentNeighborDist(agentId, 600f);
-                manager.simulator.SetAgentMaxSpeed(agentId, 3000f);
-                
-                // 恢复时回到物体所在位置
+                // 恢复时回到物体的当前所在位置
                 Warp(transform.position);
             }
             
@@ -294,7 +315,15 @@ namespace RVO
         /// </summary>
         private void CheckReachTarget()
         {
-            _isStopped = Vector2.Distance(transform.position, new Vector2(goal.x, goal.y)) <= entity.scale.Value * 0.3f;
+            if (!isStopped)
+            {
+                _isStopped = Vector2.Distance(transform.position, new Vector2(goal.x, goal.y)) <= entity.movementSpeed.Value * Time.fixedDeltaTime;
+
+                if (isStopped)
+                {
+                    Warp(goal);
+                }
+            }
         }
         
         /// <summary>
@@ -303,28 +332,28 @@ namespace RVO
         public float2 GetDesiredVelocity(Simulator sim, int id)
         {
             var pos = sim.GetAgentPosition(id);
+            var speed = entity.movementSpeed.Value;
 
-            // NAV 模式
+            // Nav模式
             if (useNavMeshMovement && navPath != null && navPath.corners != null && navPath.corners.Length > 0)
             {
                 // 确保索引安全
                 if (currentCornerIndex >= navPath.corners.Length)
+                {
                     currentCornerIndex = navPath.corners.Length - 1;
+                }
 
                 var corner = navPath.corners[currentCornerIndex];
                 var target = new float2(corner.x, corner.y);
-
                 var dis = Vector2.Distance(target, pos);
 
-                // 接近当前 corner，推进 index
-                if (dis < 10f)
+                // 接近当前corner，推进index
+                if (dis <= speed * Time.fixedDeltaTime)
                 {
                     currentCornerIndex++;
                     
-                    // 关键修复：推进后必须再次检查索引
                     if (currentCornerIndex >= navPath.corners.Length)
                     {
-                        // 已经到最后一个点，直接朝最终目标移动
                         currentCornerIndex = navPath.corners.Length - 1;
                     }
 
@@ -334,19 +363,13 @@ namespace RVO
                 }
 
                 // 返回速度向量
-                return ((Vector2)target - (Vector2)pos).normalized * entity.movementSpeed.Value;
+                return ((Vector2)target - (Vector2)pos).normalized * speed;
             }
 
             // 使用RVO
-            RegeneratePath(pos);
             if (navPath != null && navPath.corners != null && navPath.corners.Length > 1)
             {
-                var vel = new float2(navPath.corners[1].x - pos.x, navPath.corners[1].y - pos.y);
-                var speed = entity.movementSpeed.Value;
-                if (math.lengthsq(vel) > 1f)
-                    vel = math.normalize(vel) * speed;
-
-                return vel;
+                return new Vector2(navPath.corners[1].x - pos.x, navPath.corners[1].y - pos.y).normalized * speed;
             }
             
             return float2.zero;
@@ -367,6 +390,26 @@ namespace RVO
 
             navPath ??= new NavMeshPath();
             NavMesh.CalculatePath(start, goalV, NavMesh.AllAreas, navPath);
+        }
+        
+        public float2 GetTangentDirection(bool turnLeft)
+        {
+            var pos = manager.simulator.GetAgentPosition(agentId);
+            float2 target;
+
+            // 获取当前正在前往的目标点
+            if (navPath != null && navPath.corners != null && currentCornerIndex < navPath.corners.Length)
+            {
+                target = new float2(navPath.corners[currentCornerIndex].x, navPath.corners[currentCornerIndex].y);
+            }
+            else
+            {
+                target = goal;
+            }
+
+            var dir = (new Vector2(target.x, target.y) - new Vector2(pos.x, pos.y)).normalized;
+
+            return turnLeft ? new float2(-dir.y, dir.x) : new float2(dir.y, -dir.x);
         }
     }
 }

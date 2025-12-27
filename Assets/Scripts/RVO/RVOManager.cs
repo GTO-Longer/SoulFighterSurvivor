@@ -24,7 +24,7 @@ namespace RVO
             simulator.SetTimeStep(Time.fixedDeltaTime);
 
             simulator.SetAgentDefaults(
-                600f,   // neighborDist
+                300f,   // neighborDist
                 30,     // maxNeighbors
                 3f,     // timeHorizon
                 60f,    // timeHorizonObst
@@ -89,27 +89,38 @@ namespace RVO
                 // 判断该使用什么寻路方式
                 agent.ChangePathFindMethod(simulator.GetAgentPosition(id));
                 simulator.SetAgentMaxSpeed(id, agent.entity.movementSpeed.Value);
+                
                 var prefVel = agent.GetDesiredVelocity(simulator, id);
-
-                // Nav寻路时RVO避障
-                if (agent.UsingNavMeshMovement)
+                var currentVel = simulator.GetAgentVelocity(id);
+                var maxSpeed = agent.entity.movementSpeed.Value;
+                var stuckThresholdSq = math.pow(maxSpeed * 0.1f, 2); 
+                var desireThresholdSq = math.pow(10f, 2);
+                
+                if (agent.noiseDuration > 0)
                 {
-                    simulator.SetAgentTimeHorizonObst(id, 0f);
-
-                    simulator.SetAgentPrefVelocity(id, prefVel);
+                    agent.noiseDuration -= Time.fixedDeltaTime;
+                    prefVel += agent.activeNoise;
                 }
                 else
                 {
-                    // 恢复RVO避障
-                    simulator.SetAgentTimeHorizonObst(id, 60f);
-                    simulator.SetAgentPrefVelocity(id, prefVel);
-
-                    // 防对称锁死随机扰动
-                    var angle = (float)rng.NextDouble() * math.PI * 2f;
-                    var noise = new float2(math.cos(angle), math.sin(angle)) * (float)rng.NextDouble() * 50f;
-
-                    simulator.SetAgentPrefVelocity(id, simulator.GetAgentPrefVelocity(id) + noise);
+                    if (!agent.UsingNavMeshMovement && math.lengthsq(prefVel) > desireThresholdSq && math.lengthsq(currentVel) < stuckThresholdSq)
+                    {
+                        agent.stuckTimer += Time.fixedDeltaTime;
+                        
+                        // 如果连续卡住0.2秒以上
+                        if (agent.stuckTimer > 0.2f)
+                        {
+                            var turnLeft = (id % 2 == 0); 
+                            var tangentDir = agent.GetTangentDirection(turnLeft);
+            
+                            agent.activeNoise = tangentDir * agent.entity.movementSpeed.Value * 1.0f; 
+                            agent.noiseDuration = 0.5f; 
+                            agent.stuckTimer = 0f;
+                        }
+                    }
                 }
+                
+                simulator.SetAgentPrefVelocity(id, prefVel);
             }
         }
 

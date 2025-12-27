@@ -289,5 +289,11 @@ namespace Classes.Equipments
             description = string.Format(_passiveSkillName + "\n" + _passiveSkillDescription);
             return true;
         }
+
+        public override bool GetActiveSkillDescription(out string description)
+        {
+            description = string.Format(_activeSkillName + "\n" + _activeSkillDescription);
+            return true;
+        }
     }
 }

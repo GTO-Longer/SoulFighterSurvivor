@@ -693,7 +693,7 @@ namespace Classes.Entities
             if (!equipment.canPurchase) return;
             
             var uniqueCheck = equipmentList.Find(equip => equip.Value != null && equip.Value._uniqueEffect.Intersect(equipment._uniqueEffect).Any());
-            if (equipment.owner == null && coins.Value > equipment._cost)
+            if (equipment.owner == null && coins.Value >= equipment._cost)
             {
                 // 若是锻造器则直接使用，不进入装备槽
                 if (equipment._equipmentType == EquipmentType.Anvil)

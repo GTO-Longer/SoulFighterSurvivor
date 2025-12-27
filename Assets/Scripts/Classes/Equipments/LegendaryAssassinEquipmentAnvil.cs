@@ -10,7 +10,7 @@ namespace Classes.Equipments
 {
     public class LegendaryAssassinEquipmentAnvil : Equipment
     {
-        private List<Equipment> targetEquipments = EquipmentManager.Instance.equipmentList.FindAll(equipment =>
+        private List<Equipment> targetEquipments => EquipmentManager.Instance.equipmentList.FindAll(equipment =>
             equipment.usageTypes.Contains(UsageType.Assassin) &&
             equipment.owner == null &&
             equipment._equipmentType == EquipmentType.Legend &&

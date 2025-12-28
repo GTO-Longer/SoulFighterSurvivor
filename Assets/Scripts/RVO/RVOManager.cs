@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Profiling;
+using Utilities;
 
 namespace RVO
 {
@@ -12,7 +13,6 @@ namespace RVO
 
         public Simulator simulator;
         private CustomSampler sampler;
-        private System.Random rng = new System.Random();
 
         public static RVOManager Instance;
 
@@ -87,7 +87,8 @@ namespace RVO
                 }
 
                 // 判断该使用什么寻路方式
-                agent.ChangePathFindMethod(simulator.GetAgentPosition(id));
+                var pos = simulator.GetAgentPosition(id);
+                agent.ChangePathFindMethod(pos);
                 simulator.SetAgentMaxSpeed(id, agent.entity.movementSpeed.Value);
                 
                 var prefVel = agent.GetDesiredVelocity(simulator, id);
@@ -107,14 +108,18 @@ namespace RVO
                     {
                         agent.stuckTimer += Time.fixedDeltaTime;
                         
-                        // 如果连续卡住0.2秒以上
-                        if (agent.stuckTimer > 0.2f)
+                        // 如果玩家连续卡住0.2秒以上
+                        if (agent.stuckTimer > 0.2f && agent.entity.team == Team.Hero)
                         {
                             var turnLeft = (id % 2 == 0); 
+                            if (agent.TryWallSideAvoidance(pos, out var left))
+                            {
+                                turnLeft = left;
+                            }
                             var tangentDir = agent.GetTangentDirection(turnLeft);
             
                             agent.activeNoise = tangentDir * agent.entity.movementSpeed.Value * 1.0f; 
-                            agent.noiseDuration = 0.5f; 
+                            agent.noiseDuration = 1f; 
                             agent.stuckTimer = 0f;
                         }
                     }

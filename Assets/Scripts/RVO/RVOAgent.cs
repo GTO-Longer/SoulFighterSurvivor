@@ -1,6 +1,4 @@
 using Classes;
-using Managers.EntityManagers;
-using TMPro;
 using UnityEngine;
 using Unity.Mathematics;
 using UnityEngine.AI;
@@ -13,8 +11,6 @@ namespace RVO
         public Entity entity;
         private NavMeshPath navPath;
         public NavMeshAgent navAgent;
-
-        public TMP_Text DebugContent;
 
         /// <summary>
         /// 是否停止寻路
@@ -32,12 +28,12 @@ namespace RVO
         private int currentCornerIndex;
 
         private const float keepRVOTime = 0.5f;
-        private float keepRVOTimer = 0f;
+        private float keepRVOTimer;
         
         // 随机扰动控制
-        public float stuckTimer = 0f;
+        public float stuckTimer;
         public float2 activeNoise = float2.zero;
-        public float noiseDuration = 0f;
+        public float noiseDuration;
 
         public LayerMask unitsLayer;
         public LayerMask navObstacleLayer;
@@ -105,12 +101,6 @@ namespace RVO
                 
                 var velocity = (Vector2)manager.simulator.GetAgentVelocity(agentId);
                 entity.RotateTo(ref velocity);
-            }
-                
-            if (Equals(entity, HeroManager.hero))
-            {
-                DebugContent.text = "当前寻路模式：" + (UsingNavMeshMovement ? "Nav" : "RVO");
-                DebugContent.text += "\n是否停止：" + isStopped;
             }
         }
 
@@ -211,22 +201,17 @@ namespace RVO
         /// <summary>
         /// RVO寻路中向没墙体的方向逃逸
         /// </summary>
-        public bool TryWallSideAvoidance(float2 pos, out float2 escapeDir)
+        public bool TryWallSideAvoidance(float2 pos, out bool left)
         {
-            escapeDir = float2.zero;
-
-            // 如果处于Nav寻路中直接返回
-            if (useNavMeshMovement)
-                return false;
+            left = false;
+            
+            if (useNavMeshMovement) return false;
             
             Vector2 targetPoint;
 
-            if (navPath.corners != null &&
-                navPath.corners.Length > 0 &&
-                currentCornerIndex < navPath.corners.Length)
+            if (navPath.corners != null && navPath.corners.Length > 0 && currentCornerIndex < navPath.corners.Length)
             {
-                targetPoint = new Vector2(navPath.corners[currentCornerIndex].x,
-                    navPath.corners[currentCornerIndex].y);
+                targetPoint = new Vector2(navPath.corners[currentCornerIndex].x, navPath.corners[currentCornerIndex].y);
             }
             else
             {
@@ -239,29 +224,30 @@ namespace RVO
             origin += dir * entity.scale * 1.5f;
 
             // 左右侧方向
-            var left = new Vector2(-dir.y, dir.x);
-            var right = new Vector2(dir.y, -dir.x);
+            var leftDirection = new Vector2(-dir.y, dir.x);
+            var rightDirection = new Vector2(dir.y, -dir.x);
             
             // 侧边检测长度
             var sideRayLen = entity.scale.Value * 2f;
 
-            bool hitLeftWall  = Physics2D.Raycast(origin, left, sideRayLen, navObstacleLayer);
-            bool hitRightWall = Physics2D.Raycast(origin, right, sideRayLen, navObstacleLayer);
+            bool hitLeft  = Physics2D.Raycast(origin, leftDirection, sideRayLen, navObstacleLayer);
+            bool hitRight = Physics2D.Raycast(origin, rightDirection, sideRayLen, navObstacleLayer);
 
-            if (!hitLeftWall && !hitRightWall)
+            if (!hitLeft && !hitRight)
             {
                 return false;
             }
             
             // 向没有墙的方向给予强制速度
-            if (!hitRightWall)
+            if (!hitRight)
             {
-                escapeDir = new float2(right.x, right.y);
+                left = false;
                 return true;
             }
-            if (!hitLeftWall)
+            
+            if (!hitLeft)
             {
-                escapeDir = new float2(left.x, left.y);
+                left = true;
                 return true;
             }
 

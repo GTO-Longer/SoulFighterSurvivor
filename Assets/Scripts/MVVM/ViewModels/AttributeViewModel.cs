@@ -77,7 +77,7 @@ namespace MVVM.ViewModels
                     AttributeType.AbilityHaste, new List<AttributeDescriptionDelegate>
                     {
                         () => "技能急速", () => "允许你更为频繁的释放技能",
-                        () => $"当前技能急速：<color=#00FF00>{hero.abilityHaste.Value:F0}</color>\n相当于使你的技能冷却时间缩短<color=#00FF00>{hero.actualAbilityCooldown:P0}</color>"
+                        () => $"当前技能急速：<color=#00FF00>{hero.abilityHaste.Value:F0}</color>\n相当于使你的技能冷却时间缩短<color=#00FF00>{1 - hero.actualAbilityCooldown:P0}</color>"
                     }
                 },
                 {

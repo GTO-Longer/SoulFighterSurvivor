@@ -38,7 +38,12 @@ namespace Classes
         public List<Buff> buffList;
         // 获取金币增加量
         public float fortune;
+        // 技能能否暴击
         public bool canSkillCritical;
+        // 是否被控制
+        public bool isControlled;
+        private float controlTime;
+        private float controlTimer;
         
         #region 最终属性
 
@@ -922,6 +927,32 @@ namespace Classes
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// 控制状态更新
+        /// </summary>
+        public void ControlTimeUpdate()
+        {
+            if (controlTime > 0f && isAlive && isControlled)
+            {
+                if (controlTimer < controlTime)
+                {
+                    controlTimer += Time.deltaTime;
+                }
+                else
+                {
+                    controlTimer = 0f;
+                    controlTime = 0f;
+                    isControlled = false;
+                }
+            }
+        }
+
+        public void GetControlled(float time)
+        {
+            controlTime = time;
+            isControlled = true;
         }
         
         #endregion

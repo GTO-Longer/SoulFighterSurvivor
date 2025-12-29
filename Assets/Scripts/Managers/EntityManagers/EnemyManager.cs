@@ -26,12 +26,22 @@ namespace Managers.EntityManagers
 
         private void Update()
         {
-            if (enemy != null)
+            if (enemy == null || !enemy.isAlive || HeroManager.hero == null || !HeroManager.hero.isAlive)
+            {
+                return;
+            }
+
+            enemy.GainExperience();
+            enemy.EntityUpdate();
+
+            if (!enemy.isControlled)
             {
                 enemy.Move();
                 enemy.Attack();
-                enemy.GainExperience();
-                enemy.EntityUpdate();
+            }
+            else
+            {
+                enemy.ControlTimeUpdate();
             }
         }
 

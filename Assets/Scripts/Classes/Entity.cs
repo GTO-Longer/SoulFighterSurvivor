@@ -486,7 +486,7 @@ namespace Classes
         /// <summary>
         /// 基础攻击速度
         /// </summary>
-        protected float _baseAttackSpeed;
+        public float _baseAttackSpeed;
         /// <summary>
         /// 基础攻击力
         /// </summary>
@@ -956,9 +956,12 @@ namespace Classes
 
         public void GetControlled(float time)
         {
-            agent.SetStop(true);
-            controlTime.Value = time;
-            isControlled.Value = true;
+            if (isAlive)
+            {
+                agent.SetStop(true);
+                controlTime.Value = time;
+                isControlled.Value = true;
+            }
         }
         
         #endregion
@@ -1084,6 +1087,9 @@ namespace Classes
             
             #region 配置计算属性依赖
             
+            originCriticalRate = new Property<float>(() => _criticalRateBonus * (1 + _percentageCriticalRateBonus) + abilityPower * _APToCR_ConversionEfficiency.Value.y,
+                DataType.Percentage,
+                _criticalRateBonus, _percentageCriticalRateBonus, originAbilityPower, _APToCR_ConversionEfficiency);
             maxExperience = new Property<float>(() => 5f * level * level + 80f * level + 195,
                 DataType.Int,
                 level);
@@ -1132,9 +1138,6 @@ namespace Classes
             magicPenetration = new Property<float>(() => _magicPenetrationBonus * (1 + _percentageMagicPenetrationBonus),
                 DataType.Int,
                 _magicPenetrationBonus, _percentageMagicPenetrationBonus);
-            originCriticalRate = new Property<float>(() => _criticalRateBonus * (1 + _percentageCriticalRateBonus) + abilityPower * _APToCR_ConversionEfficiency.Value.y,
-                DataType.Percentage,
-                _criticalRateBonus, _percentageCriticalRateBonus, originAbilityPower, _APToCR_ConversionEfficiency);
             criticalRate = new Property<float>(() => Mathf.Min(originCriticalRate, 1),
                 DataType.Percentage,
                 originCriticalRate);
@@ -1153,7 +1156,6 @@ namespace Classes
             criticalDamage = new Property<float>(() => _baseCriticalDamage + _criticalDamageBonus.Value,
                 DataType.Percentage,
                 _criticalDamageBonus, level);
-            
             healthPointProportion = new Property<float>(() => maxHealthPoint == 0 ? 0 : healthPoint / maxHealthPoint,
                  DataType.Percentage,
                  maxHealthPoint, healthPoint);

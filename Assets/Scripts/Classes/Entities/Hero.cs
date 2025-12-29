@@ -567,7 +567,7 @@ namespace Classes.Entities
                 TargetAttributeViewModel.Instance.checkTarget.Value = null;
             }
         }
-        
+
         /// <summary>
         /// 冲刺
         /// </summary>
@@ -575,7 +575,9 @@ namespace Classes.Entities
         /// <param name="dashDuration">位移时长</param>
         /// <param name="direction">位移方向</param>
         /// <param name="onComplete">位移完成回调</param>
-        public void Dash(float destinationDistance, float dashDuration, Vector2 direction, TweenCallback onComplete = null)
+        /// <param name="onUpdate">位移Update回调</param>
+        /// <param name="canUseSkill">是否可以使用技能</param>
+        public void Dash(float destinationDistance, float dashDuration, Vector2 direction, TweenCallback onComplete = null, TweenCallback onUpdate = null, bool canUseSkill = false)
         {
             // 标准化方向
             direction = direction.normalized;
@@ -626,13 +628,14 @@ namespace Classes.Entities
             .OnUpdate(() =>
             {
                 canFlash = false;
-                canUseSkill = false;
+                this.canUseSkill = canUseSkill;
                 canMove = false;
+                onUpdate?.Invoke();
             })
             .OnComplete(() =>
             {
                 canFlash = true;
-                canUseSkill = true;
+                this.canUseSkill = true;
                 canMove = true;
                 
                 // 恢复agent

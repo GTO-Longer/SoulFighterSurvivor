@@ -18,7 +18,7 @@ namespace Classes{
         public float skillCost => _baseSkillCost[Math.Max(0, _skillLevel - 1)];
         public float skillRange => _skillRange;
 
-        public float actualSkillCoolDown => skillType is SkillType.DSkill or SkillType.FSkill
+        public virtual float actualSkillCoolDown => skillType is SkillType.DSkill or SkillType.FSkill
             ? _baseSkillCoolDown[0]
             : specialCoolDown != 0
                 ? specialCoolDown
@@ -63,7 +63,7 @@ namespace Classes{
         protected List<List<float>> _baseSkillValue;
         protected float _skillRange;
         protected BulletType[] _skillBulletType;
-        protected float _castTime;
+        public float _castTime;
         protected float _bulletWidth;
         protected float _bulletSpeed;
         protected float _destinationDistance;

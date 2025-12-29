@@ -22,8 +22,7 @@ namespace Classes.Skills
             if (owner.canFlash)
             {
                 var direction = (owner._mousePosition - (Vector2)owner.gameObject.transform.position).normalized;
-                var distance = Mathf.Min(Vector2.Distance(owner._mousePosition, owner.gameObject.transform.position),
-                    _destinationDistance);
+                var distance = Mathf.Min(Vector2.Distance(owner._mousePosition, owner.gameObject.transform.position), _destinationDistance);
                 owner.Flash(direction, distance);
                 coolDownTimer = 0;
 

@@ -35,7 +35,7 @@ namespace Classes.Skills
                 _damage);
         }
 
-        public override void SkillEffect()
+        public override bool SkillEffect()
         {
             // 设置充能
             if (skillChargeCount == 0 && specialTimer == 0)
@@ -130,6 +130,8 @@ namespace Classes.Skills
                     }
                 }
             });
+
+            return true;
         }
     }
 }

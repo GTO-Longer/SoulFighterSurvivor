@@ -690,7 +690,6 @@ namespace Classes
         public event Action<Skill> OnSkillUsed;
         public void SkillUsed(Skill skill)
         {
-            
             if (skill.skillLevel <= 0)
             {
                 Binder.ShowText(SkillViewModel.Instance.skillTips, "技能尚未解锁", 1);
@@ -719,15 +718,16 @@ namespace Classes
                 return;
             }
 
-            if (skill.maxSkillChargeCount <= 0)
+            if (skill.SkillEffect())
             {
-                magicPoint.Value -= skill.actualSkillCost;
-            }
+                if (skill.maxSkillChargeCount <= 0)
+                {
+                    magicPoint.Value -= skill.actualSkillCost;
+                }
 
-            skill.coolDownTimer = 0;
-            
-            skill.SkillEffect();
-            OnSkillUsed?.Invoke(skill);
+                skill.coolDownTimer = 0;
+                OnSkillUsed?.Invoke(skill);
+            }
         }
 
         #endregion

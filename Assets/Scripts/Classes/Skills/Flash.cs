@@ -17,7 +17,7 @@ namespace Classes.Skills
             return string.Format(_skillDescription);
         }
 
-        public override void SkillEffect()
+        public override bool SkillEffect()
         {
             if (owner.canFlash)
             {
@@ -26,7 +26,11 @@ namespace Classes.Skills
                     _destinationDistance);
                 owner.Flash(direction, distance);
                 coolDownTimer = 0;
+
+                return true;
             }
+            
+            return false;
         }
     }
 }

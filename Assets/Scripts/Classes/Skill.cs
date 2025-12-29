@@ -131,7 +131,10 @@ namespace Classes{
             return "";
         }
 
-        public virtual void SkillEffect() { }
+        public virtual bool SkillEffect()
+        {
+            return false;
+        }
 
         public void SpecialTimeOut()
         {

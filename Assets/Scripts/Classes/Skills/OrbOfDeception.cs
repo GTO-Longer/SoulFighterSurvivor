@@ -24,7 +24,7 @@ namespace Classes.Skills
                 _APDamage, _realDamage);
         }
 
-        public override void SkillEffect()
+        public override bool SkillEffect()
         {
             // 计算飞出目标点
             var mouseWorld = CameraSystem._mainCamera.ScreenToWorldPoint(Input.mousePosition);
@@ -157,6 +157,8 @@ namespace Classes.Skills
 
                 deceptionOrb.Awake();
             });
+
+            return true;
         }
     }
 }

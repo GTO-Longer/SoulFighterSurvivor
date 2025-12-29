@@ -15,12 +15,14 @@ namespace Classes.Skills
             return string.Format(_skillDescription);
         }
 
-        public override void SkillEffect()
+        public override bool SkillEffect()
         {
             var ghostPoro = new Buffs.GhostPoro(owner, owner);
             ghostPoro.buffIcon = skillIcon.sprite;
             owner.GetBuff(ghostPoro);
             coolDownTimer = 0;
+
+            return true;
         }
     }
 }

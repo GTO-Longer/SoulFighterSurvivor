@@ -24,7 +24,7 @@ namespace Classes.Skills
                 _firstDamage, _secondDamage);
         }
 
-        public override void SkillEffect()
+        public override bool SkillEffect()
         {
             var attackIndex = 0;
 
@@ -180,6 +180,8 @@ namespace Classes.Skills
 
                 fire.Awake();
             }
+
+            return true;
         }
     }
 }

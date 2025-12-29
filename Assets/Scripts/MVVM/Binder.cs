@@ -426,21 +426,27 @@ namespace MVVM
 
         #region Boolean-UI显隐绑定
 
-        public static Action BindActive(GameObject target, Vector2 originPosition, Property<bool> source)
+        public static Action BindActive(GameObject target, Property<bool> source, bool canInteract = true)
         {
-            if (target == null || source == null)
+            if (target == null || source == null || target.GetComponent<CanvasGroup>() == null)
+            {
+                Debug.LogWarning($"[Binder] {target.name}显隐绑定失败");
                 return () => { };
+            }
 
             void OnChanged(object sender, EventArgs e)
             {
                 if (target == null) return;
+                
                 if (source.Value)
                 {
-                    target.transform.position = originPosition;
+                    target.GetComponent<CanvasGroup>().alpha = 1;
+                    target.GetComponent<CanvasGroup>().blocksRaycasts = canInteract;
                 }
                 else
                 {
-                    target.transform.position = new Vector2(9999, 9999);
+                    target.GetComponent<CanvasGroup>().alpha = 0;
+                    target.GetComponent<CanvasGroup>().blocksRaycasts = false;
                 }
             }
 
@@ -449,21 +455,27 @@ namespace MVVM
             return () => source.PropertyChanged -= OnChanged;
         }
 
-        public static Action BindActive<T>(GameObject target, Vector2 originPosition, Property<T> source)
+        public static Action BindActive<T>(GameObject target, Property<T> source, bool canInteract = true)
         {
-            if (target == null || source == null)
+            if (target == null || source == null || target.GetComponent<CanvasGroup>() == null)
+            {
+                Debug.LogWarning($"[Binder] {target.name}显隐绑定失败");
                 return () => { };
+            }
 
             void OnChanged(object sender, EventArgs e)
             {
                 if (target == null) return;
+                
                 if (source.Value.IsUnityNull())
                 {
-                    target.transform.position = new Vector2(9999, 9999);
+                    target.GetComponent<CanvasGroup>().alpha = 0;
+                    target.GetComponent<CanvasGroup>().blocksRaycasts = false;
                 }
                 else
                 {
-                    target.transform.position = originPosition;
+                    target.GetComponent<CanvasGroup>().alpha = 1;
+                    target.GetComponent<CanvasGroup>().blocksRaycasts = canInteract;
                 }
             }
 
@@ -472,12 +484,58 @@ namespace MVVM
             return () => source.PropertyChanged -= OnChanged;
         }
 
-        public static Action BindActive(Component target, Vector2 originPosition, Property<bool> source)
+        public static Action BindActive<T>(TMP_Text target, Property<T> source)
         {
             if (target == null || source == null)
+            {
+                Debug.LogWarning($"[Binder] {target.name}显隐绑定失败");
                 return () => { };
+            }
 
-            return BindActive(target.gameObject, originPosition, source);
+            void OnChanged(object sender, EventArgs e)
+            {
+                if (target == null) return;
+                
+                if (source.Value.IsUnityNull())
+                {
+                    target.color = new Color(target.color.r, target.color.g, target.color.b, 0);
+                }
+                else
+                {
+                    target.color = new Color(target.color.r, target.color.g, target.color.b, 1);
+                }
+            }
+
+            OnChanged(null, null);
+            source.PropertyChanged += OnChanged;
+            return () => source.PropertyChanged -= OnChanged;
+        }
+        
+        public static Action BindActive<T>(Image target, Property<T> source)
+        {
+            if (target == null || source == null)
+            {
+                Debug.LogWarning($"[Binder] {target.name}显隐绑定失败");
+                return () => { };
+            }
+
+            void OnChanged(object sender, EventArgs e)
+            {
+                if (target == null) return;
+                
+                if (source.Value.IsUnityNull())
+                {
+                    target.color = new Color(target.color.r, target.color.g, target.color.b, 0);
+                }
+                else
+                {
+                    target.color = new Color(target.color.r, target.color.g, target.color.b, 1);
+                }
+            }
+
+            OnChanged(null, null);
+            source.PropertyChanged += OnChanged;
+            return () => source.PropertyChanged -= OnChanged;
         }
 
         #endregion

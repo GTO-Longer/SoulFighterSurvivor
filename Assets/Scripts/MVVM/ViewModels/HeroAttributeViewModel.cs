@@ -46,14 +46,14 @@ namespace MVVM.ViewModels
             }
             
             UnBindEvent += Binder.BindTextGroup(textGroup, HeroManager.hero);
-            UnBindEvent += Binder.BindActive(otherAttributes, otherAttributes.transform.position,  HeroManager.hero.showAttributes);
-            UnBindEvent += Binder.BindActive(hexes, hexes.transform.position, HeroManager.hero.showAttributes);
+            UnBindEvent += Binder.BindActive(otherAttributes,  HeroManager.hero.showAttributes);
+            UnBindEvent += Binder.BindActive(hexes, HeroManager.hero.showAttributes);
             UnBindEvent += Binder.BindText(HPContent, HeroManager.hero.healthPoint, HeroManager.hero.maxHealthPoint, "{0:F0} / {1:F0}");
             UnBindEvent += Binder.BindText(MPContent, HeroManager.hero.magicPoint, HeroManager.hero.maxMagicPoint, "{0:F0} / {1:F0}");
             UnBindEvent += Binder.BindText(HPRegenerateContent, HeroManager.hero.healthRegeneration, "+{0:F1}");
             UnBindEvent += Binder.BindText(MPRegenerateContent, HeroManager.hero.magicRegeneration, "+{0:F1}");
-            UnBindEvent += Binder.BindActive(HPRegenerateContent, HPRegenerateContent.transform.position, notFullHealth);
-            UnBindEvent += Binder.BindActive(MPRegenerateContent, MPRegenerateContent.transform.position, notFullMagic);
+            UnBindEvent += Binder.BindActive(HPRegenerateContent, notFullHealth);
+            UnBindEvent += Binder.BindActive(MPRegenerateContent, notFullMagic);
             UnBindEvent += Binder.BindFillAmountImmediate(HPBar, HeroManager.hero.healthPointProportion);
             UnBindEvent += Binder.BindFillAmountSmooth(HPBarSmooth, 0.2f, HeroManager.hero.healthPointProportion);
             UnBindEvent += Binder.BindFillAmountImmediate(MPBar, HeroManager.hero.magicPointProportion);

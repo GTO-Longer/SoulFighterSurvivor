@@ -41,9 +41,10 @@ namespace Classes
         // 技能能否暴击
         public bool canSkillCritical;
         // 是否被控制
-        public bool isControlled;
-        private float controlTime;
-        private float controlTimer;
+        public Property<bool> isControlled;
+        public Property<float> controlTime;
+        public Property<float> controlTimer;
+        public Property<float> ControlProportion;
         
         #region 最终属性
 
@@ -139,6 +140,10 @@ namespace Classes
         /// 百分比法术穿透
         /// </summary>
         public Property<float> percentageMagicPenetration;
+        /// <summary>
+        /// 原始暴击率
+        /// </summary>
+        public Property<float> originCriticalRate;
         /// <summary>
         /// 暴击率
         /// </summary>
@@ -938,21 +943,22 @@ namespace Classes
             {
                 if (controlTimer < controlTime)
                 {
-                    controlTimer += Time.deltaTime;
+                    controlTimer.Value += Time.deltaTime;
                 }
                 else
                 {
-                    controlTimer = 0f;
-                    controlTime = 0f;
-                    isControlled = false;
+                    controlTimer.Value = 0f;
+                    controlTime.Value = 0f;
+                    isControlled.Value = false;
                 }
             }
         }
 
         public void GetControlled(float time)
         {
-            controlTime = time;
-            isControlled = true;
+            agent.SetStop(true);
+            controlTime.Value = time;
+            isControlled.Value = true;
         }
         
         #endregion
@@ -996,6 +1002,7 @@ namespace Classes
             attackPenetration = new Property<float>();
             magicPenetration = new Property<float>();
             criticalRate = new Property<float>();
+            originCriticalRate = new Property<float>();
             criticalDamage = new Property<float>();
             movementSpeed = new Property<float>();
             attackRange = new Property<float>();
@@ -1050,6 +1057,9 @@ namespace Classes
             _percentageScaleBonus = new Property<float>();
             _percentageHealthRegenerationBonus = new Property<float>();
             _percentageMagicRegenerationBonus = new Property<float>();
+            controlTime = new Property<float>();
+            controlTimer = new Property<float>();
+            isControlled = new Property<bool>();
             _baseCriticalDamage = 0.75f;
             
             #endregion
@@ -1092,9 +1102,9 @@ namespace Classes
             originAttackDamage = new Property<float>(() => (_baseAttackDamage + _attackDamageGrowth * level + _attackDamageBonus) * (1 + _percentageAttackDamageBonus),
                 DataType.Int,
                 level, _attackDamageBonus, _percentageAttackDamageBonus);
-            attackDamage = new Property<float>(() => originAttackDamage + originMaxMagicPoint * _MPToAD_ConversionEfficiency.Value.y,
+            attackDamage = new Property<float>(() => originAttackDamage + originMaxMagicPoint * _MPToAD_ConversionEfficiency.Value.y + Mathf.Max(0, originCriticalRate - 1) * _CRToAD_ConversionEfficiency.Value.y,
                 DataType.Int,
-                originAttackDamage, originMaxMagicPoint, _MPToAD_ConversionEfficiency);
+                originAttackDamage, originMaxMagicPoint, originCriticalRate, _MPToAD_ConversionEfficiency, _CRToAD_ConversionEfficiency);
             originAbilityPower = new Property<float>(() => _abilityPowerBonus * (1 + _percentageAbilityPowerBonus),
                 DataType.Int,
                 _abilityPowerBonus, _percentageAbilityPowerBonus);
@@ -1122,9 +1132,12 @@ namespace Classes
             magicPenetration = new Property<float>(() => _magicPenetrationBonus * (1 + _percentageMagicPenetrationBonus),
                 DataType.Int,
                 _magicPenetrationBonus, _percentageMagicPenetrationBonus);
-            criticalRate = new Property<float>(() => Mathf.Min(_criticalRateBonus * (1 + _percentageCriticalRateBonus) + abilityPower * _APToCR_ConversionEfficiency.Value.y, 1),
+            originCriticalRate = new Property<float>(() => _criticalRateBonus * (1 + _percentageCriticalRateBonus) + abilityPower * _APToCR_ConversionEfficiency.Value.y,
                 DataType.Percentage,
                 _criticalRateBonus, _percentageCriticalRateBonus, originAbilityPower, _APToCR_ConversionEfficiency);
+            criticalRate = new Property<float>(() => Mathf.Min(originCriticalRate, 1),
+                DataType.Percentage,
+                originCriticalRate);
             attackRange = new Property<float>(() => (_baseAttackRange + _attackRangeBonus) * (1 + _percentageAttackRangeBonus),
                 DataType.Int,
                 _attackRangeBonus, _percentageAttackRangeBonus);
@@ -1137,6 +1150,10 @@ namespace Classes
             magicRegeneration = new Property<float>(() => (_baseMagicRegeneration + _magicRegenerationGrowth * level ) * (1 + _percentageMagicRegenerationBonus),
                 DataType.Float,
                 level, _percentageMagicRegenerationBonus);
+            criticalDamage = new Property<float>(() => _baseCriticalDamage + _criticalDamageBonus.Value,
+                DataType.Percentage,
+                _criticalDamageBonus, level);
+            
             healthPointProportion = new Property<float>(() => maxHealthPoint == 0 ? 0 : healthPoint / maxHealthPoint,
                  DataType.Percentage,
                  maxHealthPoint, healthPoint);
@@ -1146,9 +1163,9 @@ namespace Classes
             experienceProportion = new Property<float>(() => maxExperience == 0 ? 0 : experience / maxExperience,
                 DataType.Percentage,
                 experience, level);
-            criticalDamage = new Property<float>(() => _baseCriticalDamage + _criticalDamageBonus.Value,
+            ControlProportion = new Property<float>(() => controlTime == 0 ? 0 : 1 - controlTimer / controlTime,
                 DataType.Percentage,
-                _criticalDamageBonus, level);
+                controlTimer, controlTime);
 
             #endregion
 

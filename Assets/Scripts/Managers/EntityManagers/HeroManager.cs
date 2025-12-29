@@ -20,80 +20,94 @@ namespace Managers.EntityManagers
 
         private void Update()
         {
+            if (!hero.isAlive)
+            {
+                return;
+            }
+            
             hero.ShowAttribute();
-            hero.Move();
             hero.TargetCheck();
-            hero.Attack();
             hero.EntityUpdate();
             hero.Regenerate();
             hero.SkillCoolDown();
-
-            // 技能释放
-            if (Input.GetKeyDown(KeyCode.Q) && hero.canUseSkill && !PanelUIRoot.Instance.isPanelOpen)
+            
+            // 被控制期间无法移动和攻击
+            if (!hero.isControlled)
             {
-                // 快捷键升级技能
-                if (Input.GetKey(KeyCode.LeftControl))
+                hero.Move();
+                hero.Attack();
+
+                // 技能释放
+                if (Input.GetKeyDown(KeyCode.Q) && hero.canUseSkill && !PanelUIRoot.Instance.isPanelOpen)
                 {
-                    hero.SkillUpgrade(hero.skillList[(int)SkillType.QSkill]);
+                    // 快捷键升级技能
+                    if (Input.GetKey(KeyCode.LeftControl))
+                    {
+                        hero.SkillUpgrade(hero.skillList[(int)SkillType.QSkill]);
+                    }
+                    else
+                    {
+                        hero.SkillUsed(hero.skillList[(int)SkillType.QSkill]);
+                    }
                 }
-                else
+
+                if (Input.GetKeyDown(KeyCode.W) && hero.canUseSkill && !PanelUIRoot.Instance.isPanelOpen)
                 {
-                    hero.SkillUsed(hero.skillList[(int)SkillType.QSkill]);
+                    if (Input.GetKey(KeyCode.LeftControl))
+                    {
+                        hero.SkillUpgrade(hero.skillList[(int)SkillType.WSkill]);
+                    }
+                    else
+                    {
+                        hero.SkillUsed(hero.skillList[(int)SkillType.WSkill]);
+                    }
+                }
+
+                if (Input.GetKeyDown(KeyCode.E) && hero.canUseSkill && !PanelUIRoot.Instance.isPanelOpen)
+                {
+                    if (Input.GetKey(KeyCode.LeftControl))
+                    {
+                        hero.SkillUpgrade(hero.skillList[(int)SkillType.ESkill]);
+                    }
+                    else
+                    {
+                        hero.SkillUsed(hero.skillList[(int)SkillType.ESkill]);
+                    }
+                }
+
+                if (Input.GetKeyDown(KeyCode.R) && hero.canUseSkill && !PanelUIRoot.Instance.isPanelOpen)
+                {
+                    if (Input.GetKey(KeyCode.LeftControl))
+                    {
+                        hero.SkillUpgrade(hero.skillList[(int)SkillType.RSkill]);
+                    }
+                    else
+                    {
+                        hero.SkillUsed(hero.skillList[(int)SkillType.RSkill]);
+                    }
+                }
+
+                if (Input.GetKeyDown(KeyCode.D) && !PanelUIRoot.Instance.isPanelOpen)
+                {
+                    hero.SkillUsed(hero.skillList[(int)SkillType.DSkill]);
+                }
+
+                if (Input.GetKeyDown(KeyCode.F) && !PanelUIRoot.Instance.isPanelOpen)
+                {
+                    hero.SkillUsed(hero.skillList[(int)SkillType.FSkill]);
+                }
+
+                for (int index = 0; index < 6; index++)
+                {
+                    if (Input.GetKeyDown(KeyCode.Alpha1 + index) && !PanelUIRoot.Instance.isPanelOpen)
+                    {
+                        hero.EquipmentActiveSkillRelease(index);
+                    }
                 }
             }
-
-            if (Input.GetKeyDown(KeyCode.W) && hero.canUseSkill && !PanelUIRoot.Instance.isPanelOpen)
+            else
             {
-                if (Input.GetKey(KeyCode.LeftControl))
-                {
-                    hero.SkillUpgrade(hero.skillList[(int)SkillType.WSkill]);
-                }
-                else
-                {
-                    hero.SkillUsed(hero.skillList[(int)SkillType.WSkill]);
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.E) && hero.canUseSkill && !PanelUIRoot.Instance.isPanelOpen)
-            {
-                if (Input.GetKey(KeyCode.LeftControl))
-                {
-                    hero.SkillUpgrade(hero.skillList[(int)SkillType.ESkill]);
-                }
-                else
-                {
-                    hero.SkillUsed(hero.skillList[(int)SkillType.ESkill]);
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.R) && hero.canUseSkill && !PanelUIRoot.Instance.isPanelOpen)
-            {
-                if (Input.GetKey(KeyCode.LeftControl))
-                {
-                    hero.SkillUpgrade(hero.skillList[(int)SkillType.RSkill]);
-                }
-                else
-                {
-                    hero.SkillUsed(hero.skillList[(int)SkillType.RSkill]);
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.D) && !PanelUIRoot.Instance.isPanelOpen)
-            {
-                hero.SkillUsed(hero.skillList[(int)SkillType.DSkill]);
-            }
-
-            if (Input.GetKeyDown(KeyCode.F) && !PanelUIRoot.Instance.isPanelOpen)
-            {
-                hero.SkillUsed(hero.skillList[(int)SkillType.FSkill]);
-            }
-
-            for (int index = 0; index < 6; index++)
-            {
-                if (Input.GetKeyDown(KeyCode.Alpha1 + index) && !PanelUIRoot.Instance.isPanelOpen)
-                {
-                    hero.EquipmentActiveSkillRelease(index);
-                }
+                hero.ControlTimeUpdate();
             }
         }
     }

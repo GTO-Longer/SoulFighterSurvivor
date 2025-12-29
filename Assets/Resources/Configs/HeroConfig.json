@@ -57,6 +57,35 @@
             "_WSkill": "RunePrison",
             "_ESkill": "SpellFlux",
             "_RSkill": "RealmWarp"
+        },
+        {
+            "heroName": "Yasuo",
+            "_baseMaxHealthPoint": 590,
+            "_baseMaxMagicPoint": 100,
+            "_baseAttackDamage": 60,
+            "_baseAttackSpeed": 0.697,
+            "_baseAttackDefense": 32,
+            "_baseMagicDefense": 32,
+            "_baseHealthRegeneration": 6.5,
+            "_baseMagicRegeneration": 0,
+            "_baseAttackRange": 175,
+            "_baseMovementSpeed": 345,
+            "_baseScale": 100,
+            "_maxHealthPointGrowth": 110,
+            "_maxMagicPointGrowth": 0,
+            "_attackDamageGrowth": 3,
+            "_attackSpeedGrowth": 0.035,
+            "_attackDefenseGrowth": 4.6,
+            "_magicDefenseGrowth": 2.05,
+            "_healthRegenerationGrowth": 0.9,
+            "_magicRegenerationGrowth": 0,
+            "_attackWindUp": 0.22,
+            "_attackSpeedYield": 0.67,
+            "_passiveSkill": "WayOfTheWanderer",
+            "_QSkill": "SteelTempest",
+            "_WSkill": "WindWall",
+            "_ESkill": "SweepingBlade",
+            "_RSkill": "LastBreath"
         }
     ]
 }

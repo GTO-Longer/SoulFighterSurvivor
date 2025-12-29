@@ -51,8 +51,6 @@ namespace Classes.Skills
                     var hasInitialized = false;
                     var speed = Vector2.zero;
 
-                    // TODO:完成Buff系统设计，通过赋予“魅惑”debuff的方式控制敌人
-
                     // 自定义每帧更新逻辑
                     self.OnBulletUpdate += (_) =>
                     {
@@ -95,6 +93,7 @@ namespace Classes.Skills
                 {
                     var damageCount = self.target.CalculateAPDamage(self.owner, _damage);
                     self.target.TakeDamage(damageCount, DamageType.AP, owner, Random.Range(0f, 1f) < owner.criticalRate.Value && owner.canSkillCritical);
+                    self.target.GetControlled(_baseSkillValue[0][skillLevelToIndex]);
 
                     // 造成技能特效
                     self.owner.AbilityEffectActivate(self.target, damageCount, this);

@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using DataManagement;
+using DG.Tweening;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
 using Managers;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,6 +22,7 @@ namespace Classes.Skills
         private Dictionary<Entity, float> entityCDTimer;
         private Dictionary<Entity, Effect> entityCDEffect;
         public bool isSweeping;
+        private TweenerCore<Vector3, Vector3, VectorOptions> tweener;
         
         public SweepingBlade() : base("SweepingBlade")
         {
@@ -47,6 +51,14 @@ namespace Classes.Skills
                     // 实体CD计时器
                     foreach (var key in entityCDTimer.Keys.ToList())
                     {
+                        if (!key.isAlive)
+                        {
+                            EffectManager.Instance.DestroyEffect(entityCDEffect[key]);
+                            entityCDTimer.Remove(key);
+                            entityCDEffect.Remove(key);
+                            continue;
+                        }
+                        
                         if (entityCDTimer[key] > 0)
                         {
                             entityCDTimer[key] -= Time.deltaTime;
@@ -55,6 +67,7 @@ namespace Classes.Skills
                         
                         if (entityCDTimer[key] <= 0)
                         {
+                            EffectManager.Instance.DestroyEffect(entityCDEffect[key]);
                             entityCDTimer.Remove(key);
                             entityCDEffect.Remove(key);
                         }
@@ -70,11 +83,11 @@ namespace Classes.Skills
 
         public override bool SkillEffect()
         {
-            if (!ToolFunctions.IsObjectAtMousePoint(out var obj, "Enemy", true))
+            if (!ToolFunctions.IsObjectAtMousePoint(out var obj, "Enemy", true) || isSweeping)
             {
                 return false;
             }
-            
+
             Entity target = null;
             
             foreach (var entity in obj)
@@ -88,21 +101,49 @@ namespace Classes.Skills
 
             if (target == null || Vector2.Distance(owner.gameObject.transform.position, target.gameObject.transform.position) > skillRange || entityCDTimer.ContainsKey(target))
             {
+                if (target != null && Vector2.Distance(owner.gameObject.transform.position, target.gameObject.transform.position) > skillRange && tweener == null && !entityCDTimer.ContainsKey(target))
+                {
+                    tweener = Async.SetAsync(20, null, () =>
+                    {
+                        owner.agent.SetDestination(target.gameObject.transform.position);
+
+                        if (Input.GetMouseButton(1))
+                        {
+                            tweener.Kill();
+                            tweener = null;
+                        }
+                        
+                        if (Vector2.Distance(owner.gameObject.transform.position, target.gameObject.transform.position) <= skillRange && target.isAlive && !entityCDTimer.ContainsKey(target))
+                        {
+                            Sweep(target);
+                            tweener.Kill();
+                            tweener = null;
+                        }
+                    });
+                }
+                
                 return false;
             }
             
-            var direction = (target.gameObject.transform.position - owner.gameObject.transform.position).normalized;
+            Sweep(target);
 
+            return true;
+        }
+
+        private void Sweep(Entity target)
+        {
+            var direction = (target.gameObject.transform.position - owner.gameObject.transform.position).normalized;
             owner.Dash(destinationDistance, dashDuration, direction, () =>
             {
                 isSweeping = false;
             }, () =>
             {
                 isSweeping = true;
+                owner.energy.Value += Time.deltaTime * 50;
                 
                 if (Vector2.Distance(owner.gameObject.transform.position, target.gameObject.transform.position) < 100)
                 {
-                    if (!entityCDTimer.ContainsKey(target))
+                    if (!entityCDTimer.ContainsKey(target) && target.isAlive)
                     {
                         entityCDTimer.Add(target, _targetCD);
                         entityCDEffect.Add(target, EffectManager.Instance.CreateCanvasEffect("SweepingBladeCD", target.gameObject));
@@ -121,9 +162,7 @@ namespace Classes.Skills
                         continuousReleaseTimer = continuousReleaseTime;
                     }
                 }
-            }, true);
-
-            return true;
+            }, true, true);
         }
     }
 }

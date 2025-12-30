@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using DataManagement;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
 using Factories;
 using MVVM;
 using MVVM.ViewModels;
@@ -45,6 +47,7 @@ namespace Classes
         public Property<float> controlTime;
         public Property<float> controlTimer;
         public Property<float> ControlProportion;
+        public TweenerCore<Vector3, Vector3, VectorOptions> currentDash;
         
         #region 最终属性
 
@@ -184,6 +187,18 @@ namespace Classes
         /// 全能吸血
         /// </summary>
         public Property<float> omnivamp;
+        /// <summary>
+        /// 能量值
+        /// </summary>
+        public Property<float> energy;
+        /// <summary>
+        /// 最大能量值
+        /// </summary>
+        public Property<float> maxEnergy;
+        /// <summary>
+        /// 能量值百分比
+        /// </summary>
+        public Property<float> energyProportion;
         
         #endregion
         
@@ -482,7 +497,7 @@ namespace Classes
         /// <summary>
         /// 基础法力值
         /// </summary>
-        protected float _baseMaxMagicPoint;
+        public float _baseMaxMagicPoint;
         /// <summary>
         /// 基础攻击速度
         /// </summary>
@@ -1013,6 +1028,8 @@ namespace Classes
             healthPointProportion = new Property<float>();
             magicPointProportion = new Property<float>();
             experienceProportion = new Property<float>();
+            maxEnergy = new Property<float>();
+            energy = new Property<float>();
             
             // 无加成变量
             healthRegeneration = new Property<float>(0, DataType.Int);
@@ -1168,6 +1185,9 @@ namespace Classes
             ControlProportion = new Property<float>(() => controlTime == 0 ? 0 : 1 - controlTimer / controlTime,
                 DataType.Percentage,
                 controlTimer, controlTime);
+            energyProportion = new Property<float>(() => maxEnergy == 0 ? 0 : energy / maxEnergy,
+                DataType.Percentage,
+                energy, maxEnergy);
 
             #endregion
 

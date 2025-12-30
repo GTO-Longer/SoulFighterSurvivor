@@ -100,7 +100,7 @@ def convert_xlsx_to_json_in_current_dir():
                                     if v_str.startswith('[') and v_str.endswith(']'):
                                         v_str = v_str[1:-1]
                                     nums = [x.strip() for x in v_str.split(',') if x.strip()]
-                                    skill_data[attr] = [int(float(x)) for x in nums]
+                                    skill_data[attr] = [float(x) for x in nums]
                                 except Exception:
                                     skill_data[attr] = []
                         elif attr in ['_skillBulletType', '_skillUsageType']:

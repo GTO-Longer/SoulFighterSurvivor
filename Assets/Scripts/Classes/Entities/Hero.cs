@@ -17,7 +17,7 @@ using Vector2 = UnityEngine.Vector2;
 
 namespace Classes.Entities
 {
-    public class Hero : Entity
+    public sealed class Hero : Entity
     {
         private Transform _attackRangeIndicator;
         
@@ -576,8 +576,9 @@ namespace Classes.Entities
         /// <param name="direction">位移方向</param>
         /// <param name="onComplete">位移完成回调</param>
         /// <param name="onUpdate">位移Update回调</param>
-        /// <param name="canUseSkill">是否可以使用技能</param>
-        public void Dash(float destinationDistance, float dashDuration, Vector2 direction, TweenCallback onComplete = null, TweenCallback onUpdate = null, bool canUseSkill = false)
+        /// <param name="skillUsable">是否可以使用技能</param>
+        /// <param name="flashUsable">是否可以闪现</param>
+        public void Dash(float destinationDistance, float dashDuration, Vector2 direction, TweenCallback onComplete = null, TweenCallback onUpdate = null, bool skillUsable = false, bool flashUsable = false)
         {
             // 标准化方向
             direction = direction.normalized;
@@ -624,23 +625,38 @@ namespace Classes.Entities
             _agent.SetStop(true);
 
             // 使用DOTween平滑位移
-            gameObject.transform.DOMove(targetPosition, dashDuration)
+            currentDash = gameObject.transform.DOMove(targetPosition, dashDuration)
             .OnUpdate(() =>
             {
-                canFlash = false;
-                this.canUseSkill = canUseSkill;
+                canFlash = flashUsable;
+                canUseSkill = skillUsable;
                 canMove = false;
                 onUpdate?.Invoke();
             })
             .OnComplete(() =>
             {
                 canFlash = true;
-                this.canUseSkill = true;
+                canUseSkill = true;
                 canMove = true;
                 
                 // 恢复agent
                 _agent.Warp(targetPosition);
-                _agent.SetStop(true);
+                _agent.SetStop(false);
+
+                currentDash = null;
+                
+                onComplete?.Invoke();
+            })
+            .OnKill(() =>
+            {
+                canFlash = true;
+                canUseSkill = true;
+                canMove = true;
+                
+                // 恢复agent
+                _agent.SetStop(false);
+
+                currentDash = null;
                 
                 onComplete?.Invoke();
             });
@@ -654,7 +670,6 @@ namespace Classes.Entities
             var targetPosition = (Vector2)gameObject.transform.position + direction.normalized * distance;
             NavMesh.SamplePosition(targetPosition, out var hit, 10000, NavMesh.AllAreas);
             agent.Warp(hit.position);
-            agent.SetStop(true);
             forcedDirection = direction;
             gameObject.transform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
         }

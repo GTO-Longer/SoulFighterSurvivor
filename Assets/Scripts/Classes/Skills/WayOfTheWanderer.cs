@@ -4,7 +4,7 @@ namespace Classes.Skills
 {
     public class WayOfTheWanderer : Skill
     {
-        private float healCount => 100 + owner.level.Value / 3 * 75;
+        private float healCount => 50 + owner.level.Value / 3 * 40;
         private float moveDistance;
         
         public WayOfTheWanderer() : base("WayOfTheWanderer")
@@ -14,16 +14,21 @@ namespace Classes.Skills
 
             PassiveAbilityEffective += () =>
             {
-                owner._CRToAD_ConversionEfficiency.Value += new Vector2(0, 0.5f);
+                owner._CRToAD_ConversionEfficiency.Value += new Vector2(0, 50f);
                 owner._percentageCriticalRateBonus.Value += 1;
                 owner._criticalDamageBonus.Value -= 0.2f;
                 
+                owner.maxEnergy.Value = 100;
+                owner.energy.Value = owner.maxEnergy.Value;
+
+                owner._percentageMaxMagicPointBonus.Value = 0;
+                
                 owner.OnHurt += (_, _, _) =>
                 {
-                    if (owner.magicPoint >= owner.maxMagicPoint)
+                    if (owner.energy >= owner.maxEnergy)
                     {
                         owner.TakeHeal(healCount);
-                        owner.magicPoint.Value = 0;
+                        owner.energy.Value = 0;
                     }
                 };
                 
@@ -38,8 +43,8 @@ namespace Classes.Skills
                     {
                         moveDistance -= 62.5f;
                         
-                        owner.magicPoint.Value += 5;
-                        owner.magicPoint.Value = Mathf.Min(owner.magicPoint, owner.maxMagicPoint);
+                        owner.energy.Value += 5;
+                        owner.energy.Value = Mathf.Min(owner.energy, owner.maxEnergy);
                     }
                 };
             };

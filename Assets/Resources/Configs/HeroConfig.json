@@ -61,7 +61,7 @@
         {
             "heroName": "Yasuo",
             "_baseMaxHealthPoint": 590,
-            "_baseMaxMagicPoint": 100,
+            "_baseMaxMagicPoint": 0,
             "_baseAttackDamage": 60,
             "_baseAttackSpeed": 0.697,
             "_baseAttackDefense": 32,

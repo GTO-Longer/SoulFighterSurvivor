@@ -34,10 +34,10 @@ namespace MVVM.ViewModels
             var coinContent = transform.Find("Equipments/ShopButton/CoinContent").gameObject.GetComponent<TMP_Text>();
 
             notFullHealth = new Property<bool>(
-                () => Mathf.Abs(HeroManager.hero.healthPoint.Value - HeroManager.hero.maxHealthPoint.Value) > 0.1f && HeroManager.hero.healthRegeneration > 0, DataType.None,
+                () => Mathf.Abs(HeroManager.hero.healthPoint.Value - HeroManager.hero.maxHealthPoint.Value) > 0.1f && HeroManager.hero.healthRegeneration > 0.1f, DataType.None,
                 HeroManager.hero.healthPoint, HeroManager.hero.maxHealthPoint);
             notFullMagic = new Property<bool>(
-                () => Mathf.Abs(HeroManager.hero.magicPoint.Value - HeroManager.hero.maxMagicPoint.Value) > 0.1f && HeroManager.hero.magicRegeneration > 0, DataType.None,
+                () => Mathf.Abs(HeroManager.hero.magicPoint.Value - HeroManager.hero.maxMagicPoint.Value) > 0.1f && HeroManager.hero.magicRegeneration > 0.1f, DataType.None,
                 HeroManager.hero.magicPoint, HeroManager.hero.maxMagicPoint);
             
             foreach (var _attribute in attributeList)
@@ -49,15 +49,27 @@ namespace MVVM.ViewModels
             UnBindEvent += Binder.BindActive(otherAttributes,  HeroManager.hero.showAttributes);
             UnBindEvent += Binder.BindActive(hexes, HeroManager.hero.showAttributes);
             UnBindEvent += Binder.BindText(HPContent, HeroManager.hero.healthPoint, HeroManager.hero.maxHealthPoint, "{0:F0} / {1:F0}");
-            UnBindEvent += Binder.BindText(MPContent, HeroManager.hero.magicPoint, HeroManager.hero.maxMagicPoint, "{0:F0} / {1:F0}");
             UnBindEvent += Binder.BindText(HPRegenerateContent, HeroManager.hero.healthRegeneration, "+{0:F1}");
-            UnBindEvent += Binder.BindText(MPRegenerateContent, HeroManager.hero.magicRegeneration, "+{0:F1}");
             UnBindEvent += Binder.BindActive(HPRegenerateContent, notFullHealth);
-            UnBindEvent += Binder.BindActive(MPRegenerateContent, notFullMagic);
             UnBindEvent += Binder.BindFillAmountImmediate(HPBar, HeroManager.hero.healthPointProportion);
             UnBindEvent += Binder.BindFillAmountSmooth(HPBarSmooth, 0.2f, HeroManager.hero.healthPointProportion);
-            UnBindEvent += Binder.BindFillAmountImmediate(MPBar, HeroManager.hero.magicPointProportion);
             UnBindEvent += Binder.BindText(coinContent, HeroManager.hero.coins);
+
+            if (HeroManager.hero._baseMaxMagicPoint > 1)
+            {
+                UnBindEvent += Binder.BindFillAmountImmediate(MPBar, HeroManager.hero.magicPointProportion);
+                UnBindEvent += Binder.BindText(MPContent, HeroManager.hero.magicPoint, HeroManager.hero.maxMagicPoint, "{0:F0} / {1:F0}");
+                UnBindEvent += Binder.BindText(MPRegenerateContent, HeroManager.hero.magicRegeneration, "+{0:F1}");
+                UnBindEvent += Binder.BindActive(MPRegenerateContent, notFullMagic);
+            }
+            else
+            {
+                UnBindEvent += Binder.BindFillAmountImmediate(MPBar, HeroManager.hero.energyProportion);
+                UnBindEvent += Binder.BindText(MPContent, HeroManager.hero.energy, HeroManager.hero.maxEnergy, "{0:F0} / {1:F0}");
+                MPBar.color = Color.white;
+                MPContent.color = Color.gray;
+                MPRegenerateContent.enabled = false;
+            }
         }
 
         // 物体销毁时触发注销对应事件

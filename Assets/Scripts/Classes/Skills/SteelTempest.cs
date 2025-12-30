@@ -59,7 +59,7 @@ namespace Classes.Skills
 
             if (sweepingBlade.isSweeping)
             {
-                var damageArea = BulletFactory.Instance.CreateBullet(owner, 0.1f, 1);
+                var damageArea = BulletFactory.Instance.CreateBullet(owner, 0.3f, 1);
                 damageArea.OnBulletAwake += (self) =>
                 {
                     self.gameObject.transform.position = owner.gameObject.transform.position;

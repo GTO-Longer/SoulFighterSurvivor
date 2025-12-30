@@ -7,10 +7,10 @@
             "_skillDescription": "击杀敌人会为阿狸提供一层【魂魄碎片】。在拥有5个碎片后，阿狸会吞噬掉它们来回复<color=#33FF33>{0:F0}生命值和法力值</color>。",
             "_skillType": "PassiveSkill",
             "_baseSkillCost": [
-                0
+                0.0
             ],
             "_baseSkillCoolDown": [
-                0
+                0.0
             ],
             "_baseSkillValue": [
                 [
@@ -30,18 +30,18 @@
             "_skillDescription": "阿狸投出然后收回她的宝珠，在放出时会沿途对敌人造成<color=#7700BB>{0:F0}魔法伤害</color>，在收回时则会沿途对敌人造成<color=#FFFFFF>{1:F0}真实伤害</color>。",
             "_skillType": "QSkill",
             "_baseSkillCost": [
-                65,
-                70,
-                75,
-                80,
-                85
+                65.0,
+                70.0,
+                75.0,
+                80.0,
+                85.0
             ],
             "_baseSkillCoolDown": [
-                7,
-                7,
-                7,
-                7,
-                7
+                7.0,
+                7.0,
+                7.0,
+                7.0,
+                7.0
             ],
             "_baseSkillValue": [
                 [
@@ -72,18 +72,18 @@
             "_skillDescription": "阿狸释放出3团狐火来追踪附近的敌人们并造成<color=#7700BB>{0:F0}魔法伤害</color>，第一团之后的狐火降低至<color=#7700BB>{1:F0}伤害</color>（40%）。她还会获得在2秒里持续衰减的<color=#FDF9C8>40%移动速度</color>。 \n\n狐火会优先攻击最近的敌人。20%生命值以下的敌人会受到200%伤害。",
             "_skillType": "WSkill",
             "_baseSkillCost": [
-                40,
-                40,
-                40,
-                40,
-                40
+                40.0,
+                40.0,
+                40.0,
+                40.0,
+                40.0
             ],
             "_baseSkillCoolDown": [
-                9,
-                8,
-                7,
-                6,
-                5
+                9.0,
+                8.0,
+                7.0,
+                6.0,
+                5.0
             ],
             "_baseSkillValue": [
                 [
@@ -114,18 +114,18 @@
             "_skillDescription": "阿狸献出红唇热吻，眩晕命中的首个敌人{0:0.##}秒并造成<color=#7700BB>{1:F0}魔法伤害</color>。",
             "_skillType": "ESkill",
             "_baseSkillCost": [
-                70,
-                70,
-                70,
-                70,
-                70
+                70.0,
+                70.0,
+                70.0,
+                70.0,
+                70.0
             ],
             "_baseSkillCoolDown": [
-                12,
-                12,
-                12,
-                12,
-                12
+                12.0,
+                12.0,
+                12.0,
+                12.0,
+                12.0
             ],
             "_baseSkillValue": [
                 [
@@ -156,14 +156,14 @@
             "_skillDescription": "阿狸灵活地突进，并对最近的敌人们发射3颗灵魄弹。这些灵魄弹每颗造成<color=#7700BB>{0:F0}魔法伤害</color>。\n\n灵魄突袭可以在15秒内再次施放至多2次。 在此期间，用摄魂夺魄吞噬魂魄碎片时，会使再次施放的窗口期至多延长至10秒并为灵魄突袭提供一次额外的再次施放(至多可储存至3次)。",
             "_skillType": "RSkill",
             "_baseSkillCost": [
-                100,
-                100,
-                100
+                100.0,
+                100.0,
+                100.0
             ],
             "_baseSkillCoolDown": [
-                130,
-                105,
-                80
+                130.0,
+                105.0,
+                80.0
             ],
             "_baseSkillValue": [
                 [
@@ -185,10 +185,10 @@
             "_skillDescription": "瑞兹每拥有<color=#7700BB>100法术强度</color>获得<color=#33FFFF>10%最大法力值</color>。",
             "_skillType": "PassiveSkill",
             "_baseSkillCost": [
-                0
+                0.0
             ],
             "_baseSkillCoolDown": [
-                0
+                0.0
             ],
             "_baseSkillValue": [
                 [
@@ -208,18 +208,18 @@
             "_skillDescription": "被动：符文禁锢和法术涌动会刷新这个技能的冷却时间并充能一枚符文，持续4秒(最多2枚符文)。 \n主动：瑞兹释放一次魔爆，对命中的第一个敌人造成{0:F0}魔法伤害。\n如果目标带有涌动，则它会将其消耗，使这个技能造成10%伤害提升并弹射至附近带有涌动的敌人们。 \n如果2枚符文已被充能，瑞兹就会释放所有符文的能量，来为瑞兹提供持续2秒的{1}移动速度。",
             "_skillType": "QSkill",
             "_baseSkillCost": [
-                40,
-                38,
-                36,
-                34,
-                32
+                40.0,
+                38.0,
+                36.0,
+                34.0,
+                32.0
             ],
             "_baseSkillCoolDown": [
-                6,
-                6,
-                6,
-                6,
-                6
+                6.0,
+                6.0,
+                6.0,
+                6.0,
+                6.0
             ],
             "_baseSkillValue": [
                 [
@@ -250,18 +250,18 @@
             "_skillDescription": "瑞兹造成{0}魔法伤害和持续1.5秒的50%减速。\n如果目标带有涌动，则它会将其消耗，使这个技能造成禁锢而非减速。",
             "_skillType": "WSkill",
             "_baseSkillCost": [
-                40,
-                55,
-                70,
-                85,
-                100
+                40.0,
+                55.0,
+                70.0,
+                85.0,
+                100.0
             ],
             "_baseSkillCoolDown": [
-                13,
-                12,
-                11,
-                10,
-                9
+                13.0,
+                12.0,
+                11.0,
+                10.0,
+                9.0
             ],
             "_baseSkillValue": [
                 [
@@ -285,18 +285,18 @@
             "_skillDescription": "瑞兹发射一颗法球，造成{0}魔法伤害并施加持续4秒的涌动给目标和附近的敌人们。\n已被涌动影响的敌人们将使其进一步扩散。",
             "_skillType": "ESkill",
             "_baseSkillCost": [
-                40,
-                55,
-                70,
-                85,
-                100
+                40.0,
+                55.0,
+                70.0,
+                85.0,
+                100.0
             ],
             "_baseSkillCoolDown": [
-                3,
-                3,
-                2,
-                2,
-                2
+                3.25,
+                3.0,
+                2.75,
+                2.5,
+                2.25
             ],
             "_baseSkillValue": [
                 [
@@ -320,14 +320,14 @@
             "_skillDescription": "被动：超负荷对带有涌动的目标的伤害加成提升至{0}。 \n主动：瑞兹开启一个前往另一个位置的传送门。在2秒后，传送门附近的所有友军都会被传送到该位置。 如果瑞兹被定身或限制，那么传送门就会被取消。",
             "_skillType": "RSkill",
             "_baseSkillCost": [
-                100,
-                100,
-                100
+                100.0,
+                100.0,
+                100.0
             ],
             "_baseSkillCoolDown": [
-                210,
-                180,
-                150
+                210.0,
+                180.0,
+                150.0
             ],
             "_baseSkillValue": [
                 [
@@ -349,10 +349,10 @@
             "_skillDescription": "向指针位置位移一小段距离。",
             "_skillType": "DSkill",
             "_baseSkillCost": [
-                0
+                0.0
             ],
             "_baseSkillCoolDown": [
-                180
+                180.0
             ],
             "_baseSkillValue": [
                 [
@@ -372,10 +372,10 @@
             "_skillDescription": "使用后获得4秒的40%加速并使自身处于幽灵状态",
             "_skillType": "FSkill",
             "_baseSkillCost": [
-                0
+                0.0
             ],
             "_baseSkillCoolDown": [
-                20
+                20.0
             ],
             "_baseSkillValue": [
                 [
@@ -395,10 +395,10 @@
             "_skillDescription": "百折不屈：亚索在移动的同时会积攒剑意，移动得越快，剑意的获取就越快。当剑意槽被充满时，下一次受伤时清空剑意槽并且恢复{0:F0}生命值。 \n向死而生：亚索的总暴击几率加成提升100%。100%以上的暴击几率，会每1%额外转化为0.5攻击力。亚索的初始暴击伤害减少20%。",
             "_skillType": "PassiveSkill",
             "_baseSkillCost": [
-                0
+                0.0
             ],
             "_baseSkillCoolDown": [
-                0
+                0.0
             ],
             "_baseSkillValue": [
                 [
@@ -418,18 +418,18 @@
             "_skillDescription": "亚索进行戳刺，造成{0:F0}物理伤害。如果他命中了，那么他会获得一层持续6秒的层数。当他拥有2层时，这个技能的下次施放将会发射出一道远程龙卷风，造成等值伤害和1秒眩晕。 如果在冲刺期间施放，那么这个技能会呈环状进行打击而非直接戳刺。 \n这个技能和攻击类似：它可以暴击以造成{1:F0}物理伤害，它会对击中的敌人施加攻击特效，它的冷却时间和施放时间可通过攻击速度来缩短。",
             "_skillType": "QSkill",
             "_baseSkillCost": [
-                0,
-                0,
-                0,
-                0,
-                0
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
             ],
             "_baseSkillCoolDown": [
-                4,
-                4,
-                4,
-                4,
-                4
+                4.0,
+                4.0,
+                4.0,
+                4.0,
+                4.0
             ],
             "_baseSkillValue": [
                 [
@@ -453,18 +453,18 @@
             "_skillDescription": "亚索形成一个持续4秒的气流浮墙，来阻挡敌方的飞行道具。",
             "_skillType": "WSkill",
             "_baseSkillCost": [
-                0,
-                0,
-                0,
-                0,
-                0
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
             ],
             "_baseSkillCoolDown": [
-                25,
-                23,
-                21,
-                19,
-                17
+                25.0,
+                23.0,
+                21.0,
+                19.0,
+                17.0
             ],
             "_baseSkillValue": [
                 [
@@ -488,18 +488,18 @@
             "_skillDescription": "亚索冲刺并穿过一个目标，造成{0:F0}魔法伤害，这个技能每次施放后都会为5秒内的后续施放提供25%额外伤害，至多可叠加4次。 这个技能对每个目标有{1:F0}秒冷却时间。",
             "_skillType": "ESkill",
             "_baseSkillCost": [
-                0,
-                0,
-                0,
-                0,
-                0
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
             ],
             "_baseSkillCoolDown": [
-                0,
-                0,
-                0,
-                0,
-                0
+                1.0,
+                0.8,
+                0.6,
+                0.4,
+                0.2
             ],
             "_baseSkillValue": [
                 [
@@ -510,11 +510,11 @@
                     130.0
                 ],
                 [
-                    10.0,
-                    9.0,
-                    8.0,
                     7.0,
-                    6.0
+                    6.0,
+                    5.0,
+                    4.0,
+                    3.0
                 ]
             ],
             "_skillRange": 475,
@@ -530,16 +530,20 @@
             "_skillDescription": "亚索瞬间移动到一名被眩晕的敌方英雄身边，造成{0:F0}物理伤害并使所有附近被击飞的敌人们维持此状态至多1秒。亚索还会获得满额剑意，但会失去所有所有斩钢闪层数。 之后，亚索获得60%额外物理穿透，持续15秒。",
             "_skillType": "RSkill",
             "_baseSkillCost": [
-                0,
-                0,
-                0
+                0.0,
+                0.0,
+                0.0
             ],
             "_baseSkillCoolDown": [
-                70,
-                50,
-                30
+                70.0,
+                50.0,
+                30.0
             ],
-            "_baseSkillValue": [],
+            "_baseSkillValue": [
+                [
+                    0.0
+                ]
+            ],
             "_skillRange": 1400,
             "_castTime": 0,
             "_bulletWidth": 0,

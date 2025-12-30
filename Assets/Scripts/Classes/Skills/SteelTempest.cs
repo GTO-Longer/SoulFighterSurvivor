@@ -95,7 +95,7 @@ namespace Classes.Skills
                                         isCritical && owner.canSkillCritical);
 
                                     // 若有3层风则眩晕并且创建额外特效
-                                    if (continuousReleaseCount >= 2)
+                                    if (continuousReleaseCount >= 2 && skillUsed)
                                     {
                                         // TODO:额外特效
                                         

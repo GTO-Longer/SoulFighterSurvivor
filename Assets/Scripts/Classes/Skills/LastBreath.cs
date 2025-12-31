@@ -1,7 +1,6 @@
 using System.Linq;
 using DataManagement;
 using Factories;
-using Systems;
 using UnityEngine;
 using Utilities;
 
@@ -37,10 +36,6 @@ namespace Classes.Skills
                 failMessage = "无有效目标";
                 return false;
             } 
-
-            owner.canUseSkill = false;
-            owner.canMove = false;
-            owner.agent.SetStop(true);
 
             // 选取目标
             Entity target = null;
@@ -83,6 +78,10 @@ namespace Classes.Skills
             var slashTime = 0;
             Async.SetAsync(0.75f, null, () =>
             {
+                // 设置角色无法使用技能、无法移动
+                owner.canUseSkill = false;
+                owner.canMove = false;
+                owner.agent.SetStop(true);
                 continuousTime += Time.deltaTime;
 
                 if (continuousTime >= 0.2f * slashTime)
@@ -127,7 +126,7 @@ namespace Classes.Skills
                         };
                     };
 
-                    bullet.OnBulletHit += (self) =>
+                    bullet.OnBulletHit += (_) =>
                     {
                         // 每段造成三分之一的大招伤害
                         var damageCount = target.CalculateADDamage(owner, _damage / 3f);

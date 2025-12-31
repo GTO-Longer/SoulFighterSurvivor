@@ -205,6 +205,7 @@ namespace MVVM.ViewModels
         /// <param name="chosenAttribute"></param>
         public void BindAttributePanel(AttributeType chosenAttribute)
         {
+            UnBindEvent?.Invoke();
             // 绑定属性介绍面板
             UnBindEvent = Binder.BindAttribute(background, attributeName, attributeDescription, attributeAmount, chosenAttribute);
             background.SetActive(true);

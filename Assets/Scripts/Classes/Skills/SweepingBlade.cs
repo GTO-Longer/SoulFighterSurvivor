@@ -116,7 +116,7 @@ namespace Classes.Skills
                             tweener = null;
                         }
                         
-                        if (Vector2.Distance(owner.gameObject.transform.position, target.gameObject.transform.position) <= skillRange && target.isAlive && !entityCDTimer.ContainsKey(target))
+                        if (owner.canMove && Vector2.Distance(owner.gameObject.transform.position, target.gameObject.transform.position) <= skillRange && target.isAlive && !entityCDTimer.ContainsKey(target))
                         {
                             Sweep(target);
                             tweener.Kill();

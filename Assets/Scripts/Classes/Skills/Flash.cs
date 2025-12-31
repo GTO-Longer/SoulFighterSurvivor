@@ -25,9 +25,6 @@ namespace Classes.Skills
                 var direction = (owner._mousePosition - (Vector2)owner.gameObject.transform.position).normalized;
                 var distance = Mathf.Min(Vector2.Distance(owner._mousePosition, owner.gameObject.transform.position), _destinationDistance);
                 
-                // 打断当前位移
-                owner.currentDash.Kill();
-                
                 owner.Flash(direction, distance);
                 coolDownTimer = 0;
 

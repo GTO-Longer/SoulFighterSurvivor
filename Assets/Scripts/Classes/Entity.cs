@@ -700,7 +700,7 @@ namespace Classes
         }
         
         /// <summary>
-        /// 技能特效
+        /// 使用技能时
         /// </summary>
         public event Action<Skill> OnSkillUsed;
         public void SkillUsed(Skill skill)

@@ -59,8 +59,8 @@ namespace Classes.Skills
 
             if (sweepingBlade.isSweeping)
             {
-                var damageArea = BulletFactory.Instance.CreateBullet(owner, 0.3f, 1);
-                damageArea.OnBulletAwake += (self) =>
+                var steelTempest = BulletFactory.Instance.CreateBullet(owner, 0.3f, 1);
+                steelTempest.OnBulletAwake += (self) =>
                 {
                     self.gameObject.transform.position = owner.gameObject.transform.position;
                     self.gameObject.SetActive(true);
@@ -69,7 +69,7 @@ namespace Classes.Skills
 
                     self.OnBulletUpdate += (_) =>
                     {
-                        damageArea.gameObject.transform.position = owner.gameObject.transform.position;
+                        steelTempest.gameObject.transform.position = owner.gameObject.transform.position;
                         
                         var targets = ToolFunctions.IsOverlappingOtherTagAll(self.gameObject, 215);
                         if (targets != null)
@@ -131,7 +131,7 @@ namespace Classes.Skills
                     };
                 };
 
-                damageArea.Awake();
+                steelTempest.Awake();
             }
             else
             {
@@ -147,6 +147,7 @@ namespace Classes.Skills
                         owner.canUseSkill = false;
                         owner.canMove = false;
                         owner.RotateTo(ref direction);
+                        owner.agent.goal = (Vector2)owner.gameObject.transform.position;
                     }, () =>
                     {
                         owner.canUseSkill = true;

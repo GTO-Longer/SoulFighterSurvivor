@@ -1,3 +1,5 @@
+using System.Linq;
+using DataManagement;
 using Factories;
 using Systems;
 using UnityEngine;
@@ -7,6 +9,9 @@ namespace Classes.Skills
 {
     public class LastBreath : Skill
     {
+        private const float attackBulletSpeed = 1500;
+        private float _damage => _baseSkillValue[0][skillLevelToIndex] + 1.5f * owner.attackDamage;
+        
         public LastBreath() : base("LastBreath")
         {
             _skillLevel = 0;
@@ -17,64 +22,119 @@ namespace Classes.Skills
 
         public override string GetDescription()
         {
-            return string.Format(_skillDescription, 0);
+            return string.Format(_skillDescription, _damage);
         }
 
         public override bool SkillEffect()
         {
-            // 计算飞出目标点
-            var mouseWorld = CameraSystem._mainCamera.ScreenToWorldPoint(Input.mousePosition);
-            var direction = ((Vector2)mouseWorld - (Vector2)owner.gameObject.transform.position).normalized;
+            // 遍历寻找范围内的目标
+            var targets = ToolFunctions.IsOverlappingOtherTagAll(owner.gameObject, skillRange)?.ToList().FindAll(entity => entity.isControlled);
+            
+            if (targets is not { Count: > 0 }) return false; 
 
-            // 吟唱时间
-            Async.SetAsync(_castTime, null, () =>
+            owner.canUseSkill = false;
+            owner.canMove = false;
+            owner.agent.SetStop(true);
+
+            // 选取目标
+            Entity target = null;
+
+            if (ToolFunctions.IsObjectAtMousePoint(out var obj, "Enemy", true))
             {
-                owner.canUseSkill = false;
-                owner.canMove = false;
-                owner.RotateTo(ref direction);
+                target = obj.FindAll(GameObject => GameObject.GetComponent<EntityData>())[0].GetComponent<EntityData>() .entity;
+            }
+
+            if (target == null || !targets.Contains(target))
+            {
+                target = targets[0];
+            }
+
+            // 闪现到目标身后
+            var targetDirection = (Vector2)(target.gameObject.transform.position - owner.gameObject.transform.position).normalized;
+            owner.Flash(targetDirection, Vector2.Distance(target.gameObject.transform.position, owner.gameObject.transform.position) + target.scale + owner.attackRange);
+            
+            // 面向敌人
+            var angleRad = Mathf.Atan2(-targetDirection.y, -targetDirection.x);
+            var angleDeg = angleRad * Mathf.Rad2Deg;
+            owner.gameObject.transform.eulerAngles = new Vector3(0, 0, angleDeg);
+            
+            // 使附近范围内的受控制敌人的控制状态增加1秒
+            foreach (var entity in targets)
+            {
+                entity.controlTime.Value += 1;
+            }
+            
+            // 获得满额剑意
+            owner.energy.Value = owner.maxEnergy.Value;
+            
+            // 获得15秒60%额外物理穿透
+            var lastBreath = new Buffs.LastBreath(owner, owner);
+            lastBreath.buffIcon = null;
+            owner.GetBuff(lastBreath);
+            
+            // 斩击3次
+            var continuousTime = 0f;
+            var slashTime = 0;
+            Async.SetAsync(0.75f, null, () =>
+            {
+                continuousTime += Time.deltaTime;
+
+                if (continuousTime >= 0.2f * slashTime)
+                {
+                    slashTime += 1;
+                    
+                    var bullet = BulletFactory.Instance.CreateBullet(owner);
+                    bullet.OnBulletAwake += (self) =>
+                    {
+                        self.gameObject.transform.position = owner.gameObject.transform.position;
+                        self.gameObject.SetActive(true);
+        
+                        // 设置目标
+                        self.target = target;
+
+                        // 每帧追踪目标
+                        self.OnBulletUpdate += (_) =>
+                        {
+                            // 锁定目标死亡则清除子弹
+                            if (self.target == null || !self.target.isAlive)
+                            {
+                                self.Destroy();
+                                return;
+                            }
+                        
+                            var currentPosition = self.gameObject.transform.position;
+                            var targetPosition = self.target.gameObject.transform.position;
+            
+                            var direction = (targetPosition - currentPosition).normalized;
+                            var nextPosition = currentPosition + direction * (attackBulletSpeed * Time.deltaTime);
+            
+                            self.gameObject.transform.position = nextPosition;
+                            self.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
+
+                            // 子弹的销毁逻辑
+                            const float destroyDistance = 30f;
+                            if (Vector3.Distance(self.gameObject.transform.position, self.target.gameObject.transform.position) <= destroyDistance)
+                            {
+                                self.BulletHit();
+                                self.Destroy();
+                            }
+                        };
+                    };
+
+                    bullet.OnBulletHit += (self) =>
+                    {
+                        // 每段造成三分之一的大招伤害
+                        var damageCount = target.CalculateADDamage(owner, _damage / 3f);
+                        target.TakeDamage(damageCount, DamageType.AD, owner, Random.Range(0f, 1f) < owner.criticalRate.Value && owner.canSkillCritical);
+                    };
+                
+                    bullet.Awake();
+                }
             }, () =>
             {
                 owner.canUseSkill = true;
                 owner.canMove = true;
                 owner.agent.SetStop(false);
-
-                var windWall = BulletFactory.Instance.CreateBullet(owner);
-                windWall.OnBulletAwake += (self) =>
-                {
-                    self.target = null;
-                    self.gameObject.transform.position = owner.gameObject.transform.position;
-                    self.gameObject.SetActive(true);
-                    var hasInitialized = false;
-                    var speed = Vector2.zero;
-
-                    // 自定义每帧更新逻辑
-                    self.OnBulletUpdate += (_) =>
-                    {
-                        // 初始化
-                        if (!hasInitialized)
-                        {
-                            // 设置速度
-                            speed = direction * bulletSpeed;
-                            hasInitialized = true;
-                            self.bulletStateID = 1;
-                        }
-
-                        // 到达目标位置
-                        if (Vector2.Distance(self.gameObject.transform.position, owner.gameObject.transform.position) > skillRange)
-                        {
-                            self.Destroy();
-                        }
-                        else
-                        {
-                            // 控制子弹位置和面向
-                            self.gameObject.transform.position += (Vector3)(speed * Time.deltaTime);
-                            var angle = Vector2.SignedAngle(Vector2.up, speed.normalized);
-                            self.gameObject.transform.rotation = Quaternion.Euler(0, 0, angle);
-                        }
-                    };
-                };
-
-                windWall.Awake();
             });
 
             return true;

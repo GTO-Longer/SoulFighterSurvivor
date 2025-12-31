@@ -667,6 +667,10 @@ namespace Classes.Entities
         /// </summary>
         public void Flash(Vector2 direction, float distance)
         {
+            // 打断当前位移
+            currentDash.Kill();
+            
+            // 计算目标点
             var targetPosition = (Vector2)gameObject.transform.position + direction.normalized * distance;
             NavMesh.SamplePosition(targetPosition, out var hit, 10000, NavMesh.AllAreas);
             agent.Warp(hit.position);

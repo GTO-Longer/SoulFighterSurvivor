@@ -132,6 +132,13 @@ namespace Classes.Skills
 
         private void Sweep(Entity target)
         {
+            // 当QCD小于0.6秒时可以刷新CD直接使用
+            var steelTempest = owner.skillList[(int)SkillType.QSkill] as SteelTempest;
+            if (steelTempest != null && steelTempest.actualSkillCoolDown - steelTempest.coolDownTimer <= 0.6f)
+            {
+                steelTempest.coolDownTimer = steelTempest.actualSkillCoolDown;
+            }
+            
             var direction = (target.gameObject.transform.position - owner.gameObject.transform.position).normalized;
             owner.Dash(destinationDistance, dashDuration, direction, () =>
             {

@@ -323,6 +323,7 @@ namespace Classes.Entities
                 
                 //停止移动
                 _agent.SetStop(true);
+                _agent.goal = (Vector2)_gameObject.transform.position;
             }
             
             // 当玩家点击右键
@@ -407,9 +408,14 @@ namespace Classes.Entities
                 _attackTimer += Time.deltaTime;
             }
 
-            if (target.Value == null || !_agent.isStopped)
+            if (target.Value == null || !_agent.isStopped || !canMove)
             {
                 _attackWindUpTimer = 0;
+                return;
+            }
+
+            if (Vector2.Distance(target.Value.gameObject.transform.position, gameObject.transform.position) > attackRange.Value + target.Value.scale)
+            {
                 return;
             }
 

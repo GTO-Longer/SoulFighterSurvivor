@@ -25,12 +25,18 @@ namespace Classes.Skills
             return string.Format(_skillDescription, _damage);
         }
 
-        public override bool SkillEffect()
+        public override bool SkillEffect(out string failMessage)
         {
-            // 遍历寻找范围内的目标
-            var targets = ToolFunctions.IsOverlappingOtherTagAll(owner.gameObject, skillRange)?.ToList().FindAll(entity => entity.isControlled);
+            failMessage = string.Empty;
             
-            if (targets is not { Count: > 0 }) return false; 
+            // 遍历寻找范围内的目标
+            var targets = ToolFunctions.IsOverlappingOtherTagAll(owner.gameObject, skillRange)?.ToList().FindAll(entity => entity.isControlled.Value);
+
+            if (targets is not { Count: > 0 })
+            {
+                failMessage = "无有效目标";
+                return false;
+            } 
 
             owner.canUseSkill = false;
             owner.canMove = false;

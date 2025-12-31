@@ -15,8 +15,10 @@ namespace Classes.Skills
             return string.Format(_skillDescription);
         }
 
-        public override bool SkillEffect()
+        public override bool SkillEffect(out string failMessage)
         {
+            failMessage = string.Empty;
+            
             var ghostPoro = new Buffs.GhostPoro(owner, owner);
             ghostPoro.buffIcon = skillIcon.sprite;
             owner.GetBuff(ghostPoro);

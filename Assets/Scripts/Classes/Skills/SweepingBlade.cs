@@ -81,10 +81,13 @@ namespace Classes.Skills
             return string.Format(_skillDescription, _damage, _targetCD);
         }
 
-        public override bool SkillEffect()
+        public override bool SkillEffect(out string failMessage)
         {
+            failMessage = string.Empty;
+            
             if (!ToolFunctions.IsObjectAtMousePoint(out var obj, "Enemy", true) || isSweeping)
             {
+                failMessage = "无有效目标";    
                 return false;
             }
 
@@ -121,7 +124,8 @@ namespace Classes.Skills
                         }
                     });
                 }
-                
+
+                failMessage = "无有效目标";
                 return false;
             }
             

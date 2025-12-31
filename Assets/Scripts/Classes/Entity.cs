@@ -733,7 +733,7 @@ namespace Classes
                 return;
             }
 
-            if (skill.SkillEffect())
+            if (skill.SkillEffect(out var failMessage))
             {
                 if (skill.maxSkillChargeCount <= 0)
                 {
@@ -742,6 +742,10 @@ namespace Classes
 
                 skill.coolDownTimer = 0;
                 OnSkillUsed?.Invoke(skill);
+            }
+            else
+            {
+                Binder.ShowText(SkillViewModel.Instance.skillTips, failMessage, 1);
             }
         }
 

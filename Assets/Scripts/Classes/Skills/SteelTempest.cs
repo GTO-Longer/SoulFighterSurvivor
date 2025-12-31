@@ -51,87 +51,138 @@ namespace Classes.Skills
             return string.Format(_skillDescription, _damage, _critDamage);
         }
 
-        public override bool SkillEffect()
+        public override bool SkillEffect(out string failMessage)
         {
+            failMessage = string.Empty;
+            
             skillUsed = true;
             var sweepingBlade = owner.skillList[(int)SkillType.ESkill] as SweepingBlade;
             if (sweepingBlade == null) return false;
 
             if (sweepingBlade.isSweeping)
             {
-                var steelTempest = BulletFactory.Instance.CreateBullet(owner, 0.3f, 1);
-                steelTempest.OnBulletAwake += (self) =>
+                if (continuousReleaseCount < 2)
                 {
-                    self.gameObject.transform.position = owner.gameObject.transform.position;
-                    self.gameObject.SetActive(true);
-                    self.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-                    self.effect = EffectManager.Instance.CreateEffect("CircleSlash", self.gameObject);
-
-                    self.OnBulletUpdate += (_) =>
+                    var steelTempest = BulletFactory.Instance.CreateBullet(owner, 0.3f, 1);
+                    steelTempest.OnBulletAwake += (self) =>
                     {
-                        steelTempest.gameObject.transform.position = owner.gameObject.transform.position;
-                        
-                        var targets = ToolFunctions.IsOverlappingOtherTagAll(self.gameObject, 215);
-                        if (targets != null)
+                        self.gameObject.transform.position = owner.gameObject.transform.position;
+                        self.gameObject.SetActive(true);
+                        self.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+                        self.effect = EffectManager.Instance.CreateEffect("CircleSlash", self.gameObject);
+
+                        self.OnBulletUpdate += (_) =>
                         {
-                            var wind = false;
-                            foreach (var entity in targets)
+                            steelTempest.gameObject.transform.position = owner.gameObject.transform.position;
+
+                            var targets = ToolFunctions.IsOverlappingOtherTagAll(self.gameObject, 215);
+                            if (targets != null)
                             {
-                                if (!entity.isAlive) continue;
-
-                                self.bulletEntityDamageCDTimer.TryAdd(entity, self.bulletDamageCD);
-
-                                if (self.bulletEntityDamageCDTimer[entity] > self.bulletDamageCD)
+                                foreach (var entity in targets)
                                 {
-                                    self.bulletEntityDamageCDTimer[entity] = 0;
-                                    
-                                    var isCritical = Random.Range(0f, 1f) < owner.criticalRate.Value;
-                            
-                                    var damageCount = isCritical ? 
-                                        entity.CalculateADDamage(self.owner, _critDamage) : 
-                                        entity.CalculateADDamage(self.owner, _damage);
-                            
-                                    entity.TakeDamage(damageCount, DamageType.AD, owner,
-                                        isCritical && owner.canSkillCritical);
+                                    if (!entity.isAlive) continue;
 
-                                    // 若有3层风则眩晕并且创建额外特效
-                                    if (continuousReleaseCount >= 2 && skillUsed)
-                                    {
-                                        // TODO:额外特效
-                                        
-                                        entity.GetControlled(controlTime);
-                                        wind = true;
-                                    }
-                                    
-                                    if (continuousReleaseCount < 2 && skillUsed)
-                                    {
-                                        skillUsed = false;
-                                        continuousReleaseCount += 1;
-                                        continuousReleaseTimer = continuousReleaseTime;
-                                    }
+                                    self.bulletEntityDamageCDTimer.TryAdd(entity, self.bulletDamageCD);
 
-                                    // 造成攻击特效
-                                    self.owner.AttackEffectActivate(entity, damageCount);
+                                    if (self.bulletEntityDamageCDTimer[entity] > self.bulletDamageCD)
+                                    {
+                                        self.bulletEntityDamageCDTimer[entity] = 0;
+
+                                        var isCritical = Random.Range(0f, 1f) < owner.criticalRate.Value;
+
+                                        var damageCount = isCritical
+                                            ? entity.CalculateADDamage(self.owner, _critDamage)
+                                            : entity.CalculateADDamage(self.owner, _damage);
+
+                                        entity.TakeDamage(damageCount, DamageType.AD, owner,
+                                            isCritical && owner.canSkillCritical);
+
+                                        if (continuousReleaseCount < 2 && skillUsed)
+                                        {
+                                            skillUsed = false;
+                                            continuousReleaseCount += 1;
+                                            continuousReleaseTimer = continuousReleaseTime;
+                                        }
+
+                                        // 造成攻击特效
+                                        self.owner.AttackEffectActivate(entity, damageCount);
+                                    }
                                 }
                             }
 
-                            if (continuousReleaseCount >= 2 && wind)
+                            // 子弹的销毁逻辑
+                            if (self.bulletContinuousTimer >= self.bulletContinuousTime)
                             {
-                                continuousReleaseCount = 0;
+                                self.bulletEntityDamageCDTimer.Clear();
+                                EffectManager.Instance.DestroyEffect(self.effect);
+                                self.Destroy();
                             }
-                        }
-
-                        // 子弹的销毁逻辑
-                        if (self.bulletContinuousTimer >= self.bulletContinuousTime)
-                        {
-                            self.bulletEntityDamageCDTimer.Clear();
-                            EffectManager.Instance.DestroyEffect(self.effect);
-                            self.Destroy();
-                        }
+                        };
                     };
-                };
 
-                steelTempest.Awake();
+                    steelTempest.Awake();
+                }
+                else
+                {
+                    continuousReleaseCount = 0;
+                    
+                    var steelTempest = BulletFactory.Instance.CreateBullet(owner, 0.3f, 1);
+                    steelTempest.OnBulletAwake += (self) =>
+                    {
+                        self.gameObject.transform.position = owner.gameObject.transform.position;
+                        self.gameObject.SetActive(true);
+                        self.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+                        self.effect = EffectManager.Instance.CreateEffect("CircleSlash", self.gameObject);
+
+                        self.OnBulletUpdate += (_) =>
+                        {
+                            steelTempest.gameObject.transform.position = owner.gameObject.transform.position;
+
+                            var targets = ToolFunctions.IsOverlappingOtherTagAll(self.gameObject, 215);
+                            if (targets != null)
+                            {
+                                foreach (var entity in targets)
+                                {
+                                    if (!entity.isAlive) continue;
+
+                                    self.bulletEntityDamageCDTimer.TryAdd(entity, self.bulletDamageCD);
+
+                                    if (self.bulletEntityDamageCDTimer[entity] > self.bulletDamageCD)
+                                    {
+                                        self.bulletEntityDamageCDTimer[entity] = 0;
+
+                                        var isCritical = Random.Range(0f, 1f) < owner.criticalRate.Value;
+
+                                        var damageCount = isCritical
+                                            ? entity.CalculateADDamage(self.owner, _critDamage)
+                                            : entity.CalculateADDamage(self.owner, _damage);
+
+                                        entity.TakeDamage(damageCount, DamageType.AD, owner,
+                                            isCritical && owner.canSkillCritical);
+
+                                        // 若有3层风则眩晕并且创建额外特效
+                                        // TODO:额外特效
+
+                                        entity.GetControlled(controlTime);
+
+                                        // 造成攻击特效
+                                        self.owner.AttackEffectActivate(entity, damageCount);
+                                    }
+                                }
+                            }
+
+                            // 子弹的销毁逻辑
+                            if (self.bulletContinuousTimer >= self.bulletContinuousTime)
+                            {
+                                self.bulletEntityDamageCDTimer.Clear();
+                                EffectManager.Instance.DestroyEffect(self.effect);
+                                self.Destroy();
+                            }
+                        };
+                    };
+
+                    steelTempest.Awake();
+                }
             }
             else
             {
@@ -147,7 +198,6 @@ namespace Classes.Skills
                         owner.canUseSkill = false;
                         owner.canMove = false;
                         owner.RotateTo(ref direction);
-                        owner.agent.goal = (Vector2)owner.gameObject.transform.position;
                     }, () =>
                     {
                         owner.canUseSkill = true;

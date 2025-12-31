@@ -24,8 +24,10 @@ namespace Classes.Skills
                 _firstDamage, _secondDamage);
         }
 
-        public override bool SkillEffect()
+        public override bool SkillEffect(out string failMessage)
         {
+            failMessage = string.Empty;
+            
             var attackIndex = 0;
 
             // 获得2s内40%递减的加速

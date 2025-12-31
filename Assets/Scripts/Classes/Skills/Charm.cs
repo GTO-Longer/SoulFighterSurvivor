@@ -24,8 +24,10 @@ namespace Classes.Skills
                 _controlTime, _damage);
         }
 
-        public override bool SkillEffect()
+        public override bool SkillEffect(out string failMessage)
         {
+            failMessage = string.Empty;
+            
             // 计算飞出目标点
             var mouseWorld = CameraSystem._mainCamera.ScreenToWorldPoint(Input.mousePosition);
             var direction = ((Vector2)mouseWorld - (Vector2)owner.gameObject.transform.position).normalized;

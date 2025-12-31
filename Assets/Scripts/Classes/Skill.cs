@@ -131,8 +131,9 @@ namespace Classes{
             return "";
         }
 
-        public virtual bool SkillEffect()
+        public virtual bool SkillEffect(out string failMessage)
         {
+            failMessage = "";
             return false;
         }
 

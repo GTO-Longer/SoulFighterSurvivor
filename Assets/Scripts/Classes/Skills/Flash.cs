@@ -18,8 +18,10 @@ namespace Classes.Skills
             return string.Format(_skillDescription);
         }
 
-        public override bool SkillEffect()
+        public override bool SkillEffect(out string failMessage)
         {
+            failMessage = string.Empty;
+            
             if (owner.canFlash)
             {
                 var direction = (owner._mousePosition - (Vector2)owner.gameObject.transform.position).normalized;

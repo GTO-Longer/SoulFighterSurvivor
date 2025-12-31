@@ -35,8 +35,10 @@ namespace Classes.Skills
                 _damage);
         }
 
-        public override bool SkillEffect()
+        public override bool SkillEffect(out string failMessage)
         {
+            failMessage = string.Empty;
+            
             // 设置充能
             if (skillChargeCount == 0 && specialTimer == 0)
             {

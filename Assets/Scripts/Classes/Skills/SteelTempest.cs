@@ -9,7 +9,7 @@ namespace Classes.Skills
     public class SteelTempest : Skill
     {
         private float _damage => _baseSkillValue[0][skillLevelToIndex] + 1.05f * owner.attackDamage;
-        private float _critDamage => _baseSkillValue[0][skillLevelToIndex] + 1.05f * owner.attackDamage * owner.criticalDamage;
+        private float _critDamage => _baseSkillValue[0][skillLevelToIndex] + 1.05f * owner.attackDamage * (1 + owner.criticalDamage);
         private int continuousReleaseCount;
         private const float continuousReleaseTime = 6;
         private float continuousReleaseTimer;

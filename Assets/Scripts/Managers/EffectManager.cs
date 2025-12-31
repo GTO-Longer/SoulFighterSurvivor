@@ -48,6 +48,16 @@ namespace Managers
             return effect;
         }
 
+        public Effect CreateEffect(string effectName)
+        {
+            var effect = new Effect(null, ResourceReader.LoadPrefab($"Effects/{effectName}", transform, false));
+            
+            effect.effect.SetActive(true);
+            
+            effectList.Add(effect);
+            return effect;
+        }
+
         public Effect CreateCanvasEffect(string effectName, GameObject owner)
         {
             var effect = new Effect(owner, ResourceReader.LoadPrefab($"Effects/{effectName}", transform, false));

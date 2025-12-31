@@ -164,6 +164,26 @@ namespace Classes.Skills
                                         // TODO:额外特效
 
                                         entity.GetControlled(controlTime);
+                                        
+                                        // 创建白线
+                                        var effect = EffectManager.Instance.CreateEffect("WavyLine");
+                                        var target = entity;
+                                        effect.EffectUpdateEvent += () =>
+                                        {
+                                            var lineRenderer = effect.effect.GetComponent<LineRenderer>();
+                                            
+                                            if (target.isControlled && target.isAlive && Vector2.Distance(target.gameObject.transform.position, owner.gameObject.transform.position) <= 1400)
+                                            {
+                                                lineRenderer.enabled = true;
+                                                lineRenderer.SetPosition(0, owner.gameObject.transform.position);
+                                                lineRenderer.SetPosition(1, target.gameObject.transform.position);
+                                            }
+                                            else
+                                            {
+                                                lineRenderer.enabled = false;
+                                                EffectManager.Instance.DestroyEffect(effect);
+                                            }
+                                        };
 
                                         // 造成攻击特效
                                         self.owner.AttackEffectActivate(entity, damageCount);
@@ -350,6 +370,26 @@ namespace Classes.Skills
                                 isCritical && owner.canSkillCritical);
                             
                             self.target.GetControlled(controlTime);
+                            
+                            // 创建白线
+                            var effect = EffectManager.Instance.CreateEffect("WavyLine");
+                            var target = self.target;
+                            effect.EffectUpdateEvent += () =>
+                            {
+                                var lineRenderer = effect.effect.GetComponent<LineRenderer>();
+                                            
+                                if (target.isControlled && target.isAlive && Vector2.Distance(target.gameObject.transform.position, owner.gameObject.transform.position) <= 1400)
+                                {
+                                    lineRenderer.enabled = true;
+                                    lineRenderer.SetPosition(0, owner.gameObject.transform.position);
+                                    lineRenderer.SetPosition(1, target.gameObject.transform.position);
+                                }
+                                else
+                                {
+                                    lineRenderer.enabled = false;
+                                    EffectManager.Instance.DestroyEffect(effect);
+                                }
+                            };
 
                             // 造成攻击特效
                             self.owner.AttackEffectActivate(self.target, damageCount);

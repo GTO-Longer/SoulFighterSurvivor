@@ -511,6 +511,33 @@ namespace MVVM
             return () => source.PropertyChanged -= OnChanged;
         }
         
+        public static Action BindActive(TMP_Text target, Property<bool> source)
+        {
+            if (target == null || source == null)
+            {
+                Debug.LogWarning($"[Binder] {target.name}显隐绑定失败");
+                return () => { };
+            }
+
+            void OnChanged(object sender, EventArgs e)
+            {
+                if (target == null) return;
+                
+                if (source.Value)
+                {
+                    target.color = new Color(target.color.r, target.color.g, target.color.b, 1);
+                }
+                else
+                {
+                    target.color = new Color(target.color.r, target.color.g, target.color.b, 0);
+                }
+            }
+
+            OnChanged(null, null);
+            source.PropertyChanged += OnChanged;
+            return () => source.PropertyChanged -= OnChanged;
+        }
+        
         public static Action BindActive<T>(Image target, Property<T> source)
         {
             if (target == null || source == null)

@@ -34,11 +34,11 @@ namespace MVVM.ViewModels
             var coinContent = transform.Find("Equipments/ShopButton/CoinContent").gameObject.GetComponent<TMP_Text>();
 
             notFullHealth = new Property<bool>(
-                () => Mathf.Abs(HeroManager.hero.healthPoint.Value - HeroManager.hero.maxHealthPoint.Value) > 0.1f && HeroManager.hero.healthRegeneration > 0.1f, DataType.None,
-                HeroManager.hero.healthPoint, HeroManager.hero.maxHealthPoint);
+                () => !(Mathf.Abs(HeroManager.hero.healthPoint.Value - HeroManager.hero.maxHealthPoint.Value) <= 0.1f && HeroManager.hero.healthRegeneration > 0.1f), DataType.None,
+                HeroManager.hero.healthPoint, HeroManager.hero.maxHealthPoint, HeroManager.hero.healthRegeneration);
             notFullMagic = new Property<bool>(
-                () => Mathf.Abs(HeroManager.hero.magicPoint.Value - HeroManager.hero.maxMagicPoint.Value) > 0.1f && HeroManager.hero.magicRegeneration > 0.1f, DataType.None,
-                HeroManager.hero.magicPoint, HeroManager.hero.maxMagicPoint);
+                () => !(Mathf.Abs(HeroManager.hero.magicPoint.Value - HeroManager.hero.maxMagicPoint.Value) <= 0.1f && HeroManager.hero.magicRegeneration > 0.1f), DataType.None,
+                HeroManager.hero.magicPoint, HeroManager.hero.maxMagicPoint, HeroManager.hero.magicRegeneration);
             
             foreach (var _attribute in attributeList)
             {

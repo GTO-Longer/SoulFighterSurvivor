@@ -225,10 +225,12 @@ namespace Classes.Skills
                         owner.agent.SetStop(false);
 
                         var slash = BulletFactory.Instance.CreateBullet(owner);
+                        var startPosition = new Vector2(0, 0);
                         slash.OnBulletAwake += (self) =>
                         {
                             self.target = null;
                             self.gameObject.transform.position = owner.gameObject.transform.position;
+                            startPosition = owner.gameObject.transform.position;
                             self.gameObject.SetActive(true);
                             var hasInitialized = false;
                             var speed = Vector2.zero;
@@ -245,7 +247,7 @@ namespace Classes.Skills
                                 }
 
                                 // 到达目标位置
-                                if (Vector2.Distance(self.gameObject.transform.position, owner.gameObject.transform.position) > skillRange)
+                                if (Vector2.Distance(self.gameObject.transform.position, startPosition) > skillRange)
                                 {
                                     self.Destroy();
                                 }
@@ -314,10 +316,12 @@ namespace Classes.Skills
                         owner.agent.SetStop(false);
 
                         var slash = BulletFactory.Instance.CreateBullet(owner);
+                        var startPosition = new Vector2(0, 0);
                         slash.OnBulletAwake += (self) =>
                         {
                             self.target = null;
                             self.gameObject.transform.position = owner.gameObject.transform.position;
+                            startPosition = owner.gameObject.transform.position;
                             self.gameObject.SetActive(true);
                             var hasInitialized = false;
                             var speed = Vector2.zero;
@@ -335,7 +339,7 @@ namespace Classes.Skills
                                 }
 
                                 // 到达目标位置
-                                if (Vector2.Distance(self.gameObject.transform.position, owner.gameObject.transform.position) > 1150)
+                                if (Vector2.Distance(self.gameObject.transform.position, startPosition) > 1150)
                                 {
                                     self.Destroy();
                                 }

@@ -415,7 +415,7 @@
             "id": "SteelTempest",
             "heroName": "Yasuo",
             "skillName": "斩钢闪",
-            "_skillDescription": "亚索进行戳刺，造成{0:F0}物理伤害。如果他命中了，那么他会获得一层持续6秒的层数。当他拥有2层时，这个技能的下次施放将会发射出一道远程龙卷风，造成等值伤害和1秒眩晕。 如果在冲刺期间施放，那么这个技能会呈环状进行打击而非直接戳刺。 \n这个技能和攻击类似：它可以暴击以造成{1:F0}物理伤害，它会对击中的敌人施加攻击特效，它的冷却时间和施放时间可通过攻击速度来缩短。",
+            "_skillDescription": "亚索进行戳刺，造成<color=#FF6A6A>{0:F0}物理伤害</color>。如果他命中了，那么他会获得一层持续6秒的层数。当他拥有2层时，这个技能的下次施放将会发射出一道远程龙卷风，造成等值伤害和1秒眩晕。 如果在冲刺期间施放，那么这个技能会呈环状进行打击而非直接戳刺。 \n这个技能和攻击类似：它可以暴击以造成<color=#FF6A6A>{1:F0}物理伤害</color>，它会对击中的敌人施加攻击特效，它的冷却时间和施放时间可通过攻击速度来缩短。",
             "_skillType": "QSkill",
             "_baseSkillCost": [
                 0.0,
@@ -450,7 +450,7 @@
             "id": "WindWall",
             "heroName": "Yasuo",
             "skillName": "风之障壁",
-            "_skillDescription": "亚索形成一个持续4秒的气流浮墙，来阻挡敌方的飞行道具。",
+            "_skillDescription": "亚索形成一个持续4秒的气流浮墙，对身处风墙中的敌人每秒造成<color=#7700BB>{0:F0}魔法伤害</color>并且造成1秒40%减速。",
             "_skillType": "WSkill",
             "_baseSkillCost": [
                 0.0,
@@ -468,24 +468,24 @@
             ],
             "_baseSkillValue": [
                 [
-                    320.0,
-                    390.0,
-                    460.0,
-                    530.0,
-                    600.0
+                    15.0,
+                    20.0,
+                    30.0,
+                    45.0,
+                    70.0
                 ]
             ],
-            "_skillRange": 350,
-            "_castTime": 0.013,
+            "_skillRange": 180,
+            "_castTime": 0.13,
             "_bulletWidth": 0,
-            "_bulletSpeed": 50,
+            "_bulletSpeed": 30,
             "_destinationDistance": 0
         },
         {
             "id": "SweepingBlade",
             "heroName": "Yasuo",
             "skillName": "踏前斩",
-            "_skillDescription": "亚索冲刺并穿过一个目标，造成{0:F0}魔法伤害，这个技能每次施放后都会为5秒内的后续施放提供25%额外伤害，至多可叠加4次。 这个技能对每个目标有{1:F0}秒冷却时间。",
+            "_skillDescription": "亚索冲刺并穿过一个目标，造成<color=#7700BB>{0:F0}魔法伤害</color>，这个技能每次施放后都会为5秒内的后续施放提供25%额外伤害，至多可叠加4次。 这个技能对每个目标有{1:F0}秒冷却时间。",
             "_skillType": "ESkill",
             "_baseSkillCost": [
                 0.0,
@@ -527,7 +527,7 @@
             "id": "LastBreath",
             "heroName": "Yasuo",
             "skillName": "狂风绝息斩",
-            "_skillDescription": "亚索瞬间移动到一名被眩晕的敌方英雄身边，造成{0:F0}物理伤害并使所有附近被眩晕的敌人们额外维持控制状态1秒。亚索还会获得满额剑意。 之后，亚索获得60%额外物理穿透，持续15秒。",
+            "_skillDescription": "亚索瞬间移动到一名被眩晕的敌方英雄身边，造成<color=#FF6A6A>{0:F0}物理伤害</color>并使所有附近被眩晕的敌人们额外维持控制状态1秒。亚索还会获得满额剑意。 之后，亚索获得60%额外物理穿透，持续15秒。",
             "_skillType": "RSkill",
             "_baseSkillCost": [
                 0.0,

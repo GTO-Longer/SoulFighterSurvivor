@@ -653,10 +653,10 @@ namespace Classes
         /// <summary>
         /// 攻击命中事件
         /// </summary>
-        public event Action<Entity, Entity> OnAttackHit;
-        public void AttackHit(Entity target)
+        public event Action<Entity, Entity, bool> OnAttackHit;
+        public void AttackHit(Entity target, bool isCrit)
         {
-            OnAttackHit?.Invoke(this, target);
+            OnAttackHit?.Invoke(this, target, isCrit);
         }
 
         /// <summary>

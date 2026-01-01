@@ -1,3 +1,4 @@
+using Managers;
 using UnityEngine;
 
 namespace Classes.Skills
@@ -28,6 +29,8 @@ namespace Classes.Skills
                     if (owner.energy >= owner.maxEnergy)
                     {
                         owner.TakeHeal(healCount);
+                        
+                        AudioManager.Instance.Play($"Hero/Yasuo/P_OnActivate", "P_OnActivate");
                         owner.energy.Value = 0;
                     }
                 };

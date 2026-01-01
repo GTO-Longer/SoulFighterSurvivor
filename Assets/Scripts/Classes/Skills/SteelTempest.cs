@@ -41,6 +41,12 @@ namespace Classes.Skills
                     else
                     {
                         continuousReleaseCount = 0;
+
+                        if (AudioManager.Instance.IsPlaying("Yasuo_Q3_Background"))
+                        {
+                            AudioManager.Instance.Stop("Yasuo_Q3_Background");
+                            AudioManager.Instance.Play("Hero/Yasuo/Q3_OnDeactivate", "Yasuo_Q3_OnDeactivate");
+                        }
                     }
                 };
             };
@@ -66,6 +72,8 @@ namespace Classes.Skills
                     var steelTempest = BulletFactory.Instance.CreateBullet(owner, 0.3f, 1);
                     steelTempest.OnBulletAwake += (self) =>
                     {
+                        AudioManager.Instance.Play("Hero/Yasuo/Q_EQComboSoundHit_OnHit", "Yasuo_Q_EQComboSoundHit_OnHit");
+                        
                         self.gameObject.transform.position = owner.gameObject.transform.position;
                         self.gameObject.SetActive(true);
                         self.gameObject.GetComponent<SpriteRenderer>().enabled = false;
@@ -102,6 +110,12 @@ namespace Classes.Skills
                                             skillUsed = false;
                                             continuousReleaseCount += 1;
                                             continuousReleaseTimer = continuousReleaseTime;
+                                            
+                                            if (continuousReleaseCount == 2)
+                                            {
+                                                AudioManager.Instance.Play("Hero/Yasuo/Q3_OnActivate", "Yasuo_Q3_OnActivate");
+                                                AudioManager.Instance.Play("Hero/Yasuo/Q3_Background", "Yasuo_Q3_Background", true);
+                                            }
                                         }
 
                                         // 造成攻击特效
@@ -129,6 +143,10 @@ namespace Classes.Skills
                     var steelTempest = BulletFactory.Instance.CreateBullet(owner, 0.3f, 1);
                     steelTempest.OnBulletAwake += (self) =>
                     {
+                        AudioManager.Instance.Play("Hero/Yasuo/Q3_Voice", "Yasuo_Q3_Voice");
+                        AudioManager.Instance.Stop("Yasuo_Q3_Background");
+                        AudioManager.Instance.Play("Hero/Yasuo/Q_EQComboSoundHit_OnHit", "Yasuo_Q_EQComboSoundHit_OnHit");
+                        
                         self.gameObject.transform.position = owner.gameObject.transform.position;
                         self.gameObject.SetActive(true);
                         self.gameObject.GetComponent<SpriteRenderer>().enabled = false;
@@ -228,6 +246,9 @@ namespace Classes.Skills
                         var startPosition = new Vector2(0, 0);
                         slash.OnBulletAwake += (self) =>
                         {
+                            AudioManager.Instance.Play("Hero/Yasuo/Q_OnCast", "Yasuo_Q_OnCast");
+                            AudioManager.Instance.Play("Hero/Yasuo/Q_Voice", "Yasuo_Q_Voice");
+
                             self.target = null;
                             self.gameObject.transform.position = owner.gameObject.transform.position;
                             startPosition = owner.gameObject.transform.position;
@@ -271,6 +292,12 @@ namespace Classes.Skills
                                             skillUsed = false;
                                             continuousReleaseCount += 1;
                                             continuousReleaseTimer = continuousReleaseTime;
+                                            
+                                            if (continuousReleaseCount == 2)
+                                            {
+                                                AudioManager.Instance.Play("Hero/Yasuo/Q3_OnActivate", "Yasuo_Q3_OnActivate");
+                                                AudioManager.Instance.Play("Hero/Yasuo/Q3_Background", "Yasuo_Q3_Background", true);
+                                            }
                                         }
                                     }
                                 }
@@ -290,6 +317,8 @@ namespace Classes.Skills
 
                             // 造成攻击特效
                             self.owner.AttackEffectActivate(self.target, damageCount);
+                            
+                            AudioManager.Instance.Play("Hero/Yasuo/Q_OnHit", "Yasuo_Q_OnHit");
                         };
 
                         slash.Awake();
@@ -319,6 +348,10 @@ namespace Classes.Skills
                         var startPosition = new Vector2(0, 0);
                         slash.OnBulletAwake += (self) =>
                         {
+                            AudioManager.Instance.Stop("Yasuo_Q3_Background");
+                            AudioManager.Instance.Play("Hero/Yasuo/Q3_OnCast", "Yasuo_Q3_OnCast");
+                            AudioManager.Instance.Play("Hero/Yasuo/Q3_Voice", "Yasuo_Q3_Voice");
+                            
                             self.target = null;
                             self.gameObject.transform.position = owner.gameObject.transform.position;
                             startPosition = owner.gameObject.transform.position;
@@ -397,6 +430,8 @@ namespace Classes.Skills
 
                             // 造成攻击特效
                             self.owner.AttackEffectActivate(self.target, damageCount);
+                            
+                            AudioManager.Instance.Play("Hero/Yasuo/Q3_OnHit", "Yasuo_Q3_OnHit");
                         };
 
                         slash.Awake();

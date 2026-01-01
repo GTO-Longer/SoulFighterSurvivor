@@ -1,6 +1,7 @@
 using System.Linq;
 using DataManagement;
 using Factories;
+using Managers;
 using UnityEngine;
 using Utilities;
 
@@ -49,6 +50,9 @@ namespace Classes.Skills
             {
                 target = targets[0];
             }
+            
+            AudioManager.Instance.Play("Hero/Yasuo/R_Voice", "Yasuo_R_Voice");
+            AudioManager.Instance.Play("Hero/Yasuo/R_OnCast", "Yasuo_R_OnCast");
 
             // 闪现到目标身后
             var targetDirection = (Vector2)(target.gameObject.transform.position - owner.gameObject.transform.position).normalized;
@@ -76,6 +80,7 @@ namespace Classes.Skills
             // 斩击3次
             var continuousTime = 0f;
             var slashTime = 0;
+            AudioManager.Instance.Play("Hero/Yasuo/R_OnHit", "Yasuo_R_OnHit");
             Async.SetAsync(0.75f, null, () =>
             {
                 // 设置角色无法使用技能、无法移动
@@ -84,7 +89,7 @@ namespace Classes.Skills
                 owner.agent.SetStop(true);
                 continuousTime += Time.deltaTime;
 
-                if (continuousTime >= 0.2f * slashTime)
+                if (continuousTime >= 0.3f * slashTime)
                 {
                     slashTime += 1;
                     
@@ -137,6 +142,8 @@ namespace Classes.Skills
                 }
             }, () =>
             {
+                AudioManager.Instance.Play("Hero/Yasuo/R_OnFinish", "Yasuo_R_OnFinish");
+                
                 owner.canUseSkill = true;
                 owner.canMove = true;
                 owner.agent.SetStop(false);

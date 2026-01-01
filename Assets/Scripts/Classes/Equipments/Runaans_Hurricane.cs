@@ -9,13 +9,13 @@ namespace Classes.Equipments
 {
     public class Runaans_Hurricane : Equipment
     {
-        private Action<Entity, Entity> equipmentEffect;
+        private Action<Entity, Entity, bool> equipmentEffect;
         private float damageCount => 0.7f * HeroManager.hero.attackDamage + 0.42f * HeroManager.hero.abilityPower;
         private const float attackBulletSpeed = 1500;
         
         public Runaans_Hurricane() : base("Runaans_Hurricane")
         {
-            equipmentEffect = (_, target) =>
+            equipmentEffect = (_, target, isCrit) =>
             {
                 var targets = ToolFunctions.IsOverlappingWithTagAll(target.gameObject, target.gameObject.tag, 400);
                 
@@ -56,8 +56,7 @@ namespace Classes.Equipments
 
                                 // 子弹的销毁逻辑
                                 const float destroyDistance = 30f;
-                                if (Vector3.Distance(self.gameObject.transform.position,
-                                        self.target.gameObject.transform.position) <= destroyDistance)
+                                if (Vector3.Distance(self.gameObject.transform.position, self.target.gameObject.transform.position) <= destroyDistance)
                                 {
                                     self.BulletHit();
                                     self.Destroy();
@@ -69,8 +68,7 @@ namespace Classes.Equipments
                         {
                             // 计算伤害
                             var damage = targets[targetIndex].CalculateADDamage(owner, damageCount);
-                            targets[targetIndex].TakeDamage(damage, DamageType.AD, owner,
-                                Random.Range(0f, 1f) < owner.criticalRate.Value);
+                            targets[targetIndex].TakeDamage(damage, DamageType.AD, owner, isCrit);
 
                             // 造成攻击特效
                             if (targets[targetIndex].isAlive)

@@ -20,7 +20,7 @@ namespace Classes.Hexes
         private float damageSum = 0;
         
         private Action<Entity> HexCDTimer;
-        private Action<Entity, Entity> HexEffect;
+        private Action<Entity, Entity, bool> HexEffect;
         
         private Effect effect;
         
@@ -66,7 +66,7 @@ namespace Classes.Hexes
                 }
             };
 
-            HexEffect = (_, target) =>
+            HexEffect = (_, target, _) =>
             {
                 if (target == null) return;
 

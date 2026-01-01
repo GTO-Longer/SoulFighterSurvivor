@@ -7,6 +7,7 @@ using Components.UI;
 using DataManagement;
 using DG.Tweening;
 using Factories;
+using Managers;
 using MVVM.ViewModels;
 using Systems;
 using UnityEngine;
@@ -19,6 +20,7 @@ namespace Classes.Entities
 {
     public sealed class Hero : Entity
     {
+        public string heroName;
         private Transform _attackRangeIndicator;
         
         /// <summary>
@@ -93,6 +95,8 @@ namespace Classes.Entities
             var config = ResourceReader.ReadHeroConfig(name);
             if (config != null)
             {
+                heroName = config.heroName;
+                
                 _baseMaxHealthPoint = config._baseMaxHealthPoint;
                 _baseMaxMagicPoint = config._baseMaxMagicPoint;
                 _baseAttackDamage = config._baseAttackDamage;
@@ -223,11 +227,11 @@ namespace Classes.Entities
                 self.TakeHeal(adDamage * omnivamp);
             };
             
-            OnAttackHit += (self, targetEntity) =>
+            OnAttackHit += (self, targetEntity, isCrit) =>
             {
                 // 计算平A伤害
                 var damageCount = targetEntity.CalculateADDamage(self, self.attackDamage);
-                targetEntity.TakeDamage(damageCount, DamageType.AD, this, Random.Range(0f, 1f) < criticalRate.Value);
+                targetEntity.TakeDamage(damageCount, DamageType.AD, this, isCrit);
 
                 // 造成攻击特效
                 if (targetEntity.isAlive)
@@ -436,6 +440,21 @@ namespace Classes.Entities
             _attackWindUpTimer += Time.deltaTime;
             if (_attackWindUpTimer >= actualAttackInterval * _attackWindUp)
             {
+                // 计算是否暴击
+                var isCrit = Random.Range(0f, 1f) < criticalRate.Value;
+                
+                // 播放音效
+                if (isCrit)
+                {
+                    AudioManager.Instance.Play($"Hero/{heroName}/CritAttack_OnCast", "CritAttack_OnCast");
+                    AudioManager.Instance.Play($"Hero/{heroName}/CritAttack_Voice", "CritAttack_Voice");
+                }
+                else
+                {
+                    AudioManager.Instance.Play($"Hero/{heroName}/Attack_OnCast", "Attack_OnCast");
+                    AudioManager.Instance.Play($"Hero/{heroName}/Attack_Voice", "Attack_Voice");
+                }
+                
                 // 发动攻击
                 _attackTimer = 0;
                 _attackWindUpTimer = 0;
@@ -481,7 +500,16 @@ namespace Classes.Entities
                 bullet.OnBulletHit += (self) =>
                 {
                     // 触发普通攻击命中事件
-                    self.owner.AttackHit(self.target);
+                    self.owner.AttackHit(self.target, isCrit);
+
+                    if (isCrit)
+                    {
+                        AudioManager.Instance.Play($"Hero/{heroName}/Attack_OnHit", "Attack_OnHit");
+                    }
+                    else
+                    {
+                        AudioManager.Instance.Play($"Hero/{heroName}/CritAttack_OnHit", "CritAttack_OnHit");
+                    }
                 };
                 
                 bullet.Awake();
@@ -819,6 +847,14 @@ namespace Classes.Entities
                 hex.OnHexRemove();
             }
             hexList.Clear();
+        }
+
+        public override void Die(Entity killer)
+        {
+            base.Die(killer);
+            
+            AudioManager.Instance.Play($"Hero/{heroName}/Death", "Death");
+            AudioManager.Instance.Play($"Hero/{heroName}/Death_Voice", "Death_Voice");
         }
     }
 }

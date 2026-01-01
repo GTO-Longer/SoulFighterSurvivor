@@ -1,18 +1,17 @@
-using System;
 using UnityEngine;
 
 namespace Classes.Buffs
 {
     public class Empowered : Buff
     {
-        private float moveDistance = 0;
+        private float moveDistance;
         public Empowered(Entity ownerEntity, Entity sourceEntity) : base(ownerEntity, sourceEntity, "盈能", "盈能满层时攻击可以触发盈能射击", 100, -1)
         {
             isUnique = true;
 
             OnBuffGet = () =>
             {
-                owner.OnAttackHit += (_, _) =>
+                owner.OnAttackHit += (_, _, _) =>
                 {
                     buffCount.Value += 10;
                     buffCount.Value = Mathf.Min(buffCount.Value, buffMaxCount);

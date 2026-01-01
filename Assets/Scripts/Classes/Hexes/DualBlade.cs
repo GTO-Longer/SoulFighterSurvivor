@@ -9,13 +9,13 @@ namespace Classes.Hexes
 {
     public class DualBlade : Hex
     {
-        private Action<Entity, Entity> HexEffect;
+        private Action<Entity, Entity, bool> HexEffect;
         private const float attackBulletSpeed = 2500f;
         private float damageSum = 0;
         
         public DualBlade() : base("DualBlade")
         {
-            HexEffect = (_, target) =>
+            HexEffect = (_, target, isCrit) =>
             {
                 var bullet = BulletFactory.Instance.CreateBullet(owner);
                 bullet.OnBulletAwake += (self) =>
@@ -60,7 +60,7 @@ namespace Classes.Hexes
                     // 造成40%的攻击伤害和攻击特效
                     // 计算攻击伤害
                     var damageCount = target.CalculateADDamage(owner, owner.attackDamage) * 0.4f;
-                    target.TakeDamage(damageCount, DamageType.AD, owner, Random.Range(0f, 1f) < owner.criticalRate.Value);
+                    target.TakeDamage(damageCount, DamageType.AD, owner, isCrit);
                     damageSum += damageCount;
 
                     // 造成攻击特效

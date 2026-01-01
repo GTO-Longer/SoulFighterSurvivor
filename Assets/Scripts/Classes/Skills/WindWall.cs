@@ -49,6 +49,10 @@ namespace Classes.Skills
                 
                 windWall.OnBulletAwake += (self) =>
                 {
+                    AudioManager.Instance.Play("Hero/Yasuo/W_OnCast", "Yasuo_W_OnCast");
+                    AudioManager.Instance.Play("Hero/Yasuo/W_Voice", "Yasuo_W_Voice");
+                    AudioManager.Instance.Play("Hero/Yasuo/W_Background", "Yasuo_W_Background", true);
+                    
                     self.target = null;
                     self.gameObject.transform.position = (Vector2)owner.gameObject.transform.position + direction * 50;
                     startPosition = self.gameObject.transform.position;
@@ -84,6 +88,7 @@ namespace Classes.Skills
                         // 到达目标位置
                         if (Vector2.Distance(self.gameObject.transform.position, startPosition) > skillRange)
                         {
+                            AudioManager.Instance.Stop("Yasuo_W_Background");
                             EffectManager.Instance.DestroyEffect(effect);
                             self.Destroy();
                         }
@@ -99,7 +104,7 @@ namespace Classes.Skills
                         var filter = new ContactFilter2D();
                         filter.useTriggers = true;
                         var results = new Collider2D[10];
-                        int count = effect.effect.GetComponent<BoxCollider2D>().OverlapCollider(filter, results);
+                        var count = effect.effect.GetComponent<BoxCollider2D>().OverlapCollider(filter, results);
 
                         for (var index = 0; index < count; index++)
                         {
@@ -122,6 +127,8 @@ namespace Classes.Skills
                                         // 造成1秒40%减速
                                         var speedReduce = new SpeedReduce(entity, owner, 1f, 0.4f);
                                         entity.GetBuff(speedReduce);
+                                        
+                                        AudioManager.Instance.Play("Hero/Yasuo/W_OnHit", "Yasuo_W_OnHit");
                                     }
                                 }
                             }

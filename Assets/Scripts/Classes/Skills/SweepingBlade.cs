@@ -149,13 +149,19 @@ namespace Classes.Skills
                 isSweeping = false;
             }, () =>
             {
-                isSweeping = true;
+                if (!isSweeping)
+                {
+                    isSweeping = true;
+                    AudioManager.Instance.Play("Hero/Yasuo/E_OnCast", "Yasuo_E_OnCast");
+                }
+
                 owner.energy.Value += Time.deltaTime * 50;
                 
                 if (Vector2.Distance(owner.gameObject.transform.position, target.gameObject.transform.position) < 100)
                 {
                     if (!entityCDTimer.ContainsKey(target) && target.isAlive)
                     {
+                        AudioManager.Instance.Play("Hero/Yasuo/E_OnHit", "Yasuo_E_OnHit");
                         entityCDTimer.Add(target, _targetCD);
                         entityCDEffect.Add(target, EffectManager.Instance.CreateCanvasEffect("SweepingBladeCD", target.gameObject));
                         

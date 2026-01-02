@@ -48,10 +48,10 @@ namespace Managers
                            hex.hexQuality == Quality.Prismatic &&
                            hex.canChoose);
                 
-                if (!PanelUIRoot.Instance.isChoiceOpen && ToolFunctions.GetRandomUniqueItems(targetHexList, 3, out var results))
+                if (!PanelUIRoot.Instance.isChoiceOpen && ToolFunctions.GetRandomUniqueItems(targetHexList, targetHexList.Count, out var results))
                 {
                     choiceTime += 1;
-                    var choices = new Choice[3];
+                    var choices = new Choice[targetHexList.Count];
                     for (var index = 0; index < results.Count; index++)
                     {
                         var result = results[index];
@@ -60,7 +60,7 @@ namespace Managers
                             HeroManager.hero.GetHex(result);
                         }, result.hexQuality);
                     }
-                    ChoiceSystem.Instance.MakeChoice(choices);
+                    ChoiceSystem.Instance.MakeChoice(true, choices);
                 }
             }
         }

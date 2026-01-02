@@ -23,9 +23,9 @@ namespace Classes.Equipments
         {
             ActiveSkillEffective += () =>
             {
-                var choices = new Choice[3];
+                var choices = new Choice[targetEquipments.Count];
 
-                if (ToolFunctions.GetRandomUniqueItems(targetEquipments, 3, out var result))
+                if (ToolFunctions.GetRandomUniqueItems(targetEquipments, targetEquipments.Count, out var result))
                 {
                     var index = 0;
                     foreach (var equipment in result)
@@ -166,7 +166,7 @@ namespace Classes.Equipments
                         index++;
                     }
                 
-                    ChoiceSystem.Instance.MakeChoice(choices);
+                    ChoiceSystem.Instance.MakeChoice(true, choices);
                 }
             };
 

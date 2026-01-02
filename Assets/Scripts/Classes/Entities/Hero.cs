@@ -217,8 +217,8 @@ namespace Classes.Entities
             magicPoint.Value = maxMagicPoint.Value;
             healthPoint.Value = maxHealthPoint.Value;
             canFlash = true;
-            coins.Value = 1000;
-            LevelUp();
+            coins.Value = 1500;
+            LevelUp(3);
 
             // 定义基础攻击命中事件
             AttackEffect += (self, _, adDamage, _) =>

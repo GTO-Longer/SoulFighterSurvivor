@@ -259,7 +259,7 @@ namespace Classes.Equipments
                 }
 
                 if(AttributeAnvilBonus.Instance == null){
-                    ChoiceSystem.Instance.MakeChoice(choices);
+                    ChoiceSystem.Instance.MakeChoice(false, choices);
                     return;
                 }
                 
@@ -280,7 +280,7 @@ namespace Classes.Equipments
                     }
                 }
                 
-                ChoiceSystem.Instance.MakeChoice(choices);
+                ChoiceSystem.Instance.MakeChoice(false, choices);
             };
         }
 

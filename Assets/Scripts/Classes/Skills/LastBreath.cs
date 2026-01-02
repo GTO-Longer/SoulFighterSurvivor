@@ -86,6 +86,7 @@ namespace Classes.Skills
                 // 设置角色无法使用技能、无法移动
                 owner.canUseSkill = false;
                 owner.canMove = false;
+                owner.canFlash = false;
                 owner.agent.SetStop(true);
                 continuousTime += Time.deltaTime;
 
@@ -145,6 +146,7 @@ namespace Classes.Skills
                 AudioManager.Instance.Play("Hero/Yasuo/R_OnFinish", "Yasuo_R_OnFinish");
                 
                 owner.canUseSkill = true;
+                owner.canFlash = true;
                 owner.canMove = true;
                 owner.agent.SetStop(false);
             });

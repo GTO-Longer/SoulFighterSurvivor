@@ -16989,7 +16989,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 48.98, y: -25}
-  m_SizeDelta: {x: 23.96, y: 25}
+  m_SizeDelta: {x: 0, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1177166087
 MonoBehaviour:
@@ -26794,8 +26794,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isShopOpen: 0
   isChoiceOpen: 0
+  isPauseOpen: 0
   shopSystem: {fileID: 0}
   choiceSystem: {fileID: 0}
+  pauseSystem: {fileID: 0}
 --- !u!1 &1508547731
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,12 +17,14 @@ namespace Systems
         public static ChoiceSystem Instance;
         private Dictionary<Choice, GameObject> choiceDictionary = new();
         private List<Choice[]> CacheList = new();
+        private CanvasGroup _canvasGroup;
 
         public void Initialize()
         {
             Instance = this;
             choicePrefab = transform.Find("Choices/ChoicePrefab");
             choicePrefab.gameObject.SetActive(false);
+            _canvasGroup = GetComponent<CanvasGroup>();
             
             ClearChoices();
         }
@@ -37,7 +39,8 @@ namespace Systems
                 return;
             }
             
-            gameObject.SetActive(true);
+            _canvasGroup.alpha = 1;
+            _canvasGroup.blocksRaycasts = true;
             PanelUIRoot.Instance.isChoiceOpen = true;
             
             // 遍历选项并创建UI
@@ -139,7 +142,8 @@ namespace Systems
             }
             
             choiceDictionary.Clear();
-            gameObject.SetActive(false);
+            _canvasGroup.alpha = 0;
+            _canvasGroup.blocksRaycasts = false;
             PanelUIRoot.Instance.isChoiceOpen = false;
 
             if (CacheList.Count > 0)

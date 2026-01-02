@@ -616,5 +616,41 @@ namespace MVVM
         }
 
         #endregion
+        
+        # region 滚动条双向绑定
+
+        public static Action BindScrollBar(Scrollbar scrollbar, Property<float> source)
+        {
+            if (scrollbar == null || source == null)
+                return () => { };
+
+            void OnValueChanged(object sender, EventArgs e)
+            {
+                if (scrollbar == null) return;
+                
+                scrollbar.value = source.Value;
+            }
+            
+            void OnScrollBarChanged()
+            {
+                source.Value = scrollbar.value;
+            }
+            
+            OnValueChanged(null, null);
+
+            source.PropertyChanged += OnValueChanged;
+            scrollbar.onValueChanged.AddListener((_) =>
+            {
+                OnScrollBarChanged();
+            });
+            
+            return () =>
+            {
+                source.PropertyChanged -= OnValueChanged;
+                scrollbar.onValueChanged.RemoveAllListeners();
+            };
+        }
+        
+        #endregion
     }
 }

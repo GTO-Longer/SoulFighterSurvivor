@@ -98,9 +98,31 @@ namespace Managers
             }
         }
 
+        /// <summary>
+        /// 暂停特定名称的音效
+        /// </summary>
+        public void Pause(string audioName)
+        {
+            if (activeLoopingSounds.ContainsKey(audioName))
+            {
+                activeLoopingSounds[audioName].Pause();
+            }
+        }
+
+        /// <summary>
+        /// 继续播放特定名称的音效
+        /// </summary>
+        public void UnPause(string audioName)
+        {
+            if (activeLoopingSounds.ContainsKey(audioName))
+            {
+                activeLoopingSounds[audioName].UnPause();
+            }
+        }
+
         public bool IsPlaying(string audioName)
         {
-            return activeLoopingSounds.ContainsKey(audioName);
+            return activeLoopingSounds.ContainsKey(audioName) && activeLoopingSounds[audioName].isPlaying;
         }
 
         /// <summary>
@@ -114,6 +136,28 @@ namespace Managers
             }
 
             activeLoopingSounds.Clear();
+        }
+
+        /// <summary>
+        /// 暂停所有正在播放的音效
+        /// </summary>
+        public void PauseAll()
+        {
+            foreach (var source in audioPool)
+            {
+                source.Pause();
+            }
+        }
+
+        /// <summary>
+        /// 继续播放所有正在暂停的音效
+        /// </summary>
+        public void UnPauseAll()
+        {
+            foreach (var source in audioPool)
+            {
+                source.UnPause();
+            }
         }
 
         private AudioClip LoadClip(string fileName, string audioName)

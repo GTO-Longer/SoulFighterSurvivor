@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Managers;
 using UnityEngine;
 
 namespace Classes.Skills
@@ -24,6 +25,8 @@ namespace Classes.Skills
             
             if (owner.canFlash)
             {
+                AudioManager.Instance.Play("SummonerSkills/Flash", "Flash");
+                
                 var direction = (owner._mousePosition - (Vector2)owner.gameObject.transform.position).normalized;
                 var distance = Mathf.Min(Vector2.Distance(owner._mousePosition, owner.gameObject.transform.position), _destinationDistance);
                 

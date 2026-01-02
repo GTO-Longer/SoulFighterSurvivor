@@ -120,12 +120,13 @@ namespace Managers
         {
             if (clipCache.ContainsKey(audioName)) return clipCache[audioName];
 
-            var clip = Resources.Load<AudioClip>("Audios/" + fileName);
+            var path = "Audios/" + fileName;
+            var clip = Resources.Load<AudioClip>(path);
             if (clip != null) clipCache.Add(audioName, clip);
 
             if (clip == null)
             {
-                Debug.LogWarning("[AudioManager] 未能找到音频文件：" + fileName);
+                Debug.LogWarning("[AudioManager] 未能找到音频文件：" + path);
             }
             
             return clip;

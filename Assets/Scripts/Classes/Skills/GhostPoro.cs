@@ -1,3 +1,5 @@
+using Managers;
+
 namespace Classes.Skills
 {
     public class GhostPoro : Skill
@@ -18,6 +20,8 @@ namespace Classes.Skills
         public override bool SkillEffect(out string failMessage)
         {
             failMessage = string.Empty;
+            
+            AudioManager.Instance.Play("SummonerSkills/GhostPoro", "GhostPoro");
             
             var ghostPoro = new Buffs.GhostPoro(owner, owner);
             ghostPoro.buffIcon = skillIcon.sprite;

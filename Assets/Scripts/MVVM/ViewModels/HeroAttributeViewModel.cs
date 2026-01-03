@@ -12,14 +12,11 @@ namespace MVVM.ViewModels
     public class HeroAttributeViewModel : MonoBehaviour
     {
         private event Action UnBindEvent;
-        public static HeroAttributeViewModel Instance;
         private Property<bool> notFullHealth;
         private Property<bool> notFullMagic;
 
-        private void Start()
+        public void Initialize()
         {
-            Instance = this;
-            
             var textGroup = new Dictionary<string, TMP_Text>();
             var attributeList = transform.GetComponentsInChildren<TMP_Text>();
             var HPContent = transform.Find("MainStateBackground/HPBarBackground/HPContent").GetComponent<TMP_Text>();

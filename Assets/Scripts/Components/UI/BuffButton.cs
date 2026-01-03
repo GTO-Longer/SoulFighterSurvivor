@@ -13,11 +13,11 @@ namespace Components.UI
         {
             if (team == Team.Hero)
             {
-                BuffViewModel.chosenBuff.Value = GetComponent<BuffData>().buff;
+                HUDUIRoot.Instance.buffInfo.chosenBuff.Value = GetComponent<BuffData>().buff;
             }
             else
             {
-                TargetBuffViewModel.chosenBuff.Value = GetComponent<BuffData>().buff;
+                HUDUIRoot.Instance.targetBuffInfo.chosenBuff.Value = GetComponent<BuffData>().buff;
             }
         }
 
@@ -25,11 +25,11 @@ namespace Components.UI
         {
             if (team == Team.Hero)
             {
-                BuffViewModel.chosenBuff.Value = null;
+                HUDUIRoot.Instance.buffInfo.chosenBuff.Value = null;
             }
             else
             {
-                TargetBuffViewModel.chosenBuff.Value = null;
+                HUDUIRoot.Instance.targetBuffInfo.chosenBuff.Value = null;
             }
         }
     }

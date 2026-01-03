@@ -1,5 +1,4 @@
 using System;
-using MVVM.ViewModels;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -18,7 +17,6 @@ namespace Components.UI
         private void Awake()
         {
             button ??= GetComponent<Button>();
-            button.onClick.AddListener(OnButtonClick);
 
             if (attributeType == AttributeType.None)
             {
@@ -30,18 +28,13 @@ namespace Components.UI
         {
             if (attributeType != AttributeType.None)
             {
-                AttributeViewModel.Instance.BindAttributePanel(attributeType);
+                HUDUIRoot.Instance.attributeInfo.BindAttributePanel(attributeType);
             }
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            AttributeViewModel.Instance.UnBindAttribute();
-        }
-
-        public void OnButtonClick()
-        {
-            // 触发技能
+            HUDUIRoot.Instance.attributeInfo.UnBindAttribute();
         }
     }
 }

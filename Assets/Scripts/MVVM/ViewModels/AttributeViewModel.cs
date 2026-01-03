@@ -11,23 +11,18 @@ namespace MVVM.ViewModels
 {
     public class AttributeViewModel : MonoBehaviour
     {
-        public Action UnBindEvent;
         public delegate string AttributeDescriptionDelegate();
         public Dictionary<AttributeType, List<AttributeDescriptionDelegate>> attributeDescriptionSettings;
         public Dictionary<AttributeType, List<Property<float>>> attributeDependenciesSettings;
-        public static AttributeViewModel Instance;
+        public Action UnBindEvent;
+        
         private TMP_Text attributeName;
         private TMP_Text attributeDescription;
         private TMP_Text attributeAmount;
         private GameObject background;
         private Hero hero;
 
-        private void Awake()
-        {
-            Instance = this;
-        }
-
-        private void Start()
+        public void Initialize()
         {
             hero = HeroManager.hero;
             attributeName = transform.Find("Background/AttributeNameContainer/AttributeName").GetComponent<TMP_Text>();

@@ -1,5 +1,4 @@
 using Managers.EntityManagers;
-using MVVM.ViewModels;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -28,13 +27,13 @@ namespace Components.UI
         {
             if (skillType != SkillType.None)
             {
-                SkillViewModel.chosenSkill.Value = HeroManager.hero.skillList[(int)skillType];
+                HUDUIRoot.Instance.skillInfo.chosenSkill.Value = HeroManager.hero.skillList[(int)skillType];
             }
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            SkillViewModel.chosenSkill.Value = null;
+            HUDUIRoot.Instance.skillInfo.chosenSkill.Value = null;
         }
 
         public void OnButtonClick()

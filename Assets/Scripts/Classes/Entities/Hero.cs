@@ -349,7 +349,7 @@ namespace Classes.Entities
                         if (result.GetComponent<EntityData>())
                         {
                             target.Value = result.GetComponent<EntityData>().entity;
-                            TargetAttributeViewModel.Instance.checkTarget.Value = target.Value;
+                            HUDUIRoot.Instance.targetAttributes.checkTarget.Value = target.Value;
                             break;
                         }
                     }
@@ -366,7 +366,7 @@ namespace Classes.Entities
                     if (ToolFunctions.IsOverlappingOtherTag(_attackRangeIndicator.gameObject, _gameObject.tag, out var entity))
                     {
                         target.Value = entity;
-                        TargetAttributeViewModel.Instance.checkTarget.Value = entity;
+                        HUDUIRoot.Instance.targetAttributes.checkTarget.Value = entity;
                         _agent.SetStop(true);
                     }
                 }
@@ -572,7 +572,7 @@ namespace Classes.Entities
         /// </summary>
         public void TargetCheck()
         {
-            var checkTarget = TargetAttributeViewModel.Instance.checkTarget;
+            var checkTarget = HUDUIRoot.Instance.targetAttributes.checkTarget;
             if (PanelUIRoot.Instance.isPanelOpen)
             {
                 return;
@@ -581,12 +581,12 @@ namespace Classes.Entities
             // 当玩家点击左键
             if (Input.GetMouseButton(0))
             {
-                TargetAttributeViewModel.Instance.checkTarget.Value = null;
+                HUDUIRoot.Instance.targetAttributes.checkTarget.Value = null;
                 if (ToolFunctions.IsObjectAtMousePoint(out var results, gameObject.tag))
                 {
                     foreach (var result in results.Where(result => result.GetComponent<EntityData>()))
                     {
-                        TargetAttributeViewModel.Instance.checkTarget.Value = result.GetComponent<EntityData>().entity;
+                        HUDUIRoot.Instance.targetAttributes.checkTarget.Value = result.GetComponent<EntityData>().entity;
                         break;
                     }
                 }
@@ -594,11 +594,11 @@ namespace Classes.Entities
 
             if (checkTarget.Value == null)
             {
-                TargetAttributeViewModel.Instance.checkTarget.Value = target.Value;
+                HUDUIRoot.Instance.targetAttributes.checkTarget.Value = target.Value;
             }
             else if (!checkTarget.Value.isAlive)
             {
-                TargetAttributeViewModel.Instance.checkTarget.Value = null;
+                HUDUIRoot.Instance.targetAttributes.checkTarget.Value = null;
             }
         }
 
@@ -721,10 +721,10 @@ namespace Classes.Entities
             {
                 skill.SkillUpgrade();
 
-                if (SkillViewModel.chosenSkill.Value != null)
+                if (HUDUIRoot.Instance.skillInfo.chosenSkill.Value != null)
                 {
-                    SkillViewModel.chosenSkill.Value = null;
-                    SkillViewModel.chosenSkill.Value = skill;
+                    HUDUIRoot.Instance.skillInfo.chosenSkill.Value = null;
+                    HUDUIRoot.Instance.skillInfo.chosenSkill.Value = skill;
                 }
             }
         }

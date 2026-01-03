@@ -1,6 +1,6 @@
 using System;
+using Components.UI;
 using DataManagement;
-using MVVM.ViewModels;
 using UnityEngine;
 using UnityEngine.UI;
 using Utilities;
@@ -93,12 +93,12 @@ namespace Classes
             {
                 if (owner.team == Team.Hero)
                 {
-                    var buffUI = BuffViewModel.Instance.CreateBuffUI(this);
+                    var buffUI = HUDUIRoot.Instance.buffInfo.CreateBuffUI(this);
                     buffUI.GetComponent<Image>().sprite = buffIcon;
                 }
-                else if(Equals(owner, TargetAttributeViewModel.Instance.checkTarget.Value))
+                else if(Equals(owner, HUDUIRoot.Instance.targetAttributes.checkTarget.Value))
                 {
-                    var buffUI = TargetBuffViewModel.Instance.CreateBuffUI(this);
+                    var buffUI = HUDUIRoot.Instance.targetBuffInfo.CreateBuffUI(this);
                     buffUI.GetComponent<Image>().sprite = buffIcon;
                 }
 
@@ -122,11 +122,11 @@ namespace Classes
         {
             if (owner.team == Team.Hero)
             {
-                BuffViewModel.Instance.DeleteBuffUI(this);
+                HUDUIRoot.Instance.buffInfo.DeleteBuffUI(this);
             }
             else
             {
-                TargetBuffViewModel.Instance.DeleteBuffUI(this);
+                HUDUIRoot.Instance.targetBuffInfo.DeleteBuffUI(this);
             }
         }
     }

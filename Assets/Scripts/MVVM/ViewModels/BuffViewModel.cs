@@ -6,27 +6,29 @@ using DataManagement;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Utilities;
 
 namespace MVVM.ViewModels
 {
     public class BuffViewModel : MonoBehaviour
     {
         private event Action UnBindEvent;
-        public static BuffViewModel Instance;
-        public static Property<Buff> chosenBuff = new Property<Buff>();
-        public GameObject buffPrefab;
+        public Property<Buff> chosenBuff = new Property<Buff>();
         private Transform buffBar;
         private Dictionary<Buff, Action> BuffUnbindEvent = new();
+        private Team currTeam;
 
-        private void Awake()
+        public void Initialize(Team team)
         {
-            Instance = this;
-        }
-
-        private void Start()
-        {
-            buffPrefab.SetActive(false);
-            buffBar = buffPrefab.transform.parent;
+            currTeam = team;
+            if (currTeam == Team.Hero)
+            {
+                buffBar = HUDUIRoot.Instance.heroAttributes.transform.Find("MainStateBackground/BuffBar");
+            }
+            else
+            {
+                buffBar = HUDUIRoot.Instance.targetAttributes.transform.Find("BuffBar");
+            }
             
             var buffIcon = transform.Find("Background/TitleBanner/BuffIcon").GetComponent<Image>();
             var buffName = transform.Find("Background/TitleBanner/BuffName").GetComponent<TMP_Text>();
@@ -45,8 +47,10 @@ namespace MVVM.ViewModels
         
         public Transform CreateBuffUI(Buff buff)
         {
-            var newBuffUI = Instantiate(buffPrefab, buffBar);
+            var newBuffUI = ResourceReader.LoadPrefab("UI/Buff");
+            newBuffUI.transform.SetParent(buffBar);
             newBuffUI.GetComponent<BuffData>().buff = buff;
+            newBuffUI.GetComponent<BuffButton>().team = currTeam;
             BuffUnbindEvent.TryAdd(buff, null);
             
             var buffMask = newBuffUI.transform.Find("BuffMask").GetComponent<Image>();
@@ -86,6 +90,15 @@ namespace MVVM.ViewModels
                         Destroy(buffBar.GetChild(index).gameObject);
                     }
                 }
+            }
+        }
+
+        public void DeleteAllBuffUI()
+        {
+            for (var index = 0; index < buffBar.childCount; index++)
+            {
+                var buff = buffBar.GetChild(index).GetComponent<BuffData>().buff;
+                DeleteBuffUI(buff);
             }
         }
     }

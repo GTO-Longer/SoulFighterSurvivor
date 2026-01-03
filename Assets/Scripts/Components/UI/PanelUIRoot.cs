@@ -22,14 +22,14 @@ namespace Components.UI
         private void Awake()
         {
             Instance = this;
+            
+            shopSystem = ResourceReader.LoadPrefab("UI/ShopPanel", transform).GetComponent<ShopSystem>();
+            choiceSystem = ResourceReader.LoadPrefab("UI/ChoicePanel", transform).GetComponent<ChoiceSystem>();
+            pauseSystem = ResourceReader.LoadPrefab("UI/PausePanel", transform).GetComponent<PauseSystem>();
         }
 
         private void Start()
         {
-            shopSystem = ResourceReader.LoadPrefab("UI/ShopPanel", transform).GetComponent<ShopSystem>();
-            choiceSystem = ResourceReader.LoadPrefab("UI/ChoicePanel", transform).GetComponent<ChoiceSystem>();
-            pauseSystem = ResourceReader.LoadPrefab("UI/PausePanel", transform).GetComponent<PauseSystem>();
-
             shopSystem.Initialize();
             choiceSystem.Initialize();
             pauseSystem.Initialize();
@@ -48,9 +48,7 @@ namespace Components.UI
             else if (Input.GetKeyDown(KeyCode.Escape) && isShopOpen)
             {
                 shopSystem.CloseShopPanel();
-            }
-
-            if (Input.GetKeyDown(KeyCode.Escape) && !isPanelOpen)
+            }else if (Input.GetKeyDown(KeyCode.Escape) && !isPanelOpen)
             {
                 pauseSystem.PauseGame();
             }

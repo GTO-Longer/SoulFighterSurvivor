@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Classes;
 using TMPro;
 using System.Reflection;
+using Components.UI;
 using DataManagement;
 using DG.Tweening;
 using MVVM.ViewModels;
@@ -331,21 +332,21 @@ namespace MVVM
                 if (attrType == AttributeType.None)
                 {
                     background.SetActive(false);
-                    AttributeViewModel.Instance.UnBindEvent?.Invoke();
-                    AttributeViewModel.Instance.UnBindEvent = null;
+                    HUDUIRoot.Instance.attributeInfo.UnBindEvent?.Invoke();
+                    HUDUIRoot.Instance.attributeInfo.UnBindEvent = null;
                     return;
                 }
                 
-                if (!(AttributeViewModel.Instance.attributeDependenciesSettings.TryGetValue(attrType, out dependencies) &&
+                if (!(HUDUIRoot.Instance.attributeInfo.attributeDependenciesSettings.TryGetValue(attrType, out dependencies) &&
                       dependencies != null))
                 {
                     return;
                 }
                 
                 background.SetActive(true);
-                attrName.text = AttributeViewModel.Instance.attributeDescriptionSettings[attrType][0].Invoke();
-                attrDescription.text = AttributeViewModel.Instance.attributeDescriptionSettings[attrType][1].Invoke();
-                attrAmount.text = AttributeViewModel.Instance.attributeDescriptionSettings[attrType][2].Invoke();
+                attrName.text = HUDUIRoot.Instance.attributeInfo.attributeDescriptionSettings[attrType][0].Invoke();
+                attrDescription.text = HUDUIRoot.Instance.attributeInfo.attributeDescriptionSettings[attrType][1].Invoke();
+                attrAmount.text = HUDUIRoot.Instance.attributeInfo.attributeDescriptionSettings[attrType][2].Invoke();
                 LayoutRebuilder.ForceRebuildLayoutImmediate(background.GetComponent<RectTransform>());
             }
 

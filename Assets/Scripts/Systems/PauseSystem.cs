@@ -38,9 +38,12 @@ namespace Systems
         {
             _canvasGroup.alpha = 0;
             _canvasGroup.blocksRaycasts = false;
-            
-            AudioManager.Instance.UnPauseAll();
-            
+
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.UnPauseAll();
+            }
+
             PanelUIRoot.Instance.isPauseOpen = false;
         }
     }

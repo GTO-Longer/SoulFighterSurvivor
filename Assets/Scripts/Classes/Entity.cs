@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
+using Components.UI;
 using DataManagement;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
 using Factories;
 using MVVM;
-using MVVM.ViewModels;
 using RVO;
 using UnityEngine;
 using Utilities;
@@ -707,19 +707,19 @@ namespace Classes
         {
             if (skill.skillLevel <= 0)
             {
-                Binder.ShowText(SkillViewModel.Instance.skillTips, "技能尚未解锁", 1);
+                Binder.ShowText(HUDUIRoot.Instance.skillInfo.skillTips, "技能尚未解锁", 1);
                 return;
             }
 
             if (skill.actualSkillCost > magicPoint && skill.specialTimer <= 0)
             {
-                Binder.ShowText(SkillViewModel.Instance.skillTips, "施法资源不够，技能无法使用", 1);
+                Binder.ShowText(HUDUIRoot.Instance.skillInfo.skillTips, "施法资源不够，技能无法使用", 1);
                 return;
             }
 
             if (skill.actualSkillCoolDown > skill.coolDownTimer)
             {
-                Binder.ShowText(SkillViewModel.Instance.skillTips, "技能正在冷却", 1);
+                Binder.ShowText(HUDUIRoot.Instance.skillInfo.skillTips, "技能正在冷却", 1);
                 return;
             }
 
@@ -729,7 +729,7 @@ namespace Classes
             }
             else if(skill.maxSkillChargeCount > 0)
             {
-                Binder.ShowText(SkillViewModel.Instance.skillTips, "没有充能次数", 1);
+                Binder.ShowText(HUDUIRoot.Instance.skillInfo.skillTips, "没有充能次数", 1);
                 return;
             }
 
@@ -745,7 +745,7 @@ namespace Classes
             }
             else
             {
-                Binder.ShowText(SkillViewModel.Instance.skillTips, failMessage, 1);
+                Binder.ShowText(HUDUIRoot.Instance.skillInfo.skillTips, failMessage, 1);
             }
         }
 

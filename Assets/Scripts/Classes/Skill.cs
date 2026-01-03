@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Classes.Entities;
+using Components.UI;
 using DataManagement;
 using Managers.EntityManagers;
 using TMPro;
@@ -72,12 +73,12 @@ namespace Classes{
         {
             ReadSkillConfig(name);
             
-            skillIcon = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{skillType.ToString()}/SkillIcon").GetComponent<Image>();
-            skillCoolDownMask = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{skillType.ToString()}/CDMask")?.GetComponent<Image>();
-            skillCD = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{skillType.ToString()}/SkillCD")?.GetComponent<TMP_Text>();
-            skillCharge = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{skillType.ToString()}/SkillCharge")?.GetComponent<TMP_Text>();
-            upgradeButton = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{skillType.ToString()}/UpgradeButton")?.GetComponent<Button>();
-            levelBar = GameObject.Find($"HUD/HeroAttributesHUD/MainStateBackground/SkillBarBackground/{skillType.ToString()}/LevelBar")?.transform;
+            skillIcon = HUDUIRoot.Instance.heroAttributes.transform.Find($"MainStateBackground/SkillBarBackground/{skillType.ToString()}/SkillIcon").GetComponent<Image>();
+            skillCoolDownMask = HUDUIRoot.Instance.heroAttributes.transform.Find($"MainStateBackground/SkillBarBackground/{skillType.ToString()}/CDMask")?.GetComponent<Image>();
+            skillCD = HUDUIRoot.Instance.heroAttributes.transform.Find($"MainStateBackground/SkillBarBackground/{skillType.ToString()}/SkillCD")?.GetComponent<TMP_Text>();
+            skillCharge = HUDUIRoot.Instance.heroAttributes.transform.Find($"MainStateBackground/SkillBarBackground/{skillType.ToString()}/SkillCharge")?.GetComponent<TMP_Text>();
+            upgradeButton = HUDUIRoot.Instance.heroAttributes.transform.Find($"MainStateBackground/SkillBarBackground/{skillType.ToString()}/UpgradeButton")?.GetComponent<Button>();
+            levelBar = HUDUIRoot.Instance.heroAttributes.transform.Find($"MainStateBackground/SkillBarBackground/{skillType.ToString()}/LevelBar");
             
             skillIcon.sprite = ResourceReader.LoadIcon(name);
         }

@@ -34,13 +34,13 @@ namespace MVVM.ViewModels
                         var current = button.GetComponent<HexData>().hex;
                         if (current != null)
                         {
-                            HexInfoViewModel.Instance.ShowHexInfo(current);
+                            HUDUIRoot.Instance.hexInfo.ShowHexInfo(current);
                         }
                     };
 
                     button.onPointerExit = () =>
                     {
-                        HexInfoViewModel.Instance.HideHexInfo();
+                        HUDUIRoot.Instance.hexInfo.HideHexInfo();
                     };
                 }
             }

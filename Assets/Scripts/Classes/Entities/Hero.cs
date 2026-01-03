@@ -20,13 +20,14 @@ namespace Classes.Entities
 {
     public sealed class Hero : Entity
     {
-        public string heroName;
+        private string heroName;
         private Transform _attackRangeIndicator;
         
         /// <summary>
         /// 玩家锁定的实体
         /// </summary>
         public Property<Entity> target = new Property<Entity>();
+        
         public Property<bool> isMoving = new Property<bool>();
         public Property<bool> showAttributes = new Property<bool>();
         public Property<int> coins = new Property<int>();
@@ -162,12 +163,16 @@ namespace Classes.Entities
                 }
             
                 // 配置召唤师技能
-                var flash = new Flash();
-                flash.skillType = SkillType.DSkill;
+                var flash = new Flash
+                {
+                    skillType = SkillType.DSkill
+                };
                 skillList.Add(flash);
             
-                var ghostPoro = new GhostPoro();
-                ghostPoro.skillType = SkillType.FSkill;
+                var ghostPoro = new GhostPoro
+                {
+                    skillType = SkillType.FSkill
+                };
                 skillList.Add(ghostPoro);
 
                 foreach (var skill in skillList)
@@ -183,13 +188,23 @@ namespace Classes.Entities
 
             #endregion
             
-            // 配置角色体型
-            _gameObject.transform.localScale = new Vector2(scale * 2, scale * 2);
-            
             // 配置攻击距离指示器
             _attackRangeIndicator = _gameObject.transform.Find("AttackRangeIndicator");
-            _attackRangeIndicator.localScale = new Vector2(attackRange / scale, attackRange / scale);
+            _attackRangeIndicator.localScale = new Vector2(attackRange / scale + 1, attackRange / scale + 1);
+
+            attackRange.PropertyChanged += (_, _) =>
+            {
+                _attackRangeIndicator.localScale = new Vector2(attackRange / scale + 1, attackRange / scale + 1);
+            };
             _attackRangeIndicator.GetComponent<SpriteRenderer>().enabled = false;
+            
+            // 配置角色体型
+            _gameObject.transform.localScale = new Vector2(scale * 2, scale * 2);
+            scale.PropertyChanged += (_, _) =>
+            {
+                _gameObject.transform.localScale = new Vector2(scale * 2, scale * 2);
+                _attackRangeIndicator.localScale = new Vector2(attackRange / scale + 1, attackRange / scale + 1);
+            };
             
             // 配置初始装备表
             equipmentList.Add(new Property<Equipment>());
@@ -253,12 +268,6 @@ namespace Classes.Entities
             // 定义基础Update事件
             EntityUpdateEvent += (_) =>
             {
-                // 配置角色体型
-                _gameObject.transform.localScale = new Vector2(scale * 2, scale * 2);
-                
-                // 配置攻击距离指示器
-                _attackRangeIndicator.localScale = new Vector2(attackRange / scale, attackRange / scale);
-                
                 // 持续获取金币
                 if (gainCoinTimer > 0.5f)
                 {
@@ -375,8 +384,7 @@ namespace Classes.Entities
                 {
                     // 走到敌人进入攻击范围为止
                     _agent.SetDestination(target.Value.gameObject.transform.position);
-                    _agent.SetStop (Vector2.Distance(gameObject.transform.position, target.Value.gameObject.transform.position)
-                                     <= scale + attackRange);
+                    _agent.SetStop (Vector2.Distance(gameObject.transform.position, target.Value.gameObject.transform.position) <= scale + attackRange);
                 }
             }
         }
@@ -418,7 +426,7 @@ namespace Classes.Entities
                 return;
             }
 
-            if (Vector2.Distance(target.Value.gameObject.transform.position, gameObject.transform.position) > attackRange.Value + target.Value.scale)
+            if (Vector2.Distance(target.Value.gameObject.transform.position, gameObject.transform.position) > attackRange.Value + scale)
             {
                 return;
             }

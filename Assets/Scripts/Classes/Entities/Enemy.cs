@@ -174,8 +174,11 @@ namespace Classes.Entities
                 isAlive = false;
 
                 var hero = killer as Hero;
+                
+                if(hero == null) return;
+                
                 var totalExp = experience.Value + 5f * (level - 1) * (level - 1) + 80f * (level - 1) + 195;
-                hero?.GetExperience(100 + totalExp * 3.4f / (level.Value + 16));
+                hero.GetExperience(100 + totalExp * 3.4f / (level.Value + 16));
                 var coins = (int)level.Value * 5 + 75;
                 hero.GainCoin(coins);
 

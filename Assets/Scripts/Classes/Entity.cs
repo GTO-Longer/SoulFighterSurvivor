@@ -849,7 +849,7 @@ namespace Classes
         }
 
         /// <summary>
-        /// 玩家升级
+        /// 升级
         /// </summary>
         public virtual void LevelUp(int num = 1)
         {

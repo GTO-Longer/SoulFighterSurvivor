@@ -56,7 +56,7 @@ namespace Classes.Skills
 
             // 闪现到目标身后
             var targetDirection = (Vector2)(target.gameObject.transform.position - owner.gameObject.transform.position).normalized;
-            owner.Flash(targetDirection, Vector2.Distance(target.gameObject.transform.position, owner.gameObject.transform.position) + target.scale + owner.attackRange);
+            owner.Flash(targetDirection, Vector2.Distance(target.gameObject.transform.position, owner.gameObject.transform.position) + owner.scale + owner.attackRange);
             
             // 面向敌人
             var angleRad = Mathf.Atan2(-targetDirection.y, -targetDirection.x);

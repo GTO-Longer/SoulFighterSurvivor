@@ -13,11 +13,12 @@ namespace Components.UI
         public bool isPauseOpen;
         
         public bool isPanelOpen => isShopOpen || isChoiceOpen || isPauseOpen;
-        private float formerTimeScale = 0;
+        private float formerTimeScale;
         
-        [HideInInspector]public ShopSystem shopSystem;
-        [HideInInspector]public ChoiceSystem choiceSystem;
-        [HideInInspector]public PauseSystem pauseSystem;
+        [HideInInspector] public ShopSystem shopSystem;
+        [HideInInspector] public ChoiceSystem choiceSystem;
+        [HideInInspector] public PauseSystem pauseSystem;
+        [HideInInspector] public MousePointSystem mousePointer;
 
         private void Awake()
         {
@@ -26,6 +27,7 @@ namespace Components.UI
             shopSystem = ResourceReader.LoadPrefab("UI/ShopPanel", transform).GetComponent<ShopSystem>();
             choiceSystem = ResourceReader.LoadPrefab("UI/ChoicePanel", transform).GetComponent<ChoiceSystem>();
             pauseSystem = ResourceReader.LoadPrefab("UI/PausePanel", transform).GetComponent<PauseSystem>();
+            mousePointer = ResourceReader.LoadPrefab("UI/MousePointer", transform).GetComponent<MousePointSystem>();
         }
 
         private void Start()
@@ -33,7 +35,9 @@ namespace Components.UI
             shopSystem.Initialize();
             choiceSystem.Initialize();
             pauseSystem.Initialize();
+            mousePointer.Initialize();
             
+            mousePointer.transform.SetSiblingIndex(0);
             shopSystem.transform.SetSiblingIndex(0);
             choiceSystem.transform.SetSiblingIndex(0);
             pauseSystem.transform.SetSiblingIndex(0);

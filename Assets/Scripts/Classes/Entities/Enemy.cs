@@ -41,7 +41,7 @@ namespace Classes.Entities
             _baseMagicDefense = 30;
             _baseHealthRegeneration = 0;
             _baseMagicRegeneration = 0;
-            _baseAttackRange = 175;
+            _baseAttackRange = 150;
             _baseMovementSpeed = 200;
             _baseScale = 100;
             _attackWindUp = 0.1f;

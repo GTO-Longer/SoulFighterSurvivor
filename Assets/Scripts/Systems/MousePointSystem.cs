@@ -1,18 +1,16 @@
 using Components.UI;
+using Managers;
 using UnityEngine;
 
 namespace Systems
 {
     public class MousePointSystem : MonoBehaviour
     {
-        public static MousePointSystem Instance;
         public RectTransform _rectTransform;
         private Canvas _canvas;
-        public GameObject mousePointIndicator;
 
-        private void Start()
+        public void Initialize()
         {
-            Instance = this;
             _rectTransform = GetComponent<RectTransform>();
             _canvas = GetComponentInParent<Canvas>();
 
@@ -24,7 +22,7 @@ namespace Systems
         private void Update()
         {
             FollowMouseOnScreen();
-            MousePointIndicatorControl();
+            MouseClickEffectControl();
         }
 
         // 跟随鼠标指针
@@ -46,20 +44,22 @@ namespace Systems
         }
         
         // 鼠标指示器控制
-        private void MousePointIndicatorControl()
+        private void MouseClickEffectControl()
         {
             // 获取鼠标位置
             var mouseWorld = (Vector2)CameraSystem._mainCamera.ScreenToWorldPoint(Input.mousePosition);
-            mousePointIndicator.transform.position = mouseWorld;
             
             if(PanelUIRoot.Instance.isPanelOpen) return;
 
             if (Input.GetMouseButtonDown(1))
             {
-                var obj = Instantiate(mousePointIndicator, mousePointIndicator.transform.parent).GetComponent<ParticleSystem>();
-                obj.Play();
-                var main = obj.main;
+                var effect = EffectManager.Instance.CreateEffect("MouseClick", false);
+                effect.effect.transform.position = mouseWorld;
+                
+                var main = effect.effect.GetComponent<ParticleSystem>().main;
                 main.startColor = Input.GetKey(KeyCode.LeftShift) ? Color.red : Color.green;
+                
+                effect.effect.SetActive(true);
             }
         }
     }

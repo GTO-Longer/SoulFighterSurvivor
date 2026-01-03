@@ -27,6 +27,13 @@ namespace Managers
             for (var index = effectList.Count - 1; index >= 0; index--)
             {
                 var effect = effectList[index];
+
+                if (effect.effect == null)
+                {
+                    effectList.RemoveAt(index);
+                    continue;
+                }
+                
                 effect.EffectUpdate();
                 DestroyAfterAnimation(effect);
                 
@@ -48,11 +55,11 @@ namespace Managers
             return effect;
         }
 
-        public Effect CreateEffect(string effectName)
+        public Effect CreateEffect(string effectName, bool active = true)
         {
             var effect = new Effect(null, ResourceReader.LoadPrefab($"Effects/{effectName}", transform, false));
             
-            effect.effect.SetActive(true);
+            effect.effect.SetActive(active);
             
             effectList.Add(effect);
             return effect;

@@ -87,7 +87,7 @@ namespace Components.UI
         public void OnDrag(PointerEventData eventData)
         {
             if (!canDrag || GetComponent<EquipmentData>().equipment == null) return;
-            rectTransform.position = MousePointSystem.Instance._rectTransform.position;
+            rectTransform.position = PanelUIRoot.Instance.mousePointer._rectTransform.position;
         }
 
         public void OnEndDrag(PointerEventData eventData)

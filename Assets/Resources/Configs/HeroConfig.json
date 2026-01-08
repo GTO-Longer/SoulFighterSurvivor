@@ -86,6 +86,35 @@
             "_WSkill": "WindWall",
             "_ESkill": "SweepingBlade",
             "_RSkill": "LastBreath"
+        },
+        {
+            "heroName": "Samira",
+            "_baseMaxHealthPoint": 630,
+            "_baseMaxMagicPoint": 349,
+            "_baseAttackDamage": 57,
+            "_baseAttackSpeed": 0.658,
+            "_baseAttackDefense": 26,
+            "_baseMagicDefense": 30,
+            "_baseHealthRegeneration": 3.25,
+            "_baseMagicRegeneration": 8.2,
+            "_baseAttackRange": 500,
+            "_baseMovementSpeed": 335,
+            "_baseScale": 100,
+            "_maxHealthPointGrowth": 108,
+            "_maxMagicPointGrowth": 38,
+            "_attackDamageGrowth": 3,
+            "_attackSpeedGrowth": 0.033,
+            "_attackDefenseGrowth": 4.7,
+            "_magicDefenseGrowth": 1.3,
+            "_healthRegenerationGrowth": 0.55,
+            "_magicRegenerationGrowth": 0.7,
+            "_attackWindUp": 0.15,
+            "_attackSpeedYield": 0.658,
+            "_passiveSkill": "DaredevilImpulse",
+            "_QSkill": "Flair",
+            "_WSkill": "BladeWhirl",
+            "_ESkill": "WildRush",
+            "_RSkill": "InfernoTrigger"
         }
     ]
 }

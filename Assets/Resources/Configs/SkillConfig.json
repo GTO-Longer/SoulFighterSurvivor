@@ -551,6 +551,170 @@
             "_bulletWidth": 0,
             "_bulletSpeed": 0,
             "_destinationDistance": 0
+        },
+        {
+            "id": "DaredevilImpulse",
+            "heroName": "Samira",
+            "skillName": "悍勇本色",
+            "_skillDescription": "莎弥拉可通过用不同的技能或攻击对敌方英雄造成伤害来构建一次连招。每个与前一个不同的技能或攻击都会提升她的评价等级，从E到S(一共6级)。每个评级会为莎弥拉提供3.5%移动速度。 莎弥拉在近战距离的攻击和技能会造成额外的<color=#7700BB>{0:F0}魔法伤害</color>，基于目标的已损失生命值至多提升100%。 莎弥拉如果在6秒里没有用她的攻击或技能对敌方英雄造成伤害，就会失去她的评价等级。",
+            "_skillType": "PassiveSkill",
+            "_baseSkillCost": [
+                0.0
+            ],
+            "_baseSkillCoolDown": [
+                0.0
+            ],
+            "_baseSkillValue": [
+                [
+                    0.0
+                ]
+            ],
+            "_skillRange": 0,
+            "_castTime": 0,
+            "_bulletWidth": 0,
+            "_bulletSpeed": 0,
+            "_destinationDistance": 0
+        },
+        {
+            "id": "Flair",
+            "heroName": "Samira",
+            "skillName": "交火",
+            "_skillDescription": "莎弥拉进行一次射击，对命中的第一个敌人造成{0:F0}物理伤害。如果朝着近战距离内的一名敌人施放这个技能，那么莎弥拉会转而用她的剑进行斩击，造成<color=#FF6A6A>{1:F0}物理伤害</color>。 这两种打击能够暴击并施加80%效能的生命偷取。 如果在狂飙期间施放此技能，那么莎弥拉将在冲刺完成时打击她沿途的所有敌人。",
+            "_skillType": "QSkill",
+            "_baseSkillCost": [
+                30.0,
+                30.0,
+                30.0,
+                30.0,
+                30.0
+            ],
+            "_baseSkillCoolDown": [
+                6.0,
+                5.0,
+                4.0,
+                3.0,
+                2.0
+            ],
+            "_baseSkillValue": [
+                [
+                    0.0,
+                    5.0,
+                    10.0,
+                    15.0,
+                    20.0
+                ]
+            ],
+            "_skillRange": 950,
+            "_castTime": 0.25,
+            "_bulletWidth": 120,
+            "_bulletSpeed": 2600,
+            "_destinationDistance": 0
+        },
+        {
+            "id": "BladeWhirl",
+            "heroName": "Samira",
+            "skillName": "锋旋",
+            "_skillDescription": "莎弥拉斩击她的周围0.75秒，使范围内的敌人减速50%，并在持续时间开始和结束时分别对敌人造成2段伤害，每段造成<color=#FF6A6A>{0:F0}物理伤害</color>。",
+            "_skillType": "WSkill",
+            "_baseSkillCost": [
+                60.0,
+                60.0,
+                60.0,
+                60.0,
+                60.0
+            ],
+            "_baseSkillCoolDown": [
+                20.0,
+                18.0,
+                16.0,
+                14.0,
+                12.0
+            ],
+            "_baseSkillValue": [
+                [
+                    20.0,
+                    35.0,
+                    50.0,
+                    65.0,
+                    80.0
+                ]
+            ],
+            "_skillRange": 325,
+            "_castTime": 0.1,
+            "_bulletWidth": 325,
+            "_bulletSpeed": 0,
+            "_destinationDistance": 0
+        },
+        {
+            "id": "WildRush",
+            "heroName": "Samira",
+            "skillName": "狂飙",
+            "_skillDescription": "莎弥拉冲刺并越过一名敌人，斩击沿途的敌人以造成<color=#7700BB>{0:F0}魔法伤害</color>并获得{1:P0}攻击速度，持续5秒。 如果一名敌人被莎弥拉击杀，那么这个技能的冷却时间会重置。",
+            "_skillType": "ESkill",
+            "_baseSkillCost": [
+                40.0,
+                40.0,
+                40.0,
+                40.0,
+                40.0
+            ],
+            "_baseSkillCoolDown": [
+                20.0,
+                18.0,
+                16.0,
+                14.0,
+                12.0
+            ],
+            "_baseSkillValue": [
+                [
+                    50.0,
+                    60.0,
+                    70.0,
+                    80.0,
+                    90.0
+                ],
+                [
+                    0.2,
+                    0.25,
+                    0.3,
+                    0.35,
+                    0.4
+                ]
+            ],
+            "_skillRange": 600,
+            "_castTime": 0,
+            "_bulletWidth": 300,
+            "_bulletSpeed": 0,
+            "_destinationDistance": 650
+        },
+        {
+            "id": "InfernoTrigger",
+            "heroName": "Samira",
+            "skillName": "炼狱扳机",
+            "_skillDescription": "莎弥拉只能在她当前的评价等级为S时使用这个技能。使用这个技能会消耗掉所有评价等级。 莎弥拉的武器倾泻出大量的子弹，狂野地在2秒里持续对她周围的所有敌人进行10次射击，每次射击造成<color=#FF6A6A>{0:F0}物理伤害</color>并施加80%效能的生命偷取。这些射击也可以产生暴击。",
+            "_skillType": "RSkill",
+            "_baseSkillCost": [
+                100.0,
+                50.0,
+                0.0
+            ],
+            "_baseSkillCoolDown": [
+                5.0,
+                5.0,
+                5.0
+            ],
+            "_baseSkillValue": [
+                [
+                    5.0,
+                    15.0,
+                    25.0
+                ]
+            ],
+            "_skillRange": 600,
+            "_castTime": 0,
+            "_bulletWidth": 600,
+            "_bulletSpeed": 0,
+            "_destinationDistance": 0
         }
     ]
 }

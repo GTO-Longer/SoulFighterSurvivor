@@ -16,13 +16,13 @@ namespace Classes.Equipments
                 {
                     var darkness = new Buffs.Darkness(attacker, attacker);
                     darkness.buffIcon = null;
-                    attacker.GetBuff(darkness);
+                    attacker.GainBuff(darkness);
                 }
                 else
                 {
                     var brightness = new Buffs.Brightness(attacker, attacker);
                     brightness.buffIcon = null;
-                    attacker.GetBuff(brightness);
+                    attacker.GainBuff(brightness);
                 }
                 
                 isDark = !isDark;

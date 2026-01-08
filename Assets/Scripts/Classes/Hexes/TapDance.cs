@@ -14,7 +14,7 @@ namespace Classes.Hexes
             HexEffect = (_, _, _, _) =>
             {
                 var tapDance = new Buffs.TapDance(owner, owner);
-                owner.GetBuff(tapDance);
+                owner.GainBuff(tapDance);
             };
         }
 

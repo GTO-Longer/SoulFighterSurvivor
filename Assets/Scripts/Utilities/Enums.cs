@@ -31,7 +31,8 @@ namespace Utilities
         ESkill,
         RSkill,
         DSkill,
-        FSkill
+        FSkill,
+        Attack
     }
 
     public enum AttributeType

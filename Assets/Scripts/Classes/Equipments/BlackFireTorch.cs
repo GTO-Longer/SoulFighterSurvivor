@@ -14,7 +14,7 @@ namespace Classes.Equipments
             {
                 var evilFlame = new Buffs.EvilFlame(target, attacker);
                 evilFlame.buffIcon = equipmentIcon;
-                target.GetBuff(evilFlame);
+                target.GainBuff(evilFlame);
             };
         }
 

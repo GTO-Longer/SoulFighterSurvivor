@@ -105,7 +105,7 @@ namespace Classes.Equipments
                                     {
                                         var attributeAnvilBonus = new AttributeAnvilBonus(HeroManager.hero, HeroManager.hero);
                                         attributeAnvilBonus.buffIcon = equipmentIcon;
-                                        HeroManager.hero.GetBuff(attributeAnvilBonus);
+                                        HeroManager.hero.GainBuff(attributeAnvilBonus);
                                         AttributeAnvilBonus.Instance = attributeAnvilBonus;
                                     }
 
@@ -177,7 +177,7 @@ namespace Classes.Equipments
                                     {
                                         var attributeAnvilBonus = new AttributeAnvilBonus(HeroManager.hero, HeroManager.hero);
                                         attributeAnvilBonus.buffIcon = equipmentIcon;
-                                        HeroManager.hero.GetBuff(attributeAnvilBonus);
+                                        HeroManager.hero.GainBuff(attributeAnvilBonus);
                                         AttributeAnvilBonus.Instance = attributeAnvilBonus;
                                     }
 
@@ -243,7 +243,7 @@ namespace Classes.Equipments
                                     {
                                         var attributeAnvilBonus = new AttributeAnvilBonus(HeroManager.hero, HeroManager.hero);
                                         attributeAnvilBonus.buffIcon = equipmentIcon;
-                                        HeroManager.hero.GetBuff(attributeAnvilBonus);
+                                        HeroManager.hero.GainBuff(attributeAnvilBonus);
                                         AttributeAnvilBonus.Instance = attributeAnvilBonus;
                                     }
 

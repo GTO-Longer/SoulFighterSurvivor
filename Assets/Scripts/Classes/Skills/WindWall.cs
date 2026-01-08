@@ -126,7 +126,7 @@ namespace Classes.Skills
                                         
                                         // 造成1秒40%减速
                                         var speedReduce = new SpeedReduce(entity, owner, 1f, 0.4f);
-                                        entity.GetBuff(speedReduce);
+                                        entity.GainBuff(speedReduce);
                                         
                                         AudioManager.Instance.Play("Hero/Yasuo/W_OnHit", "Yasuo_W_OnHit");
                                     }

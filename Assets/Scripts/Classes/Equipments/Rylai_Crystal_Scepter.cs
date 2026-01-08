@@ -12,7 +12,7 @@ namespace Classes.Equipments
             {
                 var frozen = new Buffs.Frozen(target, owner);
                 frozen.buffIcon = equipmentIcon;
-                target.GetBuff(frozen);
+                target.GainBuff(frozen);
             };
         }
 

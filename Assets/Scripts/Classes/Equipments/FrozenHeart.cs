@@ -19,7 +19,7 @@ namespace Classes.Equipments
                     {
                         var frozenHeart = new Buffs.FrozenHeart(enemy, owner);
                         frozenHeart.buffIcon = equipmentIcon;
-                        enemy.GetBuff(frozenHeart);
+                        enemy.GainBuff(frozenHeart);
                     }
                 }
             };

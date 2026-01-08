@@ -19,7 +19,7 @@ namespace Classes.Equipments
                     target.TakeDamage(target.CalculateADDamage(attacker, damageCount * ratio), DamageType.AD, attacker);
                     
                     var speedBonus = new SpeedBonus(owner, owner, 3f, 33f);
-                    owner.GetBuff(speedBonus);
+                    owner.GainBuff(speedBonus);
                     
                     _passiveSkillCDTimer = 0;
                 }

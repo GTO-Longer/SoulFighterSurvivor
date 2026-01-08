@@ -18,7 +18,7 @@ namespace Classes.Equipments
                 chargeCount.Value += 1;
                 var prominence = new Buffs.Prominence(owner, owner, chargeCount.Value);
                 prominence.buffIcon = equipmentIcon;
-                owner.GetBuff(prominence);
+                owner.GainBuff(prominence);
             };
         }
 

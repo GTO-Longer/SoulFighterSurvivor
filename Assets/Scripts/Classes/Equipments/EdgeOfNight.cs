@@ -15,7 +15,7 @@ namespace Classes.Equipments
                 if (_passiveSkillActive)
                 {
                     var speedBonus = new Buffs.SpeedBonus(owner, owner, 1.5f, 200);
-                    owner.GetBuff(speedBonus);
+                    owner.GainBuff(speedBonus);
                     
                     _passiveSkillCDTimer = 0;
                 }

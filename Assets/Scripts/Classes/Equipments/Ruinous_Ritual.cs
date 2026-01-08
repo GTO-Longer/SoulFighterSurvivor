@@ -16,7 +16,7 @@ namespace Classes.Equipments
             {
                 var anger = new Buffs.Anger(attacker, attacker);
                 anger.buffIcon = equipmentIcon;
-                attacker.GetBuff(anger);
+                attacker.GainBuff(anger);
 
                 if (Random.Range(0f, 1f) <= owner.criticalRate)
                 {

@@ -25,7 +25,7 @@ namespace Classes.Skills
             
             var ghostPoro = new Buffs.GhostPoro(owner, owner);
             ghostPoro.buffIcon = skillIcon.sprite;
-            owner.GetBuff(ghostPoro);
+            owner.GainBuff(ghostPoro);
             coolDownTimer = 0;
 
             return true;

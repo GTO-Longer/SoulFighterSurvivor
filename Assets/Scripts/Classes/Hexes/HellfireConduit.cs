@@ -16,7 +16,7 @@ namespace Classes.Hexes
             {
                 var hellFire = new Buffs.HellFire(target, attacker);
                 hellFire.buffIcon = hexIcon;
-                target.GetBuff(hellFire);
+                target.GainBuff(hellFire);
             };
         }
 

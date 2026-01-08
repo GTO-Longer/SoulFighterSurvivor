@@ -924,9 +924,9 @@ namespace Classes
         }
         
         /// <summary>
-        /// 获取buff
+        /// 得到buff
         /// </summary>
-        public void GetBuff(Buff buff)
+        public void GainBuff(Buff buff)
         {
             if (isAlive)
             {
@@ -951,6 +951,14 @@ namespace Classes
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// 根据buff名获取buff
+        /// </summary>
+        public Buff GetBuff(string buffName)
+        {
+            return buffList.Find(buffInList => buffInList.buffName == buffName);
         }
 
         /// <summary>

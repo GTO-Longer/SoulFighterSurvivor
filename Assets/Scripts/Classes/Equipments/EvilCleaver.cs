@@ -18,7 +18,7 @@ namespace Classes.Equipments
                     var burnt = new Buffs.Burnt(target, attacker, damagePercent *
                                                                   (1 + Mathf.Min(1, (target.maxHealthPoint - owner.maxHealthPoint) / 2000)));
                     burnt.buffIcon = equipmentIcon;
-                    target.GetBuff(burnt);
+                    target.GainBuff(burnt);
                     
                     _passiveSkillCDTimer = 0;
                 }

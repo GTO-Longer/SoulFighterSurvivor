@@ -97,7 +97,7 @@ namespace Classes.Equipments
                                     entity.TakeDamage(damageValue, DamageType.AD, owner);
                                     
                                     var speedReduce = new SpeedReduce(entity, owner, 3f, 0.4f);
-                                    entity.GetBuff(speedReduce);
+                                    entity.GainBuff(speedReduce);
                                 }
                             }
                         }

@@ -13,7 +13,7 @@ namespace Classes.Equipments
             {
                 var spellDance = new Buffs.SpellDance(attacker, attacker);
                 spellDance.buffIcon = equipmentIcon;
-                attacker.GetBuff(spellDance);
+                attacker.GainBuff(spellDance);
             };
         }
 

@@ -12,7 +12,7 @@ namespace Classes.Equipments
             {
                 var torment = new Buffs.Torment(target, attacker);
                 torment.buffIcon = equipmentIcon;
-                target.GetBuff(torment);
+                target.GainBuff(torment);
             };
         }
 

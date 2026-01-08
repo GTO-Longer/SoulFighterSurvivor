@@ -75,7 +75,7 @@ namespace Classes.Skills
             // 获得15秒60%额外物理穿透
             var lastBreath = new Buffs.LastBreath(owner, owner);
             lastBreath.buffIcon = null;
-            owner.GetBuff(lastBreath);
+            owner.GainBuff(lastBreath);
             
             // 斩击3次
             var continuousTime = 0f;

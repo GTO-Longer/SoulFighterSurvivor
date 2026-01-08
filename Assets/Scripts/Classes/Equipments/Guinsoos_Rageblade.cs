@@ -15,7 +15,7 @@ namespace Classes.Equipments
             {
                 var rage = new Buffs.Rage(attacker, attacker);
                 rage.buffIcon = equipmentIcon;
-                attacker.GetBuff(rage);
+                attacker.GainBuff(rage);
                 target.TakeDamage(target.CalculateAPDamage(attacker, damageCount * ratio), DamageType.AP, attacker);
             };
         }

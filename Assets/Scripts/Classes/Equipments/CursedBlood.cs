@@ -13,7 +13,7 @@ namespace Classes.Equipments
             {
                 var tyrant = new Buffs.Tyrant(target, attacker);
                 tyrant.buffIcon = equipmentIcon;
-                target.GetBuff(tyrant);
+                target.GainBuff(tyrant);
             };
         }
 

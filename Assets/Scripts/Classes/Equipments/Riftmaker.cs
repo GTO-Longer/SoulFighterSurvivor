@@ -16,7 +16,7 @@ namespace Classes.Equipments
             {
                 var voidInfection = new Buffs.VoidInfection(attacker, attacker);
                 voidInfection.buffIcon = equipmentIcon;
-                attacker.GetBuff(voidInfection);
+                attacker.GainBuff(voidInfection);
             };
         }
 

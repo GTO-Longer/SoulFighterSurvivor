@@ -16,7 +16,7 @@ namespace Classes.Equipments
                 target.TakeDamage(target.CalculateADDamage(attacker, 100 * ratio), DamageType.AD, attacker);
                 
                 var speedReduce = new SpeedReduce(target, owner, 0.75f, 0.99f);
-                target.GetBuff(speedReduce);
+                target.GainBuff(speedReduce);
             };
         }
 
@@ -24,7 +24,7 @@ namespace Classes.Equipments
         {
             base.OnEquipmentGet(entity);
             var empowered = new Empowered(owner, owner);
-            owner.GetBuff(empowered);
+            owner.GainBuff(empowered);
             owner.EmpoweredEffect += equipmentEffect;
         }
 

@@ -20,7 +20,7 @@ namespace Classes.Skills
 
             PassiveAbilityEffective += () =>
             {
-                owner.AttackEffect += (_, _, _, _) =>
+                owner.AttackEffect += (_, target, _, _) =>
                 {
                     if (formerHit != SkillType.Attack)
                     {
@@ -35,10 +35,19 @@ namespace Classes.Skills
                     {
                         buff.buffDurationTimer = 0;
                     }
+
+                    if (Vector2.Distance(owner.gameObject.transform.position, target.gameObject.transform.position) <
+                        200f + owner.scale + target.scale)
+                    {
+                        var damage = target.CalculateAPDamage(owner, damageCount * (2 - target.healthPointProportion));
+                        target.TakeDamage(damage, DamageType.AP, owner);
+                    }
                 };
 
-                owner.AbilityEffect += (_, _, _, skill) =>
+                owner.AbilityEffect += (_, target, _, skill) =>
                 {
+                    if (skill.skillType == SkillType.RSkill) return;
+                    
                     if (formerHit != skill.skillType)
                     {
                         formerHit = skill.skillType;
@@ -51,6 +60,13 @@ namespace Classes.Skills
                     if (buff != null)
                     {
                         buff.buffDurationTimer = 0;
+                    }
+
+                    if (Vector2.Distance(owner.gameObject.transform.position, target.gameObject.transform.position) <
+                        200f + owner.scale + target.scale)
+                    {
+                        var damage = target.CalculateAPDamage(owner, damageCount * (2 - target.healthPointProportion));
+                        target.TakeDamage(damage, DamageType.AP, owner);
                     }
                 };
             };

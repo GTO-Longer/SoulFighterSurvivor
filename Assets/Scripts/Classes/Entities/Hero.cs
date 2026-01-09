@@ -384,7 +384,7 @@ namespace Classes.Entities
                 {
                     // 走到敌人进入攻击范围为止
                     _agent.SetDestination(target.Value.gameObject.transform.position);
-                    _agent.SetStop (Vector2.Distance(gameObject.transform.position, target.Value.gameObject.transform.position) <= scale + attackRange);
+                    _agent.SetStop (Vector2.Distance(gameObject.transform.position, target.Value.gameObject.transform.position) <= target.Value.scale + scale + attackRange);
                 }
             }
         }
@@ -426,7 +426,7 @@ namespace Classes.Entities
                 return;
             }
 
-            if (Vector2.Distance(target.Value.gameObject.transform.position, gameObject.transform.position) > attackRange.Value + scale)
+            if (Vector2.Distance(target.Value.gameObject.transform.position, gameObject.transform.position) > attackRange.Value + scale + target.Value.scale)
             {
                 return;
             }

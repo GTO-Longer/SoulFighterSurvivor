@@ -83,7 +83,7 @@ namespace Classes.Skills
                         {
                             steelTempest.gameObject.transform.position = owner.gameObject.transform.position;
 
-                            var targets = ToolFunctions.IsOverlappingOtherTagAll(self.gameObject, 215);
+                            var targets = ToolFunctions.IsOverlappingWithOtherTagAll(self.gameObject, 215);
                             if (targets != null)
                             {
                                 foreach (var entity in targets)
@@ -156,7 +156,7 @@ namespace Classes.Skills
                         {
                             steelTempest.gameObject.transform.position = owner.gameObject.transform.position;
 
-                            var targets = ToolFunctions.IsOverlappingOtherTagAll(self.gameObject, 215);
+                            var targets = ToolFunctions.IsOverlappingWithOtherTagAll(self.gameObject, 215);
                             if (targets != null)
                             {
                                 foreach (var entity in targets)

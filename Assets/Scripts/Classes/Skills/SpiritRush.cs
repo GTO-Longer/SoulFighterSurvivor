@@ -56,7 +56,7 @@ namespace Classes.Skills
             owner.Dash(destinationDistance, dashDuration, direction, () =>
             {
                 // 到目的地检测是否有敌人
-                var targets = ToolFunctions.IsOverlappingOtherTagAll(owner.gameObject, skillRange);
+                var targets = ToolFunctions.IsOverlappingWithOtherTagAll(owner.gameObject, skillRange);
                 if (targets != null)
                 {
                     var spiritOrbList = new List<Bullet>

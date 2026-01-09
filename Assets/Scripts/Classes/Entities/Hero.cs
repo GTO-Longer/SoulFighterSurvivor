@@ -190,11 +190,11 @@ namespace Classes.Entities
             
             // 配置攻击距离指示器
             _attackRangeIndicator = _gameObject.transform.Find("AttackRangeIndicator");
-            _attackRangeIndicator.localScale = new Vector2(attackRange / scale + 1, attackRange / scale + 1);
+            _attackRangeIndicator.localScale = new Vector2(attackRange / scale, attackRange / scale);
 
             attackRange.PropertyChanged += (_, _) =>
             {
-                _attackRangeIndicator.localScale = new Vector2(attackRange / scale + 1, attackRange / scale + 1);
+                _attackRangeIndicator.localScale = new Vector2(attackRange / scale, attackRange / scale);
             };
             _attackRangeIndicator.GetComponent<SpriteRenderer>().enabled = false;
             
@@ -203,7 +203,7 @@ namespace Classes.Entities
             scale.PropertyChanged += (_, _) =>
             {
                 _gameObject.transform.localScale = new Vector2(scale * 2, scale * 2);
-                _attackRangeIndicator.localScale = new Vector2(attackRange / scale + 1, attackRange / scale + 1);
+                _attackRangeIndicator.localScale = new Vector2(attackRange / scale, attackRange / scale);
             };
             
             // 配置初始装备表

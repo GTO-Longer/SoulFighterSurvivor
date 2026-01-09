@@ -21,11 +21,12 @@ namespace Classes.Buffs
                 if (buffCount < buffMaxCount)
                 {
                     buffCount.Value += 1;
-                    var hero = owner as Hero;
-                    var daredevilImpulse = hero?.skillList[(int)SkillType.PassiveSkill] as Skills.DaredevilImpulse;
-                    daredevilImpulse.comboLevel += 1;
                     buffDescription = $"提升{3.5f * buffCount:0.#}%移动速度";
                 }
+                
+                var hero = owner as Hero;
+                var daredevilImpulse = hero?.skillList[(int)SkillType.PassiveSkill] as Skills.DaredevilImpulse;
+                daredevilImpulse.comboLevel = buffCount.Value;
 
                 owner._percentageMovementSpeedBonus.Value += 0.035f;
             };

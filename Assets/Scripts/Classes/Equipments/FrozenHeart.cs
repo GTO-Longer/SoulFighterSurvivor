@@ -12,7 +12,7 @@ namespace Classes.Equipments
         {
             equipmentEffect = (attacker) =>
             {
-                var enemies = ToolFunctions.IsOverlappingOtherTagAll(attacker.gameObject, 300);
+                var enemies = ToolFunctions.IsOverlappingWithOtherTagAll(attacker.gameObject, 300);
                 if (enemies != null)
                 {
                     foreach (var enemy in enemies)

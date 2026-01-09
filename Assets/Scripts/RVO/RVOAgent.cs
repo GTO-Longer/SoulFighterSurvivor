@@ -68,6 +68,14 @@ namespace RVO
             currentCornerIndex = 0;
             useNavMeshMovement = false;
         }
+
+        /// <summary>
+        /// 获取Agent的朝向
+        /// </summary>
+        public Vector2 GetAgentDirection()
+        {
+            return manager.simulator.GetAgentVelocity(agentId);
+        }
         
         /// <summary>
         /// 更新Agent
@@ -99,8 +107,8 @@ namespace RVO
                 var pos = manager.simulator.GetAgentPosition(agentId);
                 transform.position = new Vector3(pos.x, pos.y, 0f);
                 
-                var velocity = (Vector2)manager.simulator.GetAgentVelocity(agentId);
-                entity.RotateTo(ref velocity);
+                var direction = GetAgentDirection();
+                entity.RotateTo(ref direction);
             }
         }
 

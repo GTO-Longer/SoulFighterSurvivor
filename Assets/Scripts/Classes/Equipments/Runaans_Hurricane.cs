@@ -17,7 +17,7 @@ namespace Classes.Equipments
         {
             equipmentEffect = (_, target, isCrit) =>
             {
-                var targets = ToolFunctions.IsOverlappingWithTagAll(target.gameObject, target.gameObject.tag, 400);
+                var targets = ToolFunctions.IsOverlappingWithTagAll(target.gameObject, 400, target.gameObject.tag);
                 
                 if (targets is { Length: > 0 })
                 {

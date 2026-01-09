@@ -1,5 +1,4 @@
 using Classes.Buffs;
-using DataManagement;
 using Factories;
 using Managers;
 using Systems;
@@ -45,7 +44,7 @@ namespace Classes.Skills
                 owner.agent.SetStop(false);
 
                 var windWall = BulletFactory.Instance.CreateBullet(owner);
-                var startPosition = new Vector2(0, 0);
+                Vector2 startPosition;
                 
                 windWall.OnBulletAwake += (self) =>
                 {
@@ -101,33 +100,30 @@ namespace Classes.Skills
                         }
                         
                         // 检测是否有敌人进入风墙区域
-                        var filter = new ContactFilter2D();
-                        filter.useTriggers = true;
-                        var results = new Collider2D[10];
-                        var count = effect.effect.GetComponent<BoxCollider2D>().OverlapCollider(filter, results);
-
-                        for (var index = 0; index < count; index++)
+                        if (ToolFunctions.IsOverlappingInBoxColliderAll(effect.effect, out var results))
                         {
-                            var result = results[index].gameObject.GetComponent<EntityData>();
-                            if (result != null)
+                            foreach (var result in results)
                             {
-                                var entity = result.entity;
-
-                                if (entity.isAlive && entity.team != owner.team)
+                                if (result.isAlive && result.team != owner.team)
                                 {
-                                    self.bulletEntityDamageCDTimer.TryAdd(entity, self.bulletDamageCD);
+                                    self.bulletEntityDamageCDTimer.TryAdd(result, self.bulletDamageCD);
 
-                                    if (self.bulletEntityDamageCDTimer[entity] > self.bulletDamageCD)
+                                    if (self.bulletEntityDamageCDTimer[result] > self.bulletDamageCD)
                                     {
-                                        self.bulletEntityDamageCDTimer[entity] = 0;
+                                        self.bulletEntityDamageCDTimer[result] = 0;
 
-                                        var damageValue = entity.CalculateAPDamage(self.owner, _damage);
-                                        entity.TakeDamage(damageValue, DamageType.AP, owner, Random.Range(0f, 1f) < owner.criticalRate.Value && owner.canSkillCritical);
-                                        
+                                        var damageValue = result.CalculateAPDamage(self.owner, _damage);
+                                        result.TakeDamage(damageValue, DamageType.AP, owner,
+                                            Random.Range(0f, 1f) < owner.criticalRate.Value &&
+                                            owner.canSkillCritical);
+
                                         // 造成1秒40%减速
-                                        var speedReduce = new SpeedReduce(entity, owner, 1f, 0.4f);
-                                        entity.GainBuff(speedReduce);
+                                        var speedReduce = new SpeedReduce(result, owner, 1f, 0.4f);
+                                        result.GainBuff(speedReduce);
                                         
+                                        // 造成技能特效
+                                        self.owner.AbilityEffectActivate(result, damageValue, this);
+
                                         AudioManager.Instance.Play("Hero/Yasuo/W_OnHit", "Yasuo_W_OnHit");
                                     }
                                 }

@@ -68,7 +68,7 @@ namespace Classes.Equipments
                                         Async.SetAsync(0.2f, null, null, () =>
                                         {
                                             var enemies =
-                                                ToolFunctions.IsOverlappingWithTagAll(target.gameObject, "Enemy", 350);
+                                                ToolFunctions.IsOverlappingWithTagAll(target.gameObject, 350, "Enemy");
                                             foreach (var enemy in enemies)
                                             {
                                                 enemy.TakeDamage(enemy.CalculateAPDamage(attacker, damageCount),

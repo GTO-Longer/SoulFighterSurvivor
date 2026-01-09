@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Classes.Buffs;
 using Factories;
 using Managers;
@@ -38,7 +37,7 @@ namespace Classes.Equipments
 
                         self.OnBulletUpdate += (_) =>
                         {
-                            var targets = ToolFunctions.IsOverlappingOtherTagAll(self.gameObject, 300);
+                            var targets = ToolFunctions.IsOverlappingWithOtherTagAll(self.gameObject, 300);
                             if (targets != null)
                             {
                                 foreach (var entity in targets)

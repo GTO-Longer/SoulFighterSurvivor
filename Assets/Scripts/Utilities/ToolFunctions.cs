@@ -102,10 +102,67 @@ namespace Utilities
             return false;
         }
 
-        public static Entity[] IsOverlappingOtherTagAll(GameObject obj, float radius = 0)
+        /// <summary>
+        /// 获取范围内的所有Entity
+        /// </summary>
+        public static Entity[] IsOverlappingAll(GameObject obj, float radius = 0)
         {
             var overlappingEntities = new List<(Entity entity, float distanceSqr)>();
-            var excludeTag = obj.tag;
+            var collider = obj.GetComponent<CircleCollider2D>();
+            if (collider == null) return null;
+
+            var _overlapColliders = new Collider2D[20];
+
+            Vector2 center = collider.bounds.center;
+
+            if (radius == 0)
+            {
+                radius = collider.radius * collider.transform.lossyScale.x;
+            }
+
+            // 获取所有重叠的碰撞箱
+            var count = Physics2D.OverlapCircleNonAlloc(center, radius, _overlapColliders);
+
+            for (var i = 0; i < count; i++)
+            {
+                var col = _overlapColliders[i];
+                if (col == null) continue;
+
+                var otherGo = col.gameObject;
+
+                // 跳过没有Tag的对象
+                if (otherGo.CompareTag("Untagged")) continue;
+
+                // 获取EntityData，没有则跳过
+                var entityData = otherGo.GetComponent<EntityData>();
+                if (entityData == null) continue;
+                
+                var distSqr = (otherGo.transform.position - (Vector3)center).sqrMagnitude;
+                overlappingEntities.Add((entityData.entity, distSqr));
+            }
+
+            if (overlappingEntities.Count == 0)
+            {
+                return null;
+            }
+            
+            // 按距离平方升序排序
+            overlappingEntities.Sort((a, b) => a.distanceSqr.CompareTo(b.distanceSqr));
+
+            // 提取 Entity 数组并返回
+            return overlappingEntities.Select(item => item.entity).ToArray();
+        }
+
+        /// <summary>
+        /// 获取范围内tag不同的所有Entity
+        /// </summary>
+        public static Entity[] IsOverlappingWithOtherTagAll(GameObject obj, float radius = 0, string tag = "")
+        {
+            var overlappingEntities = new List<(Entity entity, float distanceSqr)>();
+            if(tag == "")
+            {
+                tag = obj.tag;
+            }
             var collider = obj.GetComponent<CircleCollider2D>();
             if (collider == null) return null;
 
@@ -132,7 +189,7 @@ namespace Utilities
                 if (otherGo.CompareTag("Untagged")) continue;
 
                 // 跳过相同Tag的对象
-                if (otherGo.CompareTag(excludeTag)) continue;
+                if (otherGo.CompareTag(tag)) continue;
 
                 // 获取EntityData，没有则跳过
                 var entityData = otherGo.GetComponent<EntityData>();
@@ -155,12 +212,15 @@ namespace Utilities
         }
 
         /// <summary>
-        /// 获取tag相同的所有Entity
+        /// 获取范围内tag相同的所有Entity
         /// </summary>
-        public static Entity[] IsOverlappingWithTagAll(GameObject obj, string tag, float radius = 0)
+        public static Entity[] IsOverlappingWithTagAll(GameObject obj, float radius = 0, string tag = "")
         {
             var overlappingEntities = new List<(Entity entity, float distanceSqr)>();
-            var excludeTag = tag;
+            if(tag == "")
+            {
+                tag = obj.tag;
+            }
             var collider = obj.GetComponent<CircleCollider2D>();
             if (collider == null) return null;
 
@@ -187,7 +247,7 @@ namespace Utilities
                 if (otherGo.CompareTag("Untagged")) continue;
 
                 // 跳过不同Tag的对象
-                if (!otherGo.CompareTag(excludeTag)) continue;
+                if (!otherGo.CompareTag(tag)) continue;
 
                 // 获取EntityData，没有则跳过
                 var entityData = otherGo.GetComponent<EntityData>();
@@ -293,6 +353,64 @@ namespace Utilities
             }
 
             return true;
+        }
+        
+        /// <summary>
+        /// 判断敌人是否在扇形范围
+        /// </summary>
+        public static bool IsOverlappingInSector(float sectorAngle, float sectorRadius, Vector2 direction, GameObject obj, GameObject target)
+        {
+            var targetDirection = (target.transform.position - obj.transform.position).normalized;
+            // 点乘积结果
+            var dot = Vector3.Dot(targetDirection, direction);
+            // 反余弦计算角度
+            var offsetAngle = Mathf.Acos(dot) * Mathf.Rad2Deg;
+            
+            return offsetAngle < sectorAngle * .5f && Vector2.Distance(obj.transform.position, target.transform.position) < sectorRadius;
+        }
+        
+        /// <summary>
+        /// 判断扇形范围内是否有敌人
+        /// </summary>
+        public static bool IsOverlappingInSectorAll(float sectorAngle, float sectorRadius, Vector2 direction, GameObject obj, out List<Entity> targets)
+        {
+            targets = new List<Entity>();
+            var rawTargets = IsOverlappingWithOtherTagAll(obj, sectorRadius);
+            if (rawTargets == null) return false;
+
+            foreach (var target in rawTargets)
+            {
+                if (IsOverlappingInSector(sectorAngle, sectorRadius, direction, obj, target.gameObject))
+                {
+                    targets.Add(target);
+                }
+            }
+            
+            return targets.Count > 0;
+        }
+
+        /// <summary>
+        /// 判断盒状碰撞箱内是否有敌人
+        /// </summary>
+        public static bool IsOverlappingInBoxColliderAll(GameObject obj, out List<Entity> targets)
+        {
+            targets = new List<Entity>();
+            var filter = new ContactFilter2D();
+            filter.useTriggers = true;
+            var results = new Collider2D[10];
+            var count = obj.GetComponent<BoxCollider2D>().OverlapCollider(filter, results);
+            if (count <= 0) return false;
+            
+            for (var index = 0; index < count; index ++)
+            {
+                var result = results[index];
+                var entityData = result.GetComponent<EntityData>();
+                if (entityData == null) continue;
+                
+                targets.Add(entityData.entity);
+            }
+            
+            return targets.Count > 0;
         }
     }
 }

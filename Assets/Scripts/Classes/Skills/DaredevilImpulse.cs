@@ -1,4 +1,3 @@
-using Managers;
 using Managers.EntityManagers;
 using UnityEngine;
 using Utilities;
@@ -7,7 +6,7 @@ namespace Classes.Skills
 {
     public class DaredevilImpulse : Skill
     {
-        private float damageCount => (1 + HeroManager.hero.level) + (0.035f + 0.07f / 17f * (HeroManager.hero.level - 1)) * HeroManager.hero.attackDamage;
+        private float _damageCount => (1 + HeroManager.hero.level) + (0.035f + 0.07f / 17f * (HeroManager.hero.level - 1)) * HeroManager.hero.attackDamage;
         public float comboLevel;
         private SkillType formerHit;
         
@@ -39,7 +38,7 @@ namespace Classes.Skills
                     if (Vector2.Distance(owner.gameObject.transform.position, target.gameObject.transform.position) <
                         200f + owner.scale + target.scale)
                     {
-                        var damage = target.CalculateAPDamage(owner, damageCount * (2 - target.healthPointProportion));
+                        var damage = target.CalculateAPDamage(owner, _damageCount * (2 - target.healthPointProportion));
                         target.TakeDamage(damage, DamageType.AP, owner);
                     }
                 };
@@ -65,7 +64,7 @@ namespace Classes.Skills
                     if (Vector2.Distance(owner.gameObject.transform.position, target.gameObject.transform.position) <
                         200f + owner.scale + target.scale)
                     {
-                        var damage = target.CalculateAPDamage(owner, damageCount * (2 - target.healthPointProportion));
+                        var damage = target.CalculateAPDamage(owner, _damageCount * (2 - target.healthPointProportion));
                         target.TakeDamage(damage, DamageType.AP, owner);
                     }
                 };
@@ -74,7 +73,7 @@ namespace Classes.Skills
 
         public override string GetDescription()
         {
-            return string.Format(_skillDescription, damageCount);
+            return string.Format(_skillDescription, _damageCount);
         }
     }
 }

@@ -18,7 +18,7 @@ namespace DataManagement
             }
             else
             {
-                entity = new Hero(gameObject, Team.Hero, "Yasuo");
+                entity = new Hero(gameObject, Team.Hero, "Samira");
             }
         }
     }

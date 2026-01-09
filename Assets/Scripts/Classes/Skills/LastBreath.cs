@@ -30,7 +30,7 @@ namespace Classes.Skills
             failMessage = string.Empty;
             
             // 遍历寻找范围内的目标
-            var targets = ToolFunctions.IsOverlappingOtherTagAll(owner.gameObject, skillRange)?.ToList().FindAll(entity => entity.isControlled.Value);
+            var targets = ToolFunctions.IsOverlappingWithOtherTagAll(owner.gameObject, skillRange)?.ToList().FindAll(entity => entity.isControlled.Value);
 
             if (targets is not { Count: > 0 })
             {

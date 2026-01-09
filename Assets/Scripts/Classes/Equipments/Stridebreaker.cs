@@ -32,7 +32,7 @@ namespace Classes.Equipments
                         {
                             self.gameObject.transform.position = target.gameObject.transform.position;
 
-                            var targets = ToolFunctions.IsOverlappingOtherTagAll(self.gameObject, 200);
+                            var targets = ToolFunctions.IsOverlappingWithOtherTagAll(self.gameObject, 200);
                             if (targets != null)
                             {
                                 foreach (var entity in targets)
@@ -82,7 +82,7 @@ namespace Classes.Equipments
                     {
                         self.gameObject.transform.position = owner.gameObject.transform.position;
                         
-                        var targets = ToolFunctions.IsOverlappingOtherTagAll(self.gameObject, 250);
+                        var targets = ToolFunctions.IsOverlappingWithOtherTagAll(self.gameObject, 250);
                         if (targets != null)
                         {
                             foreach (var entity in targets)

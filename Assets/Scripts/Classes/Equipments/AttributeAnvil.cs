@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Classes.Buffs;
+using DataManagement;
 using Managers.EntityManagers;
 using Systems;
 using UnityEngine;
@@ -10,32 +11,32 @@ namespace Classes.Equipments
 {
     public class AttributeAnvil : Equipment
     {
-        public Dictionary<string, Dictionary<EquipmentAttributeType, float>> attributeChoices = new()
+        public Dictionary<string, (Dictionary<EquipmentAttributeType, float>, string)> attributeChoices = new()
         {
-            {"力量碎片", new () {{EquipmentAttributeType.attackDamage, 25}, {EquipmentAttributeType.abilityPower, 25}}},
-            {"攻击力碎片", new () {{EquipmentAttributeType.attackDamage, 35}}},
-            {"法术强度碎片", new () {{EquipmentAttributeType.abilityPower, 50}}},
-            {"物理穿透碎片", new () {{EquipmentAttributeType.attackPenetration, 20}}},
-            {"法术穿透碎片", new () {{EquipmentAttributeType.magicPenetration, 18}}},
-            {"攻击速度碎片", new () {{EquipmentAttributeType.attackSpeed, 0.35f}}},
-            {"暴击碎片", new () {{EquipmentAttributeType.criticalRate, 0.25f}}},
-            {"技能急速碎片", new () {{EquipmentAttributeType.abilityHaste, 35}}},
-            {"生命值碎片", new () {{EquipmentAttributeType.maxHealthPoint, 375}}},
-            {"坚不可摧碎片", new () {{EquipmentAttributeType.attackDefense, 30}, {EquipmentAttributeType.magicDefense, 30}}},
-            {"物理防御碎片", new () {{EquipmentAttributeType.attackDefense, 45}}},
-            {"法术防御碎片", new () {{EquipmentAttributeType.magicDefense, 25}}},
-            {"迅捷碎片", new () {{EquipmentAttributeType.attackSpeed, 0.25f}, {EquipmentAttributeType.abilityHaste, 20}}},
+            {"力量碎片", (new () {{EquipmentAttributeType.attackDamage, 25}, {EquipmentAttributeType.abilityPower, 25}}, "Strength_Piece")},
+            {"攻击力碎片", (new () {{EquipmentAttributeType.attackDamage, 35}}, "AttackDamage_Piece")},
+            {"法术强度碎片", (new () {{EquipmentAttributeType.abilityPower, 50}}, "AbilityPower_Piece")},
+            {"物理穿透碎片", (new () {{EquipmentAttributeType.attackPenetration, 20}}, "AttackPenetration_Piece")},
+            {"法术穿透碎片", (new () {{EquipmentAttributeType.magicPenetration, 18}}, "MagicPenetration_Piece")},
+            {"攻击速度碎片", (new () {{EquipmentAttributeType.attackSpeed, 0.35f}}, "AttackSpeed_Piece")},
+            {"暴击碎片", (new () {{EquipmentAttributeType.criticalRate, 0.25f}}, "CriticalRate_Piece")},
+            {"技能急速碎片", (new () {{EquipmentAttributeType.abilityHaste, 35}}, "AbilityHaste_Piece")},
+            {"生命值碎片", (new () {{EquipmentAttributeType.maxHealthPoint, 375}}, "MaxHealthPoint_Piece")},
+            {"坚不可摧碎片", (new () {{EquipmentAttributeType.attackDefense, 30}, {EquipmentAttributeType.magicDefense, 30}}, "Indestructible_Piece")},
+            {"物理防御碎片", (new () {{EquipmentAttributeType.attackDefense, 45}}, "AttackDefense_Piece")},
+            {"法术防御碎片", (new () {{EquipmentAttributeType.magicDefense, 25}}, "MagicDefense_Piece")},
+            {"迅捷碎片", (new () {{EquipmentAttributeType.attackSpeed, 0.25f}, {EquipmentAttributeType.abilityHaste, 20}}, "Swift_Piece")},
         };
         
-        public Dictionary<string, Dictionary<EquipmentAttributeType, float>> prismaticChoices = new()
+        public Dictionary<string, (Dictionary<EquipmentAttributeType, float>, string)> prismaticChoices = new()
         {
-            {"移动速度碎片", new () {{EquipmentAttributeType.percentageMovementSpeed, 0.18f}, {EquipmentAttributeType.percentageScaleBonus, -0.1f}}},
-            {"生命值与体型碎片", new () {{EquipmentAttributeType.percentageMaxHealthPoint, 0.15f}, {EquipmentAttributeType.percentageScaleBonus, 0.1f}}},
-            {"全能吸血碎片", new () {{EquipmentAttributeType.omnivamp, 0.25f}}},
-            {"物理穿透碎片", new () {{EquipmentAttributeType.percentageAttackPenetration, 0.175f}}},
-            {"法术穿透碎片", new () {{EquipmentAttributeType.percentageMagicPenetration, 0.175f}}},
-            {"暴击伤害碎片", new () {{EquipmentAttributeType.criticalDamage, 0.25f}}},
-            {"好运碎片", new () {{EquipmentAttributeType.fortune, 0.2f}}},
+            {"移动速度碎片", (new () {{EquipmentAttributeType.percentageMovementSpeed, 0.18f}, {EquipmentAttributeType.percentageScaleBonus, -0.1f}}, "MovementSpeed_Piece")},
+            {"生命值与体型碎片", (new () {{EquipmentAttributeType.percentageMaxHealthPoint, 0.15f}, {EquipmentAttributeType.percentageScaleBonus, 0.1f}}, "HPAndScale_Piece")},
+            {"全能吸血碎片", (new () {{EquipmentAttributeType.omnivamp, 0.25f}}, "Omnivamp_Piece")},
+            {"物理穿透碎片", (new () {{EquipmentAttributeType.percentageAttackPenetration, 0.175f}}, "PercentageAttackPenetration_Piece")},
+            {"法术穿透碎片", (new () {{EquipmentAttributeType.percentageMagicPenetration, 0.175f}}, "PercentageMagicPenetration_Piece")},
+            {"暴击伤害碎片", (new () {{EquipmentAttributeType.criticalDamage, 0.25f}}, "CriticalDamage_Piece")},
+            {"好运碎片", (new () {{EquipmentAttributeType.fortune, 0.2f}}, "GoodLuck_Piece")},
         };
         
         public AttributeAnvil() : base("AttributeAnvil")
@@ -55,9 +56,9 @@ namespace Classes.Equipments
                         
                         foreach (var kvp in result)
                         {
-                            var choice = new Choice(kvp.Key, "", null, null, () => {}, Quality.Silver);
+                            var choice = new Choice(kvp.Key, "", ResourceReader.LoadIcon(kvp.Value.Item2), null, () => {}, Quality.Silver);
                             
-                            foreach (var kv in kvp.Value)
+                            foreach (var kv in kvp.Value.Item1)
                             {
                                 // 将属性加入加成
                                 switch (kv.Key)
@@ -128,9 +129,9 @@ namespace Classes.Equipments
                         
                         foreach (var kvp in result)
                         {
-                            var choice = new Choice(kvp.Key, "", null, null, () => {}, Quality.Gold);
+                            var choice = new Choice(kvp.Key, "", ResourceReader.LoadIcon(kvp.Value.Item2), null, () => {}, Quality.Gold);
                             
-                            foreach (var kv in kvp.Value)
+                            foreach (var kv in kvp.Value.Item1)
                             {
                                 switch (kv.Key)
                                 {
@@ -200,9 +201,9 @@ namespace Classes.Equipments
                         
                         foreach (var kvp in result)
                         {
-                            var choice = new Choice(kvp.Key, "", null, null, () => {}, Quality.Prismatic);
+                            var choice = new Choice(kvp.Key, "", ResourceReader.LoadIcon(kvp.Value.Item2), null, () => {}, Quality.Prismatic);
                             
-                            foreach (var kv in kvp.Value)
+                            foreach (var kv in kvp.Value.Item1)
                             {
                                 switch (kv.Key)
                                 {

@@ -16,7 +16,7 @@ namespace Classes.Hexes
         {
             canChoose = false;
             HeroManager.hero.RemoveHex(this);
-            ToolFunctions.GetRandomUniqueItems(HexManager.Instance.hexList.FindAll(hex => hex.canChoose), 2, out var results);
+            ToolFunctions.GetRandomUniqueItems(HexManager.Instance.hexList.FindAll(hex => hex.canChoose && !HeroManager.hero.hexList.Contains(hex)), 2, out var results);
             for (var index = 0; index < 2; index++)
             {
                 Debug.Log("已质变：" + results[index].hexName);

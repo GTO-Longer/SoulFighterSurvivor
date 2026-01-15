@@ -152,6 +152,10 @@ namespace Systems
                 newChoice.transform.Find("ChoiceContent").GetComponent<TMP_Text>().text = choice.choiceContent;
                 choiceIcon.sprite = choice.choiceIcon;
                 choiceIconBorder.sprite = choice.choiceIconBorder;
+                if (choice.choiceIconBorder == null)
+                {
+                    choiceIconBorder.enabled = false;
+                }
                 
                 // 设置材质
                 var material = choice.choiceQuality switch

@@ -12,6 +12,7 @@ using Utilities;
 namespace Classes{
     public class Skill
     {
+        public string skillId;
         public string skillName;
         public string heroName;
         public Hero owner;
@@ -72,7 +73,8 @@ namespace Classes{
         protected Skill(string name)
         {
             ReadSkillConfig(name);
-            
+
+            skillId = name;
             skillIcon = HUDUIRoot.Instance.heroAttributes.transform.Find($"MainStateBackground/SkillBarBackground/{skillType.ToString()}/SkillIcon").GetComponent<Image>();
             skillCoolDownMask = HUDUIRoot.Instance.heroAttributes.transform.Find($"MainStateBackground/SkillBarBackground/{skillType.ToString()}/CDMask")?.GetComponent<Image>();
             skillCD = HUDUIRoot.Instance.heroAttributes.transform.Find($"MainStateBackground/SkillBarBackground/{skillType.ToString()}/SkillCD")?.GetComponent<TMP_Text>();
@@ -179,6 +181,12 @@ namespace Classes{
         public void SkillEnterCoolDown()
         {
             OnSkillEnterCoolDown?.Invoke();
+        }
+        
+        // 修改技能图标
+        public void ChangeSkillIcon(Sprite newIcon)
+        {
+            skillIcon.sprite = newIcon;
         }
     }
 }

@@ -1,3 +1,4 @@
+using DataManagement;
 using Factories;
 using Managers;
 using Systems;
@@ -10,7 +11,7 @@ namespace Classes.Skills
     {
         private float _damage => _baseSkillValue[0][skillLevelToIndex] + 1.05f * owner.attackDamage;
         private float _critDamage => _baseSkillValue[0][skillLevelToIndex] + 1.05f * owner.attackDamage * (1 + owner.criticalDamage);
-        private int continuousReleaseCount;
+        private Property<int> continuousReleaseCount;
         private const float continuousReleaseTime = 6;
         private float continuousReleaseTimer;
         private const float controlTime = 1;
@@ -23,6 +24,11 @@ namespace Classes.Skills
             _maxSkillLevel = 5;
             
             coolDownTimer = 999;
+            continuousReleaseCount = new Property<int>();
+            continuousReleaseCount.PropertyChanged += (_, _) =>
+            {
+                ChangeSkillIcon(ResourceReader.LoadIcon(skillId + (continuousReleaseCount == 0 ? "" : $"_{continuousReleaseCount.Value}")));
+            };
             
             PassiveAbilityEffective += () =>
             {
@@ -40,7 +46,7 @@ namespace Classes.Skills
                     }
                     else
                     {
-                        continuousReleaseCount = 0;
+                        continuousReleaseCount.Value = 0;
 
                         if (AudioManager.Instance.IsPlaying("Yasuo_Q3_Background"))
                         {
@@ -108,7 +114,7 @@ namespace Classes.Skills
                                         if (continuousReleaseCount < 2 && skillUsed)
                                         {
                                             skillUsed = false;
-                                            continuousReleaseCount += 1;
+                                            continuousReleaseCount.Value += 1;
                                             continuousReleaseTimer = continuousReleaseTime;
                                             
                                             if (continuousReleaseCount == 2)
@@ -138,7 +144,7 @@ namespace Classes.Skills
                 }
                 else
                 {
-                    continuousReleaseCount = 0;
+                    continuousReleaseCount.Value = 0;
                     
                     var steelTempest = BulletFactory.Instance.CreateBullet(owner, 0.3f, 1);
                     steelTempest.OnBulletAwake += (self) =>
@@ -243,7 +249,7 @@ namespace Classes.Skills
                         owner.agent.SetStop(false);
 
                         var slash = BulletFactory.Instance.CreateBullet(owner);
-                        var startPosition = new Vector2(0, 0);
+                        Vector2 startPosition;
                         slash.OnBulletAwake += (self) =>
                         {
                             AudioManager.Instance.Play("Hero/Yasuo/Q_OnCast", "Yasuo_Q_OnCast");
@@ -290,7 +296,7 @@ namespace Classes.Skills
                                         if (continuousReleaseCount < 2 && skillUsed)
                                         {
                                             skillUsed = false;
-                                            continuousReleaseCount += 1;
+                                            continuousReleaseCount.Value += 1;
                                             continuousReleaseTimer = continuousReleaseTime;
                                             
                                             if (continuousReleaseCount == 2)
@@ -326,7 +332,7 @@ namespace Classes.Skills
                 }
                 else
                 {
-                    continuousReleaseCount = 0;
+                    continuousReleaseCount.Value = 0;
                     
                     // 计算飞出目标点
                     var mouseWorld = CameraSystem._mainCamera.ScreenToWorldPoint(Input.mousePosition);
@@ -345,7 +351,7 @@ namespace Classes.Skills
                         owner.agent.SetStop(false);
 
                         var slash = BulletFactory.Instance.CreateBullet(owner);
-                        var startPosition = new Vector2(0, 0);
+                        Vector2 startPosition;
                         slash.OnBulletAwake += (self) =>
                         {
                             AudioManager.Instance.Stop("Yasuo_Q3_Background");

@@ -92,6 +92,7 @@ namespace Classes
             OnBulletUpdate += _internalUpdateHandler;
 
             gameObject.SetActive(true);
+            gameObject.GetComponent<SpriteRenderer>().enabled = true;
         }
 
         /// <summary>

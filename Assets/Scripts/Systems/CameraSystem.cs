@@ -86,7 +86,7 @@ namespace Systems
         private void HandleZoom()
         {
             float scroll = Input.GetAxis("Mouse ScrollWheel");
-            if (scroll != 0f && !PanelUIRoot.Instance.isShopOpen)
+            if (scroll != 0f && !PanelUIRoot.Instance.isPanelOpen)
             {
                 float newSize = _mainCamera.orthographicSize - scroll * zoomSensitivity;
                 newSize = Mathf.Clamp(newSize, minOrthographicSize, maxOrthographicSize);

@@ -27,6 +27,7 @@ namespace Classes.Skills
 
         public override bool SkillEffect(out string failMessage)
         {
+            HeroModelManager.instance.RSkillAnimation();
             failMessage = string.Empty;
             
             // 遍历寻找范围内的目标

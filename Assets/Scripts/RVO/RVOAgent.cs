@@ -110,6 +110,8 @@ namespace RVO
                 var direction = GetAgentDirection();
                 entity.RotateTo(ref direction);
             }
+            
+            entity.isMoving = !_isStopped;
         }
 
         /// <summary>

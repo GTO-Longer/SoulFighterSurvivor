@@ -44,6 +44,8 @@ namespace Classes
         public bool canSkillCritical;
         // 是否被控制
         public Property<bool> isControlled;
+        // 是否在移动
+        public bool isMoving;
         public Property<float> controlTime;
         public Property<float> controlTimer;
         public Property<float> ControlProportion;

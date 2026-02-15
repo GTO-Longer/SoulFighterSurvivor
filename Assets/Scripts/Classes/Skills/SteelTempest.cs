@@ -73,6 +73,8 @@ namespace Classes.Skills
 
             if (sweepingBlade.isSweeping)
             {
+                HeroModelManager.instance.QSkillAnimation(3);
+                
                 if (continuousReleaseCount < 2)
                 {
                     var steelTempest = BulletFactory.Instance.CreateBullet(owner, 0.3f, 1);
@@ -230,6 +232,8 @@ namespace Classes.Skills
             }
             else
             {
+                HeroModelManager.instance.QSkillAnimation(continuousReleaseCount);
+                
                 if (continuousReleaseCount < 2)
                 {
                     // 计算飞出目标点

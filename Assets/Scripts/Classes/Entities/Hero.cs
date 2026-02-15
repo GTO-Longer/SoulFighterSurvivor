@@ -20,7 +20,7 @@ namespace Classes.Entities
 {
     public sealed class Hero : Entity
     {
-        private string heroName;
+        public string heroName;
         private Transform _attackRangeIndicator;
         
         /// <summary>
@@ -28,7 +28,6 @@ namespace Classes.Entities
         /// </summary>
         public Property<Entity> target = new Property<Entity>();
         
-        public Property<bool> isMoving = new Property<bool>();
         public Property<bool> showAttributes = new Property<bool>();
         public Property<int> coins = new Property<int>();
 
@@ -234,6 +233,8 @@ namespace Classes.Entities
             canFlash = true;
             coins.Value = 1500;
             LevelUp(3);
+            
+            gameObject.GetComponent<SpriteRenderer>().enabled = false;
 
             // 定义基础攻击命中事件
             AttackEffect += (self, _, adDamage, _) =>
@@ -263,7 +264,6 @@ namespace Classes.Entities
             {
                 self.TakeHeal(skillDamage * omnivamp);
             };
-
             
             // 定义基础Update事件
             EntityUpdateEvent += (_) =>
@@ -408,6 +408,8 @@ namespace Classes.Entities
                 showAttributes.Value = false;
                 _attackRangeIndicator.GetComponent<SpriteRenderer>().enabled = false;
             }
+            
+            gameObject.GetComponent<SpriteRenderer>().enabled = Input.GetKey(KeyCode.Space);
         }
 
         /// <summary>
@@ -863,6 +865,11 @@ namespace Classes.Entities
             
             AudioManager.Instance.Play($"Hero/{heroName}/Death", "Death");
             AudioManager.Instance.Play($"Hero/{heroName}/Death_Voice", "Death_Voice");
+        }
+
+        public Vector3 GetEulerAngles()
+        {
+            return gameObject.transform.eulerAngles;
         }
     }
 }

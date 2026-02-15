@@ -25,6 +25,7 @@ namespace Classes.Skills
 
         public override bool SkillEffect(out string failMessage)
         {
+            HeroModelManager.instance.WSkillAnimation();
             failMessage = string.Empty;
             
             // 计算飞出目标点

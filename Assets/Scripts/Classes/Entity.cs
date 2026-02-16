@@ -5,6 +5,7 @@ using DataManagement;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
 using Factories;
+using Managers;
 using MVVM;
 using RVO;
 using UnityEngine;
@@ -710,18 +711,21 @@ namespace Classes
             if (skill.skillLevel <= 0)
             {
                 Binder.ShowText(HUDUIRoot.Instance.skillInfo.skillTips, "技能尚未解锁", 1);
+                AudioManager.Instance.Play("Use_Skill_Fail", "Use_Skill_Fail");
                 return;
             }
 
             if (skill.actualSkillCost > magicPoint && skill.specialTimer <= 0)
             {
                 Binder.ShowText(HUDUIRoot.Instance.skillInfo.skillTips, "施法资源不够，技能无法使用", 1);
+                AudioManager.Instance.Play("Use_Skill_Fail", "Use_Skill_Fail");
                 return;
             }
 
             if (skill.actualSkillCoolDown > skill.coolDownTimer)
             {
                 Binder.ShowText(HUDUIRoot.Instance.skillInfo.skillTips, "技能正在冷却", 1);
+                AudioManager.Instance.Play("Use_Skill_Fail", "Use_Skill_Fail");
                 return;
             }
 
@@ -732,6 +736,7 @@ namespace Classes
             else if(skill.maxSkillChargeCount > 0)
             {
                 Binder.ShowText(HUDUIRoot.Instance.skillInfo.skillTips, "没有充能次数", 1);
+                AudioManager.Instance.Play("Use_Skill_Fail", "Use_Skill_Fail");
                 return;
             }
 
@@ -748,6 +753,7 @@ namespace Classes
             else
             {
                 Binder.ShowText(HUDUIRoot.Instance.skillInfo.skillTips, failMessage, 1);
+                AudioManager.Instance.Play("Use_Skill_Fail", "Use_Skill_Fail");
             }
         }
 

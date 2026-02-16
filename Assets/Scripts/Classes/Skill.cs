@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Classes.Entities;
 using Components.UI;
 using DataManagement;
+using Managers;
 using Managers.EntityManagers;
 using TMPro;
 using UnityEngine;
@@ -110,6 +111,7 @@ namespace Classes{
         {
             if (SkillCanUpgrade())
             {
+                AudioManager.Instance.Play("Skill_Upgrade", "Skill_Upgrade");
                 owner._skillPoint -= 1;
                 _skillLevel++;
             }

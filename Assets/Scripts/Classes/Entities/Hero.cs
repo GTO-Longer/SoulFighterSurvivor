@@ -753,12 +753,15 @@ namespace Classes.Entities
         }
 
         /// <summary>
-        /// 穿上装备
+        /// 购买装备
         /// </summary>
         public void PurchaseEquipment(Equipment equipment)
         {
-            if (equipment == null) return;
-            if (!equipment.canPurchase) return;
+            if (equipment == null || !equipment.canPurchase)
+            {
+                AudioManager.Instance.Play("Purchase_Fail", "Purchase_Fail");
+                return;
+            }
             
             var uniqueCheck = equipmentList.Find(equip => equip.Value != null && equip.Value._uniqueEffect.Intersect(equipment._uniqueEffect).Any());
             if (equipment.owner == null && coins.Value >= equipment._cost)
@@ -766,6 +769,8 @@ namespace Classes.Entities
                 // 若是锻造器则直接使用，不进入装备槽
                 if (equipment._equipmentType == EquipmentType.Anvil)
                 {
+                    AudioManager.Instance.Play("Purchase_Success", "Purchase_Success");
+                    
                     coins.Value -= equipment._cost;
                     equipment.OnActiveSkillEffective();
                     ShopSystem.Instance.CloseShopPanel();
@@ -779,6 +784,8 @@ namespace Classes.Entities
                     {
                         if (property.Value == null)
                         {
+                            AudioManager.Instance.Play("Purchase_Success", "Purchase_Success");
+                            
                             hasBoughtEquipment = true;
                             coins.Value -= equipment._cost;
                             property.Value = equipment;
@@ -788,6 +795,8 @@ namespace Classes.Entities
                     }
                 }
             }
+            
+            AudioManager.Instance.Play("Purchase_Fail", "Purchase_Fail");
         }
 
         /// <summary>
@@ -801,6 +810,8 @@ namespace Classes.Entities
             {
                 if (property.Value == equipment)
                 {
+                    AudioManager.Instance.Play("Sell_Equipment", "Sell_Equipment");
+                    
                     coins.Value += (int)(property.Value._cost * 0.7f);
                     property.Value.OnEquipmentRemove();
                     property.Value = null;
@@ -867,6 +878,19 @@ namespace Classes.Entities
             
             AudioManager.Instance.Play($"Hero/{heroName}/Death", "Death");
             AudioManager.Instance.Play($"Hero/{heroName}/Death_Voice", "Death_Voice");
+        }
+
+        public override void LevelUp(int num = 1)
+        {
+            base.LevelUp(num);
+
+            if (AudioManager.Instance != null)
+            {
+                for (var i = 0; i < num; i++)
+                {
+                    AudioManager.Instance.Play("Hero_Upgrade", "Hero_Upgrade");
+                }
+            }
         }
 
         public Vector3 GetEulerAngles()

@@ -148,6 +148,7 @@ namespace Classes.Equipments
 
                         choices[index].OnSelected += () =>
                         {
+                            AudioManager.Instance.Play("Choose", "Choose");
                             foreach (var property in HeroManager.hero.equipmentList)
                             {
                                 if (property.Value == null)

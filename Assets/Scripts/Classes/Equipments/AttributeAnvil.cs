@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Classes.Buffs;
 using DataManagement;
+using Managers;
 using Managers.EntityManagers;
 using Systems;
 using UnityEngine;
@@ -114,7 +115,11 @@ namespace Classes.Equipments
                                 };
                             }
 
-                            choice.OnSelected += () => { AttributeAnvilBonus.Instance.buffCount.Value += 1; };
+                            choice.OnSelected += () =>
+                            {
+                                AudioManager.Instance.Play("Choose", "Choose");
+                                AttributeAnvilBonus.Instance.buffCount.Value += 1;
+                            };
                             choices[index] = choice;
                             index += 1;
                         }
@@ -186,7 +191,11 @@ namespace Classes.Equipments
                                 };
                             }
                             
-                            choice.OnSelected += () => { AttributeAnvilBonus.Instance.buffCount.Value += 1; };
+                            choice.OnSelected += () =>
+                            {
+                                AudioManager.Instance.Play("Choose", "Choose");
+                                AttributeAnvilBonus.Instance.buffCount.Value += 1;
+                            };
                             choices[index] = choice;
                             index += 1;
                         }
@@ -252,7 +261,11 @@ namespace Classes.Equipments
                                 };
                             }
                             
-                            choice.OnSelected += () => { AttributeAnvilBonus.Instance.buffCount.Value += 1; };
+                            choice.OnSelected += () =>
+                            {
+                                AudioManager.Instance.Play("Choose", "Choose");
+                                AttributeAnvilBonus.Instance.buffCount.Value += 1;
+                            };
                             choices[index] = choice;
                             index += 1;
                         }
@@ -276,6 +289,7 @@ namespace Classes.Equipments
                         choices[target].choiceTitle = "碎片增幅碎片";
                         choices[target].OnSelected = () =>
                         {
+                            AudioManager.Instance.Play("Choose", "Choose");
                             AttributeAnvilBonus.Instance.AddBonus(bonus);
                         };
                     }

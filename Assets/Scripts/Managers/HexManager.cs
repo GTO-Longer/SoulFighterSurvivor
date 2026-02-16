@@ -57,6 +57,7 @@ namespace Managers
                         var result = results[index];
                         choices[index] = new Choice(result.hexName, result.hexDescription, result.hexIcon, result.hexIconBorder, () =>
                         {
+                            AudioManager.Instance.Play("Choose", "Choose");
                             HeroManager.hero.GetHex(result);
                         }, result.hexQuality);
                     }

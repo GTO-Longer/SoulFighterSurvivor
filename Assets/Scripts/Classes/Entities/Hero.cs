@@ -464,6 +464,8 @@ namespace Classes.Entities
                     AudioManager.Instance.Play($"Hero/{heroName}/Attack_OnCast", "Attack_OnCast");
                     AudioManager.Instance.Play($"Hero/{heroName}/Attack_Voice", "Attack_Voice");
                 }
+
+                HeroModelManager.Instance.AttackAnimation();
                 
                 // 发动攻击
                 _attackTimer = 0;

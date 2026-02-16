@@ -27,7 +27,6 @@ namespace Classes.Skills
 
         public override bool SkillEffect(out string failMessage)
         {
-            HeroModelManager.instance.RSkillAnimation();
             failMessage = string.Empty;
             
             // 遍历寻找范围内的目标
@@ -54,6 +53,7 @@ namespace Classes.Skills
             
             AudioManager.Instance.Play("Hero/Yasuo/R_Voice", "Yasuo_R_Voice");
             AudioManager.Instance.Play("Hero/Yasuo/R_OnCast", "Yasuo_R_OnCast");
+            HeroModelManager.Instance.RSkillAnimation();
 
             // 闪现到目标身后
             var targetDirection = (Vector2)(target.gameObject.transform.position - owner.gameObject.transform.position).normalized;
@@ -82,7 +82,7 @@ namespace Classes.Skills
             var continuousTime = 0f;
             var slashTime = 0;
             AudioManager.Instance.Play("Hero/Yasuo/R_OnHit", "Yasuo_R_OnHit");
-            Async.SetAsync(0.75f, null, () =>
+            Async.SetAsync(1.5f, null, () =>
             {
                 // 设置角色无法使用技能、无法移动
                 owner.canUseSkill = false;
@@ -91,7 +91,7 @@ namespace Classes.Skills
                 owner.agent.SetStop(true);
                 continuousTime += Time.deltaTime;
 
-                if (continuousTime >= 0.3f * slashTime)
+                if (continuousTime >= 0.5f * slashTime)
                 {
                     slashTime += 1;
                     

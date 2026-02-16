@@ -54,7 +54,7 @@ namespace RVO
         internal readonly float2 point;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Line"/> struct.
+        /// Initializes a new Instance of the <see cref="Line"/> struct.
         /// </summary>
         /// <param name="point">Origin of the Line.</param>
         /// <param name="direction">Direction of the Line.</param>

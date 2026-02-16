@@ -79,7 +79,7 @@ namespace RVO
         private bool obstacleTreeDirty;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Simulator"/> class.
+        /// Initializes a new Instance of the <see cref="Simulator"/> class.
         /// </summary>
         public Simulator()
         {
@@ -93,7 +93,7 @@ namespace RVO
         }
 
         /// <summary>
-        /// Finalizes an instance of the <see cref="Simulator"/> class.
+        /// Finalizes an Instance of the <see cref="Simulator"/> class.
         /// </summary>
         ~Simulator()
         {

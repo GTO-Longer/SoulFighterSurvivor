@@ -9,7 +9,7 @@ namespace Managers
 {
     public class HeroModelManager : MonoBehaviour
     {
-        public static HeroModelManager instance;
+        public static HeroModelManager Instance;
         
         private Animator animator;
         private Hero hero;
@@ -17,9 +17,9 @@ namespace Managers
 
         private void Awake()
         {
-            if (instance == null)
+            if (Instance == null)
             {
-                instance = this;
+                Instance = this;
                 
                 hero = HeroManager.hero;
                 model = ResourceReader.LoadPrefab($"HeroModels/{hero.heroName}_Model", transform);
@@ -42,6 +42,7 @@ namespace Managers
 
         public void QSkillAnimation(int specialIndex = -1)
         {
+            animator.Play("SkillState");
             animator.SetTrigger("QSkill");
             if (specialIndex != -1)
             {
@@ -51,6 +52,7 @@ namespace Managers
         
         public void WSkillAnimation(int specialIndex = -1)
         {
+            animator.Play("SkillState");
             animator.SetTrigger("WSkill");
             if (specialIndex != -1)
             {
@@ -60,6 +62,7 @@ namespace Managers
 
         public void ESkillAnimation(int specialIndex = -1)
         {
+            animator.Play("SkillState");
             animator.SetTrigger("ESkill");
             if (specialIndex != -1)
             {
@@ -69,10 +72,24 @@ namespace Managers
 
         public void RSkillAnimation(int specialIndex = -1)
         {
+            animator.Play("SkillState");
             animator.SetTrigger("RSkill");
             if (specialIndex != -1)
             {
                 animator.SetInteger("SpecialIndex", specialIndex);
+            }
+        }
+
+        public void AttackAnimation(int specialIndex = -1)
+        {
+            animator.Play("AttackState");
+            if (specialIndex != -1)
+            {
+                animator.SetInteger("SpecialIndex", specialIndex);
+            }
+            else
+            {
+                animator.SetInteger("SpecialIndex", 0);
             }
         }
     }

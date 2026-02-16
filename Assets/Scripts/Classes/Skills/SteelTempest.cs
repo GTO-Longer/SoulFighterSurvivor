@@ -73,7 +73,7 @@ namespace Classes.Skills
 
             if (sweepingBlade.isSweeping)
             {
-                HeroModelManager.instance.QSkillAnimation(3);
+                HeroModelManager.Instance.QSkillAnimation(3);
                 
                 if (continuousReleaseCount < 2)
                 {
@@ -232,7 +232,7 @@ namespace Classes.Skills
             }
             else
             {
-                HeroModelManager.instance.QSkillAnimation(continuousReleaseCount);
+                HeroModelManager.Instance.QSkillAnimation(continuousReleaseCount);
                 
                 if (continuousReleaseCount < 2)
                 {

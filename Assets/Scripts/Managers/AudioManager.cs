@@ -14,6 +14,8 @@ namespace Managers
         private List<AudioSource> audioPool = new ();
         private Dictionary<string, AudioClip> clipCache = new ();
         private Dictionary<string, AudioSource> activeLoopingSounds = new ();
+        
+        public AudioClip backgroundClip;
 
         private void Awake()
         {
@@ -30,6 +32,12 @@ namespace Managers
                         source.volume = volume.Value;
                     }
                 };
+                
+                if (backgroundClip != null)
+                {
+                    Play(backgroundClip, "bgm", true);
+                }
+                
                 volume.Value = 0.5f;
             }
             else
@@ -72,6 +80,25 @@ namespace Managers
         public void Play(string fileName, string audioName, bool loop = false)
         {
             var clip = LoadClip(fileName, audioName);
+            if (clip == null) return;
+            if(loop && activeLoopingSounds.ContainsKey(audioName)) return;
+
+            var source = GetAvailableSource();
+            source.clip = clip;
+            source.loop = loop;
+            source.Play();
+
+            if (loop)
+            {
+                activeLoopingSounds[audioName] = source;
+            }
+        }
+        
+        /// <summary>
+        /// 播放音效
+        /// </summary>
+        public void Play(AudioClip clip, string audioName, bool loop = false)
+        {
             if (clip == null) return;
             if(loop && activeLoopingSounds.ContainsKey(audioName)) return;
 
@@ -145,7 +172,10 @@ namespace Managers
         {
             foreach (var source in audioPool)
             {
-                source.Pause();
+                if (source.clip != backgroundClip)
+                {
+                    source.Pause();
+                }
             }
         }
 

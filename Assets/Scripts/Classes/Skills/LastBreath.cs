@@ -82,7 +82,7 @@ namespace Classes.Skills
             var continuousTime = 0f;
             var slashTime = 0;
             AudioManager.Instance.Play("Hero/Yasuo/R_OnHit", "Yasuo_R_OnHit");
-            Async.SetAsync(1.5f, null, () =>
+            Async.SetAsync(1.333f, null, () =>
             {
                 // 设置角色无法使用技能、无法移动
                 owner.canUseSkill = false;
@@ -91,7 +91,7 @@ namespace Classes.Skills
                 owner.agent.SetStop(true);
                 continuousTime += Time.deltaTime;
 
-                if (continuousTime >= 0.5f * slashTime)
+                if (continuousTime >= 0.444f * slashTime)
                 {
                     slashTime += 1;
                     

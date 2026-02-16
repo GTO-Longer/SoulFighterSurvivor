@@ -31,17 +31,17 @@ namespace Managers.EntityManagers
                 return;
             }
 
-            enemy.GainExperience();
-            enemy.EntityUpdate();
+            enemy?.GainExperience();
+            enemy?.EntityUpdate();
 
-            if (!enemy.isControlled)
+            if (!enemy?.isControlled)
             {
-                enemy.Move();
-                enemy.Attack();
+                enemy?.Move();
+                enemy?.Attack();
             }
             else
             {
-                enemy.ControlTimeUpdate();
+                enemy?.ControlTimeUpdate();
             }
         }
 

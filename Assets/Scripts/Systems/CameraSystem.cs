@@ -20,11 +20,37 @@ namespace Systems
         public bool isFollowing;
         public float followSpeed = 5f;
 
+        [Header("摄像机边界设置")]
+        public string boundaryObjectName = "CameraBoundary";
+        private BoxCollider2D _cameraBoundary;
+
         public static Camera _mainCamera;
 
         private void Start()
         {
             _mainCamera = Camera.main;
+
+            // 查找摄像机边界对象
+            var boundaryObj = GameObject.Find(boundaryObjectName);
+            if (boundaryObj != null)
+            {
+                _cameraBoundary = boundaryObj.GetComponent<BoxCollider2D>();
+                if (_cameraBoundary == null)
+                {
+                    Debug.LogWarning($"CameraBoundary对象 '{boundaryObjectName}' 没有BoxCollider2D组件！");
+                }
+                else
+                {
+                    Debug.Log($"已找到摄像机边界: {boundaryObjectName}, 边界大小: {_cameraBoundary.bounds.size}");
+                }
+            }
+            else
+            {
+                Debug.LogWarning($"未找到摄像机边界对象 '{boundaryObjectName}'！摄像机将不会受限。");
+            }
+
+            // 初始限制摄像机位置
+            ClampCameraToBoundary();
         }
 
         private void Update()
@@ -48,9 +74,9 @@ namespace Systems
             if (isFollowing) return;
 
             Vector2 mousePos = Input.mousePosition;
-            Vector2 screenSize = new Vector2(Screen.width, Screen.height);
+            var screenSize = new Vector2(Screen.width, Screen.height);
 
-            Vector3 direction = Vector3.zero;
+            var direction = Vector3.zero;
 
             if (mousePos.x < edgeBuffer) direction.x = -1;
             else if (mousePos.x > screenSize.x - edgeBuffer) direction.x = 1;
@@ -61,6 +87,7 @@ namespace Systems
             if (direction != Vector3.zero)
             {
                 _mainCamera.transform.position += direction.normalized * (cameraMoveSpeed * Time.deltaTime);
+                ClampCameraToBoundary();
             }
         }
 
@@ -74,24 +101,67 @@ namespace Systems
                     return;
                 }
 
-                Vector3 newCamPos = new Vector3(
+                var newCamPos = new Vector3(
                     focusTarget.position.x,
                     focusTarget.position.y,
                     _mainCamera.transform.position.z
                 );
+
+                // 临时设置摄像机位置以计算边界限制
                 _mainCamera.transform.position = newCamPos;
+                ClampCameraToBoundary();
             }
         }
 
         private void HandleZoom()
         {
-            float scroll = Input.GetAxis("Mouse ScrollWheel");
+            var scroll = Input.GetAxis("Mouse ScrollWheel");
             if (scroll != 0f && !PanelUIRoot.Instance.isPanelOpen)
             {
-                float newSize = _mainCamera.orthographicSize - scroll * zoomSensitivity;
+                var newSize = _mainCamera.orthographicSize - scroll * zoomSensitivity;
                 newSize = Mathf.Clamp(newSize, minOrthographicSize, maxOrthographicSize);
                 _mainCamera.orthographicSize = newSize;
+
+                // 缩放后需要重新限制摄像机位置
+                ClampCameraToBoundary();
             }
+        }
+
+        /// <summary>
+        /// 将摄像机位置限制在边界内
+        /// </summary>
+        private void ClampCameraToBoundary()
+        {
+            if (_cameraBoundary == null || _mainCamera == null) return;
+
+            // 获取摄像机视野的半高和半宽
+            var orthographicSize = _mainCamera.orthographicSize;
+            var aspectRatio = (float)Screen.width / Screen.height;
+            var cameraHalfHeight = orthographicSize;
+            var cameraHalfWidth = cameraHalfHeight * aspectRatio;
+
+            // 获取边界范围
+            var bounds = _cameraBoundary.bounds;
+            var minX = bounds.min.x + cameraHalfWidth;
+            var maxX = bounds.max.x - cameraHalfWidth;
+            var minY = bounds.min.y + cameraHalfHeight;
+            var maxY = bounds.max.y - cameraHalfHeight;
+
+            // 如果边界太小无法容纳摄像机视野，则让摄像机居中
+            if (minX > maxX)
+            {
+                minX = maxX = bounds.center.x;
+            }
+            if (minY > maxY)
+            {
+                minY = maxY = bounds.center.y;
+            }
+
+            // 限制摄像机位置
+            var cameraPos = _mainCamera.transform.position;
+            cameraPos.x = Mathf.Clamp(cameraPos.x, minX, maxX);
+            cameraPos.y = Mathf.Clamp(cameraPos.y, minY, maxY);
+            _mainCamera.transform.position = cameraPos;
         }
     }
 }

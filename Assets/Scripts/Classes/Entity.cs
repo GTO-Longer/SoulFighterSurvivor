@@ -883,7 +883,11 @@ namespace Classes
             if (experience.Value >= maxExperience.Value)
             {
                 LevelUp();
-                experience.Value -= maxExperience.Value;
+
+                if (level < maxLevel)
+                {
+                    experience.Value -= maxExperience.Value;
+                }
             }
         }
         

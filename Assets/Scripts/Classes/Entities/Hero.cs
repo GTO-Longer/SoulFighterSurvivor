@@ -888,7 +888,10 @@ namespace Classes.Entities
             {
                 for (var i = 0; i < num; i++)
                 {
-                    AudioManager.Instance.Play("Hero_Upgrade", "Hero_Upgrade");
+                    if (level < maxLevel)
+                    {
+                        AudioManager.Instance.Play("Hero_Upgrade", "Hero_Upgrade");
+                    }
                 }
             }
         }

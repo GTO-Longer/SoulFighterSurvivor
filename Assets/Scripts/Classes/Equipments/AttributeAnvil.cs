@@ -34,8 +34,8 @@ namespace Classes.Equipments
             {"移动速度碎片", (new () {{EquipmentAttributeType.percentageMovementSpeed, 0.18f}, {EquipmentAttributeType.percentageScaleBonus, -0.1f}}, "MovementSpeed_Piece")},
             {"生命值与体型碎片", (new () {{EquipmentAttributeType.percentageMaxHealthPoint, 0.15f}, {EquipmentAttributeType.percentageScaleBonus, 0.1f}}, "HPAndScale_Piece")},
             {"全能吸血碎片", (new () {{EquipmentAttributeType.omnivamp, 0.25f}}, "Omnivamp_Piece")},
-            {"物理穿透碎片", (new () {{EquipmentAttributeType.percentageAttackPenetration, 0.175f}}, "PercentageAttackPenetration_Piece")},
-            {"法术穿透碎片", (new () {{EquipmentAttributeType.percentageMagicPenetration, 0.175f}}, "PercentageMagicPenetration_Piece")},
+            {"物理穿透碎片", (new () {{EquipmentAttributeType.percentageAttackPenetration, 0.175f}}, "AttackPenetration_Piece")},
+            {"法术穿透碎片", (new () {{EquipmentAttributeType.percentageMagicPenetration, 0.175f}}, "MagicPenetration_Piece")},
             {"暴击伤害碎片", (new () {{EquipmentAttributeType.criticalDamage, 0.25f}}, "CriticalDamage_Piece")},
             {"好运碎片", (new () {{EquipmentAttributeType.fortune, 0.2f}}, "GoodLuck_Piece")},
         };

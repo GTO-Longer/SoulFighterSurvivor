@@ -895,10 +895,5 @@ namespace Classes.Entities
                 }
             }
         }
-
-        public Vector3 GetEulerAngles()
-        {
-            return gameObject.transform.eulerAngles;
-        }
     }
 }

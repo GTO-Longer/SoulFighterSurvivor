@@ -1,5 +1,6 @@
 using Managers.EntityManagers;
 using Factories;
+using Managers;
 using UnityEngine;
 using Utilities;
 
@@ -74,6 +75,9 @@ namespace Classes.Entities
             isAlive = true;
             magicPoint.Value = maxMagicPoint.Value;
             healthPoint.Value = maxHealthPoint.Value;
+            
+            // 创建敌人模型
+            EnemyModelFactory.Instance.CreateModel(this, "Enemy_Melee");
         }
         
         // 敌人进行移动
@@ -100,6 +104,8 @@ namespace Classes.Entities
             _attackWindUpTimer += Time.deltaTime;
             if (_attackWindUpTimer >= actualAttackInterval * _attackWindUp)
             {
+                EnemyModelFactory.Instance.AttackAnimation(this);
+                
                 // 发动攻击
                 _attackTimer = 0;
                 _attackWindUpTimer = 0;
@@ -181,6 +187,9 @@ namespace Classes.Entities
                 hero.GetExperience(100 + totalExp * 3.4f / (level.Value + 16));
                 var coins = (int)level.Value * 5 + 75;
                 hero.GainCoin(coins);
+
+                // 播放死亡动画
+                EnemyModelFactory.Instance.DeathAnimation(this);
 
                 // 销毁实例
                 EnemyFactory.Instance.Despawn(gameObject.GetComponent<EnemyManager>());

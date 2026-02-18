@@ -1002,6 +1002,11 @@ namespace Classes
                 isControlled.Value = true;
             }
         }
+
+        public Vector3 GetEulerAngles()
+        {
+            return gameObject.transform.eulerAngles;
+        }
         
         #endregion
 

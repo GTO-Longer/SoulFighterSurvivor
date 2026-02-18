@@ -4,6 +4,7 @@ using UnityEngine;
 using DataManagement;
 using Managers.EntityManagers;
 using Utilities;
+using Random = UnityEngine.Random;
 
 namespace Managers
 {
@@ -83,13 +84,14 @@ namespace Managers
         public void AttackAnimation(int specialIndex = -1)
         {
             animator.Play("AttackState");
+            animator.SetFloat("AttackSpeed", hero.attackSpeed);
             if (specialIndex != -1)
             {
                 animator.SetInteger("SpecialIndex", specialIndex);
             }
             else
             {
-                animator.SetInteger("SpecialIndex", 0);
+                animator.SetInteger("SpecialIndex", Random.Range(0,3));
             }
         }
     }

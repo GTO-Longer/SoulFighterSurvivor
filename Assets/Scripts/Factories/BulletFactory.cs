@@ -31,13 +31,10 @@ namespace Factories
                         return bullet;
                     },
                     actionOnGet: bullet =>
-                    {
-                        // 子弹被取出时，会通过Initialize方法设置GameObject
-                        // 这里不需要额外操作，因为Initialize会激活GameObject
-                    },
+                    {},
                     actionOnRelease: bullet =>
                     {
-                        // 子弹被回收时，清理状态并禁用GameObject
+                        bullet.gameObject.SetActive(false);
                         bullet.Clear();
                     },
                     actionOnDestroy: bullet =>

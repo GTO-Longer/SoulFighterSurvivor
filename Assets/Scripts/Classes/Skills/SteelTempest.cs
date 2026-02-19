@@ -363,8 +363,8 @@ namespace Classes.Skills
                             AudioManager.Instance.Play("Hero/Yasuo/Q3_Voice", "Yasuo_Q3_Voice");
                             
                             self.target = null;
-                            self.gameObject.transform.position = owner.gameObject.transform.position;
-                            startPosition = owner.gameObject.transform.position;
+                            startPosition = (Vector2)owner.gameObject.transform.position + direction * owner.scale;
+                            self.gameObject.transform.position = startPosition;
                             self.gameObject.SetActive(true);
                             var hasInitialized = false;
                             var speed = Vector2.zero;

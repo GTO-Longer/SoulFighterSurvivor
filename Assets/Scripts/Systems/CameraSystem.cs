@@ -37,16 +37,16 @@ namespace Systems
                 _cameraBoundary = boundaryObj.GetComponent<BoxCollider2D>();
                 if (_cameraBoundary == null)
                 {
-                    Debug.LogWarning($"CameraBoundary对象 '{boundaryObjectName}' 没有BoxCollider2D组件！");
+                    Debug.LogWarning($"[CameraSystem] CameraBoundary对象 '{boundaryObjectName}' 没有BoxCollider2D组件！");
                 }
                 else
                 {
-                    Debug.Log($"已找到摄像机边界: {boundaryObjectName}, 边界大小: {_cameraBoundary.bounds.size}");
+                    Debug.Log($"[CameraSystem] 已找到摄像机边界: {boundaryObjectName}，边界大小: {_cameraBoundary.bounds.size}");
                 }
             }
             else
             {
-                Debug.LogWarning($"未找到摄像机边界对象 '{boundaryObjectName}'！摄像机将不会受限。");
+                Debug.LogWarning($"[CameraSystem] 未找到摄像机边界对象 '{boundaryObjectName}'，摄像机将不会受限。");
             }
 
             // 初始限制摄像机位置

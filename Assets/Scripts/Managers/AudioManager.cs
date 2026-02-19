@@ -42,6 +42,10 @@ namespace Managers
             }
             else
             {
+                Instance.backgroundClip = backgroundClip;
+                Instance.Stop("bgm");
+                Instance.Play(backgroundClip, "bgm", true);
+                
                 Destroy(gameObject);
             }
         }
@@ -72,6 +76,23 @@ namespace Managers
 
             // 若池子满了则动态扩容
             return CreateNewAudioSource();
+        }
+
+        public AudioSource GetAudioSource()
+        {
+            var audioS = GetAvailableSource();
+            audioPool.Remove(audioS);
+            return audioS;
+        }
+
+        public void DestroyAudioSource(AudioSource audioSource)
+        {
+            if (audioPool.Contains(audioSource))
+            {
+                audioPool.Remove(audioSource);
+            }
+            
+            Destroy(audioSource);
         }
 
         /// <summary>

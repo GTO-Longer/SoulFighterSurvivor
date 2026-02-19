@@ -10,10 +10,10 @@ namespace Classes.Hexes
 {
     public class RepeatingStrike : Hex
     {
-        private float leftDownTimer = 0;
-        private float rightDownTimer = 0;
-        private float leftUpTimer = 0;
-        private float rightUpTimer = 0;
+        private float leftDownTimer = directionCD;
+        private float rightDownTimer = directionCD;
+        private float leftUpTimer = directionCD;
+        private float rightUpTimer = directionCD;
         private const float directionCD = 5;
         private const float attackBulletSpeed = 2000;
         private float damageCount => 25 + HeroManager.hero.attackDamage * 0.15f;

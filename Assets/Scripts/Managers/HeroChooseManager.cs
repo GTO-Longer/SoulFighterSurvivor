@@ -59,7 +59,7 @@ namespace Managers
                     
                     var splash = heroSplash.GetComponent<Image>();
                     PlayerData.Instance.heroName = hero.heroName;
-                    splash.DOKill(false);
+                    splash.DOKill(true);
                     
                     if (splash.color.a < 0.1f)
                     {
@@ -77,7 +77,7 @@ namespace Managers
             startButton.GetComponent<Button>().onClick.AddListener(() =>
             {
                 AudioManager.Instance.Play("Lock", "Lock");
-                DOTween.KillAll();
+                DOTween.KillAll(true);
                 SceneManager.LoadScene("LoadScene");
             });
             
@@ -85,6 +85,12 @@ namespace Managers
             {
                 AudioManager.Instance.DestroyAudioSource(audioS);
             };
+        }
+
+        private void Update()
+        {
+            // startButton.SetActive(!string.IsNullOrEmpty(PlayerData.Instance.heroName));
+            startButton.SetActive(PlayerData.Instance.heroName == "Yasuo");
         }
     }
 }

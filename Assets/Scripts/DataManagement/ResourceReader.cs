@@ -194,6 +194,16 @@ namespace DataManagement
         }
 
         /// <summary>
+        /// 获取所有英雄配置
+        /// </summary>
+        /// <returns></returns>
+        public static List<HeroConfig> GetAllHeros()
+        {
+            if (_heroConfigMap == null) LoadAllHeroConfigs();
+            return _heroConfigMap?.Values.ToList();
+        }
+
+        /// <summary>
         /// 读取英雄配置
         /// </summary>
         public static HeroConfig ReadHeroConfig(string heroName)
@@ -396,7 +406,7 @@ namespace DataManagement
         /// <summary>
         /// 加载图片
         /// </summary>
-        public static Sprite LoadImage(string imagePath, string subname)
+        public static Sprite LoadImage(string imagePath, string subname = null)
         {
             if (string.IsNullOrEmpty(imagePath))
             {
@@ -494,6 +504,27 @@ namespace DataManagement
             go.SetActive(active);
 
             return go;
+        }
+
+        /// <summary>
+        /// 加载音效
+        /// </summary>
+        public static AudioClip LoadAudio(string audioPath)
+        {
+            if (string.IsNullOrEmpty(audioPath))
+            {
+                Debug.LogWarning("LoadAudio called with null or empty audioPath.");
+                return null;
+            }
+
+            var audio = Resources.Load<AudioClip>("Audios/" + audioPath);
+            if (audio == null)
+            {
+                Debug.LogWarning($"No audio found at path: {audioPath}");
+                return null;
+            }
+
+            return audio;
         }
     }
 }

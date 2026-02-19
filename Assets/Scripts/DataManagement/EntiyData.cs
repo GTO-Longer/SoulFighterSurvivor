@@ -18,7 +18,18 @@ namespace DataManagement
             }
             else
             {
-                entity = new Hero(gameObject, Team.Hero, "Yasuo");
+                var heroName = "";
+                if (PlayerData.Instance == null || PlayerData.Instance.heroName == null || PlayerData.Instance.heroName == "")
+                {
+                    // 测试用英雄
+                    heroName = "Yasuo";
+                }
+                else
+                {
+                    heroName = PlayerData.Instance.heroName;
+                }
+                
+                entity = new Hero(gameObject, Team.Hero, heroName);
             }
         }
     }

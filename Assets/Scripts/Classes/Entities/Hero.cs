@@ -232,7 +232,11 @@ namespace Classes.Entities
             healthPoint.Value = maxHealthPoint.Value;
             canFlash = true;
             coins.Value = 1500;
-            LevelUp(3);
+            LevelUp(2);
+            Async.SetAsync(0.2f, null, null, () =>
+            {
+                LevelUp();
+            });
             
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
 

@@ -20,11 +20,19 @@ namespace Classes.Hexes
             }
 
             EquipmentManager.Instance.GetEquipment("AttributeAnvil")._cost -= 100;
+            EquipmentManager.Instance.GetEquipment("LegendaryFighterEquipmentAnvil")._cost -= 1000;
+            EquipmentManager.Instance.GetEquipment("LegendaryShooterEquipmentAnvil")._cost -= 1000;
+            EquipmentManager.Instance.GetEquipment("LegendaryAssassinEquipmentAnvil")._cost -= 1000;
+            EquipmentManager.Instance.GetEquipment("LegendaryWizardEquipmentAnvil")._cost -= 1000;
         }
 
         public override void OnHexRemove()
         {
             EquipmentManager.Instance.GetEquipment("AttributeAnvil")._cost += 100;
+            EquipmentManager.Instance.GetEquipment("LegendaryFighterEquipmentAnvil")._cost += 1000;
+            EquipmentManager.Instance.GetEquipment("LegendaryShooterEquipmentAnvil")._cost += 1000;
+            EquipmentManager.Instance.GetEquipment("LegendaryAssassinEquipmentAnvil")._cost += 1000;
+            EquipmentManager.Instance.GetEquipment("LegendaryWizardEquipmentAnvil")._cost += 1000;
             base.OnHexRemove();
         }
 

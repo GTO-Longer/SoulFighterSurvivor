@@ -4,8 +4,8 @@
             "id": "FortuneAnvil",
             "hexName": "财运锻造器",
             "quality": "Prismatic",
-            "description": "获得1000金币并降低所有锻造器的价格。\n棱彩锻造器数量：-1000\n传说锻造器数量：-500\n属性锻造器数量：-100",
-            "detail": "获得1000金币并降低所有锻造器的价格。\n棱彩锻造器数量：-1000\n传说锻造器数量：-500\n属性锻造器数量：-100",
+            "description": "获得1000金币并降低所有锻造器的价格，但是所有装备的出售价格降低至原价格的40%。\n传说锻造器数量：-1000\n属性锻造器数量：-100",
+            "detail": "获得1000金币并降低所有锻造器的价格，但是所有装备的出售价格降低至原价格的40%。\n传说锻造器数量：-1000\n属性锻造器数量：-100",
             "iconName": "Hex_Pocket",
             "iconBorderName": "Hex_Function_Border"
         },
@@ -35,15 +35,6 @@
             "detail": "无",
             "iconName": "Hex_Function",
             "iconBorderName": "Hex_Function_Border"
-        },
-        {
-            "id": "OmnipotentDragonSoul",
-            "hexName": "全能龙魂",
-            "quality": "Prismatic",
-            "description": "获得3个随机龙魂。",
-            "detail": "获得3个随机龙魂。",
-            "iconName": "Hex_Dice",
-            "iconBorderName": "Hex_Damage_Border"
         },
         {
             "id": "WisdomOfTime",
@@ -82,24 +73,6 @@
             "iconBorderName": "Hex_Skill_Border"
         },
         {
-            "id": "PrismaticEgg",
-            "hexName": "棱彩蛋",
-            "quality": "Prismatic",
-            "description": "每击杀200个敌人可以孵化出一个棱彩锻造器和一次刷新机会。",
-            "detail": "每击杀200个敌人可以孵化出一个棱彩锻造器和一次刷新机会。\n当前击杀数：{0:D}",
-            "iconName": "Hex_Dice",
-            "iconBorderName": "Hex_Shop_Border"
-        },
-        {
-            "id": "ChainLightning",
-            "hexName": "连锁闪电",
-            "quality": "Prismatic",
-            "description": "对敌人造成伤害时还会对其附近最近的2个敌人造成相当于这次伤害30%的真实伤害。",
-            "detail": "对敌人造成伤害时还会对其附近500码内最近的2个敌人造成相当于这次伤害30%的真实伤害。\n当前已造成额外伤害：{0:F1}",
-            "iconName": "Hex_Explosion",
-            "iconBorderName": "Hex_Universal_Border"
-        },
-        {
             "id": "AttributesAttributesAttributes",
             "hexName": "属性叠属性叠属性！",
             "quality": "Prismatic",
@@ -107,24 +80,6 @@
             "detail": "获得4个属性锻造器！",
             "iconName": "Hex_Dice",
             "iconBorderName": "Hex_Frame_Border"
-        },
-        {
-            "id": "GiantKiller",
-            "hexName": "巨人杀手",
-            "quality": "Prismatic",
-            "description": "体型变小，获得移动速度，并基于敌人体型大于你的程度造成额外伤害。",
-            "detail": "体型减小75%，获得30%总移动速度加成，敌人的体型每比你大5%，则对其造成2%额外真实伤害。\n当前已造成额外伤害：{0:F1}",
-            "iconName": "Hex_Speed",
-            "iconBorderName": "Hex_Damage_Border"
-        },
-        {
-            "id": "SlowStew",
-            "hexName": "慢炖",
-            "quality": "Prismatic",
-            "description": "每秒对附近的敌人施加一层可无限叠加的灼烧，这个效果受益于你的最大生命值。",
-            "detail": "每秒对附近的敌人施加一层可无限叠加的灼烧，持续5秒，每秒造成你0.35%最大生命值的魔法伤害。",
-            "iconName": "Hex_Fire",
-            "iconBorderName": "Hex_Damage_Border"
         },
         {
             "id": "TapDance",

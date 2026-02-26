@@ -41,7 +41,10 @@ namespace Classes.Equipments
                     // 2.5秒后清空
                     Async.SetAsync(2.5f, null, null, () =>
                     {
-                        damageSum[target] -= skillDamageCount;
+                        if (damageSum.ContainsKey(target))
+                        {
+                            damageSum[target] -= skillDamageCount;
+                        }
                     });
 
                     // 若没有创建风暴
@@ -71,6 +74,7 @@ namespace Classes.Equipments
                                                 ToolFunctions.IsOverlappingWithTagAll(target.gameObject, 350, "Enemy");
                                             foreach (var enemy in enemies)
                                             {
+                                                if(enemy == null || !enemy.isAlive) continue;
                                                 enemy.TakeDamage(enemy.CalculateAPDamage(attacker, damageCount),
                                                     DamageType.AP,
                                                     attacker);

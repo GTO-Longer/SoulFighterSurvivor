@@ -13,9 +13,9 @@ namespace Classes.Equipments
             {
                 if (_passiveSkillActive && skill.skillType == SkillType.RSkill)
                 {
-                    var burnt = new Buffs.Hullbreaker(owner, owner);
-                    burnt.buffIcon = equipmentIcon;
-                    owner.GainBuff(burnt);
+                    var hullbreaker = new Buffs.Hullbreaker(owner, owner);
+                    hullbreaker.buffIcon = equipmentIcon;
+                    owner.GainBuff(hullbreaker);
                     
                     _passiveSkillCDTimer = 0;
                 }

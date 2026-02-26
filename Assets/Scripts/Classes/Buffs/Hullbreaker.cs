@@ -5,7 +5,7 @@ namespace Classes.Buffs
 {
     public class Hullbreaker : Buff
     {
-        public Hullbreaker(Entity ownerEntity, Entity sourceEntity) : base(ownerEntity, sourceEntity, "过载", "获得50%总攻击速度", 0, 10)
+        public Hullbreaker(Entity ownerEntity, Entity sourceEntity) : base(ownerEntity, sourceEntity, "过载", "获得50%总攻击速度和20%移动速度", 0, 10)
         {
             OnBuffGet = () =>
             {

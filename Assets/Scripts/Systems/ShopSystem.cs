@@ -94,7 +94,6 @@ namespace Systems
             selectors.Find("FighterButton").GetComponent<Button>().onClick.AddListener(() => UsageSelect(UsageType.Fighter));
             selectors.Find("WizardButton").GetComponent<Button>().onClick.AddListener(() => UsageSelect(UsageType.Wizard));
             selectors.Find("ShooterButton").GetComponent<Button>().onClick.AddListener(() => UsageSelect(UsageType.Shooter));
-            selectors.Find("TankButton").GetComponent<Button>().onClick.AddListener(() => UsageSelect(UsageType.Tank));
             selectors.Find("AssassinButton").GetComponent<Button>().onClick.AddListener(() => UsageSelect(UsageType.Assassin));
             
             // 更新UI布局

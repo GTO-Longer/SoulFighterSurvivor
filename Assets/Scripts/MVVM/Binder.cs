@@ -378,6 +378,7 @@ namespace MVVM
                 if (source.Value == null)
                 {
                     icon.sprite = null;
+                    icon.color = new Color(0, 0, 0, 0.75f);
                     CDMask.enabled = false;
                     CDText.enabled = false;
                     chargeCount.enabled = false;
@@ -385,6 +386,7 @@ namespace MVVM
                 else
                 {
                     icon.sprite = source.Value.equipmentIcon;
+                    icon.color = new Color(1, 1, 1, 1);
                     if (source.Value.haveActiveSkillCD || source.Value.havePassiveSkillCD)
                     {
                         CDMask.enabled = true;

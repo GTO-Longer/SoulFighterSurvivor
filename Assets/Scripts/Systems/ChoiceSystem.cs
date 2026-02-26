@@ -112,7 +112,7 @@ namespace Systems
                         foreach (var RButton in refreshButtons)
                         {
                             RButton.GetComponent<Button>().interactable = diceCount > 0;
-                            RButton.transform.Find("Content").GetComponent<TMP_Text>().text = $"{diceCount:D}";
+                            RButton.transform.Find("Content").GetComponent<TMP_Text>().text = $"<sprite=\"Dice\" index=0>{diceCount:D}";
                         }
                         
                         var newChoiceContent = newResults[0];

@@ -118,10 +118,13 @@ namespace Systems
         /// </summary>
         public void OpenShopPanel()
         {
-            itemView.parent.parent.GetComponent<ScrollRect>().verticalScrollbar.value = 1f;
-            canvasGroup.alpha = 1;
-            canvasGroup.blocksRaycasts = true;
-            PanelUIRoot.Instance.isShopOpen = true;
+            if (!PanelUIRoot.Instance.isPanelOpen)
+            {
+                itemView.parent.parent.GetComponent<ScrollRect>().verticalScrollbar.value = 1f;
+                canvasGroup.alpha = 1;
+                canvasGroup.blocksRaycasts = true;
+                PanelUIRoot.Instance.isShopOpen = true;
+            }
         }
 
         public void UsageSelect(UsageType usageType)

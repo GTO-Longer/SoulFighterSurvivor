@@ -153,7 +153,6 @@ namespace Utilities
         None = 0,
         Fighter,
         Wizard,
-        Tank,
         Assassin,
         Shooter
     }

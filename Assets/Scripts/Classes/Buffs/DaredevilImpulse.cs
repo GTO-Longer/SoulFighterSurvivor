@@ -23,10 +23,6 @@ namespace Classes.Buffs
                     buffCount.Value += 1;
                     buffDescription = $"提升{3.5f * buffCount:0.#}%移动速度";
                 }
-                
-                var hero = owner as Hero;
-                var daredevilImpulse = hero?.skillList[(int)SkillType.PassiveSkill] as Skills.DaredevilImpulse;
-                daredevilImpulse.comboLevel = buffCount.Value;
 
                 owner._percentageMovementSpeedBonus.Value += 0.035f;
             };
@@ -34,10 +30,11 @@ namespace Classes.Buffs
             OnBuffRunOut = () =>
             {
                 owner._percentageMovementSpeedBonus.Value -= 0.035f * buffCount;
+                buffCount.Value = 0;
+                
                 var hero = owner as Hero;
                 var daredevilImpulse = hero?.skillList[(int)SkillType.PassiveSkill] as Skills.DaredevilImpulse;
                 daredevilImpulse.comboLevel = 0;
-                buffCount.Value = 0;
             };
         }
     }

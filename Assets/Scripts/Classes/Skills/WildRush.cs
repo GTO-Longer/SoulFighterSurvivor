@@ -103,6 +103,7 @@ namespace Classes.Skills
             {
                 // 获得攻速增益
                 var wildRush = new Buffs.WildRush(owner, owner, _attackSpeedBonus);
+                wildRush.buffIcon = skillIcon.sprite;
                 owner.GainBuff(wildRush);
                 
                 damagedEntity.Clear();

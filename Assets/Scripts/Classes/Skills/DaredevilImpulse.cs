@@ -22,12 +22,16 @@ namespace Classes.Skills
             {
                 owner.AttackEffect += (_, target, _, _) =>
                 {
-                    if (formerHit != SkillType.Attack)
+                    if (formerHit != SkillType.Attack || owner.GetBuff("悍勇本色") == null)
                     {
                         formerHit = SkillType.Attack;
                         
                         var daredevilImpulse = new Buffs.DaredevilImpulse(owner, owner);
+                        daredevilImpulse.buffIcon = skillIcon.sprite;
                         owner.GainBuff(daredevilImpulse);
+
+                        comboLevel += 1;
+                        comboLevel = Mathf.Min(comboLevel, 6);
                     }
 
                     var buff = owner.GetBuff("悍勇本色");
@@ -48,12 +52,16 @@ namespace Classes.Skills
                 {
                     if (skill.skillType == SkillType.RSkill) return;
                     
-                    if (formerHit != skill.skillType)
+                    if (formerHit != skill.skillType || owner.GetBuff("悍勇本色") == null)
                     {
                         formerHit = skill.skillType;
                         
                         var daredevilImpulse = new Buffs.DaredevilImpulse(owner, owner);
+                        daredevilImpulse.buffIcon = skillIcon.sprite;
                         owner.GainBuff(daredevilImpulse);
+                        
+                        comboLevel += 1;
+                        comboLevel = Mathf.Min(comboLevel, 6);
                     }
                     
                     var buff = owner.GetBuff("悍勇本色");

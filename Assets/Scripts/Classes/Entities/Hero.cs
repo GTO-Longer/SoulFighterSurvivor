@@ -812,8 +812,16 @@ namespace Classes.Entities
                 if (property.Value == equipment)
                 {
                     AudioManager.Instance.Play("Sell_Equipment", "Sell_Equipment");
+
+                    if (hexList.Contains(HexManager.Instance.GetHex("FortuneAnvil")))
+                    {
+                        coins.Value += (int)(property.Value._cost * 0.3f);
+                    }
+                    else
+                    {
+                        coins.Value += (int)(property.Value._cost * 0.7f);
+                    }
                     
-                    coins.Value += (int)(property.Value._cost * 0.7f);
                     property.Value.OnEquipmentRemove();
                     property.Value = null;
 

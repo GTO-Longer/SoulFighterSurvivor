@@ -140,7 +140,7 @@
                 "Guardian"
             ],
             "_usageType": [
-                "Tank"
+                "Fighter"
             ]
         },
         {
@@ -160,7 +160,6 @@
             "_usageType": [
                 "Fighter",
                 "Wizard",
-                "Tank",
                 "Assassin",
                 "Shooter"
             ]
@@ -235,46 +234,6 @@
             "_uniqueEffect": [],
             "_usageType": [
                 "Wizard"
-            ]
-        },
-        {
-            "id": "LegendaryTankEquipmentAnvil",
-            "equipmentName": "传说级坦克装备",
-            "_usageDescription": null,
-            "_equipmentType": "Anvil",
-            "_cost": 2000,
-            "_attributeList": null,
-            "_passiveSkillDescription": "自动开启一个半随机的选择，以选取一件传说级坦克装备。",
-            "_passiveSkillName": "主动-消耗",
-            "_passiveSkillCD": 0,
-            "_activeSkillDescription": null,
-            "_activeSkillName": null,
-            "_activeSkillCD": 0,
-            "_uniqueEffect": [],
-            "_usageType": [
-                "Tank"
-            ]
-        },
-        {
-            "id": "PrismaticEquipmentAnvil",
-            "equipmentName": "棱彩装备",
-            "_usageDescription": null,
-            "_equipmentType": "Anvil",
-            "_cost": 4000,
-            "_attributeList": null,
-            "_passiveSkillDescription": "自动开启一个半随机的选择，以选取一件棱彩级装备装备。",
-            "_passiveSkillName": "主动-消耗",
-            "_passiveSkillCD": 0,
-            "_activeSkillDescription": null,
-            "_activeSkillName": null,
-            "_activeSkillCD": 0,
-            "_uniqueEffect": [],
-            "_usageType": [
-                "Fighter",
-                "Wizard",
-                "Tank",
-                "Assassin",
-                "Shooter"
             ]
         },
         {
@@ -484,7 +443,7 @@
             "_activeSkillCD": 0,
             "_uniqueEffect": [],
             "_usageType": [
-                "Tank"
+                "Fighter"
             ]
         },
         {
@@ -751,8 +710,7 @@
                 "MagicPenetration"
             ],
             "_usageType": [
-                "Wizard",
-                "Tank"
+                "Wizard"
             ]
         },
         {
@@ -1182,25 +1140,27 @@
             ]
         },
         {
-            "id": "RapidFirecannon",
-            "equipmentName": "疾射火炮",
-            "_usageDescription": "远程消耗",
+            "id": "BlackCleavers",
+            "equipmentName": "黑色切割者",
+            "_usageDescription": "护甲克星",
             "_equipmentType": "Legend",
             "_cost": 2500,
             "_attributeList": {
-                "attackSpeed": 0.3,
-                "criticalRate": 0.25,
-                "percentageMovementSpeed": 0.04
+                "attackDamage": 40,
+                "maxHealthPoint": 350,
+                "abilityHaste": 20
             },
-            "_passiveSkillDescription": "你的盈能攻击造成<color=#00D8FF>200魔法伤害</color>并在完全盈能时获得35%攻击距离。",
-            "_passiveSkillName": "神射手",
+            "_passiveSkillDescription": "对英雄造成<color=#FF6A6A>物理伤害</color>时会施加6%<sprite=\"Attributes\" name=\"AttackDefenseIcon\">削减，持续6秒，至多叠至30%<sprite=\"Attributes\" name=\"AttackDefenseIcon\">削减。\n造成<color=#FF6A6A>物理伤害</color>时会提供持续2秒的20<sprite=\"Attributes\" name=\"MovementSpeedIcon\">。",
+            "_passiveSkillName": "狂怒切割",
             "_passiveSkillCD": 0,
             "_activeSkillDescription": null,
             "_activeSkillName": null,
             "_activeSkillCD": 0,
-            "_uniqueEffect": [],
+            "_uniqueEffect": [
+                "AttackPenetration"
+            ],
             "_usageType": [
-                "Shooter"
+                "Fighter"
             ]
         },
         {
@@ -1475,6 +1435,28 @@
             "_uniqueEffect": [],
             "_usageType": [
                 "Shooter"
+            ]
+        },
+        {
+            "id": "SunderedSky",
+            "equipmentName": "焚天",
+            "_usageDescription": "持续作战",
+            "_equipmentType": "Legend",
+            "_cost": 2500,
+            "_attributeList": {
+                "attackDamage": 40,
+                "maxHealthPoint": 350,
+                "abilityHaste": 10
+            },
+            "_passiveSkillDescription": "你对一个英雄打出的第一次攻击会暴击，并回复自身<color=#0ACD02>{0:F0}</color> =（<color=#FF6161>150%基础<sprite=\"Attributes\" name=\"AttackDamageIcon\"></color>）外加<color=#0ACD02>6%已损失<sprite=\"Attributes\" name=\"MaxHealthPointIcon\"></color>。",
+            "_passiveSkillName": "光盾打击",
+            "_passiveSkillCD": 8,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": [],
+            "_usageType": [
+                "Fighter"
             ]
         }
     ]

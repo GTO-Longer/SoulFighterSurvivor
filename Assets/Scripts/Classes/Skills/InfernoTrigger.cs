@@ -1,4 +1,5 @@
 using Classes.Buffs;
+using DataManagement;
 using Factories;
 using Managers;
 using UnityEngine;
@@ -16,6 +17,20 @@ namespace Classes.Skills
             _maxSkillLevel = 3;
             
             coolDownTimer = 999;
+
+            PassiveAbilityEffective += () =>
+            {
+                owner.EntityUpdateEvent += (_) =>
+                {
+                    var daredevilImpulse = owner.skillList[(int)SkillType.PassiveSkill] as DaredevilImpulse;
+                    if (daredevilImpulse == null)
+                    {
+                        return;
+                    }
+
+                    ChangeSkillIcon(ResourceReader.LoadIcon(skillId + $"_{daredevilImpulse.comboLevel}"));
+                };
+            };
         }
 
         public override string GetDescription()
@@ -30,7 +45,7 @@ namespace Classes.Skills
             var daredevilImpulse = owner.skillList[(int)SkillType.PassiveSkill] as DaredevilImpulse;
             if (daredevilImpulse == null) return false;
 
-            if (daredevilImpulse.comboLevel < 5)
+            if (daredevilImpulse.comboLevel < 6)
             {
                 failMessage = "连击等级不足";
                 return false;

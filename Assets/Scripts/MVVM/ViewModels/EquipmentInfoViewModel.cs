@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Classes;
 using DataManagement;
+using Managers;
 using Managers.EntityManagers;
 using TMPro;
 using UnityEngine;
@@ -83,7 +84,17 @@ namespace MVVM.ViewModels
                         }
                         else
                         {
-                            purchaseButton.transform.Find("PurchaseContent").GetComponent<TMP_Text>().text = $"以{(int)(equipment._cost * 0.7f):D}金币售出 " + equipment.equipmentName;
+                            if (HeroManager.hero.hexList.Contains(HexManager.Instance.GetHex("FortuneAnvil")))
+                            {
+                                purchaseButton.transform.Find("PurchaseContent").GetComponent<TMP_Text>().text =
+                                    $"以{(int)(equipment._cost * 0.4f):D}金币售出 " + equipment.equipmentName;
+                            }
+                            else
+                            {
+                                purchaseButton.transform.Find("PurchaseContent").GetComponent<TMP_Text>().text =
+                                    $"以{(int)(equipment._cost * 0.7f):D}金币售出 " + equipment.equipmentName;
+                            }
+
                             purchaseButton.onClick.AddListener(() =>
                             {
                                 HeroManager.hero.SellEquipment(equipment);

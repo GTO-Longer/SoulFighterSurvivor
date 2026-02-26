@@ -90,7 +90,7 @@ namespace Managers
         private void Update()
         {
             // startButton.SetActive(!string.IsNullOrEmpty(PlayerData.Instance.heroName));
-            startButton.SetActive(PlayerData.Instance.heroName == "Yasuo");
+            startButton.SetActive(PlayerData.Instance.heroName == "Yasuo" || PlayerData.Instance.heroName == "Ahri");
         }
     }
 }

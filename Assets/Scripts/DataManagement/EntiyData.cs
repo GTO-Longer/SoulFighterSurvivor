@@ -22,7 +22,7 @@ namespace DataManagement
                 if (PlayerData.Instance == null || PlayerData.Instance.heroName == null || PlayerData.Instance.heroName == "")
                 {
                     // 测试用英雄
-                    heroName = "Yasuo";
+                    heroName = "Ahri";
                 }
                 else
                 {

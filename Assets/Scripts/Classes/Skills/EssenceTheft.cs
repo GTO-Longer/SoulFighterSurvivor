@@ -1,3 +1,4 @@
+using Managers;
 using Utilities;
 
 namespace Classes.Skills
@@ -19,6 +20,7 @@ namespace Classes.Skills
                 {
                     if (skillChargeCount >= maxSkillChargeCount)
                     {
+                        AudioManager.Instance.Play("Hero/Ahri/P_Voice", "Ahri_P_Voice");
                         skillChargeCount = 0;
                         owner.TakeHeal(healCount);
                         owner.TakeMagicRecover(healCount);

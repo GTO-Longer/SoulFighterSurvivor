@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Factories;
+using Managers;
 using UnityEngine;
 using Utilities;
 
@@ -27,6 +28,9 @@ namespace Classes.Skills
         public override bool SkillEffect(out string failMessage)
         {
             failMessage = string.Empty;
+            
+            HeroModelManager.Instance.WSkillAnimation();
+            AudioManager.Instance.Play("Hero/Ahri/W_Voice", "Ahri_W_Voice");
             
             var attackIndex = 0;
 

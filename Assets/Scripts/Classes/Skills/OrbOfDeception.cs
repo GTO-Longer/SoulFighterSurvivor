@@ -1,4 +1,5 @@
 using Factories;
+using Managers;
 using Systems;
 using UnityEngine;
 using Utilities;
@@ -27,6 +28,9 @@ namespace Classes.Skills
         public override bool SkillEffect(out string failMessage)
         {
             failMessage = string.Empty;
+            
+            HeroModelManager.Instance.QSkillAnimation();
+            AudioManager.Instance.Play("Hero/Ahri/Q_Voice", "Ahri_Q_Voice");
             
             // 计算飞出目标点
             var mouseWorld = CameraSystem._mainCamera.ScreenToWorldPoint(Input.mousePosition);
@@ -116,7 +120,7 @@ namespace Classes.Skills
                             }
 
                             // 到达英雄位置
-                            if (Vector2.Distance(currentPosition, ownerPos) < 1f)
+                            if (Vector2.Distance(currentPosition, ownerPos) < 100f)
                             {
                                 self.Destroy();
                                 return;

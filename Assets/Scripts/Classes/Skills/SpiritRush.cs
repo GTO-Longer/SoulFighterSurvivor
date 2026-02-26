@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Factories;
+using Managers;
 using Systems;
 using UnityEngine;
 using Utilities;
@@ -48,6 +49,9 @@ namespace Classes.Skills
                 specialCoolDown = 1f;
             }
 
+            HeroModelManager.Instance.RSkillAnimation();
+            AudioManager.Instance.Play("Hero/Ahri/R_Voice", "Ahri_R_Voice");
+            
             var mouseWorldPos = CameraSystem._mainCamera.ScreenToWorldPoint(Input.mousePosition);
             mouseWorldPos.z = owner.gameObject.transform.position.z;
             var direction = (mouseWorldPos - owner.gameObject.transform.position).normalized;

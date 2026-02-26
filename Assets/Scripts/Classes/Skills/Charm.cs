@@ -1,4 +1,5 @@
 using Factories;
+using Managers;
 using Systems;
 using UnityEngine;
 using Utilities;
@@ -27,6 +28,9 @@ namespace Classes.Skills
         public override bool SkillEffect(out string failMessage)
         {
             failMessage = string.Empty;
+            
+            HeroModelManager.Instance.ESkillAnimation();
+            AudioManager.Instance.Play("Hero/Ahri/E_Voice", "Ahri_E_Voice");
             
             // 计算飞出目标点
             var mouseWorld = CameraSystem._mainCamera.ScreenToWorldPoint(Input.mousePosition);

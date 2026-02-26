@@ -32,9 +32,11 @@ namespace Managers
             
             foreach (var hero in heros)
             {
-                void OnChosen()
+                void OnChoose()
                 {
-                    var clip = ResourceReader.LoadAudio($"Hero/{hero.heroName}/{hero.heroName}_Chosen");
+                    AudioManager.Instance.Play($"Hero/{hero.heroName}/OnChoose", $"{hero.heroName}_OnChoose");
+                    
+                    var clip = ResourceReader.LoadAudio($"Hero/{hero.heroName}/Chosen");
                     var splash = heroSplash.GetComponent<Image>();
                     
                     audioS.Stop();
@@ -63,11 +65,11 @@ namespace Managers
                     
                     if (splash.color.a < 0.1f)
                     {
-                        OnChosen();
+                        OnChoose();
                     }
                     else
                     {
-                        splash.DOFade(0, 0.4f).OnComplete(OnChosen);
+                        splash.DOFade(0, 0.4f).OnComplete(OnChoose);
                     }
                 });
                 
@@ -90,7 +92,7 @@ namespace Managers
         private void Update()
         {
             // startButton.SetActive(!string.IsNullOrEmpty(PlayerData.Instance.heroName));
-            startButton.SetActive(PlayerData.Instance.heroName == "Yasuo" || PlayerData.Instance.heroName == "Ahri");
+            startButton.SetActive(PlayerData.Instance.heroName != "Ryze");
         }
     }
 }

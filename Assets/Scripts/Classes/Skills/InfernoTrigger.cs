@@ -96,6 +96,9 @@ namespace Classes.Skills
                                 var damageValue = target.CalculateADDamage(self.owner, _damage);
                                 target.TakeDamage(damageValue, DamageType.AD, owner, Random.Range(0f, 1f) < owner.criticalRate.Value);
                                 
+                                // 造成66.6%的生命窃取效果
+                                self.owner.TakeHeal(damageValue * owner.lifeSteal * 0.666f);
+                                
                                 // 造成技能特效
                                 self.owner.AbilityEffectActivate(target, damageValue, this);
                             }

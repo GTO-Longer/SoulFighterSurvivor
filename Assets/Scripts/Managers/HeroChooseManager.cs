@@ -91,8 +91,7 @@ namespace Managers
 
         private void Update()
         {
-            // startButton.SetActive(!string.IsNullOrEmpty(PlayerData.Instance.heroName));
-            startButton.SetActive(PlayerData.Instance.heroName != "Ryze");
+            startButton.SetActive(!string.IsNullOrEmpty(PlayerData.Instance.heroName));
         }
     }
 }

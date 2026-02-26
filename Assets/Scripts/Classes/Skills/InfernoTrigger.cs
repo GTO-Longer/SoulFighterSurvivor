@@ -40,6 +40,9 @@ namespace Classes.Skills
             var duration = 2.1f;
             daredevilImpulse.comboLevel = 0;
             
+            HeroModelManager.Instance.RSkillAnimation();
+            AudioManager.Instance.Play("Hero/Samira/R_Voice", "Samira_R_Voice");
+            
             // 给自己减速30%
             var speedReduce = new SpeedReduce(owner, owner, duration, 0.3f);
             owner.GainBuff(speedReduce);
@@ -68,6 +71,7 @@ namespace Classes.Skills
                     // 持续时间结束
                     if (duration <= 0)
                     {
+                        HeroModelManager.Instance.animator.SetTrigger("Finish");
                         EffectManager.Instance.DestroyEffect(effect);
                         self.Destroy();
                     }

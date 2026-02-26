@@ -29,8 +29,12 @@ namespace Classes.Skills
             // 吟唱时间
             Async.SetAsync(_castTime, null, null, () =>
             {
+                HeroModelManager.Instance.WSkillAnimation();
+                AudioManager.Instance.Play("Hero/Samira/W_Voice", "Samira_W_Voice");
+                
                 var bladeWhirl = BulletFactory.Instance.CreateBullet(owner);
                 var duration = 0.75f;
+                
                 bladeWhirl.OnBulletAwake += (self) =>
                 {
                     self.target = null;

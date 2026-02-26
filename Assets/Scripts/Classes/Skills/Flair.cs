@@ -33,15 +33,19 @@ namespace Classes.Skills
             // 计算朝向方向
             var mouseWorld = CameraSystem._mainCamera.ScreenToWorldPoint(Input.mousePosition);
             var direction = ((Vector2)mouseWorld - (Vector2)owner.gameObject.transform.position).normalized;
+            AudioManager.Instance.Play("Hero/Samira/Q_Voice", "Samira_Q_Voice");
 
             if (wildRush.isRushing)
             {
                 if (owner.currentDash != null)
                 {
+                    HeroModelManager.Instance.QSkillAnimation(2);
+                    
                     owner.currentDash.onComplete += () =>
                     {
                         var angle = owner.gameObject.transform.eulerAngles.z;
                         var flair = BulletFactory.Instance.CreateBullet(owner, 0.2f, 1);
+                        
                         flair.OnBulletAwake += (self) =>
                         {
                             self.gameObject.transform.position = owner.gameObject.transform.position;
@@ -105,7 +109,10 @@ namespace Classes.Skills
                     owner.RotateTo(ref direction);
                 }, () =>
                 {
+                    HeroModelManager.Instance.QSkillAnimation(1);
+
                     var flair = BulletFactory.Instance.CreateBullet(owner, 0.2f, 1);
+                    
                     flair.OnBulletAwake += (self) =>
                     {
                         self.gameObject.transform.position = owner.gameObject.transform.position;
@@ -174,6 +181,8 @@ namespace Classes.Skills
                     owner.RotateTo(ref direction);
                 }, () =>
                 {
+                    HeroModelManager.Instance.QSkillAnimation(0);
+
                     owner.canUseSkill = true;
                     owner.canMove = true;
                     owner.agent.SetStop(false);

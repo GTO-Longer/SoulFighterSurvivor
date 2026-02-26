@@ -12,7 +12,7 @@ namespace Managers
     {
         public static HeroModelManager Instance;
         
-        private Animator animator;
+        public Animator animator;
         private Hero hero;
         private GameObject model;
 

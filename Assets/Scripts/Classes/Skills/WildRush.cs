@@ -3,6 +3,7 @@ using DataManagement;
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
+using Managers;
 using UnityEngine;
 using Utilities;
 
@@ -92,8 +93,12 @@ namespace Classes.Skills
 
         private void Rush(Entity target)
         {
+            HeroModelManager.Instance.ESkillAnimation();
+            AudioManager.Instance.Play("Hero/Samira/E_Voice", "Samira_E_Voice");
+            
             var direction = (target.gameObject.transform.position - owner.gameObject.transform.position).normalized;
             var damagedEntity = new List<Entity>();
+            
             owner.Dash(destinationDistance, dashDuration, direction, () =>
             {
                 // 获得攻速增益

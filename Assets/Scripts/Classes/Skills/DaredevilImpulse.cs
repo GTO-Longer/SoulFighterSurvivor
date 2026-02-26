@@ -1,3 +1,4 @@
+using Managers;
 using Managers.EntityManagers;
 using UnityEngine;
 using Utilities;
@@ -67,6 +68,17 @@ namespace Classes.Skills
                         var damage = target.CalculateAPDamage(owner, _damageCount * (2 - target.healthPointProportion));
                         target.TakeDamage(damage, DamageType.AP, owner);
                     }
+                };
+
+                owner.EntityUpdateEvent += (_) =>
+                {
+                    if (owner.target.Value == null)
+                    {
+                        return;
+                    }
+                    
+                    HeroModelManager.Instance.animator.SetBool("IsMelee", Vector2.Distance(owner.gameObject.transform.position,
+                        owner.target.Value.gameObject.transform.position) <= 200 + owner.scale + owner.target.Value.scale);
                 };
             };
         }

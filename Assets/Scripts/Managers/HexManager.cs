@@ -45,7 +45,7 @@ namespace Managers
             {
                 var targetHexList = hexList.FindAll(
                     hex => !HeroManager.hero.hexList.Contains(hex) && 
-                           hex.hexQuality == Quality.Prismatic &&
+                           hex.hexQuality == Quality.Gold &&
                            hex.canChoose);
                 
                 if (!PanelUIRoot.Instance.isChoiceOpen && ToolFunctions.GetRandomUniqueItems(targetHexList, targetHexList.Count, out var results))

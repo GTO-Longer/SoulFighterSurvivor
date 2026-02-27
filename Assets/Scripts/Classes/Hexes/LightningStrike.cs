@@ -15,13 +15,13 @@ namespace Classes.Hexes
         
         public LightningStrike() : base("LightningStrike")
         {
-            HexEffect = (_, target, isCrit) =>
+            HexEffect = (_, target, _) =>
             {
                 if (owner.attackSpeed >= 4)
                 {
                     // 计算攻击伤害
                     var damage = target.CalculateAPDamage(owner, damageCount);
-                    target.TakeDamage(damage, DamageType.AP, owner, isCrit);
+                    target.TakeDamage(damage, DamageType.AP, owner);
                     damageSum += damage;
                 }
             };

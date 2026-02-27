@@ -14,11 +14,11 @@ namespace Classes.Hexes
         
         public Zangief() : base("Zangief")
         {
-            HexEffect = (_, target, isCrit) =>
+            HexEffect = (_, target, _) =>
             {
                 // 计算攻击伤害
                 var damageCount = target.CalculateADDamage(owner, owner.maxHealthPoint * 0.035f);
-                target.TakeDamage(damageCount, DamageType.AD, owner, isCrit);
+                target.TakeDamage(damageCount, DamageType.AD, owner);
                 damageSum += damageCount;
             };
         }

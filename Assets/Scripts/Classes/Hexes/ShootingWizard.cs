@@ -14,11 +14,11 @@ namespace Classes.Hexes
         
         public ShootingWizard() : base("ShootingWizard")
         {
-            HexEffect = (_, target, isCrit) =>
+            HexEffect = (_, target, _) =>
             {
                 // 计算攻击伤害
                 var damageCount = target.CalculateADDamage(owner, owner.abilityPower);
-                target.TakeDamage(damageCount, DamageType.AD, owner, isCrit);
+                target.TakeDamage(damageCount, DamageType.AD, owner);
                 damageSum += damageCount;
             };
         }

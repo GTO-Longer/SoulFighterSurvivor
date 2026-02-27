@@ -37,6 +37,8 @@ namespace Classes.Skills
             var wildRush = owner.skillList[(int)SkillType.ESkill] as WildRush;
             if (wildRush == null) return false;
             
+            var bladeWhirl = owner.skillList[(int)SkillType.WSkill] as BladeWhirl;
+            
             // 计算朝向方向
             var mouseWorld = CameraSystem._mainCamera.ScreenToWorldPoint(Input.mousePosition);
             var direction = ((Vector2)mouseWorld - (Vector2)owner.gameObject.transform.position).normalized;
@@ -109,6 +111,12 @@ namespace Classes.Skills
             }
             else if (ToolFunctions.IsOverlappingInSectorAll(120, 400, direction, owner.gameObject, out var sectorTargets))
             {
+                // W技能持续期间无法使用
+                if (bladeWhirl == null || bladeWhirl.isReleasing)
+                {
+                    return false;
+                }
+                
                 // 吟唱时间
                 Async.SetAsync(_castTime, null, () =>
                 {
@@ -183,6 +191,12 @@ namespace Classes.Skills
             }
             else
             {
+                // W技能持续期间无法使用
+                if (bladeWhirl == null || bladeWhirl.isReleasing)
+                {
+                    return false;
+                }
+                
                 // 吟唱时间
                 Async.SetAsync(_castTime, null, () =>
                 {

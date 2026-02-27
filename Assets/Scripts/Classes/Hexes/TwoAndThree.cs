@@ -20,7 +20,7 @@ namespace Classes.Hexes
             {
                 count++;
 
-                if (count >= 2)
+                if (count > 2)
                 {
                     count = 0;
                     var bullet = BulletFactory.Instance.CreateBullet(owner);

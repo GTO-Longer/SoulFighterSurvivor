@@ -80,6 +80,7 @@ namespace MVVM.ViewModels
                     Quality.Prismatic => ResourceReader.LoadMaterial("Prismatic"),
                     _ => throw new ArgumentOutOfRangeException()
                 };
+                hexSlotList[index].Find("HexIcon").GetComponent<Image>().color = Color.white;
             }
         }
     }

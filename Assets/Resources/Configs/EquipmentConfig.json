@@ -1396,6 +1396,39 @@
             "_usageType": [
                 "Shooter"
             ]
+        },
+        {
+            "id": "GoldenShovel",
+            "equipmentName": "金铲铲",
+            "_usageDescription": "火力全开！",
+            "_equipmentType": "Task",
+            "_cost": 0,
+            "_attributeList": {
+                "attackDamage": 70,
+                "abilityPower": 120,
+                "attackSpeed": 0.5,
+                "criticalRate": 0.5,
+                "maxHealthPoint": 250,
+                "attackDefense": 30,
+                "magicDefense": 30,
+                "maxMagicPoint": 250,
+                "abilityHaste": 20,
+                "percentageMovementSpeed": 0.1,
+                "lifeSteal": 0.1
+            },
+            "_passiveSkillDescription": null,
+            "_passiveSkillName": null,
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": [],
+            "_usageType": [
+                "Fighter",
+                "Wizard",
+                "Assassin",
+                "Shooter"
+            ]
         }
     ]
 }

@@ -9,6 +9,7 @@ using Managers.EntityManagers;
 using Newtonsoft.Json;
 using Systems;
 using Utilities;
+using Random = UnityEngine.Random;
 
 namespace Managers
 {
@@ -43,9 +44,18 @@ namespace Managers
                 ((int)HeroManager.hero.level.Value >= 11 && choiceTime == 2) ||
                 ((int)HeroManager.hero.level.Value >= 15 && choiceTime == 3))
             {
+                var random = Random.Range(0, 2);
+                var quality = random switch
+                {
+                    0 => Quality.Silver,
+                    1 => Quality.Gold,
+                    2 => Quality.Prismatic,
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+                
                 var targetHexList = hexList.FindAll(
                     hex => !HeroManager.hero.hexList.Contains(hex) && 
-                           hex.hexQuality == Quality.Gold &&
+                           hex.hexQuality == quality &&
                            hex.canChoose);
                 
                 if (!PanelUIRoot.Instance.isChoiceOpen && ToolFunctions.GetRandomUniqueItems(targetHexList, targetHexList.Count, out var results))

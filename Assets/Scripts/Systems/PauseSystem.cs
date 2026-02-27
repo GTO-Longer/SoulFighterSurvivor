@@ -1,13 +1,6 @@
-using System;
-using System.Collections.Generic;
 using Components.UI;
-using DataManagement;
-using DG.Tweening;
 using Managers;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using Utilities;
 
 namespace Systems
 {
@@ -45,6 +38,15 @@ namespace Systems
             }
 
             PanelUIRoot.Instance.isPauseOpen = false;
+        }
+
+        public void ExitGame()
+        {
+            #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+            #else
+            Application.Quit();
+            #endif
         }
     }
 }

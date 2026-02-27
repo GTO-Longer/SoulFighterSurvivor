@@ -136,15 +136,6 @@
             "iconBorderName": "Hex_Frame_Border"
         },
         {
-            "id": "RapidBoy",
-            "hexName": "急急小子",
-            "quality": "Gold",
-            "description": "获得<sprite=\"Attributes\" name=\"MovementSpeedIcon\">，相当于你的150%<sprite=\"Attributes\" name=\"AbilityHasteIcon\">",
-            "detail": "获得{0:P0}<sprite=\"Attributes\" name=\"MovementSpeedIcon\">=（150%<sprite=\"Attributes\" name=\"AbilityHasteIcon\">）",
-            "iconName": "Hex_Speed",
-            "iconBorderName": "Hex_Refresh_Border"
-        },
-        {
             "id": "ShootingWizard",
             "hexName": "神射法师",
             "quality": "Gold",
@@ -175,8 +166,8 @@
             "id": "TwoAndThree",
             "hexName": "接二连三",
             "quality": "Gold",
-            "description": "每第三次攻击，你的攻击特效会额外触发一次。",
-            "detail": "每第三次攻击，你的攻击特效会额外触发一次。",
+            "description": "每第三次攻击，发射一根弩箭造成200%的额外伤害和攻击特效。",
+            "detail": "每第三次攻击，发射一根弩箭造成200%的额外伤害和攻击特效。\n已造成伤害：{0:F1}",
             "iconName": "Hex_Attack",
             "iconBorderName": "Hex_Speed_Border"
         },
@@ -193,7 +184,7 @@
             "id": "LightningStrike",
             "hexName": "闪电打击",
             "quality": "Gold",
-            "description": "获得20%总<sprite=\"Attributes\" name=\"AttackSpeedIcon\">。\n\n当你的攻击速度达到400%时，造成额外<color=#C97BFF>{0:F0}=（20+5%<sprite=\"Attributes\" name=\"AbilityPowerIcon\">）法术伤害的攻击特效</color>",
+            "description": "获得20%总<sprite=\"Attributes\" name=\"AttackSpeedIcon\">。\n\n当你的攻击速度达到400%时，造成额外<color=#C97BFF>20+5%<sprite=\"Attributes\" name=\"AbilityPowerIcon\">法术伤害的攻击特效</color>",
             "detail": "获得20%总<sprite=\"Attributes\" name=\"AttackSpeedIcon\">。\n\n当你的攻击速度达到400%时，造成额外<color=#C97BFF>{0:F0}=（20+5%<sprite=\"Attributes\" name=\"AbilityPowerIcon\">）法术伤害的攻击特效</color>\n已造成伤害：{1:F1}",
             "iconName": "Hex_Explosion",
             "iconBorderName": "Hex_Damage_Border"
@@ -203,7 +194,7 @@
             "hexName": "任务：海牛阿福的勇士",
             "quality": "Gold",
             "description": "任务：击杀50个敌人\n奖励：金铲铲",
-            "detail": "任务：击杀50个敌人\n奖励：金铲铲",
+            "detail": "任务：击杀50个敌人\n奖励：金铲铲\n当前已击杀：{0:F0}",
             "iconName": "Hex_Pocket",
             "iconBorderName": "Hex_Task_Border"
         },
@@ -271,24 +262,6 @@
             "iconBorderName": "Hex_Shop_Border"
         },
         {
-            "id": "APToAD",
-            "hexName": "魔法转物理",
-            "quality": "Silver",
-            "description": "将每1法术强度转化为0.6攻击力，获得15%总攻击力加成。",
-            "detail": "将法术强度转化为攻击力，获得15%总攻击力加成。",
-            "iconName": "Hex_Pocket",
-            "iconBorderName": "Hex_Damage_Border"
-        },
-        {
-            "id": "ADToAP",
-            "hexName": "物理转魔法",
-            "quality": "Silver",
-            "description": "将每0.6攻击力转化为1法术强度，获得15%总法术强度加成。",
-            "detail": "将攻击力转化为法术强度，获得15%总法术强度加成。",
-            "iconName": "Hex_Pocket",
-            "iconBorderName": "Hex_Damage_Border"
-        },
-        {
             "id": "BigPower",
             "hexName": "大力",
             "quality": "Silver",
@@ -328,8 +301,8 @@
             "id": "Typhoon",
             "hexName": "台风",
             "quality": "Silver",
-            "description": "你的攻击会对一个额外目标发射一根弩箭，这个弩箭会造成30%额外伤害并施加攻击特效",
-            "detail": "你的攻击会对一个额外目标发射一根弩箭，这个弩箭会造成30%额外伤害并施加攻击特效",
+            "description": "你的攻击会对原目标发射一根弩箭，这个弩箭会造成30%额外伤害和攻击特效",
+            "detail": "你的攻击会对原目标发射一根弩箭，这个弩箭会造成30%额外伤害和攻击特效\n已造成伤害：{0:F1}",
             "iconName": "Hex_Attack",
             "iconBorderName": "Hex_Speed_Border"
         },

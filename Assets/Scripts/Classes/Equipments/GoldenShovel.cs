@@ -4,7 +4,7 @@ namespace Classes.Equipments
     {
         public GoldenShovel() : base("GoldenShovel")
         {
-            
+            canPurchase = false;
         }
     }
 }

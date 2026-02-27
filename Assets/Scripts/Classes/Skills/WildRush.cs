@@ -93,7 +93,13 @@ namespace Classes.Skills
 
         private void Rush(Entity target)
         {
-            HeroModelManager.Instance.ESkillAnimation();
+            // 大招期间不改变动作
+            var infernoTrigger = owner.skillList[(int)SkillType.RSkill] as InfernoTrigger;
+            if (infernoTrigger != null && !infernoTrigger.isReleasing)
+            {
+                HeroModelManager.Instance.ESkillAnimation();
+            }
+            
             AudioManager.Instance.Play("Hero/Samira/E_Voice", "Samira_E_Voice");
             
             var direction = (target.gameObject.transform.position - owner.gameObject.transform.position).normalized;

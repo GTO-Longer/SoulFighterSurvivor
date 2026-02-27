@@ -1250,7 +1250,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Skeleton|Spell4_Loop
-  m_Speed: 1
+  m_Speed: 2.5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 673020180345179572}
@@ -1614,7 +1614,7 @@ AnimatorStateMachine:
     m_Position: {x: 1572.0918, y: 623.9873, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5124416341253420145}
-    m_Position: {x: 1580, y: 750, z: 0}
+    m_Position: {x: 1570, y: 740, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5342650219498387660}
     m_Position: {x: 970, y: 860, z: 0}

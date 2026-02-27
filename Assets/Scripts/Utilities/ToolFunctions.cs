@@ -395,21 +395,28 @@ namespace Utilities
         public static bool IsOverlappingInBoxColliderAll(GameObject obj, out List<Entity> targets)
         {
             targets = new List<Entity>();
+            if (obj == null) return false;
+
+            var boxCollider = obj.GetComponentInChildren<BoxCollider2D>();
+            if (boxCollider == null) return false;
+
             var filter = new ContactFilter2D();
             filter.useTriggers = true;
-            var results = new Collider2D[10];
-            var count = obj.GetComponent<BoxCollider2D>().OverlapCollider(filter, results);
+            var results = new Collider2D[20];
+            var count = boxCollider.OverlapCollider(filter, results);
             if (count <= 0) return false;
-            
+
             for (var index = 0; index < count; index ++)
             {
                 var result = results[index];
+                if (result == null) continue;
+
                 var entityData = result.GetComponent<EntityData>();
                 if (entityData == null) continue;
-                
+
                 targets.Add(entityData.entity);
             }
-            
+
             return targets.Count > 0;
         }
     }

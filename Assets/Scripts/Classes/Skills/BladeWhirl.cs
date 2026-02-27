@@ -8,6 +8,7 @@ namespace Classes.Skills
 {
     public class BladeWhirl : Skill
     {
+        public bool isReleasing;
         private float _damage => _baseSkillValue[0][skillLevelToIndex] + 0.6f * owner.attackDamage;
         public BladeWhirl() : base("BladeWhirl")
         {
@@ -37,6 +38,7 @@ namespace Classes.Skills
             Async.SetAsync(_castTime, null, null, () =>
             {
                 owner.canAttack = false;
+                isReleasing = true;
                 HeroModelManager.Instance.WSkillAnimation();
                 AudioManager.Instance.Play("Hero/Samira/W_Voice", "Samira_W_Voice");
                 
@@ -67,6 +69,7 @@ namespace Classes.Skills
                         if (duration <= 0)
                         {
                             owner.canAttack = true;
+                            isReleasing = false;
                             EffectManager.Instance.DestroyEffect(effect);
                             self.Destroy();
                         }

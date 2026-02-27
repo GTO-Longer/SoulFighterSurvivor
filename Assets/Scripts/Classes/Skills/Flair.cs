@@ -58,11 +58,12 @@ namespace Classes.Skills
                             self.gameObject.transform.position = owner.gameObject.transform.position;
                             self.gameObject.SetActive(true);
                             self.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-                            self.effect = EffectManager.Instance.CreateCanvasEffect("SquareExplode", self.gameObject);
-                            self.effect.EffectUpdateEvent += () =>
-                            {
-                                self.effect.effect.transform.localEulerAngles = new Vector3(0, 0, angle - 90);
-                            };
+                            
+                            // 创建爆炸特效
+                            self.effect = EffectManager.Instance.CreateEffect("SquareExplode", false);
+                            self.effect.effect.transform.localEulerAngles = new Vector3(0, 0, angle);
+                            self.effect.effect.transform.position = owner.gameObject.transform.position;
+                            self.effect.effect.SetActive(true);
 
                             self.OnBulletUpdate += (_) =>
                             {

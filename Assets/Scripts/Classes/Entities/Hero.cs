@@ -81,6 +81,10 @@ namespace Classes.Entities
         /// </summary>
         public bool canMove;
         /// <summary>
+        /// 是否可以攻击
+        /// </summary>
+        public bool canAttack;
+        /// <summary>
         /// 是否可以使用技能
         /// </summary>
         public bool canUseSkill;
@@ -219,6 +223,7 @@ namespace Classes.Entities
             // 其他变量初始化
             _autoAttack = false;
             canMove = true;
+            canAttack = true;
             canUseSkill = true;
             _attackTimer = 0;
             _regenerateTimer = 0;
@@ -423,7 +428,7 @@ namespace Classes.Entities
                 _attackTimer += Time.deltaTime;
             }
 
-            if (target.Value == null || !_agent.isStopped || !canMove)
+            if (target.Value == null || !_agent.isStopped || !canAttack)
             {
                 _attackWindUpTimer = 0;
                 return;
@@ -678,6 +683,7 @@ namespace Classes.Entities
                 canFlash = flashUsable;
                 canUseSkill = skillUsable;
                 canMove = false;
+                canAttack = false;
                 onUpdate?.Invoke();
             })
             .OnComplete(() =>
@@ -685,6 +691,7 @@ namespace Classes.Entities
                 canFlash = true;
                 canUseSkill = true;
                 canMove = true;
+                canAttack = true;
                 
                 // 恢复agent
                 _agent.Warp(targetPosition);
@@ -699,6 +706,7 @@ namespace Classes.Entities
                 canFlash = true;
                 canUseSkill = true;
                 canMove = true;
+                canAttack = true;
                 
                 // 恢复agent
                 _agent.SetStop(false);

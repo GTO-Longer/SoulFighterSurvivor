@@ -41,11 +41,13 @@ namespace Classes.Skills
             {
                 owner.canUseSkill = false;
                 owner.canMove = false;
+                owner.canAttack = false;
                 owner.RotateTo(ref direction);
             }, () =>
             {
                 owner.canUseSkill = true;
                 owner.canMove = true;
+                owner.canAttack = true;
                 owner.agent.SetStop(false);
                 var targetPosition = (Vector2)owner.gameObject.transform.position + direction * skillRange;
 

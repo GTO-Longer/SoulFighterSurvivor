@@ -11,6 +11,8 @@ namespace Classes.Skills
     {
         private float _damage => _baseSkillValue[0][skillLevelToIndex] + 0.45f * owner.attackDamage;
         public override float actualSkillCoolDown => 5;
+        public bool isReleasing;
+        
         public InfernoTrigger() : base("InfernoTrigger")
         {
             _skillLevel = 0;
@@ -51,6 +53,10 @@ namespace Classes.Skills
                 return false;
             }
 
+            // 释放技能
+            isReleasing = true;
+            owner.canAttack = false;
+            
             var infernoTrigger = BulletFactory.Instance.CreateBullet(owner);
             var duration = 2.1f;
             daredevilImpulse.comboLevel = 0;
@@ -86,6 +92,10 @@ namespace Classes.Skills
                     // 持续时间结束
                     if (duration <= 0)
                     {
+                        // 技能结束
+                        isReleasing = false;
+                        owner.canAttack = true;
+                        
                         HeroModelManager.Instance.animator.SetTrigger("Finish");
                         EffectManager.Instance.DestroyEffect(effect);
                         self.Destroy();

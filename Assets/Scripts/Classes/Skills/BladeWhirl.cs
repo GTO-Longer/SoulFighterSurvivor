@@ -25,10 +25,18 @@ namespace Classes.Skills
         public override bool SkillEffect(out string failMessage)
         {
             failMessage = string.Empty;
+            
+            // 大招持续期间无法使用
+            var infernoTrigger = owner.skillList[(int)SkillType.RSkill] as InfernoTrigger;
+            if (infernoTrigger == null || infernoTrigger.isReleasing)
+            {
+                return false;
+            }
 
             // 吟唱时间
             Async.SetAsync(_castTime, null, null, () =>
             {
+                owner.canAttack = false;
                 HeroModelManager.Instance.WSkillAnimation();
                 AudioManager.Instance.Play("Hero/Samira/W_Voice", "Samira_W_Voice");
                 
@@ -58,6 +66,7 @@ namespace Classes.Skills
                         // 持续时间结束
                         if (duration <= 0)
                         {
+                            owner.canAttack = true;
                             EffectManager.Instance.DestroyEffect(effect);
                             self.Destroy();
                         }

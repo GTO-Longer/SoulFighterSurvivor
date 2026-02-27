@@ -87,6 +87,7 @@ namespace Classes.Skills
                 // 设置角色无法使用技能、无法移动
                 owner.canUseSkill = false;
                 owner.canMove = false;
+                owner.canAttack = false;
                 owner.canFlash = false;
                 owner.agent.SetStop(true);
                 continuousTime += Time.deltaTime;
@@ -149,6 +150,7 @@ namespace Classes.Skills
                 owner.canUseSkill = true;
                 owner.canFlash = true;
                 owner.canMove = true;
+                owner.canAttack = true;
                 owner.agent.SetStop(false);
             });
 

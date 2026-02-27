@@ -26,6 +26,13 @@ namespace Classes.Skills
         public override bool SkillEffect(out string failMessage)
         {
             failMessage = string.Empty;
+            
+            // 大招持续期间无法使用
+            var infernoTrigger = owner.skillList[(int)SkillType.RSkill] as InfernoTrigger;
+            if (infernoTrigger == null || infernoTrigger.isReleasing)
+            {
+                return false;
+            }
 
             var wildRush = owner.skillList[(int)SkillType.ESkill] as WildRush;
             if (wildRush == null) return false;
@@ -106,6 +113,7 @@ namespace Classes.Skills
                 {
                     owner.canUseSkill = false;
                     owner.canMove = false;
+                    owner.canAttack = false;
                     owner.RotateTo(ref direction);
                 }, () =>
                 {
@@ -163,6 +171,7 @@ namespace Classes.Skills
                                 
                                 owner.canUseSkill = true;
                                 owner.canMove = true;
+                                owner.canAttack = true;
                                 owner.agent.SetStop(false);
                             }
                         };
@@ -178,6 +187,7 @@ namespace Classes.Skills
                 {
                     owner.canUseSkill = false;
                     owner.canMove = false;
+                    owner.canAttack = false;
                     owner.RotateTo(ref direction);
                 }, () =>
                 {
@@ -185,6 +195,7 @@ namespace Classes.Skills
 
                     owner.canUseSkill = true;
                     owner.canMove = true;
+                    owner.canAttack = true;
                     owner.agent.SetStop(false);
 
                     var slash = BulletFactory.Instance.CreateBullet(owner);

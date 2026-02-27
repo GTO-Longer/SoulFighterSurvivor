@@ -44,7 +44,7 @@ namespace Managers
                 ((int)HeroManager.hero.level.Value >= 11 && choiceTime == 2) ||
                 ((int)HeroManager.hero.level.Value >= 15 && choiceTime == 3))
             {
-                var random = Random.Range(0, 2);
+                var random = Random.Range(0, 3);
                 var quality = random switch
                 {
                     0 => Quality.Silver,

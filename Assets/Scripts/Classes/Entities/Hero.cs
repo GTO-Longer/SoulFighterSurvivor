@@ -823,7 +823,7 @@ namespace Classes.Entities
 
                     if (hexList.Contains(HexManager.Instance.GetHex("FortuneAnvil")))
                     {
-                        coins.Value += (int)(property.Value._cost * 0.3f);
+                        coins.Value += (int)(property.Value._cost * 0.4f);
                     }
                     else
                     {

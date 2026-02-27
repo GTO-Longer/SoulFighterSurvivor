@@ -895,6 +895,7 @@ namespace Classes.Entities
             
             AudioManager.Instance.Play($"Hero/{heroName}/Death", "Death");
             AudioManager.Instance.Play($"Hero/{heroName}/Death_Voice", "Death_Voice");
+            HeroModelManager.Instance.DeathAnimation();
         }
 
         public override void LevelUp(int num = 1)

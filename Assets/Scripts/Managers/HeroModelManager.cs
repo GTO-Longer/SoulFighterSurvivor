@@ -94,5 +94,10 @@ namespace Managers
                 animator.SetInteger("SpecialIndex", Random.Range(0,3));
             }
         }
+
+        public void DeathAnimation()
+        {
+            animator.SetTrigger("Die");
+        }
     }
 }

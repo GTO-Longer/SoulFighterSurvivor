@@ -85,10 +85,20 @@ namespace Classes.Entities
         {
             _agent.SetDestination(target.gameObject.transform.position);
             _agent.SetStop(ToolFunctions.IsOverlappingTarget(_attackRangeIndicator.gameObject, target.gameObject));
+
+            if (!target.isAlive)
+            {
+                _agent.SetStop(true);
+            }
         }
 
         public override void Attack()
         {
+            if (!target.isAlive)
+            {
+                return;
+            }
+
             if (_attackTimer < 100)
             {
                 _attackTimer += Time.deltaTime;
@@ -136,7 +146,12 @@ namespace Classes.Entities
                         var nextPosition = currentPosition + direction * (attackBulletSpeed * Time.deltaTime);
 
                         self.gameObject.transform.position = nextPosition;
-                        self.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
+                        
+                        var rotateDirection = new Vector2(
+                            target.gameObject.transform.position.x - _gameObject.transform.position.x,
+                            target.gameObject.transform.position.y - _gameObject.transform.position.y
+                        );
+                        RotateTo(ref rotateDirection);
 
                         // 子弹的销毁逻辑
                         const float destroyDistance = 30f;

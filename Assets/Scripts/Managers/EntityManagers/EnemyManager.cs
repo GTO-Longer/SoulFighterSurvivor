@@ -26,7 +26,7 @@ namespace Managers.EntityManagers
 
         private void Update()
         {
-            if (enemy == null || !enemy.isAlive || HeroManager.hero == null || !HeroManager.hero.isAlive)
+            if (enemy == null || !enemy.isAlive || HeroManager.hero == null)
             {
                 return;
             }

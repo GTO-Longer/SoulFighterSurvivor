@@ -23,7 +23,7 @@
             "hexName": "炼狱导管",
             "quality": "Prismatic",
             "description": "你的技能会施加一层可无限叠加的灼烧，持续造成魔法伤害。\n你的灼烧效果会降低你各基础技能的冷却时间。",
-            "detail": "你的技能命中会施加燃烧效果，持续5秒，每秒造成\n{0:F0}=6+(1.2%<color=#C97BFF>法术强度</color>)+(2.8%<color=#FF8A00>攻击力</color>)<color=#C97BFF>魔法伤害</color>。\n此灼烧效果可无限叠加，你的所有灼烧效果会使你的所有基础技能的冷却时间减少0.5秒。",
+            "detail": "你的技能命中会施加燃烧效果，持续5秒，每秒造成<color=#C97BFF>\n{0:F0}=6+(1.2%<color=#C97BFF>法术强度</color>)+(2.8%<color=#FF8A00>攻击力</color>)魔法伤害</color>。\n此灼烧效果可无限叠加，你的所有灼烧效果会使你的所有基础技能的冷却时间减少0.5秒。",
             "iconName": "Hex_Burn",
             "iconBorderName": "Hex_Refresh_Border"
         },
@@ -116,6 +116,240 @@
             "detail": "你获得使你的各个技能的冷却时间减少其15%的剩余冷却时间（最少为1秒）的攻击特效。",
             "iconName": "Hex_Attack",
             "iconBorderName": "Hex_Refresh_Border"
+        },
+        {
+            "id": "QualitativeChange_Prismatic",
+            "hexName": "质变：棱彩阶",
+            "quality": "Gold",
+            "description": "获得1个随机棱彩阶强化符文",
+            "detail": "无",
+            "iconName": "Hex_Dice",
+            "iconBorderName": "Hex_Function_Border"
+        },
+        {
+            "id": "AttributesAttributes",
+            "hexName": "属性叠属性！",
+            "quality": "Gold",
+            "description": "获得3个属性锻造器！",
+            "detail": "获得3个属性锻造器！",
+            "iconName": "Hex_Dice",
+            "iconBorderName": "Hex_Frame_Border"
+        },
+        {
+            "id": "RapidBoy",
+            "hexName": "急急小子",
+            "quality": "Gold",
+            "description": "获得<sprite=\"Attributes\" name=\"MovementSpeedIcon\">，相当于你的150%<sprite=\"Attributes\" name=\"AbilityHasteIcon\">",
+            "detail": "获得{0:P0}<sprite=\"Attributes\" name=\"MovementSpeedIcon\">=（150%<sprite=\"Attributes\" name=\"AbilityHasteIcon\">）",
+            "iconName": "Hex_Speed",
+            "iconBorderName": "Hex_Refresh_Border"
+        },
+        {
+            "id": "ShootingWizard",
+            "hexName": "神射法师",
+            "quality": "Gold",
+            "description": "你的攻击造成相当于你100%<sprite=\"Attributes\" name=\"AbilityPowerIcon\">的额外<color=#FF6A6A>物理伤害</color>",
+            "detail": "你的攻击造成相当于你100%<sprite=\"Attributes\" name=\"AbilityPowerIcon\">的额外<color=#FF6A6A>物理伤害</color>\n已造成伤害：{0:F1}",
+            "iconName": "Hex_Attack",
+            "iconBorderName": "Hex_Damage_Border"
+        },
+        {
+            "id": "NeedlesAndThreads",
+            "hexName": "穿针引线",
+            "quality": "Gold",
+            "description": "获得20%物理穿透和法术穿透",
+            "detail": "获得20%物理穿透和法术穿透",
+            "iconName": "Hex_Explosion",
+            "iconBorderName": "Hex_Damage_Border"
+        },
+        {
+            "id": "Vampires",
+            "hexName": "吸血习性",
+            "quality": "Gold",
+            "description": "获得30%全能吸血",
+            "detail": "获得30%全能吸血",
+            "iconName": "Hex_Attack",
+            "iconBorderName": "Hex_Function_Border"
+        },
+        {
+            "id": "TwoAndThree",
+            "hexName": "接二连三",
+            "quality": "Gold",
+            "description": "每第三次攻击，你的攻击特效会额外触发一次。",
+            "detail": "每第三次攻击，你的攻击特效会额外触发一次。",
+            "iconName": "Hex_Attack",
+            "iconBorderName": "Hex_Speed_Border"
+        },
+        {
+            "id": "SoulSuck",
+            "hexName": "灵魂虹吸",
+            "quality": "Gold",
+            "description": "获得25%暴击几率和12%生命偷取。",
+            "detail": "获得25%暴击几率和12%生命偷取。",
+            "iconName": "Hex_Attack",
+            "iconBorderName": "Hex_Frame_Border"
+        },
+        {
+            "id": "LightningStrike",
+            "hexName": "闪电打击",
+            "quality": "Gold",
+            "description": "获得20%总<sprite=\"Attributes\" name=\"AttackSpeedIcon\">。\n\n当你的攻击速度达到400%时，造成额外<color=#C97BFF>{0:F0}=（20+5%<sprite=\"Attributes\" name=\"AbilityPowerIcon\">）法术伤害的攻击特效</color>",
+            "detail": "获得20%总<sprite=\"Attributes\" name=\"AttackSpeedIcon\">。\n\n当你的攻击速度达到400%时，造成额外<color=#C97BFF>{0:F0}=（20+5%<sprite=\"Attributes\" name=\"AbilityPowerIcon\">）法术伤害的攻击特效</color>\n已造成伤害：{1:F1}",
+            "iconName": "Hex_Explosion",
+            "iconBorderName": "Hex_Damage_Border"
+        },
+        {
+            "id": "Task_Warrior",
+            "hexName": "任务：海牛阿福的勇士",
+            "quality": "Gold",
+            "description": "任务：击杀50个敌人\n奖励：金铲铲",
+            "detail": "任务：击杀50个敌人\n奖励：金铲铲",
+            "iconName": "Hex_Pocket",
+            "iconBorderName": "Hex_Task_Border"
+        },
+        {
+            "id": "ExcellentEvil",
+            "hexName": "超凡邪恶",
+            "quality": "Gold",
+            "description": "在你用技能命中敌人时永久获得1<sprite=\"Attributes\" name=\"AbilityPowerIcon\">。",
+            "detail": "在你用技能命中敌人时永久获得1<sprite=\"Attributes\" name=\"AbilityPowerIcon\">。\n已获得法术强度：{0:F0}",
+            "iconName": "Hex_LevelUp",
+            "iconBorderName": "Hex_Damage_Border"
+        },
+        {
+            "id": "CrucialCritical",
+            "hexName": "关键暴击",
+            "quality": "Gold",
+            "description": "获得50%暴击几率",
+            "detail": "获得50%暴击几率",
+            "iconName": "Hex_Attack",
+            "iconBorderName": "Hex_Skill_Border"
+        },
+        {
+            "id": "Recycle",
+            "hexName": "循环往复",
+            "quality": "Gold",
+            "description": "获得75技能急速",
+            "detail": "获得75技能急速",
+            "iconName": "Hex_CoolDown",
+            "iconBorderName": "Hex_Refresh_Border"
+        },
+        {
+            "id": "TrulyBrutalPower",
+            "hexName": "真正的残暴之力",
+            "quality": "Gold",
+            "description": "获得40攻击力，20技能急速和15物理穿透",
+            "detail": "获得40攻击力，20技能急速和15物理穿透",
+            "iconName": "Hex_Explosion",
+            "iconBorderName": "Hex_Damage_Border"
+        },
+        {
+            "id": "BrutalPower",
+            "hexName": "残暴（温柔）之力",
+            "quality": "Silver",
+            "description": "获得25攻击力，10技能急速和5物理穿透",
+            "detail": "获得25攻击力，10技能急速和5物理穿透",
+            "iconName": "Hex_Explosion",
+            "iconBorderName": "Hex_Damage_Border"
+        },
+        {
+            "id": "QualitativeChange_Gold",
+            "hexName": "质变：黄金阶",
+            "quality": "Silver",
+            "description": "获得1个随机黄金阶强化符文",
+            "detail": "无",
+            "iconName": "Hex_Dice",
+            "iconBorderName": "Hex_Function_Border"
+        },
+        {
+            "id": "HotSell",
+            "hexName": "火爆甩卖",
+            "quality": "Silver",
+            "description": "立刻售出你的所有装备并且获取相当于他们100%原价的金币",
+            "detail": "立刻售出你的所有装备并且获取相当于他们100%原价的金币",
+            "iconName": "Hex_Pocket",
+            "iconBorderName": "Hex_Shop_Border"
+        },
+        {
+            "id": "APToAD",
+            "hexName": "魔法转物理",
+            "quality": "Silver",
+            "description": "将每1法术强度转化为0.6攻击力，获得15%总攻击力加成。",
+            "detail": "将法术强度转化为攻击力，获得15%总攻击力加成。",
+            "iconName": "Hex_Pocket",
+            "iconBorderName": "Hex_Damage_Border"
+        },
+        {
+            "id": "ADToAP",
+            "hexName": "物理转魔法",
+            "quality": "Silver",
+            "description": "将每0.6攻击力转化为1法术强度，获得15%总法术强度加成。",
+            "detail": "将攻击力转化为法术强度，获得15%总法术强度加成。",
+            "iconName": "Hex_Pocket",
+            "iconBorderName": "Hex_Damage_Border"
+        },
+        {
+            "id": "BigPower",
+            "hexName": "大力",
+            "quality": "Silver",
+            "description": "获得20%总攻击力加成。",
+            "detail": "获得20%总攻击力加成。",
+            "iconName": "Hex_Explosion",
+            "iconBorderName": "Hex_Damage_Border"
+        },
+        {
+            "id": "Attributes",
+            "hexName": "属性！",
+            "quality": "Silver",
+            "description": "获得2个属性锻造器！",
+            "detail": "获得2个属性锻造器！",
+            "iconName": "Hex_Dice",
+            "iconBorderName": "Hex_Frame_Border"
+        },
+        {
+            "id": "MajorKiller",
+            "hexName": "职业杀手",
+            "quality": "Silver",
+            "description": "击杀敌人时额外获得20%金币",
+            "detail": "击杀敌人时额外获得20%金币",
+            "iconName": "Hex_Dice",
+            "iconBorderName": "Hex_Universal_Border"
+        },
+        {
+            "id": "Zangief",
+            "hexName": "重量级打击手",
+            "quality": "Silver",
+            "description": "你的攻击造成相当于你3.5%最大生命值的额外物理伤害",
+            "detail": "你的攻击造成相当于你3.5%最大生命值的额外物理伤害\n已造成伤害：{0:F1}",
+            "iconName": "Hex_Attack",
+            "iconBorderName": "Hex_Damage_Border"
+        },
+        {
+            "id": "Typhoon",
+            "hexName": "台风",
+            "quality": "Silver",
+            "description": "你的攻击会对一个额外目标发射一根弩箭，这个弩箭会造成30%额外伤害并施加攻击特效",
+            "detail": "你的攻击会对一个额外目标发射一根弩箭，这个弩箭会造成30%额外伤害并施加攻击特效",
+            "iconName": "Hex_Attack",
+            "iconBorderName": "Hex_Speed_Border"
+        },
+        {
+            "id": "PracticeLeg",
+            "hexName": "练腿日",
+            "quality": "Silver",
+            "description": "获得50移动速度和幽灵状态",
+            "detail": "获得50移动速度和幽灵状态",
+            "iconName": "Hex_Speed",
+            "iconBorderName": "Hex_Universal_Border"
+        },
+        {
+            "id": "ThirstingForBlood",
+            "hexName": "渴血",
+            "quality": "Silver",
+            "description": "获得15%全能吸血",
+            "detail": "获得15%全能吸血",
+            "iconName": "Hex_Attack",
+            "iconBorderName": "Hex_Universal_Border"
         }
     ]
 }

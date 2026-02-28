@@ -17,6 +17,8 @@ namespace Classes.Skills
             _skillLevel = 0;
             _maxSkillLevel = 3;
             
+            rangeType = RangeType.Circle;
+            
             coolDownTimer = 999;
         }
 

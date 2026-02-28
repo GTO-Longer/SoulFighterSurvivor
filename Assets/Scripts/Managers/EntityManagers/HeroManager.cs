@@ -9,6 +9,7 @@ namespace Managers.EntityManagers
     public class HeroManager : MonoBehaviour
     {
         public static Hero hero;
+        private bool upgrade = false;
 
         private void Awake()
         {
@@ -37,54 +38,128 @@ namespace Managers.EntityManagers
                 hero.Move();
                 hero.Attack();
 
-                // 技能释放
-                if (Input.GetKeyDown(KeyCode.Q) && hero.canUseSkill && !PanelUIRoot.Instance.isPanelOpen)
+                // 快捷键升级技能
+                if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Q))
                 {
-                    // 快捷键升级技能
-                    if (Input.GetKey(KeyCode.LeftControl))
+                    hero.SkillUpgrade(hero.skillList[(int)SkillType.QSkill]);
+                    upgrade = true;
+                }
+                
+                // 显示技能范围指示器
+                if (!Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.Q) && hero.canUseSkill)
+                {
+                    if (!upgrade)
                     {
-                        hero.SkillUpgrade(hero.skillList[(int)SkillType.QSkill]);
+                        hero.skillList[(int)SkillType.QSkill].ShowSkillRange();
                     }
-                    else
+                }
+
+                // 技能释放
+                if (Input.GetKeyUp(KeyCode.Q) && hero.canUseSkill && !PanelUIRoot.Instance.isPanelOpen)
+                {
+                    if (!upgrade)
                     {
                         hero.SkillUsed(hero.skillList[(int)SkillType.QSkill]);
+                        hero.skillList[(int)SkillType.QSkill].HideSkillRange();
                     }
                 }
 
-                if (Input.GetKeyDown(KeyCode.W) && hero.canUseSkill && !PanelUIRoot.Instance.isPanelOpen)
+                if (Input.GetKeyUp(KeyCode.Q) && upgrade)
                 {
-                    if (Input.GetKey(KeyCode.LeftControl))
+                    upgrade = false;
+                }
+
+                // 快捷键升级技能
+                if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.W))
+                {
+                    hero.SkillUpgrade(hero.skillList[(int)SkillType.WSkill]);
+                    upgrade = true;
+                }
+                
+                // 显示技能范围指示器
+                if (!Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.W) && hero.canUseSkill)
+                {
+                    if (!upgrade)
                     {
-                        hero.SkillUpgrade(hero.skillList[(int)SkillType.WSkill]);
+                        hero.skillList[(int)SkillType.WSkill].ShowSkillRange();
                     }
-                    else
+                }
+
+                // 技能释放
+                if (Input.GetKeyUp(KeyCode.W) && hero.canUseSkill && !PanelUIRoot.Instance.isPanelOpen)
+                {
+                    if (!upgrade)
                     {
                         hero.SkillUsed(hero.skillList[(int)SkillType.WSkill]);
+                        hero.skillList[(int)SkillType.WSkill].HideSkillRange();
                     }
                 }
 
-                if (Input.GetKeyDown(KeyCode.E) && hero.canUseSkill && !PanelUIRoot.Instance.isPanelOpen)
+                if (Input.GetKeyUp(KeyCode.W) && upgrade)
                 {
-                    if (Input.GetKey(KeyCode.LeftControl))
+                    upgrade = false;
+                }
+
+                // 快捷键升级技能
+                if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.E))
+                {
+                    hero.SkillUpgrade(hero.skillList[(int)SkillType.ESkill]);
+                    upgrade = true;
+                }
+                
+                // 显示技能范围指示器
+                if (!Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.E) && hero.canUseSkill)
+                {
+                    if (!upgrade)
                     {
-                        hero.SkillUpgrade(hero.skillList[(int)SkillType.ESkill]);
+                        hero.skillList[(int)SkillType.ESkill].ShowSkillRange();
                     }
-                    else
+                }
+
+                // 技能释放
+                if (Input.GetKeyUp(KeyCode.E) && hero.canUseSkill && !PanelUIRoot.Instance.isPanelOpen)
+                {
+                    if (!upgrade)
                     {
                         hero.SkillUsed(hero.skillList[(int)SkillType.ESkill]);
+                        hero.skillList[(int)SkillType.ESkill].HideSkillRange();
                     }
                 }
 
-                if (Input.GetKeyDown(KeyCode.R) && hero.canUseSkill && !PanelUIRoot.Instance.isPanelOpen)
+                if (Input.GetKeyUp(KeyCode.E) && upgrade)
                 {
-                    if (Input.GetKey(KeyCode.LeftControl))
+                    upgrade = false;
+                }
+
+                // 快捷键升级技能
+                if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.R))
+                {
+                    hero.SkillUpgrade(hero.skillList[(int)SkillType.RSkill]);
+                    upgrade = true;
+                }
+                
+                // 显示技能范围指示器
+                if (!Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.R) && hero.canUseSkill)
+                {
+                    if (!upgrade)
                     {
-                        hero.SkillUpgrade(hero.skillList[(int)SkillType.RSkill]);
+                        hero.skillList[(int)SkillType.RSkill].ShowSkillRange();
                     }
-                    else
+                }
+
+                // 技能释放
+                if (Input.GetKeyUp(KeyCode.R) && hero.canUseSkill && !PanelUIRoot.Instance.isPanelOpen)
+                {
+                    if (!upgrade)
                     {
                         hero.SkillUsed(hero.skillList[(int)SkillType.RSkill]);
+                        hero.skillList[(int)SkillType.RSkill].HideSkillRange();
                     }
+                }
+
+                if (Input.GetKeyUp(KeyCode.R) && upgrade)
+                {
+                    upgrade = false;
                 }
 
                 if (Input.GetKeyDown(KeyCode.D) && !PanelUIRoot.Instance.isPanelOpen)

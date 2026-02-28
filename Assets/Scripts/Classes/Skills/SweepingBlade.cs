@@ -30,6 +30,8 @@ namespace Classes.Skills
             _maxSkillLevel = 5;
             
             coolDownTimer = 999;
+            
+            rangeType = RangeType.Lock;
 
             entityCDTimer = new Dictionary<Entity, float>();
             entityCDEffect = new Dictionary<Entity, Effect>();

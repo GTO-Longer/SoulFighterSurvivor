@@ -156,4 +156,12 @@ namespace Utilities
         Assassin,
         Shooter
     }
+
+    public enum RangeType
+    {
+        None = 0,
+        Square = 1,
+        Circle = 2,
+        Lock = 3
+    }
 }

@@ -17,6 +17,8 @@ namespace Classes.Skills
             _maxSkillLevel = 5;
             
             coolDownTimer = 999;
+            
+            rangeType = RangeType.Square;
         }
 
         public override string GetDescription()

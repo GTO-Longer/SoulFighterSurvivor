@@ -174,7 +174,7 @@
             ],
             "_skillRange": 450,
             "_castTime": 0,
-            "_bulletWidth": 0,
+            "_bulletWidth": 200,
             "_bulletSpeed": 1200,
             "_destinationDistance": 500
         },
@@ -355,7 +355,7 @@
             ],
             "_skillRange": 475,
             "_castTime": 0,
-            "_bulletWidth": 0,
+            "_bulletWidth": 200,
             "_bulletSpeed": 0,
             "_destinationDistance": 475
         },
@@ -526,7 +526,7 @@
             ],
             "_skillRange": 600,
             "_castTime": 0,
-            "_bulletWidth": 300,
+            "_bulletWidth": 200,
             "_bulletSpeed": 0,
             "_destinationDistance": 650
         },

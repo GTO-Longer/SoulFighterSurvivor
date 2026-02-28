@@ -19,6 +19,8 @@ namespace Classes.Skills
             _maxSkillLevel = 3;
             
             coolDownTimer = 999;
+            
+            rangeType = RangeType.Circle;
 
             PassiveAbilityEffective += () =>
             {

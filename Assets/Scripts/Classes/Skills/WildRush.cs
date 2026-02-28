@@ -23,6 +23,8 @@ namespace Classes.Skills
             _maxSkillLevel = 5;
             
             coolDownTimer = 999;
+            
+            rangeType = RangeType.Lock;
 
             PassiveAbilityEffective += () =>
             {

@@ -20,6 +20,8 @@ namespace Classes.Skills
             maxSkillChargeCount = 0;
             
             coolDownTimer = 999;
+            
+            rangeType = RangeType.Square;
 
             OnSpecialTimeOut += () =>
             {

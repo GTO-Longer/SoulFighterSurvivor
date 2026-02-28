@@ -70,6 +70,8 @@ namespace Classes{
         protected float _bulletWidth;
         protected float _bulletSpeed;
         protected float _destinationDistance;
+        private Effect skillRangeEffect;
+        protected RangeType rangeType;
 
         protected Skill(string name)
         {
@@ -189,6 +191,62 @@ namespace Classes{
         public void ChangeSkillIcon(Sprite newIcon)
         {
             skillIcon.sprite = newIcon;
+        }
+
+        public void ShowSkillRange()
+        {
+            if (skillRangeEffect == null)
+            {
+                if (rangeType == RangeType.Square)
+                {
+                    skillRangeEffect = EffectManager.Instance.CreateEffect("SquareSkillRange", owner.gameObject);
+                    skillRangeEffect.effect.GetComponent<SpriteRenderer>().size = new Vector2(skillRange / 100, bulletWidth / 100);
+
+                    skillRangeEffect.EffectUpdateEvent += () =>
+                    {
+                        var dir = (owner._mousePosition - (Vector2)owner.gameObject.transform.position).normalized;
+                        var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+                        skillRangeEffect.effect.transform.localEulerAngles = new Vector3(0, 0, angle);
+                    };
+                }
+                else if (rangeType == RangeType.Circle)
+                {
+                    skillRangeEffect = EffectManager.Instance.CreateEffect("CircleSkillRange", owner.gameObject);
+                    skillRangeEffect.effect.transform.localScale = new Vector2(skillRange * 2, skillRange * 2);
+                }
+                else if (rangeType == RangeType.Lock)
+                {
+                    skillRangeEffect = EffectManager.Instance.CreateEffect("SquareSkillRange", owner.gameObject);
+                    skillRangeEffect.effect.GetComponent<SpriteRenderer>().size = new Vector2(skillRange / 100, bulletWidth / 100);
+
+                    skillRangeEffect.EffectUpdateEvent += () =>
+                    {
+                        var haveTarget = ToolFunctions.IsObjectAtMousePoint(out var obj, "Enemy", true);
+                        skillRangeEffect.effect.SetActive(haveTarget);
+
+                        if (haveTarget)
+                        {
+                            var dir = (Vector2)(obj[0].transform.position - owner.gameObject.transform.position)
+                                .normalized;
+                            var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+                            skillRangeEffect.effect.transform.localEulerAngles = new Vector3(0, 0, angle);
+                        }
+                    };
+                }
+            }
+            else
+            {
+                skillRangeEffect.effect.SetActive(true);
+            }
+        }
+
+        public void HideSkillRange()
+        {
+            if(skillRangeEffect == null) return;
+            
+            skillRangeEffect.effect.SetActive(false);
+            EffectManager.Instance.DestroyEffect(skillRangeEffect);
+            skillRangeEffect = null;
         }
     }
 }

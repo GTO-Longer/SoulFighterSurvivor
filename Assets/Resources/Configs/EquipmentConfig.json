@@ -1429,6 +1429,32 @@
                 "Assassin",
                 "Shooter"
             ]
+        },
+        {
+            "id": "GoldTrophy",
+            "equipmentName": "你是黄金奖杯",
+            "_usageDescription": "结束了？",
+            "_equipmentType": "Anvil",
+            "_cost": 18888,
+            "_attributeList": {
+                "attackDamage": 114,
+                "abilityPower": 514,
+                "attackSpeed": 3.5,
+                "criticalRate": 2.34
+            },
+            "_passiveSkillDescription": "购买时获得胜利",
+            "_passiveSkillName": "证明",
+            "_passiveSkillCD": 0,
+            "_activeSkillDescription": null,
+            "_activeSkillName": null,
+            "_activeSkillCD": 0,
+            "_uniqueEffect": [],
+            "_usageType": [
+                "Fighter",
+                "Wizard",
+                "Assassin",
+                "Shooter"
+            ]
         }
     ]
 }

@@ -12,6 +12,7 @@ using MVVM.ViewModels;
 using Systems;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 using Utilities;
 using Random = UnityEngine.Random;
 using Vector2 = UnityEngine.Vector2;
@@ -896,6 +897,16 @@ namespace Classes.Entities
             AudioManager.Instance.Play($"Hero/{heroName}/Death", "Death");
             AudioManager.Instance.Play($"Hero/{heroName}/Death_Voice", "Death_Voice");
             HeroModelManager.Instance.DeathAnimation();
+            
+            GameObject.Find("HUD/LoseBackground").GetComponent<Image>().DOFade(0.95f, 1.5f);
+            GameObject.Find("HUD/LoseBackground").GetComponent<Image>().DOFade(1f, 2.8f).OnComplete(() =>
+            {
+                #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+                #else
+                Application.Quit();
+                #endif
+            });
         }
 
         public override void LevelUp(int num = 1)

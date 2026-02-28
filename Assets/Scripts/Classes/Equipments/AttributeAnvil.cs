@@ -287,6 +287,7 @@ namespace Classes.Equipments
                         choices[target].choiceContent = $"+{bonus:P0}效能给所有其他属性碎片（20%-80%）";
                         choices[target].choiceIcon = null;
                         choices[target].choiceTitle = "碎片增幅碎片";
+                        choices[target].choiceIcon = ResourceReader.LoadIcon("GoodLuck_Piece");
                         choices[target].OnSelected = () =>
                         {
                             AudioManager.Instance.Play("Choose", "Choose");

@@ -1434,7 +1434,7 @@
             "id": "GoldTrophy",
             "equipmentName": "你是黄金奖杯",
             "_usageDescription": "结束了？",
-            "_equipmentType": "Anvil",
+            "_equipmentType": "Task",
             "_cost": 8888,
             "_attributeList": {
                 "attackDamage": 114,

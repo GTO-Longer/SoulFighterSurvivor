@@ -9,12 +9,12 @@ namespace Classes.Hexes
 {
     public class Zangief : Hex
     {
-        private Action<Entity, Entity, bool> HexEffect;
+        private Action<Entity, Entity, float, float> HexEffect;
         private float damageSum = 0;
         
         public Zangief() : base("Zangief")
         {
-            HexEffect = (_, target, _) =>
+            HexEffect = (_, target, _, _) =>
             {
                 // 计算攻击伤害
                 var damageCount = target.CalculateADDamage(owner, owner.maxHealthPoint * 0.035f);
@@ -26,12 +26,12 @@ namespace Classes.Hexes
         public override void OnHexGet(Entity entity)
         {
             base.OnHexGet(entity);
-            owner.OnAttackHit += HexEffect;
+            owner.AttackEffect += HexEffect;
         }
 
         public override void OnHexRemove()
         {
-            owner.OnAttackHit -= HexEffect;
+            owner.AttackEffect -= HexEffect;
             base.OnHexRemove();
         }
 

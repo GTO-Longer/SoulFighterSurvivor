@@ -22,7 +22,7 @@ namespace Classes.Skills
             {
                 owner.AttackEffect += (_, target, _, _) =>
                 {
-                    if (formerHit != SkillType.Attack || owner.GetBuff("悍勇本色") == null)
+                    if (formerHit != SkillType.Attack || comboLevel == 0)
                     {
                         formerHit = SkillType.Attack;
                         
@@ -52,7 +52,7 @@ namespace Classes.Skills
                 {
                     if (skill.skillType == SkillType.RSkill) return;
                     
-                    if (formerHit != skill.skillType || owner.GetBuff("悍勇本色") == null)
+                    if (formerHit != skill.skillType || comboLevel == 0)
                     {
                         formerHit = skill.skillType;
                         
